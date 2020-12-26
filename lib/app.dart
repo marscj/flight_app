@@ -6,7 +6,6 @@ import './router/router.gr.dart';
 
 import 'app/app_bloc.dart';
 
-
 class App extends StatefulWidget {
   @override
   State<App> createState() => _EletecAppState();
