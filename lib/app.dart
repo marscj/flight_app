@@ -1,0 +1,52 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import './router/router.gr.dart';
+
+import 'app/app_bloc.dart';
+
+
+class App extends StatefulWidget {
+  @override
+  State<App> createState() => _EletecAppState();
+}
+
+class _EletecAppState extends State<App> {
+  @override
+  Widget build(BuildContext context) => BlocListener<AppBloc, AppState>(
+      listener: (_, __) {},
+      child: BlocBuilder<AppBloc, AppState>(builder: (context, state) {
+        return MaterialApp(
+          title: 'Saadiyat',
+          builder: ExtendedNavigator.builder<AppRouter>(
+            router: AppRouter(),
+            builder: (context, child) => child,
+          ),
+          theme: ThemeData(
+              primarySwatch: Colors.blue,
+              accentColor: Colors.blueAccent,
+              scaffoldBackgroundColor: Colors.grey[200],
+              buttonTheme: ButtonThemeData(
+                  buttonColor: Colors.blue,
+                  hoverColor: Colors.blueAccent,
+                  textTheme: ButtonTextTheme.primary),
+              appBarTheme: AppBarTheme(
+                  elevation: 0,
+                  color: Colors.grey[200],
+                  iconTheme: IconThemeData(color: Colors.blue),
+                  textTheme: GoogleFonts.righteousTextTheme(
+                    Theme.of(context).textTheme.apply(
+                        displayColor: Colors.blue, bodyColor: Colors.blue),
+                  ),
+                  brightness: Brightness.light),
+              dividerColor: Colors.grey,
+              textTheme: GoogleFonts.righteousTextTheme(
+                Theme.of(context).textTheme,
+              ),
+              highlightColor: Colors.blueAccent,
+              hoverColor: Colors.blueAccent.withOpacity(0.04),
+              splashColor: Colors.blueAccent),
+        );
+      }));
+}
