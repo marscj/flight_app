@@ -26,7 +26,6 @@ class IndexBloc extends Bloc<IndexEvent, IndexState> {
     IndexEvent event,
   ) async* {
     try {
-      print('-------');
       yield* event.applyAsync(currentState: state, bloc: this);
     } catch (_, stackTrace) {
       developer.log('$_', name: 'IndexBloc', error: _, stackTrace: stackTrace);

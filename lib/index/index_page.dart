@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/index/index.dart';
+import 'package:saadiyat/welcome/index.dart';
 
 class IndexPage extends StatefulWidget {
   static const String routeName = '/';
@@ -12,6 +13,8 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => IndexBloc(), child: IndexScreen());
+    return BlocProvider(
+        create: (context) => IndexBloc()..add(LoadWelcomeEvent(false)),
+        child: IndexScreen());
   }
 }

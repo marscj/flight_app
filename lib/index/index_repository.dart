@@ -10,7 +10,6 @@ class IndexRepository {
   }
 
   Future<User> ftechUser() async {
-    print('========');
     return RestClient().getInfo();
   }
 }

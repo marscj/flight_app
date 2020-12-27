@@ -17,7 +17,6 @@ class LoadWelcomeEvent extends IndexEvent {
       {IndexState currentState, IndexBloc bloc}) async* {
     try {
       yield InWelcomeState(0, 'SAADIYAT WAY');
-      print('========');
       indexRepository.ftechUser().then((res) {
         bloc.add(LoadHomeEvent(false));
       });
