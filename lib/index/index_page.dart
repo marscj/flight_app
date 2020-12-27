@@ -12,13 +12,6 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => IndexBloc(),
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text('Index'),
-          ),
-          body: IndexScreen(),
-        ));
+    return BlocProvider(create: (context) => IndexBloc(), child: IndexScreen());
   }
 }

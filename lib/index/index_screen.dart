@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/index/index.dart';
+import 'package:saadiyat/login/index.dart';
+import 'package:saadiyat/welcome/index.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({
@@ -21,10 +23,16 @@ class IndexScreenState extends State<IndexScreen> {
       BuildContext context,
       IndexState currentState,
     ) {
+      if (currentState is InWelcomeState) {
+        return WelcomePage();
+      }
+
+      if (currentState is InLoginState) {
+        return LoginPage();
+      }
+
       if (currentState is InHomeState) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
+        return HomePage();
       }
 
       return Center(
