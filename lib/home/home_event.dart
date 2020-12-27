@@ -10,10 +10,10 @@ abstract class HomeEvent {
   final HomeRepository _homeRepository = HomeRepository();
 }
 
-class UnHomeEvent extends HomeEvent {
+class LoadLoginEvent extends HomeEvent {
   @override
   Stream<HomeState> applyAsync({HomeState currentState, HomeBloc bloc}) async* {
-    yield WelComeHomeState(0);
+    yield LoginState(1);
   }
 }
 
@@ -27,7 +27,7 @@ class LoadHomeEvent extends HomeEvent {
   @override
   Stream<HomeState> applyAsync({HomeState currentState, HomeBloc bloc}) async* {
     try {
-      yield WelComeHomeState(0);
+      yield WelComeState(0);
       await Future.delayed(Duration(seconds: 1));
       _homeRepository.test(isError);
       yield InHomeState(0, 'Hello world');

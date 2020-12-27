@@ -18,20 +18,37 @@ abstract class HomeState extends Equatable {
 }
 
 /// UnInitialized
-class WelComeHomeState extends HomeState {
-  WelComeHomeState(int version) : super(version);
+class WelComeState extends HomeState {
+  WelComeState(int version) : super(version);
 
   @override
-  String toString() => 'WelComeHomeState';
+  String toString() => 'WelComeState';
 
   @override
-  WelComeHomeState getStateCopy() {
-    return WelComeHomeState(0);
+  WelComeState getStateCopy() {
+    return WelComeState(0);
   }
 
   @override
-  WelComeHomeState getNewVersion() {
-    return WelComeHomeState(version + 1);
+  WelComeState getNewVersion() {
+    return WelComeState(version + 1);
+  }
+}
+
+class LoginState extends HomeState {
+  LoginState(int version) : super(version);
+
+  @override
+  String toString() => 'LoginState';
+
+  @override
+  LoginState getStateCopy() {
+    return LoginState(version);
+  }
+
+  @override
+  LoginState getNewVersion() {
+    return LoginState(version + 1);
   }
 }
 

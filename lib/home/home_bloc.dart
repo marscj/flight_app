@@ -9,7 +9,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   factory HomeBloc() {
     return _homeBlocSingleton;
   }
-  HomeBloc._internal() : super(WelComeHomeState(0));
+  HomeBloc._internal() : super(WelComeState(0));
 
   @override
   Future<void> close() async {
@@ -18,7 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   @override
-  HomeState get initialState => WelComeHomeState(0);
+  HomeState get initialState => WelComeState(0);
 
   @override
   Stream<HomeState> mapEventToState(

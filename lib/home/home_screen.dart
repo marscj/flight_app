@@ -29,57 +29,60 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-        cubit: widget._homeBloc,
-        builder: (
-          BuildContext context,
-          HomeState currentState,
-        ) {
-          if (currentState is WelComeHomeState) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (currentState is ErrorHomeState) {
-            return Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(currentState.errorMessage ?? 'Error'),
-                Padding(
-                  padding: const EdgeInsets.only(top: 32.0),
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    child: Text('reload'),
-                    onPressed: _load,
-                  ),
+    return BlocBuilder<HomeBloc, HomeState>(builder: (
+      BuildContext context,
+      HomeState currentState,
+    ) {
+      if (currentState is WelComeState) {
+        return WelcomeScreen();
+      }
+
+      if (currentState is LoginState) {
+        return LoginScreen();
+      }
+
+      if (currentState is InHomeState) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(currentState.hello),
+              Text('Flutter files: done'),
+              Padding(
+                padding: const EdgeInsets.only(top: 32.0),
+                child: RaisedButton(
+                  color: Colors.red,
+                  child: Text('throw error'),
+                  onPressed: () => _load(true),
                 ),
-              ],
-            ));
-          }
-          if (currentState is InHomeState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(currentState.hello),
-                  Text('Flutter files: done'),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
-                    child: RaisedButton(
-                      color: Colors.red,
-                      child: Text('throw error'),
-                      onPressed: () => _load(true),
-                    ),
-                  ),
-                ],
               ),
-            );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        });
+            ],
+          ),
+        );
+      }
+
+      if (currentState is ErrorHomeState) {
+        return Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(currentState.errorMessage ?? 'Error'),
+            Padding(
+              padding: const EdgeInsets.only(top: 32.0),
+              child: RaisedButton(
+                color: Colors.blue,
+                child: Text('reload'),
+                onPressed: _load,
+              ),
+            ),
+          ],
+        ));
+      }
+
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    });
   }
 
   void _load([bool isError = false]) {
