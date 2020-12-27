@@ -41,8 +41,8 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
 // RetrofitGenerator
 // **************************************************************************
 
-class _RestService implements RestService {
-  _RestService(this._dio, {this.baseUrl}) {
+class _RestClient implements RestClient {
+  _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
     baseUrl ??= 'http://127.0.0.1:8000/api/';
   }

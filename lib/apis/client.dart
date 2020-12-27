@@ -11,8 +11,8 @@ part 'user.dart';
 part 'client.g.dart';
 
 @RestApi(baseUrl: Constant.Host)
-abstract class RestService {
-  static RestService get instance => _RestService(Dio(BaseOptions(
+abstract class RestClient {
+  factory RestClient() => _RestClient(Dio(BaseOptions(
         connectTimeout: 5000,
         receiveTimeout: 3000,
       ))

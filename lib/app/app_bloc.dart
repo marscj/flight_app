@@ -59,7 +59,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     if (event is AuthenticationStart) {
       yield state.copyWith(status: AppStatus.Authenticating);
 
-      yield await RestService.instance.getInfo().then<AppState>((user) {
+      yield await RestClient().getInfo().then<AppState>((user) {
         return state.copyWith(user: user, status: AppStatus.AuthorizedState);
       }).catchError((onError) {
         return state.copyWith(status: AppStatus.UnAuthorizedState);

@@ -23,21 +23,27 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       IndexState currentState,
     ) {
       if (currentState is InWelcomeState) {
-        return SizedBox(
-          width: 250.0,
-          child: ColorizeAnimatedTextKit(
-            text: [
-              "SAADIYAT WAY",
-            ],
-            textStyle: TextStyle(fontSize: 30.0, fontFamily: "Horizon"),
-            colors: [
-              Colors.purple,
-              Colors.yellow,
-              Colors.red,
-              Colors.blue,
-            ],
-            textAlign: TextAlign.start,
-          ),
+        return Column(
+          children: [
+            SizedBox(height: 50),
+            SizedBox.fromSize(
+                size: Size.fromHeight(MediaQuery.of(context).size.height / 4),
+                child: Center(
+                  child: ColorizeAnimatedTextKit(
+                    repeatForever: true,
+                    text: [
+                      "SAADIYAT WAY",
+                    ],
+                    textStyle: TextStyle(fontSize: 30.0, fontFamily: "Horizon"),
+                    colors: [
+                      Colors.blue,
+                      Colors.purple,
+                      Colors.red,
+                    ],
+                    textAlign: TextAlign.start,
+                  ),
+                ))
+          ],
         );
       }
       return Center(
