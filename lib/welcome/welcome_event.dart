@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 
+import 'package:dio/dio.dart';
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/index/index.dart';
-import 'package:saadiyat/welcome/index.dart';
+import 'package:saadiyat/login/index.dart';
 
 class LoadWelcomeEvent extends IndexEvent {
   final bool isError;
@@ -16,14 +17,19 @@ class LoadWelcomeEvent extends IndexEvent {
   Stream<IndexState> applyAsync(
       {IndexState currentState, IndexBloc bloc}) async* {
     try {
-      yield InWelcomeState(0, 'SAADIYAT WAY');
-      indexRepository.ftechUser().then((res) {
+      await indexRepository.ftechUser().then((res) {
         bloc.add(LoadHomeEvent(false));
       });
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadWelcomeEvent', error: _, stackTrace: stackTrace);
-      yield ErrorIndexState(0, _?.toString());
+
+      if (_ is DioError) {
+        bloc.add(LoadLoginEvent(false));
+        yield currentState;
+      } else {
+        yield ErrorIndexState(0, _?.toString());
+      }
     }
   }
 }
