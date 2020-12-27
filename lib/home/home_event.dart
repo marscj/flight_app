@@ -2,22 +2,17 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:saadiyat/home/index.dart';
-import 'package:meta/meta.dart';
+import 'package:saadiyat/index/index.dart';
 
-@immutable
-abstract class HomeEvent {
-  Stream<HomeState> applyAsync({HomeState currentState, HomeBloc bloc});
-  final HomeRepository _homeRepository = HomeRepository();
-}
-
-class LoadLoginEvent extends HomeEvent {
+class UnHomeEvent extends IndexEvent {
   @override
-  Stream<HomeState> applyAsync({HomeState currentState, HomeBloc bloc}) async* {
-    yield LoginState(1);
+  Stream<IndexState> applyAsync(
+      {IndexState currentState, IndexBloc bloc}) async* {
+    yield UnHomeState(0);
   }
 }
 
-class LoadHomeEvent extends HomeEvent {
+class LoadHomeEvent extends IndexEvent {
   final bool isError;
   @override
   String toString() => 'LoadHomeEvent';
@@ -25,11 +20,12 @@ class LoadHomeEvent extends HomeEvent {
   LoadHomeEvent(this.isError);
 
   @override
-  Stream<HomeState> applyAsync({HomeState currentState, HomeBloc bloc}) async* {
+  Stream<IndexState> applyAsync(
+      {IndexState currentState, IndexBloc bloc}) async* {
     try {
-      yield WelComeState(0);
+      yield UnHomeState(0);
       await Future.delayed(Duration(seconds: 1));
-      _homeRepository.test(isError);
+      indexRepository.test(isError);
       yield InHomeState(0, 'Hello world');
     } catch (_, stackTrace) {
       developer.log('$_',

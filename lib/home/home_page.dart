@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/home/index.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +11,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => HomeBloc(), child: HomeScreen());
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: HomeScreen(),
+    );
   }
 }

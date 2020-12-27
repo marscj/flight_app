@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/home/index.dart';
+import 'package:saadiyat/index/index.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -29,18 +30,32 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(builder: (
+    return BlocBuilder<IndexBloc, IndexState>(builder: (
       BuildContext context,
-      HomeState currentState,
+      IndexState currentState,
     ) {
-      if (currentState is WelComeState) {
-        return WelcomeScreen();
+      if (currentState is UnHomeState) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       }
-
-      if (currentState is LoginState) {
-        return LoginScreen();
+      if (currentState is ErrorHomeState) {
+        return Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(currentState.errorMessage ?? 'Error'),
+            Padding(
+              padding: const EdgeInsets.only(top: 32.0),
+              child: RaisedButton(
+                color: Colors.blue,
+                child: Text('reload'),
+                onPressed: _load,
+              ),
+            ),
+          ],
+        ));
       }
-
       if (currentState is InHomeState) {
         return Center(
           child: Column(
@@ -60,25 +75,6 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         );
       }
-
-      if (currentState is ErrorHomeState) {
-        return Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(currentState.errorMessage ?? 'Error'),
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: RaisedButton(
-                color: Colors.blue,
-                child: Text('reload'),
-                onPressed: _load,
-              ),
-            ),
-          ],
-        ));
-      }
-
       return Center(
         child: CircularProgressIndicator(),
       );
@@ -86,6 +82,6 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void _load([bool isError = false]) {
-    BlocProvider.of<HomeBloc>(context).add(LoadHomeEvent(isError));
+    BlocProvider.of<IndexBloc>(context).add(LoadHomeEvent(isError));
   }
 }

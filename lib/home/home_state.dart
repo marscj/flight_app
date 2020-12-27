@@ -1,59 +1,25 @@
-import 'package:equatable/equatable.dart';
-
-abstract class HomeState extends Equatable {
-  /// notify change state without deep clone state
-  final int version;
-
-  final List propss;
-  HomeState(this.version, [this.propss]);
-
-  /// Copy object for use in action
-  /// if need use deep clone
-  HomeState getStateCopy();
-
-  HomeState getNewVersion();
-
-  @override
-  List<Object> get props => ([version, ...propss ?? []]);
-}
+import 'package:saadiyat/index/index.dart';
 
 /// UnInitialized
-class WelComeState extends HomeState {
-  WelComeState(int version) : super(version);
+class UnHomeState extends IndexState {
+  UnHomeState(int version) : super(version);
 
   @override
-  String toString() => 'WelComeState';
+  String toString() => 'UnHomeState';
 
   @override
-  WelComeState getStateCopy() {
-    return WelComeState(0);
+  UnHomeState getStateCopy() {
+    return UnHomeState(0);
   }
 
   @override
-  WelComeState getNewVersion() {
-    return WelComeState(version + 1);
-  }
-}
-
-class LoginState extends HomeState {
-  LoginState(int version) : super(version);
-
-  @override
-  String toString() => 'LoginState';
-
-  @override
-  LoginState getStateCopy() {
-    return LoginState(version);
-  }
-
-  @override
-  LoginState getNewVersion() {
-    return LoginState(version + 1);
+  UnHomeState getNewVersion() {
+    return UnHomeState(version + 1);
   }
 }
 
 /// Initialized
-class InHomeState extends HomeState {
+class InHomeState extends IndexState {
   final String hello;
 
   InHomeState(int version, this.hello) : super(version, [hello]);
@@ -72,7 +38,7 @@ class InHomeState extends HomeState {
   }
 }
 
-class ErrorHomeState extends HomeState {
+class ErrorHomeState extends IndexState {
   final String errorMessage;
 
   ErrorHomeState(int version, this.errorMessage)
