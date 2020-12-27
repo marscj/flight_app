@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route_annotations.dart';
-import 'package:saadiyat/home/index.dart';
+import 'package:saadiyat/index/index.dart';
 
 @MaterialAutoRouter(
   // generateNavigationHelperExtension: true,
   routes: <AutoRoute>[
-    CupertinoRoute(page: HomePage, initial: true),
+    CupertinoRoute(page: IndexPage, initial: true),
     // CupertinoRoute<Widget>(
     //   path: '/users/:id',
     //   page: UserPage,

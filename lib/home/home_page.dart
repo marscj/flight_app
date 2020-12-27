@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saadiyat/home/index.dart';
 
 class HomePage extends StatefulWidget {
-  static const String routeName = '/home';
+  static const String routeName = '/';
 
   @override
   _HomePageState createState() => _HomePageState();

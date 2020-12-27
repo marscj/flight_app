@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/index/index.dart';
 
 class IndexPage extends StatefulWidget {
-  static const String routeName = '/index';
+  static const String routeName = '/';
 
   @override
   _IndexPageState createState() => _IndexPageState();
