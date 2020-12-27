@@ -17,10 +17,12 @@ class IndexBloc extends Bloc<IndexEvent, IndexState> {
   @override
   Future<void> close() async {
     // dispose objects
+    indexBlocSingleton.close();
     await super.close();
   }
 
   @override
+  // ignore: override_on_non_overriding_member
   IndexState get initialState => InWelcomeState(0, 'Hello world');
 
   @override

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
-import 'package:saadiyat/welcome/index.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
