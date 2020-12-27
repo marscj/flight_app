@@ -9,13 +9,15 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
+  final _indexBloc = IndexBloc();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Index'),
       ),
-      body: IndexScreen(),
+      body: IndexScreen(indexBloc: _indexBloc),
     );
   }
 }

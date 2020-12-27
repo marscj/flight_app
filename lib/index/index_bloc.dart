@@ -4,17 +4,14 @@ import 'dart:developer' as developer;
 import 'package:bloc/bloc.dart';
 import 'package:saadiyat/index/index.dart';
 
-abstract class IndexBloc extends Bloc<IndexEvent, IndexState> {
-  IndexBloc(IndexState initialState) : super(initialState);
-
+class IndexBloc extends Bloc<IndexEvent, IndexState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
-
-  // static final IndexBloc _indexBlocSingleton = IndexBloc._internal();
-  // factory IndexBloc() {
-  //   return _indexBlocSingleton;
-  // }
-  // IndexBloc._internal() : super(UnIndexState(0));
+  static final IndexBloc indexBlocSingleton = IndexBloc._internal();
+  factory IndexBloc() {
+    return indexBlocSingleton;
+  }
+  IndexBloc._internal() : super(UnIndexState(0));
 
   @override
   Future<void> close() async {
