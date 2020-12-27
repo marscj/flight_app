@@ -12,7 +12,7 @@ class IndexBloc extends Bloc<IndexEvent, IndexState> {
   factory IndexBloc() {
     return indexBlocSingleton;
   }
-  IndexBloc._internal() : super(UnWelcomeState(0));
+  IndexBloc._internal() : super(InWelcomeState(0, 'Hello world'));
 
   @override
   Future<void> close() async {
@@ -21,7 +21,7 @@ class IndexBloc extends Bloc<IndexEvent, IndexState> {
   }
 
   @override
-  IndexState get initialState => UnWelcomeState(0);
+  IndexState get initialState => InWelcomeState(0, 'Hello world');
 
   @override
   Stream<IndexState> mapEventToState(

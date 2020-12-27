@@ -21,28 +21,6 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       BuildContext context,
       IndexState currentState,
     ) {
-      if (currentState is UnWelcomeState) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      if (currentState is ErrorWelcomeState) {
-        return Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(currentState.errorMessage ?? 'Error'),
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: RaisedButton(
-                color: Colors.blue,
-                child: Text('reload'),
-                onPressed: _load,
-              ),
-            ),
-          ],
-        ));
-      }
       if (currentState is InWelcomeState) {
         return Center(
           child: Column(

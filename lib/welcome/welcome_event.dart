@@ -15,14 +15,13 @@ class LoadWelcomeEvent extends IndexEvent {
   Stream<IndexState> applyAsync(
       {IndexState currentState, IndexBloc bloc}) async* {
     try {
-      yield UnWelcomeState(0);
       await Future.delayed(Duration(seconds: 1));
       indexRepository.test(isError);
       yield InWelcomeState(0, 'Hello world');
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadWelcomeEvent', error: _, stackTrace: stackTrace);
-      yield ErrorWelcomeState(0, _?.toString());
+      yield ErrorIndexState(0, _?.toString());
     }
   }
 }
