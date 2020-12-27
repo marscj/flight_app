@@ -10,6 +10,6 @@ class IndexRepository {
   }
 
   Future<User> loadUser() async {
-    return RestClient().getInfo().then((res) {});
+    return RestClient().getInfo();
   }
 }

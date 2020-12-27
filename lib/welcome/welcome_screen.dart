@@ -31,9 +31,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                 child: Center(
                   child: ColorizeAnimatedTextKit(
                     repeatForever: true,
-                    text: [
-                      "SAADIYAT WAY",
-                    ],
+                    text: [currentState.hello],
                     textStyle: TextStyle(fontSize: 30.0, fontFamily: "Horizon"),
                     colors: [
                       Colors.blue,
