@@ -5,11 +5,7 @@ import 'package:saadiyat/home/index.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     Key key,
-    @required HomeBloc homeBloc,
-  })  : _homeBloc = homeBloc,
-        super(key: key);
-
-  final HomeBloc _homeBloc;
+  }) : super(key: key);
 
   @override
   HomeScreenState createState() {
@@ -39,7 +35,7 @@ class HomeScreenState extends State<HomeScreen> {
           BuildContext context,
           HomeState currentState,
         ) {
-          if (currentState is UnHomeState) {
+          if (currentState is WelComeHomeState) {
             return Center(
               child: CircularProgressIndicator(),
             );
@@ -61,7 +57,7 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ));
           }
-           if (currentState is InHomeState) {
+          if (currentState is InHomeState) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -81,13 +77,12 @@ class HomeScreenState extends State<HomeScreen> {
             );
           }
           return Center(
-              child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           );
-          
         });
   }
 
   void _load([bool isError = false]) {
-    widget._homeBloc.add(LoadHomeEvent(isError));
+    BlocProvider.of<HomeBloc>(context).add(LoadHomeEvent(isError));
   }
 }

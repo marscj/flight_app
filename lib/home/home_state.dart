@@ -3,9 +3,9 @@ import 'package:equatable/equatable.dart';
 abstract class HomeState extends Equatable {
   /// notify change state without deep clone state
   final int version;
-  
+
   final List propss;
-  HomeState(this.version,[this.propss]);
+  HomeState(this.version, [this.propss]);
 
   /// Copy object for use in action
   /// if need use deep clone
@@ -18,21 +18,20 @@ abstract class HomeState extends Equatable {
 }
 
 /// UnInitialized
-class UnHomeState extends HomeState {
-
-  UnHomeState(int version) : super(version);
-
-  @override
-  String toString() => 'UnHomeState';
+class WelComeHomeState extends HomeState {
+  WelComeHomeState(int version) : super(version);
 
   @override
-  UnHomeState getStateCopy() {
-    return UnHomeState(0);
+  String toString() => 'WelComeHomeState';
+
+  @override
+  WelComeHomeState getStateCopy() {
+    return WelComeHomeState(0);
   }
 
   @override
-  UnHomeState getNewVersion() {
-    return UnHomeState(version+1);
+  WelComeHomeState getNewVersion() {
+    return WelComeHomeState(version + 1);
   }
 }
 
@@ -52,15 +51,16 @@ class InHomeState extends HomeState {
 
   @override
   InHomeState getNewVersion() {
-    return InHomeState(version+1, hello);
+    return InHomeState(version + 1, hello);
   }
 }
 
 class ErrorHomeState extends HomeState {
   final String errorMessage;
 
-  ErrorHomeState(int version, this.errorMessage): super(version, [errorMessage]);
-  
+  ErrorHomeState(int version, this.errorMessage)
+      : super(version, [errorMessage]);
+
   @override
   String toString() => 'ErrorHomeState';
 
@@ -71,7 +71,6 @@ class ErrorHomeState extends HomeState {
 
   @override
   ErrorHomeState getNewVersion() {
-    return ErrorHomeState(version+1, 
-    errorMessage);
+    return ErrorHomeState(version + 1, errorMessage);
   }
 }

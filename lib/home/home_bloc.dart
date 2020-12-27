@@ -5,22 +5,20 @@ import 'package:bloc/bloc.dart';
 import 'package:saadiyat/home/index.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  // todo: check singleton for logic in project
-  // use GetIt for DI in projct
   static final HomeBloc _homeBlocSingleton = HomeBloc._internal();
   factory HomeBloc() {
     return _homeBlocSingleton;
   }
-  HomeBloc._internal(): super(UnHomeState(0));
-  
+  HomeBloc._internal() : super(WelComeHomeState(0));
+
   @override
-  Future<void> close() async{
+  Future<void> close() async {
     // dispose objects
     await super.close();
   }
 
   @override
-  HomeState get initialState => UnHomeState(0);
+  HomeState get initialState => WelComeHomeState(0);
 
   @override
   Stream<HomeState> mapEventToState(
