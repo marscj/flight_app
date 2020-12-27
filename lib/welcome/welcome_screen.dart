@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,37 +26,40 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       IndexState currentState,
     ) {
       if (currentState is InWelcomeState) {
-        return SizedBox.expand(
+        return SafeArea(
+          top: true,
+          child: SizedBox.expand(
             child: Stack(
-          children: <Widget>[
-            Center(
-                child: FadeIn(
-                    child: SizedBox.fromSize(
-                        size: Size.fromHeight(
-                            MediaQuery.of(context).size.height / 4),
-                        child: Center(
-                          child: ColorizeAnimatedTextKit(
-                            repeatForever: true,
-                            text: [currentState.hello],
-                            textStyle: TextStyle(
-                                fontSize: 30.0, fontFamily: "Horizon"),
-                            colors: [
-                              Colors.blue,
-                              Colors.purple,
-                              Colors.red,
-                            ],
-                            textAlign: TextAlign.start,
-                          ),
-                        )))),
-            Positioned(
-                bottom: 50,
-                left: 0,
-                right: 0,
-                child: FadeInUp(
-                    child: LoadingBouncingGrid.square(
-                        backgroundColor: Colors.blueAccent, inverted: true)))
-          ],
-        ));
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FadeIn(
+                          child: Text(currentState.hello,
+                              style: GoogleFonts.unna(
+                                fontSize: 30,
+                              ))),
+                      FadeIn(
+                          child: Image.asset('assets/logo.png',
+                              fit: BoxFit.scaleDown)),
+                    ],
+                  ),
+                ),
+                Positioned(
+                    bottom: 50,
+                    left: 0,
+                    right: 0,
+                    child: FadeInUp(
+                        child: LoadingBouncingGrid.square(
+                            backgroundColor: Colors.blueAccent,
+                            inverted: true)))
+              ],
+            ),
+          ),
+        );
       }
       return Center(
         child: CircularProgressIndicator(),
