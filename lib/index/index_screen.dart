@@ -44,46 +44,10 @@ class IndexScreenState extends State<IndexScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          if (currentState is ErrorIndexState) {
-            return Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(currentState.errorMessage ?? 'Error'),
-                Padding(
-                  padding: const EdgeInsets.only(top: 32.0),
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    child: Text('reload'),
-                    onPressed: _load,
-                  ),
-                ),
-              ],
-            ));
-          }
-           if (currentState is InIndexState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(currentState.hello),
-                  Text('Flutter files: done'),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
-                    child: RaisedButton(
-                      color: Colors.red,
-                      child: Text('throw error'),
-                      onPressed: () => _load(true),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }
+
           return Center(
-              child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           );
-          
         });
   }
 

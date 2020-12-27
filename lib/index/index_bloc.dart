@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
 import 'package:saadiyat/index/index.dart';
+import 'package:saadiyat/welcome/index.dart';
 
 class IndexBloc extends Bloc<IndexEvent, IndexState> {
   // todo: check singleton for logic in project
@@ -11,7 +12,7 @@ class IndexBloc extends Bloc<IndexEvent, IndexState> {
   factory IndexBloc() {
     return indexBlocSingleton;
   }
-  IndexBloc._internal() : super(UnIndexState(0));
+  IndexBloc._internal() : super(UnWelcomeState(0));
 
   @override
   Future<void> close() async {
@@ -20,7 +21,7 @@ class IndexBloc extends Bloc<IndexEvent, IndexState> {
   }
 
   @override
-  IndexState get initialState => UnIndexState(0);
+  IndexState get initialState => UnWelcomeState(0);
 
   @override
   Stream<IndexState> mapEventToState(

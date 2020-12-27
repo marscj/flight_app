@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:saadiyat/index/index.dart';
 
 /// UnInitialized

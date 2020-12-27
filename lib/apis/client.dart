@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 
 import 'package:equatable/equatable.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:saadiyat/store/store.dart';
@@ -46,7 +43,7 @@ abstract class RestService {
           }
           return e;
         })));
-  
+
   @GET('/auth/login/')
   Future<User> login({@Queries() Map<String, dynamic> query});
 
@@ -54,5 +51,6 @@ abstract class RestService {
   Future<User> getInfo({@Queries() Map<String, dynamic> query});
 
   @PATCH('/users/{id}/')
-  Future<User> updateUser(@Path() int id, @Body() Map<String, dynamic> playload);
+  Future<User> updateUser(
+      @Path() int id, @Body() Map<String, dynamic> playload);
 }

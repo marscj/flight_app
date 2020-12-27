@@ -4,14 +4,6 @@ import 'dart:developer' as developer;
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/welcome/index.dart';
 
-class UnWelcomeEvent extends IndexEvent {
-  @override
-  Stream<IndexState> applyAsync(
-      {IndexState currentState, IndexBloc bloc}) async* {
-    yield UnWelcomeState(0);
-  }
-}
-
 class LoadWelcomeEvent extends IndexEvent {
   final bool isError;
   @override
