@@ -12,7 +12,7 @@ class IndexBloc extends Bloc<IndexEvent, IndexState> {
   factory IndexBloc() {
     return indexBlocSingleton;
   }
-  IndexBloc._internal() : super(InWelcomeState(0, 'Hello world'));
+  IndexBloc._internal() : super(InWelcomeState(0, 'SAADIYAT WAY'));
 
   @override
   Future<void> close() async {
@@ -22,14 +22,11 @@ class IndexBloc extends Bloc<IndexEvent, IndexState> {
   }
 
   @override
-  // ignore: override_on_non_overriding_member
-  IndexState get initialState => InWelcomeState(0, 'Hello world');
-
-  @override
   Stream<IndexState> mapEventToState(
     IndexEvent event,
   ) async* {
     try {
+      print('-------');
       yield* event.applyAsync(currentState: state, bloc: this);
     } catch (_, stackTrace) {
       developer.log('$_', name: 'IndexBloc', error: _, stackTrace: stackTrace);

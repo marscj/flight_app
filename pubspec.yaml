@@ -39,6 +39,9 @@ dependencies:
   octo_image: ^0.3.0
   cached_network_image: ^2.5.0
   convex_bottom_bar: ^2.6.0
+  #animator
+  animate_do: ^1.7.5
+  loading_animations: ^2.1.0
   
   #http
   dio: ^3.0.10

@@ -9,7 +9,8 @@ class IndexRepository {
     }
   }
 
-  Future<User> loadUser() async {
+  Future<User> ftechUser() async {
+    print('========');
     return RestClient().getInfo();
   }
 }
