@@ -34,28 +34,6 @@ class HomeScreenState extends State<HomeScreen> {
       BuildContext context,
       IndexState currentState,
     ) {
-      if (currentState is UnHomeState) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      if (currentState is ErrorHomeState) {
-        return Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(currentState.errorMessage ?? 'Error'),
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: RaisedButton(
-                color: Colors.blue,
-                child: Text('reload'),
-                onPressed: _load,
-              ),
-            ),
-          ],
-        ));
-      }
       if (currentState is InHomeState) {
         return Center(
           child: Column(

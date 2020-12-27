@@ -16,3 +16,23 @@ abstract class IndexState extends Equatable {
   @override
   List<Object> get props => ([version, ...propss ?? []]);
 }
+
+class ErrorIndexState extends IndexState {
+  final String errorMessage;
+
+  ErrorIndexState(int version, this.errorMessage)
+      : super(version, [errorMessage]);
+
+  @override
+  String toString() => 'ErrorIndexState';
+
+  @override
+  ErrorIndexState getStateCopy() {
+    return ErrorIndexState(version, errorMessage);
+  }
+
+  @override
+  ErrorIndexState getNewVersion() {
+    return ErrorIndexState(version + 1, errorMessage);
+  }
+}

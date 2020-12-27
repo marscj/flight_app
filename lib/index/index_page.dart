@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/index/index.dart';
 
 class IndexPage extends StatefulWidget {
@@ -9,15 +10,15 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
-  final _indexBloc = IndexBloc();
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Index'),
-      ),
-      body: IndexScreen(indexBloc: _indexBloc),
-    );
+    return BlocProvider(
+        create: (context) => IndexBloc(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Index'),
+          ),
+          body: IndexScreen(),
+        ));
   }
 }
