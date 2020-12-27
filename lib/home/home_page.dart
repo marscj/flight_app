@@ -9,7 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _homeBloc = HomeBloc();
+  final _homeBloc = HomeBloc(UnHomeState());
 
   @override
   Widget build(BuildContext context) {

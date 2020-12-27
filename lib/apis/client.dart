@@ -46,14 +46,13 @@ abstract class RestService {
           }
           return e;
         })));
+  
+  @GET('/auth/login/')
+  Future<User> login({@Queries() Map<String, dynamic> query});
 
   @GET('/users/info/')
   Future<User> getInfo({@Queries() Map<String, dynamic> query});
 
   @PATCH('/users/{id}/')
-  Future<User> uploadPhoto(@Path() int id, @Part() File photo);
-
-  @PATCH('/users/{id}/')
-  Future<User> updateUser(
-      @Path() int id, @Body() Map<String, dynamic> playload);
+  Future<User> updateUser(@Path() int id, @Body() Map<String, dynamic> playload);
 }

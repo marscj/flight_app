@@ -52,13 +52,13 @@ class _RestService implements RestService {
   String baseUrl;
 
   @override
-  Future<User> getInfo({query}) async {
+  Future<User> login({query}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(query ?? <String, dynamic>{});
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/users/info/',
+    final _result = await _dio.request<Map<String, dynamic>>('/auth/login/',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -71,20 +71,16 @@ class _RestService implements RestService {
   }
 
   @override
-  Future<User> uploadPhoto(id, photo) async {
-    ArgumentError.checkNotNull(id, 'id');
-    ArgumentError.checkNotNull(photo, 'photo');
+  Future<User> getInfo({query}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = FormData();
-    _data.files.add(MapEntry(
-        'photo',
-        MultipartFile.fromFileSync(photo.path,
-            filename: photo.path.split(Platform.pathSeparator).last)));
-    final _result = await _dio.request<Map<String, dynamic>>('/users/$id/',
+    queryParameters.addAll(query ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/users/info/',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'PATCH',
+            method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
