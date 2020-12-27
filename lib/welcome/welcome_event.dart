@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
+import 'package:saadiyat/welcome/index.dart';
 
 class LoadWelcomeEvent extends IndexEvent {
   final bool isError;
@@ -17,6 +18,7 @@ class LoadWelcomeEvent extends IndexEvent {
   Stream<IndexState> applyAsync(
       {IndexState currentState, IndexBloc bloc}) async* {
     try {
+      yield InWelcomeState(0, 'SAADIYAT WAY');
       await indexRepository.ftechUser().then((res) {
         bloc.add(LoadHomeEvent(false));
       });
