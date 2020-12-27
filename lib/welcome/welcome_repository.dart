@@ -1,11 +1,16 @@
+import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/welcome/index.dart';
 
 class WelcomeRepository {
-  final WelcomeProvider _welcomeProvider = WelcomeProvider();
-
   WelcomeRepository();
 
   void test(bool isError) {
-    _welcomeProvider.test(isError);
+    if (isError == true) {
+      throw Exception('manual error');
+    }
+  }
+
+  Future<User> loadUser() async {
+    return await RestClient().getInfo();
   }
 }

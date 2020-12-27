@@ -15,8 +15,7 @@ class LoadWelcomeEvent extends IndexEvent {
   Stream<IndexState> applyAsync(
       {IndexState currentState, IndexBloc bloc}) async* {
     try {
-      await Future.delayed(Duration(seconds: 1));
-      indexRepository.test(isError);
+      indexRepository.loadUser();
       yield InWelcomeState(0, 'Hello world');
     } catch (_, stackTrace) {
       developer.log('$_',

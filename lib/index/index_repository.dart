@@ -1,11 +1,15 @@
-import 'package:saadiyat/index/index.dart';
+import 'package:saadiyat/apis/client.dart';
 
 class IndexRepository {
-  final IndexProvider _indexProvider = IndexProvider();
-
   IndexRepository();
 
   void test(bool isError) {
-    _indexProvider.test(isError);
+    if (isError == true) {
+      throw Exception('manual error');
+    }
+  }
+
+  Future<User> loadUser() async {
+    return RestClient().getInfo().then((res) {});
   }
 }

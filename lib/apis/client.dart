@@ -19,7 +19,7 @@ abstract class RestClient {
         ..interceptors
             .add(new InterceptorsWrapper(onRequest: (Options options) async {
           var token = await Store.instance.getToken();
-          options.headers['Authorization'] = token;
+          options.headers['Authorization'] = 'ACCESS_TOKEN ' + token;
           return options;
         }, onResponse: (Response response) {
           response.data = response.data['result'];
@@ -44,11 +44,11 @@ abstract class RestClient {
           return e;
         })));
 
-  @GET('/auth/login/')
-  Future<User> login({@Queries() Map<String, dynamic> query});
+  @POST('/auth/login/')
+  Future<User> login();
 
-  @GET('/users/info/')
-  Future<User> getInfo({@Queries() Map<String, dynamic> query});
+  @GET('/auth/info/')
+  Future<User> getInfo();
 
   @PATCH('/users/{id}/')
   Future<User> updateUser(
