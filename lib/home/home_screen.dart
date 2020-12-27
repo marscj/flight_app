@@ -67,6 +67,15 @@ class HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(currentState.hello),
+                  Text('Flutter files: done'),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 32.0),
+                    child: RaisedButton(
+                      color: Colors.red,
+                      child: Text('throw error'),
+                      onPressed: () => _load(true),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -78,7 +87,7 @@ class HomeScreenState extends State<HomeScreen> {
         });
   }
 
-  void _load() {
-    widget._homeBloc.add(LoadHomeEvent());
+  void _load([bool isError = false]) {
+    widget._homeBloc.add(LoadHomeEvent(isError));
   }
 }
