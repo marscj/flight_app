@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/index/index.dart';
@@ -22,21 +23,20 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       IndexState currentState,
     ) {
       if (currentState is InWelcomeState) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(currentState.hello),
-              Text('Flutter files: done'),
-              Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: RaisedButton(
-                  color: Colors.red,
-                  child: Text('throw error'),
-                  onPressed: () => _load(true),
-                ),
-              ),
+        return SizedBox(
+          width: 250.0,
+          child: ColorizeAnimatedTextKit(
+            text: [
+              "SAADIYAT WAY",
             ],
+            textStyle: TextStyle(fontSize: 30.0, fontFamily: "Horizon"),
+            colors: [
+              Colors.purple,
+              Colors.yellow,
+              Colors.red,
+              Colors.blue,
+            ],
+            textAlign: TextAlign.start,
           ),
         );
       }
@@ -44,9 +44,5 @@ class WelcomeScreenState extends State<WelcomeScreen> {
         child: CircularProgressIndicator(),
       );
     });
-  }
-
-  void _load([bool isError = false]) {
-    BlocProvider.of<IndexBloc>(context).add(LoadWelcomeEvent(isError));
   }
 }
