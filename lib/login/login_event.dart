@@ -14,14 +14,13 @@ class LoadLoginEvent extends IndexEvent {
   @override
   Stream<IndexState> applyAsync(
       {IndexState currentState, IndexBloc bloc}) async* {
-    try {
-      await Future.delayed(Duration(seconds: 1));
-      indexRepository.test(isError);
-      yield InLoginState(0, 'Hello world');
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadLoginEvent', error: _, stackTrace: stackTrace);
-      yield ErrorIndexState(0, _?.toString());
-    }
+    yield InLoginState(0, 'Hello world');
+    // try {
+
+    // } catch (_, stackTrace) {
+    //   developer.log('$_',
+    //       name: 'LoadLoginEvent', error: _, stackTrace: stackTrace);
+    //   yield ErrorIndexState(0, _?.toString());
+    // }
   }
 }

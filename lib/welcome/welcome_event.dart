@@ -17,10 +17,13 @@ class LoadWelcomeEvent extends IndexEvent {
   @override
   Stream<IndexState> applyAsync(
       {IndexState currentState, IndexBloc bloc}) async* {
+    yield InWelcomeState(0, 'SAADIYAT WAY');
+
     try {
-      yield InWelcomeState(0, 'SAADIYAT WAY');
-      await indexRepository.ftechUser().then((res) {
-        bloc.add(LoadHomeEvent(false));
+      await Future.delayed(Duration(seconds: 2)).then((rews) {
+        return indexRepository.ftechUser().then((res) {
+          bloc.add(LoadHomeEvent(false));
+        });
       });
     } catch (_, stackTrace) {
       developer.log('$_',
@@ -28,7 +31,6 @@ class LoadWelcomeEvent extends IndexEvent {
 
       if (_ is DioError) {
         bloc.add(LoadLoginEvent(false));
-        yield currentState;
       } else {
         yield ErrorIndexState(0, _?.toString());
       }
