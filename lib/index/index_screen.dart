@@ -35,6 +35,28 @@ class IndexScreenState extends State<IndexScreen> {
         return HomePage();
       }
 
+      if (currentState is ErrorIndexState) {
+        return Scaffold(
+            body: Center(
+                child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(currentState.errorMessage ?? 'Error'),
+            Padding(
+              padding: const EdgeInsets.only(top: 32.0),
+              child: RaisedButton(
+                color: Colors.blue,
+                child: Text('reload'),
+                onPressed: () => {
+                  BlocProvider.of<IndexBloc>(context)
+                      .add(LoadWelcomeEvent(false))
+                },
+              ),
+            ),
+          ],
+        )));
+      }
+
       return Center(
         child: CircularProgressIndicator(),
       );
