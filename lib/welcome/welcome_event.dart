@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:developer' as developer;
-
-import 'package:dio/dio.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/index/index.dart';
@@ -25,15 +22,9 @@ class LoadWelcomeEvent extends IndexEvent {
           bloc.add(LoadHomeEvent());
         });
       });
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadWelcomeEvent', error: _, stackTrace: stackTrace);
-
-      if (_ is DioError) {
-        bloc.add(LoadLoginEvent());
-      } else {
-        yield ErrorIndexState(0, _?.toString());
-      }
+    } catch (_) {
+      bloc.add(LoadLoginEvent());
+      yield InWelcomeState(0, 'SAADIYAT WAY');
     }
   }
 }

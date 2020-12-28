@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/home/index.dart';
@@ -28,33 +29,18 @@ class IndexScreenState extends State<IndexScreen> {
       }
 
       if (currentState is InLoginState) {
-        return LoginPage();
+        return FadeInUp(
+          child: LoginPage(),
+        );
       }
 
       if (currentState is InHomeState) {
-        return HomePage();
+        return FadeIn(
+          child: HomePage(),
+        );
       }
 
-      if (currentState is ErrorIndexState) {
-        return Scaffold(
-            body: Center(
-                child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(currentState.errorMessage ?? 'Error'),
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: RaisedButton(
-                color: Colors.blue,
-                child: Text('reload'),
-                onPressed: () => {
-                  BlocProvider.of<IndexBloc>(context).add(LoadWelcomeEvent())
-                },
-              ),
-            ),
-          ],
-        )));
-      }
+      print('1111');
 
       return Center(
         child: CircularProgressIndicator(),

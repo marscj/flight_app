@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/index/index.dart';
@@ -15,10 +14,8 @@ class LoadHomeEvent extends IndexEvent {
       {IndexState currentState, IndexBloc bloc}) async* {
     try {
       yield InHomeState(0);
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadHomeEvent', error: _, stackTrace: stackTrace);
-      yield ErrorIndexState(0, _?.toString());
+    } catch (_) {
+      yield InHomeState(0);
     }
   }
 }

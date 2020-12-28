@@ -27,18 +27,21 @@ abstract class RestClient {
           response.data = response.data['result'];
           return response;
         }, onError: (DioError e) {
-          var data = e?.response?.data['result'] ?? e?.response?.data['detail'];
-          var _data = Map<String, dynamic>();
-          if (data != null) {
-            data.forEach((k, v) {
-              if (v is Iterable) {
-                _data[k] = v.join('\n');
-              } else {
-                _data[k] = v;
-              }
-            });
-            e?.response?.data = _data;
+          if (e != null && e.response != null && e.response.data != null) {
+            var data = e.response.data['result'] ?? e.response.data['detail'];
+            var _data = Map<String, dynamic>();
+            if (data != null) {
+              data.forEach((k, v) {
+                if (v is Iterable) {
+                  _data[k] = v.join('\n');
+                } else {
+                  _data[k] = v;
+                }
+              });
+              e?.response?.data = _data;
+            }
           }
+
           return e;
         })));
 

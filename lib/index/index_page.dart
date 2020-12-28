@@ -15,6 +15,8 @@ class _IndexPageState extends State<IndexPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => IndexBloc()..add(LoadWelcomeEvent()),
-        child: IndexScreen());
+        child: Material(
+          child: IndexScreen(),
+        ));
   }
 }
