@@ -33,18 +33,18 @@ class WelcomeScreenState extends State<WelcomeScreen> {
               children: [
                 Container(
                   alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height / 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       FadeIn(
-                          child: Text(currentState.hello,
-                              style: GoogleFonts.unna(
-                                fontSize: 30,
-                              ))),
-                      FadeIn(
                           child: Image.asset('assets/logo.png',
                               fit: BoxFit.scaleDown)),
+                      FadeIn(
+                          child: Text(currentState.hello,
+                              style: GoogleFonts.unna(
+                                fontSize: 20,
+                              ))),
                     ],
                   ),
                 ),

@@ -30,7 +30,7 @@ class LoadWelcomeEvent extends IndexEvent {
           name: 'LoadWelcomeEvent', error: _, stackTrace: stackTrace);
 
       if (_ is DioError) {
-        // bloc.add(LoadLoginEvent(false));
+        bloc.add(LoadLoginEvent(false));
       } else {
         yield ErrorIndexState(0, _?.toString());
       }
