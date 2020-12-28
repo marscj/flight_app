@@ -19,13 +19,13 @@ class Store<T> {
 
   Future<String> getToken() async {
     return SharedPreferences.getInstance().then((sp) {
-      return sp.getString('token') ?? 'unknow';
+      return sp.getString('token');
     });
   }
 
   Future<bool> setToken(token) async {
     return SharedPreferences.getInstance().then((sp) {
-      return sp.setString('token', 'token ' + token);
+      return sp.setString('token', token);
     });
   }
 

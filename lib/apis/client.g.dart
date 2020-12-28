@@ -44,7 +44,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://127.0.0.1:8000/api/';
+    baseUrl ??= 'http://ubangservice.com/api/';
   }
 
   final Dio _dio;
@@ -52,16 +52,17 @@ class _RestClient implements RestClient {
   String baseUrl;
 
   @override
-  Future<User> login({query}) async {
+  Future<User> login(playload) async {
+    ArgumentError.checkNotNull(playload, 'playload');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.addAll(query ?? <String, dynamic>{});
-    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/auth/login/',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'GET',
+            method: 'POST',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
@@ -71,13 +72,11 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<User> getInfo({query}) async {
+  Future<User> getInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.addAll(query ?? <String, dynamic>{});
-    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/users/info/',
+    final _result = await _dio.request<Map<String, dynamic>>('/auth/info/',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

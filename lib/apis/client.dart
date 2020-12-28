@@ -16,20 +16,34 @@ abstract class RestClient {
         connectTimeout: 5000,
         receiveTimeout: 3000,
       ))
-        ..interceptors.add(new InterceptorsWrapper(
-          onRequest: (Options options) async {
-            var token = await Store.instance.getToken();
+        ..interceptors
+            .add(new InterceptorsWrapper(onRequest: (Options options) async {
+          String token = await Store.instance.getToken();
+          if (token != null && token.isNotEmpty) {
             options.headers['Authorization'] = 'ACCESS_TOKEN ' + token;
-            return options;
-          },
-          onResponse: (Response response) {
-            response.data = response.data['result'];
-            return response;
-          },
-        )));
+          }
+          return options;
+        }, onResponse: (Response response) {
+          response.data = response.data['result'];
+          return response;
+        }, onError: (DioError e) {
+          var data = e?.response?.data['result'] ?? e?.response?.data['detail'];
+          var _data = Map<String, dynamic>();
+          if (data != null) {
+            data.forEach((k, v) {
+              if (v is Iterable) {
+                _data[k] = v.join('\n');
+              } else {
+                _data[k] = v;
+              }
+            });
+            e?.response?.data = _data;
+          }
+          return e;
+        })));
 
   @POST('/auth/login/')
-  Future<User> login();
+  Future<User> login(@Body() Map<String, dynamic> playload);
 
   @GET('/auth/info/')
   Future<User> getInfo();

@@ -1,11 +1,15 @@
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/home/home_event.dart';
+import 'package:saadiyat/index/index.dart';
 
 class LoginFormBloc extends FormBloc<String, String> {
   final TextFieldBloc email = TextFieldBloc();
   final TextFieldBloc password = TextFieldBloc();
+  final IndexBloc bloc;
 
-  LoginFormBloc() {
+  LoginFormBloc(this.bloc) {
     addFieldBlocs(fieldBlocs: [email, password]);
     addValidators();
   }
@@ -14,9 +18,10 @@ class LoginFormBloc extends FormBloc<String, String> {
     if (errors == null) {
       return;
     }
-
-    email.addFieldError(errors['email'] ?? errors['non_field_errors']);
-    password.addFieldError(errors['password'] ?? errors['non_field_errors']);
+    print(errors);
+    email.addFieldError(errors['email']);
+    password.addFieldError(
+        errors['password'] ?? errors['non_field_errors'] ?? errors['detail']);
   }
 
   void addValidators() {
@@ -40,5 +45,14 @@ class LoginFormBloc extends FormBloc<String, String> {
   }
 
   @override
-  void onSubmitting() {}
+  void onSubmitting() {
+    RestClient()
+        .login({'email': email.value, 'password': password.value}).then((res) {
+      print(res);
+      bloc.add(LoadHomeEvent());
+    }).catchError((onError) {
+      emitFailure();
+      addErrors(onError?.response?.data);
+    });
+  }
 }

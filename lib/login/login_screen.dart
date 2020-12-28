@@ -17,8 +17,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
   final Widget buildForm = BlocProvider<LoginFormBloc>(
-    create: (context) => LoginFormBloc(),
+    create: (context) => LoginFormBloc(BlocProvider.of<IndexBloc>(context)),
     child: Builder(
       builder: (context) {
         // ignore: close_sinks
@@ -93,7 +94,7 @@ class LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 32,
                 ),
-                buildForm,
+                Form(key: _formKey, child: buildForm),
               ],
             )
           ],
