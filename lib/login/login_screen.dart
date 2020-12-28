@@ -41,6 +41,9 @@ class LoginScreenState extends State<LoginScreen> {
                       fillColor: Colors.white,
                       border: InputBorder.none,
                       prefixIcon: const Icon(Icons.email))),
+              SizedBox(
+                height: 16,
+              ),
               TextFieldBlocBuilder(
                 textFieldBloc: formBloc.password,
                 textInputAction: TextInputAction.done,
@@ -55,7 +58,26 @@ class LoginScreenState extends State<LoginScreen> {
                 onSubmitted: (value) {
                   formBloc.submit();
                 },
-              )
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              Container(
+                  alignment: Alignment.center,
+                  width: 64,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_right_alt,
+                      size: 32,
+                    ),
+                    splashColor: Colors.white,
+                    color: Colors.black,
+                    onPressed: () {
+                      formBloc.submit();
+                    },
+                  ))
             ],
           ),
         );

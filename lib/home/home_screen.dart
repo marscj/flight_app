@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/index/index.dart';
+import 'package:saadiyat/welcome/index.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -26,14 +27,15 @@ class HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(currentState.hello),
               Text('Flutter files: done'),
               Padding(
                 padding: const EdgeInsets.only(top: 32.0),
                 child: RaisedButton(
                   color: Colors.red,
                   child: Text('throw error'),
-                  onPressed: () => {},
+                  onPressed: () {
+                    BlocProvider.of<IndexBloc>(context).add(LoadWelcomeEvent());
+                  },
                 ),
               ),
             ],
