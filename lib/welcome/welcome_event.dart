@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:dio/dio.dart';
+import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
@@ -21,7 +22,7 @@ class LoadWelcomeEvent extends IndexEvent {
 
     try {
       await Future.delayed(Duration(seconds: 2)).then((rews) {
-        return indexRepository.ftechUser().then((res) {
+        return RestClient().getInfo().then((res) {
           bloc.add(LoadHomeEvent(false));
         });
       });

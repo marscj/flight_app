@@ -6,5 +6,4 @@ import 'package:meta/meta.dart';
 @immutable
 abstract class IndexEvent {
   Stream<IndexState> applyAsync({IndexState currentState, IndexBloc bloc});
-  final IndexRepository indexRepository = IndexRepository();
 }
