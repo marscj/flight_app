@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
 
@@ -35,22 +36,32 @@ class LoginScreenState extends State<LoginScreen> {
       IndexState currentState,
     ) {
       if (currentState is InLoginState) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(currentState.hello),
-              Text('Flutter files: done'),
-              Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: RaisedButton(
-                  color: Colors.red,
-                  child: Text('throw error'),
-                  onPressed: () => _load(true),
-                ),
+        return Stack(
+          children: [
+            SizedBox.expand(
+              child: Image.asset(
+                'assets/bg.png',
+                fit: BoxFit.cover,
               ),
-            ],
-          ),
+            ),
+            ListView(
+              children: [
+                Column(children: [
+                  SizedBox(height: 50),
+                  SizedBox.fromSize(
+                    size:
+                        Size.fromHeight(MediaQuery.of(context).size.height / 4),
+                    child:
+                        Image.asset('assets/logo.png', fit: BoxFit.scaleDown),
+                  ),
+                  Text(
+                    'SAADIYAT WAY',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )
+                ])
+              ],
+            )
+          ],
         );
       }
       return Center(

@@ -53,11 +53,15 @@ dependencies:
   url_launcher: ^5.7.10
   shared_preferences: ^0.5.12+4
   #bloc
-  rxdart: ^0.25.0
+  rxdart: ^0.24.0 
   equatable: ^1.2.5
-  flutter_bloc: ^6.1.1
-  #flutter_form_bloc: ^0.19.0
-  #flutter_form_builder: ^4.1.0
+  # flutter_bloc: ^6.1.1
+  flutter_bloc: ^5.0.1
+  flutter_form_bloc: ^0.15.1
+  flutter_form_builder: ^3.11.5
+  # form_bloc: ^0.19.1 
+  # flutter_form_bloc: ^0.19.0 
+  # flutter_form_builder: ^4.1.0
   #validate
   form_field_validator: ^1.0.1
   #font
@@ -90,6 +94,12 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/logo.png
+    - assets/1.0x/logo.png
+    - assets/1.5x/logo.png
+    
+    - assets/bg.png
+    - assets/1.0x/bg.png
+    - assets/1.5x/bg.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
