@@ -15,19 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  HomeScreenState();
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<IndexBloc, IndexState>(builder: (
@@ -46,7 +33,7 @@ class HomeScreenState extends State<HomeScreen> {
                 child: RaisedButton(
                   color: Colors.red,
                   child: Text('throw error'),
-                  onPressed: () => _load(true),
+                  onPressed: () => {},
                 ),
               ),
             ],
@@ -57,9 +44,5 @@ class HomeScreenState extends State<HomeScreen> {
         child: CircularProgressIndicator(),
       );
     });
-  }
-
-  void _load([bool isError = false]) {
-    BlocProvider.of<IndexBloc>(context).add(LoadHomeEvent(isError));
   }
 }

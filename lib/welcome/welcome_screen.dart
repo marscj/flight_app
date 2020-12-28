@@ -37,14 +37,12 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      FadeIn(
-                          child: Image.asset('assets/logo.png',
-                              fit: BoxFit.scaleDown)),
-                      FadeIn(
-                          child: Text(currentState.hello,
-                              style: GoogleFonts.unna(
-                                fontSize: 20,
-                              ))),
+                      SizedBox.fromSize(
+                        size: Size.fromHeight(
+                            MediaQuery.of(context).size.height / 4),
+                        child: Image.asset('assets/logo.png',
+                            fit: BoxFit.fitHeight),
+                      ),
                     ],
                   ),
                 ),
@@ -52,10 +50,8 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                     bottom: 50,
                     left: 0,
                     right: 0,
-                    child: FadeInUp(
-                        child: LoadingBouncingGrid.square(
-                            backgroundColor: Colors.blueAccent,
-                            inverted: true)))
+                    child: LoadingBouncingGrid.square(
+                        backgroundColor: Colors.blueAccent, inverted: true))
               ],
             ),
           ),

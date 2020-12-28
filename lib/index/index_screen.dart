@@ -48,8 +48,7 @@ class IndexScreenState extends State<IndexScreen> {
                 color: Colors.blue,
                 child: Text('reload'),
                 onPressed: () => {
-                  BlocProvider.of<IndexBloc>(context)
-                      .add(LoadWelcomeEvent(false))
+                  BlocProvider.of<IndexBloc>(context).add(LoadWelcomeEvent())
                 },
               ),
             ),

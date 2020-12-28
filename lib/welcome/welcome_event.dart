@@ -9,11 +9,10 @@ import 'package:saadiyat/login/index.dart';
 import 'package:saadiyat/welcome/index.dart';
 
 class LoadWelcomeEvent extends IndexEvent {
-  final bool isError;
   @override
   String toString() => 'LoadWelcomeEvent';
 
-  LoadWelcomeEvent(this.isError);
+  LoadWelcomeEvent();
 
   @override
   Stream<IndexState> applyAsync(
@@ -23,7 +22,7 @@ class LoadWelcomeEvent extends IndexEvent {
     try {
       await Future.delayed(Duration(seconds: 2)).then((rews) {
         return RestClient().getInfo().then((res) {
-          bloc.add(LoadHomeEvent(false));
+          bloc.add(LoadHomeEvent());
         });
       });
     } catch (_, stackTrace) {
@@ -31,7 +30,7 @@ class LoadWelcomeEvent extends IndexEvent {
           name: 'LoadWelcomeEvent', error: _, stackTrace: stackTrace);
 
       if (_ is DioError) {
-        bloc.add(LoadLoginEvent(false));
+        bloc.add(LoadLoginEvent());
       } else {
         yield ErrorIndexState(0, _?.toString());
       }

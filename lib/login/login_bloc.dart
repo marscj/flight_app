@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -6,9 +5,7 @@ class LoginFormBloc extends FormBloc<String, String> {
   final TextFieldBloc email = TextFieldBloc();
   final TextFieldBloc password = TextFieldBloc();
 
-  final BuildContext context;
-
-  LoginFormBloc(this.context) {
+  LoginFormBloc() {
     addFieldBlocs(fieldBlocs: [email, password]);
     addValidators();
   }
@@ -32,6 +29,14 @@ class LoginFormBloc extends FormBloc<String, String> {
   @override
   Stream<FormBlocState<String, String>> mapEventToState(FormBlocEvent event) {
     return super.mapEventToState(event);
+  }
+
+  @override
+  Future<void> close() {
+    // TODO: implement close
+    email.close();
+    password.close();
+    return super.close();
   }
 
   @override

@@ -5,16 +5,15 @@ import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
 
 class LoadLoginEvent extends IndexEvent {
-  final bool isError;
   @override
   String toString() => 'LoadLoginEvent';
 
-  LoadLoginEvent(this.isError);
+  LoadLoginEvent();
 
   @override
   Stream<IndexState> applyAsync(
       {IndexState currentState, IndexBloc bloc}) async* {
-    yield InLoginState(0, 'Hello world');
+    yield InLoginState(0, false);
     // try {
 
     // } catch (_, stackTrace) {

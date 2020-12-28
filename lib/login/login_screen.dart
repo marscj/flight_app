@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
+import 'package:saadiyat/login/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
@@ -16,18 +17,50 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  LoginScreenState();
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  final Widget buildForm = BlocProvider<LoginFormBloc>(
+    create: (context) => LoginFormBloc(),
+    child: Builder(
+      builder: (context) {
+        // ignore: close_sinks
+        final LoginFormBloc formBloc = BlocProvider.of<LoginFormBloc>(context);
+        return FormBlocListener<LoginFormBloc, String, String>(
+          onFailure: (context, state) {},
+          onSuccess: (context, state) {},
+          onSubmitting: (context, state) {},
+          child: ListBody(
+            children: [
+              TextFieldBlocBuilder(
+                  textFieldBloc: formBloc.email,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                      hintText: 'Email',
+                      errorMaxLines: 6,
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: InputBorder.none,
+                      prefixIcon: const Icon(Icons.email))),
+              TextFieldBlocBuilder(
+                textFieldBloc: formBloc.password,
+                textInputAction: TextInputAction.done,
+                suffixButton: SuffixButton.obscureText,
+                decoration: InputDecoration(
+                    hintText: 'Password',
+                    errorMaxLines: 6,
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(Icons.lock)),
+                onSubmitted: (value) {
+                  formBloc.submit();
+                },
+              )
+            ],
+          ),
+        );
+      },
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +78,22 @@ class LoginScreenState extends State<LoginScreen> {
               ),
             ),
             ListView(
+              padding: const EdgeInsets.all(32),
               children: [
-                Column(children: [
-                  SizedBox(height: 50),
-                  SizedBox.fromSize(
-                    size:
-                        Size.fromHeight(MediaQuery.of(context).size.height / 4),
-                    child:
-                        Image.asset('assets/logo.png', fit: BoxFit.scaleDown),
-                  ),
-                  Text(
+                SizedBox.fromSize(
+                  size: Size.fromHeight(MediaQuery.of(context).size.height / 4),
+                  child: Image.asset('assets/logo.png', fit: BoxFit.fitHeight),
+                ),
+                Center(
+                  child: Text(
                     'SAADIYAT WAY',
                     style: TextStyle(fontSize: 20, color: Colors.white),
-                  )
-                ])
+                  ),
+                ),
+                SizedBox(
+                  height: 32,
+                ),
+                buildForm,
               ],
             )
           ],
@@ -68,9 +103,5 @@ class LoginScreenState extends State<LoginScreen> {
         child: CircularProgressIndicator(),
       );
     });
-  }
-
-  void _load([bool isError = false]) {
-    BlocProvider.of<IndexBloc>(context).add(LoadLoginEvent(isError));
   }
 }

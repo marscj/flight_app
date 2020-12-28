@@ -4,11 +4,10 @@ import 'dart:developer' as developer;
 import 'package:saadiyat/index/index.dart';
 
 class LoadHomeEvent extends IndexEvent {
-  final bool isError;
   @override
   String toString() => 'LoadHomeEvent';
 
-  LoadHomeEvent(this.isError);
+  LoadHomeEvent();
 
   @override
   Stream<IndexState> applyAsync(
