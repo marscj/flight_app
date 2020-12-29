@@ -57,16 +57,19 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
     ];
 
     return Scaffold(
-      body: PageTransitionSwitcher(
-        child: pages[_currentIndex.value],
-        transitionBuilder: (child, animation, secondaryAnimation) {
-          return FadeThroughTransition(
-            child: child,
-            animation: animation,
-            secondaryAnimation: secondaryAnimation,
-          );
-        },
-      ),
+      body: pages[_currentIndex.value]
+      // PageTransitionSwitcher(
+      //   child: pages[_currentIndex.value],
+      //   transitionBuilder: (child, animation, secondaryAnimation) {
+      //     return child;
+      //     // FadeThroughTransition(
+      //     //   child: child,
+      //     //   animation: animation,
+      //     //   secondaryAnimation: secondaryAnimation,
+      //     // );
+      //   },
+      // )
+      ,
       bottomNavigationBar: BottomNavigationBar(
         showUnselectedLabels: false,
         items: bottomNavigationBarItems,
