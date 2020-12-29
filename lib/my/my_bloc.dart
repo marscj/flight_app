@@ -7,6 +7,7 @@ import 'package:saadiyat/my/index.dart';
 class MyBloc extends Bloc<MyEvent, MyState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
+  // ignore: close_sinks
   static final MyBloc _myBlocSingleton = MyBloc._internal();
   factory MyBloc() {
     return _myBlocSingleton;

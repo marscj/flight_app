@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:saadiyat/booking/booking_page.dart';
 import 'package:saadiyat/home/index.dart';
@@ -82,7 +81,7 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
             _currentIndex.value = index;
           });
         },
-        selectedItemColor: Colors.blueAccent,
+        selectedItemColor: Colors.indigo,
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.white,
       ),

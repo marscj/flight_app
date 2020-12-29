@@ -1,7 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:saadiyat/home/index.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,27 +49,175 @@ class HomeScreenState extends State<HomeScreen> {
         ));
       }
       if (currentState is InHomeState) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              BannerView((index, reson) {
-                setState(() {
-                  _current = index;
-                });
-              }),
-              DotsIndicator(
-                dotsCount: 6,
-                position: _current.toDouble(),
-                decorator: DotsDecorator(
-                  size: const Size.square(9.0),
-                  activeSize: const Size(18.0, 9.0),
-                  color: Colors.grey,
-                  activeShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                ),
-              )
-            ],
-          ),
+        return Column(
+          children: [
+            BannerView((index, reson) {
+              setState(() {
+                _current = index;
+              });
+            }),
+            DotsIndicator(
+              dotsCount: 6,
+              position: _current.toDouble(),
+              decorator: DotsDecorator(
+                size: const Size.square(9.0),
+                activeSize: const Size(18.0, 9.0),
+                color: Colors.grey,
+                activeColor: Colors.indigo,
+                activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
+              ),
+            ),
+            Expanded(
+                child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 7,
+                        height: 30,
+                        color: Colors.indigo,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        'Apply for Booking',
+                        style: TextStyle(fontSize: 18),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 180,
+                    child: Stack(
+                      children: [
+                        Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/apply.png"),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12.0),
+                              ),
+                            )),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Bookings Now Open',
+                                  style: GoogleFonts.unna(fontSize: 18),
+                                ),
+                                Text(
+                                  'For Flights UAE',
+                                  style: GoogleFonts.unna(fontSize: 18),
+                                ),
+                                new RaisedButton(
+                                  color: Colors.red,
+                                  onPressed: () {},
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: new Text(
+                                    "RaisedButton",
+                                    style: new TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            )),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 7,
+                        height: 30,
+                        color: Colors.indigo,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        'About Us',
+                        style: TextStyle(fontSize: 18),
+                      )
+                    ],
+                  ),
+                  Container(
+                    height: 250,
+                    child: Stack(
+                      children: [
+                        Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/about.png"),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12.0),
+                              ),
+                            )),
+                        Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 15),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(Icons.phone),
+                                    AutoSizeText(
+                                      '+971 4252 5198',
+                                      style: GoogleFonts.unna(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(Icons.email),
+                                    AutoSizeText(
+                                      'ticket@saadiyatway.com',
+                                      style: GoogleFonts.unna(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(Icons.local_activity),
+                                    Expanded(
+                                      child: AutoSizeText(
+                                        'Rm612 Makateb Building Airport Road Deira UAE',
+                                        maxLines: 1,
+                                        style: GoogleFonts.unna(fontSize: 16),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            )),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ))
+          ],
         );
       }
       return Center(

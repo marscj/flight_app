@@ -54,12 +54,9 @@ class LoginFormBloc extends FormBloc<String, String> {
     indexBloc.add(LoadLoginEvent(true));
     RestClient()
         .login({'email': email.value, 'password': password.value}).then((res) {
-      return Store.instance.setToken(res.token);
-    }).then((res) {
-      Future.delayed(Duration(seconds: 1)).then((res) {
-        appBloc.add(UpdateAppUser(res));
-        indexBloc.add(LoadBasementEvent());
-      });
+      Store.instance.setToken(res.token);
+      appBloc.add(UpdateAppUser(res.user));
+      indexBloc.add(LoadBasementEvent());
     }).catchError((onError) {
       emitFailure();
       addErrors(onError?.response?.data);

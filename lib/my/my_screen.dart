@@ -36,7 +36,7 @@ class MyScreenState extends State<MyScreen> {
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colors.blueAccent, Colors.blue],
+                          colors: [Colors.indigo, Colors.indigoAccent],
                           tileMode: TileMode.repeated),
                       boxShadow: [
                         BoxShadow(
@@ -68,12 +68,12 @@ class MyScreenState extends State<MyScreen> {
                                   width: 2,
                                 ),
                                 image: DecorationImage(
-                                    image:
-                                        state.user?.avatar['thumbnail'] != null
-                                            ? NetworkImage(
-                                                state.user?.avatar['thumbnail'])
-                                            : ExactAssetImage(
-                                                'assets/images/user.png')),
+                                    image: state?.user?.avatar != null &&
+                                            state?.user?.avatar['thumbnail'] !=
+                                                null
+                                        ? NetworkImage(
+                                            state?.user?.avatar['thumbnail'])
+                                        : ExactAssetImage('assets/user.png')),
                               )),
                           SizedBox(width: 20),
                           Flexible(
@@ -85,7 +85,7 @@ class MyScreenState extends State<MyScreen> {
                                     children: <Widget>[
                                       Flexible(
                                         child: Text(
-                                          '${state.user.name}',
+                                          '${state.user}',
                                           softWrap: false,
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 2,

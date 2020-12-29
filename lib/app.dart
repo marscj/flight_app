@@ -23,20 +23,20 @@ class _EletecAppState extends State<App> {
             builder: (context, child) => child,
           ),
           theme: ThemeData(
-              primarySwatch: Colors.blue,
-              accentColor: Colors.blueAccent,
+              primarySwatch: Colors.indigo,
+              accentColor: Colors.indigoAccent,
               scaffoldBackgroundColor: Colors.grey[200],
               buttonTheme: ButtonThemeData(
-                  buttonColor: Colors.blue,
-                  hoverColor: Colors.blueAccent,
+                  buttonColor: Colors.indigo,
+                  hoverColor: Colors.indigo,
                   textTheme: ButtonTextTheme.primary),
               appBarTheme: AppBarTheme(
                   elevation: 0,
                   color: Colors.grey[200],
-                  iconTheme: IconThemeData(color: Colors.blue),
+                  iconTheme: IconThemeData(color: Colors.indigo),
                   textTheme: GoogleFonts.righteousTextTheme(
                     Theme.of(context).textTheme.apply(
-                        displayColor: Colors.blue, bodyColor: Colors.blue),
+                        displayColor: Colors.indigo, bodyColor: Colors.indigo),
                   ),
                   brightness: Brightness.light),
               dividerColor: Colors.grey,

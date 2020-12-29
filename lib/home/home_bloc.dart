@@ -7,6 +7,7 @@ import 'package:saadiyat/home/index.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
+  // ignore: close_sinks
   static final HomeBloc _homeBlocSingleton = HomeBloc._internal();
   factory HomeBloc() {
     return _homeBlocSingleton;
