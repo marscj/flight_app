@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saadiyat/bookings/index.dart';
+import 'package:saadiyat/booking/index.dart';
 
-class BookingsScreen extends StatefulWidget {
-  const BookingsScreen({
+class BookingScreen extends StatefulWidget {
+  const BookingScreen({
     Key key,
   }) : super(key: key);
 
   @override
-  BookingsScreenState createState() {
-    return BookingsScreenState();
+  BookingScreenState createState() {
+    return BookingScreenState();
   }
 }
 
-class BookingsScreenState extends State<BookingsScreen> {
+class BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookingsBloc, BookingsState>(builder: (
+    return BlocBuilder<BookingBloc, BookingState>(builder: (
       BuildContext context,
-      BookingsState currentState,
+      BookingState currentState,
     ) {
-      if (currentState is UnBookingsState) {
+      if (currentState is UnBookingState) {
         return Center(
           child: CircularProgressIndicator(),
         );
       }
-      if (currentState is ErrorBookingsState) {
+      if (currentState is ErrorBookingState) {
         return Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +42,7 @@ class BookingsScreenState extends State<BookingsScreen> {
           ],
         ));
       }
-      if (currentState is InBookingsState) {
+      if (currentState is InBookingState) {
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +54,7 @@ class BookingsScreenState extends State<BookingsScreen> {
                 child: RaisedButton(
                   color: Colors.red,
                   child: Text('throw error'),
-                  onPressed: () => {},
+                  onPressed: () => () {},
                 ),
               ),
             ],

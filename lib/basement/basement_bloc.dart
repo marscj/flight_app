@@ -11,16 +11,14 @@ class BasementBloc extends Bloc<BasementEvent, BasementState> {
   factory BasementBloc() {
     return _basementBlocSingleton;
   }
-  BasementBloc._internal(): super(UnBasementState(0));
-  
-  @override
-  Future<void> close() async{
-    // dispose objects
-    await super.close();
-  }
+  BasementBloc._internal() : super(UnBasementState(0));
 
   @override
-  BasementState get initialState => UnBasementState(0);
+  Future<void> close() async {
+    // dispose objects
+    _basementBlocSingleton.close();
+    await super.close();
+  }
 
   @override
   Stream<BasementState> mapEventToState(
@@ -29,7 +27,8 @@ class BasementBloc extends Bloc<BasementEvent, BasementState> {
     try {
       yield* event.applyAsync(currentState: state, bloc: this);
     } catch (_, stackTrace) {
-      developer.log('$_', name: 'BasementBloc', error: _, stackTrace: stackTrace);
+      developer.log('$_',
+          name: 'BasementBloc', error: _, stackTrace: stackTrace);
       yield state;
     }
   }

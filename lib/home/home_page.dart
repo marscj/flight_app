@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saadiyat/home/index.dart';
-
-import 'ad.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/';
@@ -42,7 +39,7 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             ),
-            body: BottomNavigationDemo(),
+            body: Text('home'),
           )
         ],
       ),

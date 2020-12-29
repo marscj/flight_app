@@ -1,7 +1,7 @@
-import 'package:animate_do/animate_do.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saadiyat/home/index.dart';
+import 'package:saadiyat/basement/index.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
 import 'package:saadiyat/welcome/index.dart';
@@ -20,25 +20,22 @@ class IndexScreen extends StatefulWidget {
 class IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
+    final List<Widget> pages = [WelcomePage(), LoginPage(), BasementPage()];
+
     return BlocBuilder<IndexBloc, IndexState>(builder: (
       BuildContext context,
       IndexState currentState,
     ) {
-      if (currentState is InWelcomeState) {
-        return WelcomePage();
-      }
-
-      if (currentState is InLoginState) {
-        return FadeInUp(
-          child: LoginPage(),
-        );
-      }
-
-      if (currentState is InHomeState) {
-        return FadeIn(
-          child: HomePage(),
-        );
-      }
+      PageTransitionSwitcher(
+        child: pages[currentState.version],
+        transitionBuilder: (child, animation, secondaryAnimation) {
+          return FadeThroughTransition(
+            child: child,
+            animation: animation,
+            secondaryAnimation: secondaryAnimation,
+          );
+        },
+      );
 
       return Center(
         child: CircularProgressIndicator(),
