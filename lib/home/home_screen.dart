@@ -1,11 +1,8 @@
-import 'dart:ui';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/home/index.dart';
-import 'package:saadiyat/index/index.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -20,14 +17,35 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   int _current = 0;
-  final controller = PageController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IndexBloc, IndexState>(builder: (
+    return BlocBuilder<HomeBloc, HomeState>(builder: (
       BuildContext context,
-      IndexState currentState,
+      HomeState currentState,
     ) {
+      if (currentState is UnHomeState) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      if (currentState is ErrorHomeState) {
+        return Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(currentState.errorMessage ?? 'Error'),
+            Padding(
+              padding: const EdgeInsets.only(top: 32.0),
+              child: RaisedButton(
+                color: Colors.blue,
+                child: Text('reload'),
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ));
+      }
       if (currentState is InHomeState) {
         return SingleChildScrollView(
           child: Column(
@@ -69,7 +87,7 @@ class BannerView extends StatelessWidget {
     return CarouselSlider(
       options: CarouselOptions(
           autoPlay: true,
-          aspectRatio: 2.35,
+          aspectRatio: 2.5,
           enlargeCenterPage: true,
           enlargeStrategy: CenterPageEnlargeStrategy.height,
           onPageChanged: onPageChanged),
@@ -82,7 +100,7 @@ class BannerView extends StatelessWidget {
         'assets/banner6.jpg',
       ].map((item) {
         return Container(
-          margin: EdgeInsets.all(5.0),
+          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
               child: Image.asset(item,
