@@ -37,7 +37,7 @@ class User extends Equatable {
 }
 
 @JsonSerializable()
-class TokenUser {
+class TokenUser extends Equatable {
   String token;
   User user;
 
@@ -46,7 +46,5 @@ class TokenUser {
   Map<String, dynamic> toJson() => _$TokenUserToJson(this);
 
   @override
-  List<Object> get props => [
-        token,
-      ];
+  List<Object> get props => [token, user.id];
 }

@@ -1,12 +1,9 @@
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/home/home_event.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
 import 'package:saadiyat/store/store.dart';
-
-import 'login_state.dart';
 
 class LoginFormBloc extends FormBloc<String, String> {
   final TextFieldBloc email = TextFieldBloc();
@@ -56,7 +53,7 @@ class LoginFormBloc extends FormBloc<String, String> {
       return Store.instance.setToken(res.token);
     }).then((res) {
       Future.delayed(Duration(seconds: 1)).then((res) {
-        bloc.add(LoadHomeEvent());
+        // bloc.add(LoadHomeEvent());
       });
     }).catchError((onError) {
       emitFailure();

@@ -108,17 +108,29 @@ flutter:
     - assets/1.0x/header.png
     - assets/1.5x/header.png
 
-    - assets/banner1.png 
-    - assets/1.0x/banner1.png
-    - assets/1.5x/banner1.png
+    - assets/banner1.jpg 
+    - assets/1.0x/banner1.jpg
+    - assets/1.5x/banner1.jpg
 
-    - assets/banner2.png 
-    - assets/1.0x/banner2.png
-    - assets/1.5x/banner2.png
+    - assets/banner2.jpg 
+    - assets/1.0x/banner2.jpg
+    - assets/1.5x/banner2.jpg
 
-    - assets/banner3.png 
-    - assets/1.0x/banner3.png
-    - assets/1.5x/banner3.png
+    - assets/banner3.jpg 
+    - assets/1.0x/banner3.jpg
+    - assets/1.5x/banner3.jpg
+
+    - assets/banner4.jpg 
+    - assets/1.0x/banner4.jpg
+    - assets/1.5x/banner4.jpg
+
+    - assets/banner5.jpg 
+    - assets/1.0x/banner5.jpg
+    - assets/1.5x/banner5.jpg
+
+    - assets/banner6.jpg 
+    - assets/1.0x/banner6.jpg
+    - assets/1.5x/banner6.jpg
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   int _current = 0;
-  final controller = PageController(viewportFraction: 0.8);
+  final controller = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class HomeScreenState extends State<HomeScreen> {
                 });
               }),
               DotsIndicator(
-                dotsCount: 3,
+                dotsCount: 6,
                 position: _current.toDouble(),
                 decorator: DotsDecorator(
                   size: const Size.square(9.0),
@@ -74,9 +74,12 @@ class BannerView extends StatelessWidget {
           enlargeStrategy: CenterPageEnlargeStrategy.height,
           onPageChanged: onPageChanged),
       items: [
-        'assets/banner1.png',
-        'assets/banner2.png',
-        'assets/banner3.png',
+        'assets/banner1.jpg',
+        'assets/banner2.jpg',
+        'assets/banner3.jpg',
+        'assets/banner4.jpg',
+        'assets/banner5.jpg',
+        'assets/banner6.jpg',
       ].map((item) {
         return Container(
           margin: EdgeInsets.all(5.0),

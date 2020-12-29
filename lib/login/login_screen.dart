@@ -18,72 +18,79 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final Widget buildForm = BlocProvider<LoginFormBloc>(
-    create: (context) => LoginFormBloc(BlocProvider.of<IndexBloc>(context)),
-    child: Builder(
-      builder: (context) {
-        // ignore: close_sinks
-        final LoginFormBloc formBloc = BlocProvider.of<LoginFormBloc>(context);
-        return FormBlocListener<LoginFormBloc, String, String>(
-          onFailure: (context, state) {},
-          onSuccess: (context, state) {},
-          onSubmitting: (context, state) {},
-          child: ListBody(
-            children: [
-              TextFieldBlocBuilder(
-                  textFieldBloc: formBloc.email,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                      hintText: 'Email',
-                      errorMaxLines: 6,
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: InputBorder.none,
-                      prefixIcon: const Icon(Icons.email))),
-              SizedBox(
-                height: 16,
-              ),
-              TextFieldBlocBuilder(
-                textFieldBloc: formBloc.password,
-                textInputAction: TextInputAction.done,
-                suffixButton: SuffixButton.obscureText,
-                decoration: InputDecoration(
-                    hintText: 'Password',
-                    errorMaxLines: 6,
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.lock)),
-                onSubmitted: (value) {
-                  formBloc.submit();
-                },
-              ),
-              SizedBox(
-                height: 32,
-              ),
-              Container(
-                  alignment: Alignment.center,
-                  width: 64,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_right_alt,
-                      size: 32,
-                    ),
-                    splashColor: Colors.white,
-                    color: Colors.black,
-                    onPressed: () {
+  Widget buildForm(InLoginState state) => BlocProvider<LoginFormBloc>(
+        create: (context) => LoginFormBloc(BlocProvider.of<IndexBloc>(context)),
+        child: Builder(
+          builder: (context) {
+            // ignore: close_sinks
+            final LoginFormBloc formBloc =
+                BlocProvider.of<LoginFormBloc>(context);
+            return FormBlocListener<LoginFormBloc, String, String>(
+              onFailure: (context, state) {},
+              onSuccess: (context, state) {},
+              onSubmitting: (context, state) {},
+              child: ListBody(
+                children: [
+                  TextFieldBlocBuilder(
+                      textFieldBloc: formBloc.email,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                          hintText: 'Email',
+                          errorMaxLines: 6,
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                          prefixIcon: const Icon(Icons.email))),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  TextFieldBlocBuilder(
+                    textFieldBloc: formBloc.password,
+                    textInputAction: TextInputAction.done,
+                    suffixButton: SuffixButton.obscureText,
+                    decoration: InputDecoration(
+                        hintText: 'Password',
+                        errorMaxLines: 6,
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: InputBorder.none,
+                        prefixIcon: const Icon(Icons.lock)),
+                    onSubmitted: (value) {
                       formBloc.submit();
                     },
-                  ))
-            ],
-          ),
-        );
-      },
-    ),
-  );
+                  ),
+                  SizedBox(
+                    height: 32,
+                  ),
+                  state.loading
+                      ? Container(
+                          alignment: Alignment.center,
+                          width: 64,
+                          child: CircularProgressIndicator(),
+                        )
+                      : Container(
+                          alignment: Alignment.center,
+                          width: 64,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.white),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.arrow_right_alt,
+                              size: 32,
+                            ),
+                            splashColor: Colors.white,
+                            color: Colors.black,
+                            onPressed: () {
+                              formBloc.submit();
+                            },
+                          ))
+                ],
+              ),
+            );
+          },
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +123,7 @@ class LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 32,
                 ),
-                Form(key: _formKey, child: buildForm),
+                Form(key: _formKey, child: buildForm(currentState)),
               ],
             )
           ],
