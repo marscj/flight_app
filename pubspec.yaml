@@ -39,7 +39,10 @@ dependencies:
   octo_image: ^0.3.0
   cached_network_image: ^2.5.0
   convex_bottom_bar: ^2.6.0
+  carousel_slider: ^2.3.1
+  dots_indicator: ^1.2.0
   #animator
+  animations: ^1.1.2
   animate_do: ^1.7.5
   loading_animations: ^2.1.0
   
@@ -104,6 +107,19 @@ flutter:
     - assets/header.png 
     - assets/1.0x/header.png
     - assets/1.5x/header.png
+
+    - assets/banner1.png 
+    - assets/1.0x/banner1.png
+    - assets/1.5x/banner1.png
+
+    - assets/banner2.png 
+    - assets/1.0x/banner2.png
+    - assets/1.5x/banner2.png
+
+    - assets/banner3.png 
+    - assets/1.0x/banner3.png
+    - assets/1.5x/banner3.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

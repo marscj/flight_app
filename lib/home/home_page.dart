@@ -11,8 +11,39 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: HomeScreen(),
+    return Material(
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Container(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            alignment: Alignment.topLeft,
+            child: Image.asset(
+              'assets/header.png',
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              title: Image.asset(
+                'assets/logo.png',
+                fit: BoxFit.contain,
+                height: kToolbarHeight,
+              ),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.more_vert),
+                  color: Colors.white,
+                  onPressed: () {},
+                )
+              ],
+            ),
+            body: HomeScreen(),
+          )
+        ],
+      ),
     );
   }
 }
