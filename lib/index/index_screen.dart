@@ -36,10 +36,6 @@ class IndexScreenState extends State<IndexScreen> {
           );
         },
       );
-
-      // return Center(
-      //   child: CircularProgressIndicator(),
-      // );
     });
   }
 }

@@ -47,7 +47,6 @@ class BookingScreenState extends State<BookingScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(currentState.hello),
               Text('Flutter files: done'),
               Padding(
                 padding: const EdgeInsets.only(top: 32.0),

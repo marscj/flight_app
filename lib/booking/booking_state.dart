@@ -3,9 +3,9 @@ import 'package:equatable/equatable.dart';
 abstract class BookingState extends Equatable {
   /// notify change state without deep clone state
   final int version;
-  
+
   final List propss;
-  BookingState(this.version,[this.propss]);
+  BookingState(this.version, [this.propss]);
 
   /// Copy object for use in action
   /// if need use deep clone
@@ -19,7 +19,6 @@ abstract class BookingState extends Equatable {
 
 /// UnInitialized
 class UnBookingState extends BookingState {
-
   UnBookingState(int version) : super(version);
 
   @override
@@ -32,35 +31,34 @@ class UnBookingState extends BookingState {
 
   @override
   UnBookingState getNewVersion() {
-    return UnBookingState(version+1);
+    return UnBookingState(version + 1);
   }
 }
 
 /// Initialized
 class InBookingState extends BookingState {
-  final String hello;
-
-  InBookingState(int version, this.hello) : super(version, [hello]);
+  InBookingState(int version) : super(version);
 
   @override
-  String toString() => 'InBookingState $hello';
+  String toString() => 'InBookingState';
 
   @override
   InBookingState getStateCopy() {
-    return InBookingState(version, hello);
+    return InBookingState(version);
   }
 
   @override
   InBookingState getNewVersion() {
-    return InBookingState(version+1, hello);
+    return InBookingState(version + 1);
   }
 }
 
 class ErrorBookingState extends BookingState {
   final String errorMessage;
 
-  ErrorBookingState(int version, this.errorMessage): super(version, [errorMessage]);
-  
+  ErrorBookingState(int version, this.errorMessage)
+      : super(version, [errorMessage]);
+
   @override
   String toString() => 'ErrorBookingState';
 
@@ -71,7 +69,6 @@ class ErrorBookingState extends BookingState {
 
   @override
   ErrorBookingState getNewVersion() {
-    return ErrorBookingState(version+1, 
-    errorMessage);
+    return ErrorBookingState(version + 1, errorMessage);
   }
 }

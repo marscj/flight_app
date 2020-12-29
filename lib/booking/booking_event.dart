@@ -19,17 +19,16 @@ class UnBookingEvent extends BookingEvent {
 }
 
 class LoadBookingEvent extends BookingEvent {
-  final bool isError;
   @override
   String toString() => 'LoadBookingEvent';
 
-  LoadBookingEvent(this.isError);
+  LoadBookingEvent();
 
   @override
   Stream<BookingState> applyAsync(
       {BookingState currentState, BookingBloc bloc}) async* {
     try {
-      yield UnBookingState(0);
+      yield InBookingState(0);
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadBookingEvent', error: _, stackTrace: stackTrace);
