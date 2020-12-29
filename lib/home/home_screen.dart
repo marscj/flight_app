@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/index/index.dart';
-import 'package:saadiyat/welcome/index.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -23,23 +22,14 @@ class HomeScreenState extends State<HomeScreen> {
       IndexState currentState,
     ) {
       if (currentState is InHomeState) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('Flutter files: done'),
-              Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: RaisedButton(
-                  color: Colors.red,
-                  child: Text('throw error'),
-                  onPressed: () {
-                    BlocProvider.of<IndexBloc>(context).add(LoadWelcomeEvent());
-                  },
-                ),
-              ),
-            ],
-          ),
+        return Stack(
+          fit: StackFit.loose,
+          children: <Widget>[
+            Image.asset(
+              'assets/header.png',
+              fit: BoxFit.fitHeight,
+            )
+          ],
         );
       }
       return Center(

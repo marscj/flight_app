@@ -40,8 +40,6 @@ class IndexScreenState extends State<IndexScreen> {
         );
       }
 
-      print('1111');
-
       return Center(
         child: CircularProgressIndicator(),
       );

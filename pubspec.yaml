@@ -55,7 +55,7 @@ dependencies:
   #bloc
   rxdart: ^0.24.0 
   equatable: ^1.2.5
-  # flutter_bloc: ^6.1.1
+  # flutter_bloc: ^6.1.1 
   flutter_bloc: ^5.0.1
   flutter_form_bloc: ^0.15.1
   flutter_form_builder: ^3.11.5
@@ -100,6 +100,10 @@ flutter:
     - assets/bg.png
     - assets/1.0x/bg.png
     - assets/1.5x/bg.png
+
+    - assets/header.png 
+    - assets/1.0x/header.png
+    - assets/1.5x/header.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
