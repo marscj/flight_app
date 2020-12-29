@@ -54,9 +54,15 @@ class LoginFormBloc extends FormBloc<String, String> {
     RestClient()
         .login({'email': email.value, 'password': password.value}).then((res) {
       return Store.instance.setToken(res.token);
+    }).then((res) {
+      Future.delayed(Duration(seconds: 1)).then((res) {
+        bloc.add(LoadHomeEvent());
+      });
     }).catchError((onError) {
       emitFailure();
       addErrors(onError?.response?.data);
+    }).whenComplete(() {
+      bloc.add(LoadLoginEvent(false));
     });
   }
 }

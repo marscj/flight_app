@@ -12,10 +12,6 @@ class LoadHomeEvent extends IndexEvent {
   @override
   Stream<IndexState> applyAsync(
       {IndexState currentState, IndexBloc bloc}) async* {
-    try {
-      yield InHomeState(0);
-    } catch (_) {
-      yield InHomeState(0);
-    }
+    yield InHomeState(0);
   }
 }
