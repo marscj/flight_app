@@ -69,7 +69,9 @@ class LoginScreenState extends State<LoginScreen> {
                       ? Container(
                           alignment: Alignment.center,
                           width: 64,
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                          ),
                         )
                       : Container(
                           alignment: Alignment.center,

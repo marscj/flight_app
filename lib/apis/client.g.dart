@@ -9,7 +9,6 @@ part of 'client.dart';
 User _$UserFromJson(Map<String, dynamic> json) {
   return User()
     ..id = json['id'] as int
-    ..username = json['username'] as String
     ..name = json['name'] as String
     ..first_name = json['first_name'] as String
     ..last_name = json['last_name'] as String
@@ -17,7 +16,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..is_active = json['is_active'] as bool
     ..is_superuser = json['is_superuser'] as bool
     ..email = json['email'] as String
-    ..role = json['role'] as int
+    ..department = json['department'] as String
     ..avatar = (json['avatar'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(k, e as String),
     );
@@ -25,7 +24,6 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
-      'username': instance.username,
       'name': instance.name,
       'first_name': instance.first_name,
       'last_name': instance.last_name,
@@ -33,8 +31,20 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'is_active': instance.is_active,
       'is_superuser': instance.is_superuser,
       'email': instance.email,
-      'role': instance.role,
+      'department': instance.department,
       'avatar': instance.avatar,
+    };
+
+Department _$DepartmentFromJson(Map<String, dynamic> json) {
+  return Department()
+    ..id = json['id'] as int
+    ..name = json['name'] as String;
+}
+
+Map<String, dynamic> _$DepartmentToJson(Department instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
     };
 
 TokenUser _$TokenUserFromJson(Map<String, dynamic> json) {

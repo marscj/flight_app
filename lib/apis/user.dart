@@ -6,7 +6,6 @@ part of 'client.dart';
 @JsonSerializable()
 class User extends Equatable {
   int id;
-  String username;
   String name;
   String first_name;
   String last_name;
@@ -14,8 +13,7 @@ class User extends Equatable {
   bool is_active;
   bool is_superuser;
   String email;
-
-  int role;
+  String department;
   Map<String, String> avatar;
 
   static User fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -24,16 +22,28 @@ class User extends Equatable {
   @override
   List<Object> get props => [
         id,
-        username,
         first_name,
         last_name,
         is_staff,
         is_active,
         is_superuser,
-        role,
         avatar,
-        email
+        email,
+        department
       ];
+}
+
+@JsonSerializable()
+class Department extends Equatable {
+  int id;
+  String name;
+
+  static Department fromJson(Map<String, dynamic> json) =>
+      _$DepartmentFromJson(json);
+  Map<String, dynamic> toJson() => _$DepartmentToJson(this);
+
+  @override
+  List<Object> get props => [id, name];
 }
 
 @JsonSerializable()
