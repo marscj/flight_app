@@ -35,3 +35,18 @@ class User extends Equatable {
         email
       ];
 }
+
+@JsonSerializable()
+class TokenUser {
+  String token;
+  User user;
+
+  static TokenUser fromJson(Map<String, dynamic> json) =>
+      _$TokenUserFromJson(json);
+  Map<String, dynamic> toJson() => _$TokenUserToJson(this);
+
+  @override
+  List<Object> get props => [
+        token,
+      ];
+}

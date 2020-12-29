@@ -3,6 +3,10 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/home/home_event.dart';
 import 'package:saadiyat/index/index.dart';
+import 'package:saadiyat/login/index.dart';
+import 'package:saadiyat/store/store.dart';
+
+import 'login_state.dart';
 
 class LoginFormBloc extends FormBloc<String, String> {
   final TextFieldBloc email = TextFieldBloc();
@@ -46,10 +50,10 @@ class LoginFormBloc extends FormBloc<String, String> {
 
   @override
   void onSubmitting() {
+    bloc.add(LoadLoginEvent(true));
     RestClient()
         .login({'email': email.value, 'password': password.value}).then((res) {
-      print(res);
-      bloc.add(LoadHomeEvent());
+      return Store.instance.setToken(res.token);
     }).catchError((onError) {
       emitFailure();
       addErrors(onError?.response?.data);

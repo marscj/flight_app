@@ -23,7 +23,7 @@ class LoadWelcomeEvent extends IndexEvent {
         });
       });
     } catch (_) {
-      bloc.add(LoadLoginEvent());
+      bloc.add(LoadLoginEvent(false));
       yield InWelcomeState(0, 'SAADIYAT WAY');
     }
   }

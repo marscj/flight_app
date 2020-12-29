@@ -37,6 +37,19 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'photo': instance.photo,
     };
 
+TokenUser _$TokenUserFromJson(Map<String, dynamic> json) {
+  return TokenUser()
+    ..token = json['token'] as String
+    ..user = json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$TokenUserToJson(TokenUser instance) => <String, dynamic>{
+      'token': instance.token,
+      'user': instance.user,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -52,7 +65,7 @@ class _RestClient implements RestClient {
   String baseUrl;
 
   @override
-  Future<User> login(playload) async {
+  Future<TokenUser> login(playload) async {
     ArgumentError.checkNotNull(playload, 'playload');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -67,7 +80,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = User.fromJson(_result.data);
+    final value = TokenUser.fromJson(_result.data);
     return value;
   }
 

@@ -46,7 +46,7 @@ abstract class RestClient {
         })));
 
   @POST('/auth/login/')
-  Future<User> login(@Body() Map<String, dynamic> playload);
+  Future<TokenUser> login(@Body() Map<String, dynamic> playload);
 
   @GET('/auth/info/')
   Future<User> getInfo();
