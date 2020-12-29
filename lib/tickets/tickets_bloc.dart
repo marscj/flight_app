@@ -11,16 +11,14 @@ class TicketsBloc extends Bloc<TicketsEvent, TicketsState> {
   factory TicketsBloc() {
     return _ticketsBlocSingleton;
   }
-  TicketsBloc._internal(): super(UnTicketsState(0));
-  
-  @override
-  Future<void> close() async{
-    // dispose objects
-    await super.close();
-  }
+  TicketsBloc._internal() : super(UnTicketsState(0));
 
   @override
-  TicketsState get initialState => UnTicketsState(0);
+  Future<void> close() async {
+    // dispose objects
+    _ticketsBlocSingleton.close();
+    await super.close();
+  }
 
   @override
   Stream<TicketsState> mapEventToState(
@@ -29,7 +27,8 @@ class TicketsBloc extends Bloc<TicketsEvent, TicketsState> {
     try {
       yield* event.applyAsync(currentState: state, bloc: this);
     } catch (_, stackTrace) {
-      developer.log('$_', name: 'TicketsBloc', error: _, stackTrace: stackTrace);
+      developer.log('$_',
+          name: 'TicketsBloc', error: _, stackTrace: stackTrace);
       yield state;
     }
   }

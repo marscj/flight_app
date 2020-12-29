@@ -5,11 +5,7 @@ import 'package:saadiyat/settings/index.dart';
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({
     Key key,
-    @required SettingsBloc settingsBloc,
-  })  : _settingsBloc = settingsBloc,
-        super(key: key);
-
-  final SettingsBloc _settingsBloc;
+  }) : super(key: key);
 
   @override
   SettingsScreenState createState() {
@@ -18,19 +14,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class SettingsScreenState extends State<SettingsScreen> {
-  SettingsScreenState();
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(builder: (
@@ -53,7 +36,7 @@ class SettingsScreenState extends State<SettingsScreen> {
               child: RaisedButton(
                 color: Colors.blue,
                 child: Text('reload'),
-                onPressed: _load,
+                onPressed: () {},
               ),
             ),
           ],
@@ -71,7 +54,7 @@ class SettingsScreenState extends State<SettingsScreen> {
                 child: RaisedButton(
                   color: Colors.red,
                   child: Text('throw error'),
-                  onPressed: () => _load(true),
+                  onPressed: () => {},
                 ),
               ),
             ],
@@ -82,9 +65,5 @@ class SettingsScreenState extends State<SettingsScreen> {
         child: CircularProgressIndicator(),
       );
     });
-  }
-
-  void _load([bool isError = false]) {
-    widget._settingsBloc.add(LoadSettingsEvent(isError));
   }
 }

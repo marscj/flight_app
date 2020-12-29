@@ -11,16 +11,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   factory SettingsBloc() {
     return _settingsBlocSingleton;
   }
-  SettingsBloc._internal(): super(UnSettingsState(0));
-  
-  @override
-  Future<void> close() async{
-    // dispose objects
-    await super.close();
-  }
+  SettingsBloc._internal() : super(UnSettingsState(0));
 
   @override
-  SettingsState get initialState => UnSettingsState(0);
+  Future<void> close() async {
+    // dispose objects
+    _settingsBlocSingleton.close();
+    await super.close();
+  }
 
   @override
   Stream<SettingsState> mapEventToState(
@@ -29,7 +27,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     try {
       yield* event.applyAsync(currentState: state, bloc: this);
     } catch (_, stackTrace) {
-      developer.log('$_', name: 'SettingsBloc', error: _, stackTrace: stackTrace);
+      developer.log('$_',
+          name: 'SettingsBloc', error: _, stackTrace: stackTrace);
       yield state;
     }
   }

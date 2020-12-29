@@ -9,15 +9,13 @@ class BookingsPage extends StatefulWidget {
 }
 
 class _BookingsPageState extends State<BookingsPage> {
-  final _bookingsBloc = BookingsBloc();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bookings'),
       ),
-      body: BookingsScreen(bookingsBloc: _bookingsBloc),
+      body: BookingsScreen(),
     );
   }
 }

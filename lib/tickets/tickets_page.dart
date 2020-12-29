@@ -9,15 +9,13 @@ class TicketsPage extends StatefulWidget {
 }
 
 class _TicketsPageState extends State<TicketsPage> {
-  final _ticketsBloc = TicketsBloc();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tickets'),
       ),
-      body: TicketsScreen(ticketsBloc: _ticketsBloc),
+      body: TicketsScreen(),
     );
   }
 }

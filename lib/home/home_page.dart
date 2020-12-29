@@ -28,9 +28,9 @@ class _HomePageState extends State<HomePage> {
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               title: Image.asset(
-                'assets/logo.png',
+                'assets/logo-title.png',
                 fit: BoxFit.contain,
-                height: kToolbarHeight,
+                height: kToolbarHeight - 8,
               ),
               actions: [
                 IconButton(

@@ -5,11 +5,7 @@ import 'package:saadiyat/tickets/index.dart';
 class TicketsScreen extends StatefulWidget {
   const TicketsScreen({
     Key key,
-    @required TicketsBloc ticketsBloc,
-  })  : _ticketsBloc = ticketsBloc,
-        super(key: key);
-
-  final TicketsBloc _ticketsBloc;
+  }) : super(key: key);
 
   @override
   TicketsScreenState createState() {
@@ -18,19 +14,6 @@ class TicketsScreen extends StatefulWidget {
 }
 
 class TicketsScreenState extends State<TicketsScreen> {
-  TicketsScreenState();
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TicketsBloc, TicketsState>(builder: (
@@ -53,7 +36,7 @@ class TicketsScreenState extends State<TicketsScreen> {
               child: RaisedButton(
                 color: Colors.blue,
                 child: Text('reload'),
-                onPressed: _load,
+                onPressed: () {},
               ),
             ),
           ],
@@ -71,7 +54,7 @@ class TicketsScreenState extends State<TicketsScreen> {
                 child: RaisedButton(
                   color: Colors.red,
                   child: Text('throw error'),
-                  onPressed: () => _load(true),
+                  onPressed: () => () {},
                 ),
               ),
             ],
@@ -82,9 +65,5 @@ class TicketsScreenState extends State<TicketsScreen> {
         child: CircularProgressIndicator(),
       );
     });
-  }
-
-  void _load([bool isError = false]) {
-    widget._ticketsBloc.add(LoadTicketsEvent(isError));
   }
 }

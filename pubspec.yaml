@@ -99,6 +99,10 @@ flutter:
     - assets/logo.png
     - assets/1.0x/logo.png
     - assets/1.5x/logo.png
+
+    - assets/logo-title.png
+    - assets/1.0x/logo-title.png
+    - assets/1.5x/logo-title.png
     
     - assets/bg.png
     - assets/1.0x/bg.png

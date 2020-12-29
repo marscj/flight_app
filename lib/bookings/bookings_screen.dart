@@ -5,11 +5,7 @@ import 'package:saadiyat/bookings/index.dart';
 class BookingsScreen extends StatefulWidget {
   const BookingsScreen({
     Key key,
-    @required BookingsBloc bookingsBloc,
-  })  : _bookingsBloc = bookingsBloc,
-        super(key: key);
-
-  final BookingsBloc _bookingsBloc;
+  }) : super(key: key);
 
   @override
   BookingsScreenState createState() {
@@ -18,19 +14,6 @@ class BookingsScreen extends StatefulWidget {
 }
 
 class BookingsScreenState extends State<BookingsScreen> {
-  BookingsScreenState();
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookingsBloc, BookingsState>(builder: (
@@ -53,7 +36,7 @@ class BookingsScreenState extends State<BookingsScreen> {
               child: RaisedButton(
                 color: Colors.blue,
                 child: Text('reload'),
-                onPressed: _load,
+                onPressed: () {},
               ),
             ),
           ],
@@ -71,7 +54,7 @@ class BookingsScreenState extends State<BookingsScreen> {
                 child: RaisedButton(
                   color: Colors.red,
                   child: Text('throw error'),
-                  onPressed: () => _load(true),
+                  onPressed: () => {},
                 ),
               ),
             ],
@@ -82,9 +65,5 @@ class BookingsScreenState extends State<BookingsScreen> {
         child: CircularProgressIndicator(),
       );
     });
-  }
-
-  void _load([bool isError = false]) {
-    widget._bookingsBloc.add(LoadBookingsEvent(isError));
   }
 }
