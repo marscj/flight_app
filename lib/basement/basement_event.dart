@@ -1,39 +1,19 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 
 import 'package:saadiyat/basement/index.dart';
-import 'package:meta/meta.dart';
+import 'package:saadiyat/index/index.dart';
 
-@immutable
-abstract class BasementEvent {
-  Stream<BasementState> applyAsync(
-      {BasementState currentState, BasementBloc bloc});
-}
-
-class UnBasementEvent extends BasementEvent {
-  @override
-  Stream<BasementState> applyAsync(
-      {BasementState currentState, BasementBloc bloc}) async* {
-    yield UnBasementState(0);
-  }
-}
-
-class LoadBasementEvent extends BasementEvent {
-  final bool isError;
+class LoadBasementEvent extends IndexEvent {
   @override
   String toString() => 'LoadBasementEvent';
 
-  LoadBasementEvent(this.isError);
+  LoadBasementEvent();
 
   @override
-  Stream<BasementState> applyAsync(
-      {BasementState currentState, BasementBloc bloc}) async* {
+  Stream<IndexState> applyAsync(
+      {IndexState currentState, IndexBloc bloc}) async* {
     try {
-      yield UnBasementState(0);
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadBasementEvent', error: _, stackTrace: stackTrace);
-      yield ErrorBasementState(0, _?.toString());
-    }
+      yield InBasementState(2);
+    } catch (_) {}
   }
 }

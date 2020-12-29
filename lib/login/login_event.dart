@@ -14,6 +14,6 @@ class LoadLoginEvent extends IndexEvent {
   @override
   Stream<IndexState> applyAsync(
       {IndexState currentState, IndexBloc bloc}) async* {
-    yield InLoginState(0, loading);
+    yield InLoginState(1, loading);
   }
 }

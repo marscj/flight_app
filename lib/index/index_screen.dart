@@ -26,7 +26,7 @@ class IndexScreenState extends State<IndexScreen> {
       BuildContext context,
       IndexState currentState,
     ) {
-      PageTransitionSwitcher(
+      return PageTransitionSwitcher(
         child: pages[currentState.version],
         transitionBuilder: (child, animation, secondaryAnimation) {
           return FadeThroughTransition(
@@ -37,9 +37,9 @@ class IndexScreenState extends State<IndexScreen> {
         },
       );
 
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      // return Center(
+      //   child: CircularProgressIndicator(),
+      // );
     });
   }
 }
