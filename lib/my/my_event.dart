@@ -17,11 +17,10 @@ class UnMyEvent extends MyEvent {
 }
 
 class LoadMyEvent extends MyEvent {
-  final bool isError;
   @override
   String toString() => 'LoadMyEvent';
 
-  LoadMyEvent(this.isError);
+  LoadMyEvent();
 
   @override
   Stream<MyState> applyAsync({MyState currentState, MyBloc bloc}) async* {

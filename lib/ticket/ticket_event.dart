@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 
 import 'package:saadiyat/ticket/index.dart';
 import 'package:meta/meta.dart';
@@ -18,21 +17,16 @@ class UnTicketEvent extends TicketEvent {
 }
 
 class LoadTicketEvent extends TicketEvent {
-  final bool isError;
   @override
   String toString() => 'LoadTicketEvent';
 
-  LoadTicketEvent(this.isError);
+  LoadTicketEvent();
 
   @override
   Stream<TicketState> applyAsync(
       {TicketState currentState, TicketBloc bloc}) async* {
     try {
       yield InTicketState(0, 'Hello world');
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadTicketEvent', error: _, stackTrace: stackTrace);
-      yield ErrorTicketState(0, _?.toString());
-    }
+    } catch (_) {}
   }
 }

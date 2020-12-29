@@ -16,12 +16,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Future<void> close() async {
     // dispose objects
-    _homeBlocSingleton.close();
     await super.close();
   }
-
-  @override
-  HomeState get initialState => UnHomeState(0);
 
   @override
   Stream<HomeState> mapEventToState(

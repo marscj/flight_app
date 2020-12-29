@@ -18,7 +18,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..is_superuser = json['is_superuser'] as bool
     ..email = json['email'] as String
     ..role = json['role'] as int
-    ..photo = (json['photo'] as Map<String, dynamic>)?.map(
+    ..avatar = (json['avatar'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(k, e as String),
     );
 }
@@ -34,7 +34,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'is_superuser': instance.is_superuser,
       'email': instance.email,
       'role': instance.role,
-      'photo': instance.photo,
+      'avatar': instance.avatar,
     };
 
 TokenUser _$TokenUserFromJson(Map<String, dynamic> json) {

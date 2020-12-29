@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 actions: [
                   IconButton(
-                    icon: Icon(Icons.more_vert),
+                    icon: Icon(Icons.notifications),
                     color: Colors.white,
                     onPressed: () {},
                   )

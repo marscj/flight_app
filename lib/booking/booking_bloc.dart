@@ -16,7 +16,6 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
   @override
   Future<void> close() async {
     // dispose objects
-    _bookingBlocSingleton.close();
     await super.close();
   }
 

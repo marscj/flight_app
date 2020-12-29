@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/ticket/index.dart';
 
 class TicketPage extends StatefulWidget {
@@ -11,11 +12,14 @@ class TicketPage extends StatefulWidget {
 class _TicketPageState extends State<TicketPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Ticket'),
+    return BlocProvider<TicketBloc>(
+      create: (context) => TicketBloc()..add(LoadTicketEvent()),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Ticket'),
+        ),
+        body: TicketScreen(),
       ),
-      body: TicketScreen(),
     );
   }
 }

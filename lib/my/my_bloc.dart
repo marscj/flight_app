@@ -16,12 +16,8 @@ class MyBloc extends Bloc<MyEvent, MyState> {
   @override
   Future<void> close() async {
     // dispose objects
-    _myBlocSingleton.close();
     await super.close();
   }
-
-  @override
-  MyState get initialState => UnMyState(0);
 
   @override
   Stream<MyState> mapEventToState(

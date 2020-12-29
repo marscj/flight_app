@@ -16,7 +16,7 @@ class User extends Equatable {
   String email;
 
   int role;
-  Map<String, String> photo;
+  Map<String, String> avatar;
 
   static User fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
@@ -31,7 +31,7 @@ class User extends Equatable {
         is_active,
         is_superuser,
         role,
-        photo,
+        avatar,
         email
       ];
 }

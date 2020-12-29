@@ -15,8 +15,6 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
 
   @override
   Future<void> close() async {
-    // dispose objects
-    _ticketBlocSingleton.close();
     await super.close();
   }
 
