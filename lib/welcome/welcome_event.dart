@@ -1,15 +1,19 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/app/app_bloc.dart';
 import 'package:saadiyat/basement/index.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
 import 'package:saadiyat/welcome/index.dart';
 
 class LoadWelcomeEvent extends IndexEvent {
+  final AppBloc appBloc;
+
   @override
   String toString() => 'LoadWelcomeEvent';
 
-  LoadWelcomeEvent();
+  LoadWelcomeEvent(this.appBloc);
 
   @override
   Stream<IndexState> applyAsync(
@@ -19,6 +23,7 @@ class LoadWelcomeEvent extends IndexEvent {
     try {
       await Future.delayed(Duration(seconds: 2)).then((rews) {
         return RestClient().getInfo().then((res) {
+          appBloc.add(UpdateAppUser(res));
           bloc.add(LoadBasementEvent());
         });
       });

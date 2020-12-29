@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saadiyat/app/app_bloc.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/welcome/index.dart';
 
@@ -14,7 +15,8 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => IndexBloc()..add(LoadWelcomeEvent()),
+        create: (context) => IndexBloc()
+          ..add(LoadWelcomeEvent(BlocProvider.of<AppBloc>(context))),
         child: Material(
           child: IndexScreen(),
         ));

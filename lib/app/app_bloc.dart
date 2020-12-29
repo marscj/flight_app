@@ -30,8 +30,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       yield await Store.instance.getLanguage().then((value) {
         return state.copyWith(locale: Locale(value, ''));
       });
+    }
 
-      add(WelcomStartTime());
+    if (event is UpdateAppUser) {
+      yield state.copyWith(user: event.user);
     }
   }
 }

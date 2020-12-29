@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:saadiyat/app/app_bloc.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
 import 'package:saadiyat/login/login_bloc.dart';
@@ -19,7 +20,8 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   Widget buildForm(InLoginState state) => BlocProvider<LoginFormBloc>(
-        create: (context) => LoginFormBloc(BlocProvider.of<IndexBloc>(context)),
+        create: (context) => LoginFormBloc(BlocProvider.of<IndexBloc>(context),
+            BlocProvider.of<AppBloc>(context)),
         child: Builder(
           builder: (context) {
             // ignore: close_sinks

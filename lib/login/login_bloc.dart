@@ -1,6 +1,8 @@
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/app/app_bloc.dart';
+import 'package:saadiyat/basement/index.dart';
 import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/login/index.dart';
 import 'package:saadiyat/store/store.dart';
@@ -8,9 +10,11 @@ import 'package:saadiyat/store/store.dart';
 class LoginFormBloc extends FormBloc<String, String> {
   final TextFieldBloc email = TextFieldBloc();
   final TextFieldBloc password = TextFieldBloc();
-  final IndexBloc bloc;
 
-  LoginFormBloc(this.bloc) {
+  final IndexBloc indexBloc;
+  final AppBloc appBloc;
+
+  LoginFormBloc(this.indexBloc, this.appBloc) {
     addFieldBlocs(fieldBlocs: [email, password]);
     addValidators();
   }
@@ -47,19 +51,20 @@ class LoginFormBloc extends FormBloc<String, String> {
 
   @override
   void onSubmitting() {
-    bloc.add(LoadLoginEvent(true));
+    indexBloc.add(LoadLoginEvent(true));
     RestClient()
         .login({'email': email.value, 'password': password.value}).then((res) {
       return Store.instance.setToken(res.token);
     }).then((res) {
       Future.delayed(Duration(seconds: 1)).then((res) {
-        // bloc.add(LoadHomeEvent());
+        appBloc.add(UpdateAppUser(res));
+        indexBloc.add(LoadBasementEvent());
       });
     }).catchError((onError) {
       emitFailure();
       addErrors(onError?.response?.data);
     }).whenComplete(() {
-      bloc.add(LoadLoginEvent(false));
+      indexBloc.add(LoadLoginEvent(false));
     });
   }
 }
