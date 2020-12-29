@@ -2,6 +2,8 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:saadiyat/booking/booking_page.dart';
 import 'package:saadiyat/home/index.dart';
+import 'package:saadiyat/my/index.dart';
+import 'package:saadiyat/ticket/index.dart';
 
 class BasementPage extends StatefulWidget {
   static const String routeName = '/';
@@ -47,7 +49,12 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
       )
     ];
 
-    final List<Widget> pages = [HomePage(), BookingPage()];
+    final List<Widget> pages = [
+      HomePage(),
+      BookingPage(),
+      TicketPage(),
+      MyPage()
+    ];
 
     return Scaffold(
       body: PageTransitionSwitcher(
