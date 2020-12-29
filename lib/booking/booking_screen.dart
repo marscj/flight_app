@@ -43,22 +43,7 @@ class BookingScreenState extends State<BookingScreen> {
         ));
       }
       if (currentState is InBookingState) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('Flutter files: done'),
-              Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: RaisedButton(
-                  color: Colors.red,
-                  child: Text('throw error'),
-                  onPressed: () => () {},
-                ),
-              ),
-            ],
-          ),
-        );
+        return Container();
       }
       return Center(
         child: CircularProgressIndicator(),

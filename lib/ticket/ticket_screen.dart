@@ -43,23 +43,7 @@ class TicketScreenState extends State<TicketScreen> {
         ));
       }
       if (currentState is InTicketState) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(currentState.hello),
-              Text('Flutter files: done'),
-              Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: RaisedButton(
-                  color: Colors.red,
-                  child: Text('throw error'),
-                  onPressed: () => () {},
-                ),
-              ),
-            ],
-          ),
-        );
+        return Container();
       }
       return Center(
         child: CircularProgressIndicator(),

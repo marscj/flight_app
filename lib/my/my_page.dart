@@ -14,8 +14,7 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     return BlocProvider<MyBloc>(
       create: (context) => MyBloc()..add(LoadMyEvent()),
-      child: SafeArea(
-        top: true,
+      child: Container(
         child: MyScreen(),
       ),
     );

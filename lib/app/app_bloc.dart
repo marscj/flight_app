@@ -35,5 +35,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     if (event is UpdateAppUser) {
       yield state.copyWith(user: event.user);
     }
+
+    if (event is SignOut) {
+      await Store.instance.clearToken();
+    }
   }
 }
