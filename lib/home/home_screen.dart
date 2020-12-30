@@ -92,7 +92,7 @@ class HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: 180,
+                    height: 200,
                     child: Stack(
                       children: [
                         Container(
@@ -157,7 +157,7 @@ class HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   Container(
-                    height: 250,
+                    height: 260,
                     child: Stack(
                       children: [
                         Container(

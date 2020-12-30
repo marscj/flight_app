@@ -57,11 +57,12 @@ class LoginFormBloc extends FormBloc<String, String> {
       Store.instance.setToken(res.token);
       appBloc.add(UpdateAppUser(res.user));
       indexBloc.add(LoadBasementEvent());
+      emitSuccess(canSubmitAgain: true);
     }).catchError((onError) {
       emitFailure();
       addErrors(onError?.response?.data);
     }).whenComplete(() {
-      indexBloc.add(LoadLoginEvent(false));
+      // indexBloc.add(LoadLoginEvent(false));
     });
   }
 }

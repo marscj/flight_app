@@ -14,6 +14,6 @@ class InBasementState extends IndexState {
 
   @override
   InBasementState getNewVersion() {
-    return InBasementState(version);
+    return InBasementState(version + 1);
   }
 }
