@@ -23,7 +23,7 @@ class LoginFormBloc extends FormBloc<String, String> {
     if (errors == null) {
       return;
     }
-    print(errors);
+
     email.addFieldError(errors['email']);
     password.addFieldError(
         errors['password'] ?? errors['non_field_errors'] ?? errors['detail']);

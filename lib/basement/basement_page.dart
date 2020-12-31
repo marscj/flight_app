@@ -58,7 +58,7 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
     return Scaffold(
       body: pages[_currentIndex.value],
       bottomNavigationBar: BottomNavigationBar(
-        showUnselectedLabels: false,
+        showUnselectedLabels: true,
         items: bottomNavigationBarItems,
         currentIndex: _currentIndex.value,
         type: BottomNavigationBarType.fixed,

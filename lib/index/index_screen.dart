@@ -26,7 +26,6 @@ class IndexScreenState extends State<IndexScreen> {
       BuildContext context,
       IndexState currentState,
     ) {
-      print(currentState.version);
       return PageTransitionSwitcher(
         child: pages[currentState.version],
         transitionBuilder: (child, animation, secondaryAnimation) {
