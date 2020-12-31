@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saadiyat/booking/index.dart';
 import 'package:saadiyat/bookings/index.dart';
 
 class BookingsPage extends StatefulWidget {

@@ -7,6 +7,7 @@ import 'package:saadiyat/tickets/index.dart';
 class TicketsBloc extends Bloc<TicketsEvent, TicketsState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
+  // ignore: close_sinks
   static final TicketsBloc _ticketsBlocSingleton = TicketsBloc._internal();
   factory TicketsBloc() {
     return _ticketsBlocSingleton;

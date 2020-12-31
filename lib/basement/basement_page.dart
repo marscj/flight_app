@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:saadiyat/booking/booking_page.dart';
+import 'package:saadiyat/bookings/index.dart';
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/my/index.dart';
-import 'package:saadiyat/ticket/index.dart';
+import 'package:saadiyat/tickets/index.dart';
 
 class BasementPage extends StatefulWidget {
   static const String routeName = '/';
@@ -50,25 +50,13 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
 
     final List<Widget> pages = [
       HomePage(),
-      BookingPage(),
-      TicketPage(),
+      BookingsPage(),
+      TicketsPage(),
       MyPage()
     ];
 
     return Scaffold(
-      body: pages[_currentIndex.value]
-      // PageTransitionSwitcher(
-      //   child: pages[_currentIndex.value],
-      //   transitionBuilder: (child, animation, secondaryAnimation) {
-      //     return child;
-      //     // FadeThroughTransition(
-      //     //   child: child,
-      //     //   animation: animation,
-      //     //   secondaryAnimation: secondaryAnimation,
-      //     // );
-      //   },
-      // )
-      ,
+      body: pages[_currentIndex.value],
       bottomNavigationBar: BottomNavigationBar(
         showUnselectedLabels: false,
         items: bottomNavigationBarItems,
