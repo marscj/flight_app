@@ -16,17 +16,7 @@ class _BookingPageState extends State<BookingPage> {
   Widget build(BuildContext context) {
     return BlocProvider<BookingBloc>(
       create: (context) => BookingBloc()..add(LoadBookingEvent()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Booking'),
-          leading: BackButton(
-            onPressed: () {
-              context.navigator.root.pop();
-            },
-          ),
-        ),
-        body: BookingScreen(),
-      ),
+      child: BookingScreen(),
     );
   }
 }
@@ -39,11 +29,11 @@ class BookingRoutePage extends StatefulWidget {
 class _BookingRoutePageState extends State<BookingRoutePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ExtendedNavigator(
-        name: 'booking',
-        initialRoute: BookingRoutePageRoutes.bookingPage,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Booking'),
       ),
+      body: ExtendedNavigator(),
     );
   }
 }
