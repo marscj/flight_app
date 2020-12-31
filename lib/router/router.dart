@@ -1,6 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/auto_route_annotations.dart';
 import 'package:saadiyat/booking/index.dart';
 import 'package:saadiyat/index/index.dart';
+import 'package:saadiyat/store/store.dart';
+
+class AuthGuard extends RouteGuard {
+  @override
+  Future<bool> canNavigate(ExtendedNavigatorState navigator, String routeName,
+      Object arguments) async {
+    return Store.instance.getToken() != null;
+  }
+}
 
 @MaterialAutoRouter(
   // generateNavigationHelperExtension: true,
