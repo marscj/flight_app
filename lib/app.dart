@@ -26,6 +26,12 @@ class _EletecAppState extends State<App> {
               primarySwatch: Colors.indigo,
               accentColor: Colors.indigoAccent,
               scaffoldBackgroundColor: Colors.grey[200],
+              pageTransitionsTheme: const PageTransitionsTheme(
+                builders: <TargetPlatform, PageTransitionsBuilder>{
+                  TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                  TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+                },
+              ),
               buttonTheme: ButtonThemeData(
                   buttonColor: Colors.indigo,
                   hoverColor: Colors.indigo,

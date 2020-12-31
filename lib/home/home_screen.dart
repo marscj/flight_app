@@ -71,24 +71,14 @@ class HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Container(
-                  width: 7,
-                  height: 30,
-                  color: Colors.indigo,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  'Apply for Booking',
-                  style: TextStyle(fontSize: 18),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 200,
+            NavTitle(
+                height: 25,
+                title: Text(
+                  'Apply For Booking',
+                  style: TextStyle(fontSize: 16),
+                )),
+            Flexible(
+              flex: 2,
               child: Stack(
                 children: [
                   Container(
@@ -114,18 +104,16 @@ class HomeScreenState extends State<HomeScreen> {
                             'Bookings Now Open',
                             style: GoogleFonts.unna(fontSize: 18),
                           ),
-                          Text(
-                            'For Flights UAE',
-                            style: GoogleFonts.unna(fontSize: 18),
-                          ),
-                          new RaisedButton(
-                            color: Colors.red,
-                            onPressed: () {},
+                          Material(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            child: new Text(
-                              "RaisedButton",
-                              style: new TextStyle(color: Colors.white),
+                            color: Colors.red,
+                            elevation: 3,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 8),
+                              child: Text('Get Started',
+                                  style: TextStyle(color: Colors.white)),
                             ),
                           ),
                         ],
@@ -136,24 +124,14 @@ class HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Container(
-                  width: 7,
-                  height: 30,
-                  color: Colors.indigo,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
+            NavTitle(
+                height: 25,
+                title: Text(
                   'About Us',
-                  style: TextStyle(fontSize: 18),
-                )
-              ],
-            ),
-            Container(
-              height: 260,
+                  style: TextStyle(fontSize: 16),
+                )),
+            Flexible(
+              flex: 3,
               child: Stack(
                 children: [
                   Container(
@@ -217,6 +195,35 @@ class HomeScreenState extends State<HomeScreen> {
         child: CircularProgressIndicator(),
       );
     });
+  }
+}
+
+class NavTitle extends StatelessWidget {
+  const NavTitle(
+      {Key key, this.width = 7, this.height = 30, @required this.title})
+      : super(key: key);
+
+  final double width;
+  final double height;
+  final Widget title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          Container(
+            width: width,
+            height: height,
+            color: Colors.indigo,
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          title
+        ],
+      ),
+    );
   }
 }
 

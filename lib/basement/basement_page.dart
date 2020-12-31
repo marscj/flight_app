@@ -4,6 +4,12 @@ import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/my/index.dart';
 import 'package:saadiyat/tickets/index.dart';
 
+import '../my_flutter_app_icons.dart';
+
+// import 'container_transition.dart';
+// import 'fade_scale_transition.dart';
+// import 'fade_through_transition.dart';
+
 class BasementPage extends StatefulWidget {
   static const String routeName = '/';
 
@@ -29,21 +35,21 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
     var bottomNavigationBarItems = <BottomNavigationBarItem>[
       BottomNavigationBarItem(
           icon: const Icon(
-            Icons.home,
+            MyFlutterApp.my_home,
           ),
           label: 'Home'),
       BottomNavigationBarItem(
         icon: const Icon(
-          Icons.calendar_today,
+          MyFlutterApp.my_booking,
         ),
         label: 'Booking',
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.local_airport),
+        icon: const Icon(MyFlutterApp.my_tickets),
         label: 'Ticket',
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.account_circle),
+        icon: const Icon(MyFlutterApp.my_my),
         label: 'My',
       )
     ];
@@ -54,6 +60,13 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
       TicketsPage(),
       MyPage()
     ];
+
+    // final List<Widget> pages = [
+    //   OpenContainerTransformDemo(),
+    //   FadeScaleTransitionDemo(),
+    //   FadeThroughTransitionDemo(),
+    //   SharedAxisTransitionDemo()
+    // ];
 
     return Scaffold(
       body: pages[_currentIndex.value],

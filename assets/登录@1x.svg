@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="113px" height="113px" viewBox="0 0 113 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>登录@1x</title>
+    <defs>
+        <circle id="path-1" cx="52.5" cy="52.5" r="52.5"></circle>
+        <filter x="-6.7%" y="-4.8%" width="113.3%" height="113.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="切图" transform="translate(-1877.000000, -1422.000000)">
+            <g id="登录" transform="translate(1881.000000, 1424.000000)">
+                <g id="BG">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <path d="M54.321267,36 L70,52.4999996 L54.3212672,69 L51.4705884,66 L62.275,54.629 L35,54.6290323 L35,50.3709677 L62.274,50.37 L51.4705882,38.9999993 L54.321267,36 Z" id="Arrow" fill="#3B3D40"></path>
+            </g>
+        </g>
+    </g>
+</svg>

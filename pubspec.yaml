@@ -95,7 +95,11 @@ flutter_icons:
 flutter:
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
+  fonts:
+    - family:  MyFlutterApp
+      fonts:
+       - asset: assets/fonts/MyFlutterApp.ttf
+
   assets:
     - assets/logo.png
     - assets/1.0x/logo.png
