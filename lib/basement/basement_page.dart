@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/bookings/index.dart';
 import 'package:saadiyat/home/index.dart';
 import 'package:saadiyat/my/index.dart';
@@ -68,24 +69,33 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
     //   SharedAxisTransitionDemo()
     // ];
 
-    return Scaffold(
-      body: pages[_currentIndex.value],
-      bottomNavigationBar: BottomNavigationBar(
-        showUnselectedLabels: true,
-        items: bottomNavigationBarItems,
-        currentIndex: _currentIndex.value,
-        type: BottomNavigationBarType.fixed,
-        selectedFontSize: textTheme.caption.fontSize,
-        unselectedFontSize: textTheme.caption.fontSize,
-        onTap: (index) {
-          setState(() {
-            _currentIndex.value = index;
-          });
-        },
-        selectedItemColor: Colors.indigo,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.white,
-      ),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => HomeBloc()..add(LoadHomeEvent())),
+          BlocProvider(
+              create: (context) => BookingsBloc()..add(LoadBookingsEvent())),
+          BlocProvider(
+              create: (context) => TicketsBloc()..add(LoadTicketsEvent())),
+          BlocProvider(create: (context) => MyBloc()..add(LoadMyEvent()))
+        ],
+        child: Scaffold(
+          body: pages[_currentIndex.value],
+          bottomNavigationBar: BottomNavigationBar(
+            showUnselectedLabels: true,
+            items: bottomNavigationBarItems,
+            currentIndex: _currentIndex.value,
+            type: BottomNavigationBarType.fixed,
+            selectedFontSize: textTheme.caption.fontSize,
+            unselectedFontSize: textTheme.caption.fontSize,
+            onTap: (index) {
+              setState(() {
+                _currentIndex.value = index;
+              });
+            },
+            selectedItemColor: Colors.indigo,
+            unselectedItemColor: Colors.grey,
+            backgroundColor: Colors.white,
+          ),
+        ));
   }
 }

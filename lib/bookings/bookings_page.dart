@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/bookings/index.dart';
 
 class BookingsPage extends StatefulWidget {
@@ -12,14 +11,11 @@ class BookingsPage extends StatefulWidget {
 class _BookingsPageState extends State<BookingsPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BookingsBloc>(
-      create: (context) => BookingsBloc()..add(LoadBookingsEvent()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Bookings'),
-        ),
-        body: BookingsScreen(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Bookings'),
       ),
+      body: BookingsScreen(),
     );
   }
 }
