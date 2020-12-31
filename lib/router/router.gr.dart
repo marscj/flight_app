@@ -8,6 +8,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../booking/index.dart';
 import '../index/index.dart';
@@ -37,13 +38,13 @@ class AppRouter extends RouterBase {
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, AutoRouteFactory>{
     IndexPage: (data) {
-      return CupertinoPageRoute<dynamic>(
+      return MaterialPageRoute<dynamic>(
         builder: (context) => IndexPage(),
         settings: data,
       );
     },
     BookingRoutePage: (data) {
-      return CupertinoPageRoute<dynamic>(
+      return MaterialPageRoute<dynamic>(
         builder: (context) => BookingRoutePage(),
         settings: data,
       );

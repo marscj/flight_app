@@ -5,8 +5,8 @@ import 'package:saadiyat/index/index.dart';
 @MaterialAutoRouter(
   // generateNavigationHelperExtension: true,
   routes: <AutoRoute>[
-    CupertinoRoute(page: IndexPage, initial: true),
-    CupertinoRoute(page: BookingRoutePage, path: '/bookings/:id', children: [
+    MaterialRoute(page: IndexPage, initial: true),
+    MaterialRoute(page: BookingRoutePage, path: '/bookings/:id', children: [
       CupertinoRoute(path: '/', page: BookingPage),
     ]),
     // CupertinoRoute<Widget>(

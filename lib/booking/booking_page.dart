@@ -19,6 +19,11 @@ class _BookingPageState extends State<BookingPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Booking'),
+          leading: BackButton(
+            onPressed: () {
+              context.navigator.root.pop();
+            },
+          ),
         ),
         body: BookingScreen(),
       ),

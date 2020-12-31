@@ -28,8 +28,8 @@ class _EletecAppState extends State<App> {
               scaffoldBackgroundColor: Colors.grey[200],
               pageTransitionsTheme: const PageTransitionsTheme(
                 builders: <TargetPlatform, PageTransitionsBuilder>{
-                  TargetPlatform.android: ZoomPageTransitionsBuilder(),
-                  TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+                  // TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                  // TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
                 },
               ),
               buttonTheme: ButtonThemeData(
