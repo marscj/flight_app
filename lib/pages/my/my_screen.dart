@@ -26,6 +26,7 @@ class MyScreenState extends State<MyScreen> {
     ) {
       return BlocBuilder<AppBloc, AppState>(
         builder: (BuildContext context, state) {
+          print('caonima');
           if (state is InAppState) {
             return SingleChildScrollView(
                 child: Column(children: <Widget>[

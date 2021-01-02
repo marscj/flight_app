@@ -7,6 +7,7 @@ import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/index.dart';
 import 'package:saadiyat/pages/welcome/index.dart';
 import 'package:meta/meta.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 @immutable
 abstract class WelcomeEvent {
@@ -28,15 +29,17 @@ class LoadWelcomeEvent extends WelcomeEvent {
     // ignore: close_sinks
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
 
-    yield InWelcomeState(1, 'SAADIYAT WAY');
+    // yield InWelcomeState(1, null);
+
     try {
-      yield await Future.delayed(Duration(seconds: 2)).then((rews) {
-        return RestClient().getInfo().then((res) {
-          return appBloc.add(Authorization(res));
-        }).then((res) {
-          return InWelcomeState(1, 'SAADIYAT WAY');
-        });
+      RestClient().getInfo().then((res) {
+        return 0;
+        // appBloc.add(Authorization(res));
+      }).then((res) {
+        return InWelcomeState(2, BasementRoute());
       });
-    } catch (_) {}
+    } catch (_) {
+      yield InWelcomeState(1, LoginRoute());
+    }
   }
 }

@@ -44,7 +44,7 @@ class InAppState extends AppState {
   InAppState(int version, this.user) : super(version, [user]);
 
   @override
-  String toString() => 'InAppState';
+  String toString() => 'InAppState $user';
 
   @override
   InAppState getStateCopy() {

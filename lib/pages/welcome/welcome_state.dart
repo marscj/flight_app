@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 abstract class WelcomeState extends Equatable {
   /// notify change state without deep clone state
@@ -19,21 +21,18 @@ abstract class WelcomeState extends Equatable {
 
 /// Initialized
 class InWelcomeState extends WelcomeState {
-  final String hello;
+  final PageRouteInfo routeInfo;
 
-  InWelcomeState(int version, this.hello) : super(version, [hello]);
-
-  @override
-  String toString() => 'InWelcomeState $hello';
+  InWelcomeState(int version, this.routeInfo) : super(version, [routeInfo]);
 
   @override
   InWelcomeState getStateCopy() {
-    return InWelcomeState(version, hello);
+    return InWelcomeState(version, routeInfo);
   }
 
   @override
   InWelcomeState getNewVersion() {
-    return InWelcomeState(version + 1, hello);
+    return InWelcomeState(version + 1, routeInfo);
   }
 }
 

@@ -12,7 +12,7 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
   factory WelcomeBloc() {
     return _welcomeBlocSingleton;
   }
-  WelcomeBloc._internal() : super(InWelcomeState(0, 'SAADIYAT WAY'));
+  WelcomeBloc._internal() : super(InWelcomeState(0, null));
 
   @override
   Future<void> close() async {
