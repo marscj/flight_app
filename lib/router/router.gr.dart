@@ -7,13 +7,15 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 import 'guard.dart' as _i3;
-import '../pages/index/index_page.dart' as _i4;
-import '../pages/home/index.dart' as _i5;
-import '../pages/my/index.dart' as _i6;
-import '../pages/bookings/index.dart' as _i7;
-import '../pages/booking/index.dart' as _i8;
-import '../pages/tickets/tickets_page.dart' as _i9;
-import '../pages/ticket/ticket_page.dart' as _i10;
+import '../pages/welcome/welcome_page.dart' as _i4;
+import '../pages/login/login_page.dart' as _i5;
+import '../pages/basement/basement_page.dart' as _i6;
+import '../pages/home/index.dart' as _i7;
+import '../pages/my/index.dart' as _i8;
+import '../pages/bookings/index.dart' as _i9;
+import '../pages/booking/index.dart' as _i10;
+import '../pages/tickets/tickets_page.dart' as _i11;
+import '../pages/ticket/ticket_page.dart' as _i12;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter({@_i2.required this.authGuard}) : assert(authGuard != null);
@@ -22,11 +24,22 @@ class AppRouter extends _i1.RootStackRouter {
 
   @override
   final Map<String, _i1.PageFactory> pagesMap = {
-    IndexRoute.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: _i4.IndexPage());
+    WelcomeRoute.name: (entry) {
+      return _i1.MaterialPageX(entry: entry, child: _i4.WelcomePage());
+    },
+    LoginRoute.name: (entry) {
+      var route = entry.routeData.as<LoginRoute>();
+      return _i1.MaterialPageX(
+          entry: entry,
+          child:
+              _i5.LoginPage(key: route.key, onLoginResult: route.onLoginResult),
+          fullscreenDialog: false);
+    },
+    BasementRoute.name: (entry) {
+      return _i1.MaterialPageX(entry: entry, child: _i6.BasementPage());
     },
     HomeTab.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: _i5.HomePage());
+      return _i1.MaterialPageX(entry: entry, child: _i7.HomePage());
     },
     BookingTab.name: (entry) {
       return _i1.MaterialPageX(
@@ -37,32 +50,37 @@ class AppRouter extends _i1.RootStackRouter {
           entry: entry, child: const _i1.EmptyRouterPage());
     },
     MyTab.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: _i6.MyPage());
+      return _i1.MaterialPageX(entry: entry, child: _i8.MyPage());
     },
     BookingsScreen.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: const _i7.BookingsScreen());
+      return _i1.MaterialPageX(entry: entry, child: const _i9.BookingsScreen());
     },
     BookingRoute.name: (entry) {
       var route = entry.routeData.as<BookingRoute>();
       return _i1.MaterialPageX(
-          entry: entry, child: _i8.BookingPage(id: route.id));
+          entry: entry, child: _i10.BookingPage(id: route.id));
     },
     TicketsRoute.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: _i9.TicketsPage());
+      return _i1.MaterialPageX(entry: entry, child: _i11.TicketsPage());
     },
     TicketRoute.name: (entry) {
       var route = entry.routeData.as<TicketRoute>();
       return _i1.MaterialPageX(
-          entry: entry, child: _i10.TicketPage(id: route.id));
+          entry: entry, child: _i12.TicketPage(id: route.id));
     }
   };
 
   @override
   List<_i1.RouteConfig> get routes => [
-        _i1.RouteConfig<IndexRoute>(IndexRoute.name,
+        _i1.RouteConfig<WelcomeRoute>(WelcomeRoute.name,
+            path: '/', routeBuilder: (_) => const WelcomeRoute()),
+        _i1.RouteConfig<LoginRoute>(LoginRoute.name,
+            path: '/login',
+            routeBuilder: (match) => LoginRoute.fromMatch(match)),
+        _i1.RouteConfig<BasementRoute>(BasementRoute.name,
             path: '/',
             usesTabsRouter: true,
-            routeBuilder: (match) => IndexRoute.fromMatch(match),
+            routeBuilder: (match) => BasementRoute.fromMatch(match),
             children: [
               _i1.RouteConfig<HomeTab>(HomeTab.name,
                   path: 'home', routeBuilder: (_) => const HomeTab()),
@@ -100,13 +118,35 @@ class AppRouter extends _i1.RootStackRouter {
       ];
 }
 
-class IndexRoute extends _i1.PageRouteInfo {
-  const IndexRoute({List<_i1.PageRouteInfo> children})
+class WelcomeRoute extends _i1.PageRouteInfo {
+  const WelcomeRoute() : super(name, path: '/');
+
+  static const String name = 'WelcomeRoute';
+}
+
+class LoginRoute extends _i1.PageRouteInfo {
+  LoginRoute({this.key, this.onLoginResult})
+      : super(name, path: '/login', argProps: [key, onLoginResult]);
+
+  LoginRoute.fromMatch(_i1.RouteMatch match)
+      : key = null,
+        onLoginResult = null,
+        super.fromMatch(match);
+
+  final _i2.Key key;
+
+  final void Function(bool) onLoginResult;
+
+  static const String name = 'LoginRoute';
+}
+
+class BasementRoute extends _i1.PageRouteInfo {
+  const BasementRoute({List<_i1.PageRouteInfo> children})
       : super(name, path: '/', initialChildren: children);
 
-  IndexRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+  BasementRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
-  static const String name = 'IndexRoute';
+  static const String name = 'BasementRoute';
 }
 
 class HomeTab extends _i1.PageRouteInfo {

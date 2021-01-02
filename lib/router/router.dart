@@ -1,19 +1,25 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/pages/basement/basement_page.dart';
 import 'package:saadiyat/pages/booking/index.dart';
 import 'package:saadiyat/pages/bookings/index.dart';
 import 'package:saadiyat/pages/home/index.dart';
-import 'package:saadiyat/pages/index/index_page.dart';
+import 'package:saadiyat/pages/login/login_page.dart';
 import 'package:saadiyat/pages/my/index.dart';
 import 'package:saadiyat/pages/ticket/ticket_page.dart';
 import 'package:saadiyat/pages/tickets/tickets_page.dart';
+import 'package:saadiyat/pages/welcome/welcome_page.dart';
 import 'guard.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <MaterialRoute>[
     MaterialRoute(
-        path: IndexPage.routeName,
-        page: IndexPage,
+        path: WelcomePage.routeName, page: WelcomePage, initial: true),
+    MaterialRoute(
+        path: LoginPage.routeName, page: LoginPage, fullscreenDialog: false),
+    MaterialRoute(
+        path: BasementPage.routeName,
+        page: BasementPage,
         usesTabsRouter: true,
         children: [
           MaterialRoute(
