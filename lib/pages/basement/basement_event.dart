@@ -10,27 +10,17 @@ abstract class BasementEvent {
       {BasementState currentState, BasementBloc bloc});
 }
 
-class UnBasementEvent extends BasementEvent {
-  @override
-  Stream<BasementState> applyAsync(
-      {BasementState currentState, BasementBloc bloc}) async* {
-    yield UnBasementState(0);
-  }
-}
-
 class LoadBasementEvent extends BasementEvent {
-  final bool isError;
   @override
   String toString() => 'LoadBasementEvent';
 
-  LoadBasementEvent(this.isError);
+  LoadBasementEvent();
 
   @override
   Stream<BasementState> applyAsync(
       {BasementState currentState, BasementBloc bloc}) async* {
     try {
-      yield UnBasementState(0);
-      yield InBasementState(0, 'Hello world');
+      yield InBasementState(0);
     } catch (_, stackTrace) {
       developer.log('$_',
           name: 'LoadBasementEvent', error: _, stackTrace: stackTrace);

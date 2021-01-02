@@ -7,18 +7,7 @@ import 'package:saadiyat/router/router.gr.dart';
 import 'app_bloc.dart';
 import 'app_state.dart';
 
-class AppScreen extends StatefulWidget {
-  const AppScreen({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  AppScreenState createState() {
-    return AppScreenState();
-  }
-}
-
-class AppScreenState extends State<AppScreen> {
+class AppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(builder: (

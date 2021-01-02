@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 abstract class WelcomeState extends Equatable {
   /// notify change state without deep clone state

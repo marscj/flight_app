@@ -3,9 +3,9 @@ import 'package:equatable/equatable.dart';
 abstract class BasementState extends Equatable {
   /// notify change state without deep clone state
   final int version;
-  
+
   final List propss;
-  BasementState(this.version,[this.propss]);
+  BasementState(this.version, [this.propss]);
 
   /// Copy object for use in action
   /// if need use deep clone
@@ -17,50 +17,33 @@ abstract class BasementState extends Equatable {
   List<Object> get props => ([version, ...propss ?? []]);
 }
 
-/// UnInitialized
-class UnBasementState extends BasementState {
-
-  UnBasementState(int version) : super(version);
-
-  @override
-  String toString() => 'UnBasementState';
-
-  @override
-  UnBasementState getStateCopy() {
-    return UnBasementState(0);
-  }
-
-  @override
-  UnBasementState getNewVersion() {
-    return UnBasementState(version+1);
-  }
-}
-
 /// Initialized
 class InBasementState extends BasementState {
-  final String hello;
-
-  InBasementState(int version, this.hello) : super(version, [hello]);
+  InBasementState(int version)
+      : super(
+          version,
+        );
 
   @override
-  String toString() => 'InBasementState $hello';
+  String toString() => 'InBasementState';
 
   @override
   InBasementState getStateCopy() {
-    return InBasementState(version, hello);
+    return InBasementState(version);
   }
 
   @override
   InBasementState getNewVersion() {
-    return InBasementState(version+1, hello);
+    return InBasementState(version + 1);
   }
 }
 
 class ErrorBasementState extends BasementState {
   final String errorMessage;
 
-  ErrorBasementState(int version, this.errorMessage): super(version, [errorMessage]);
-  
+  ErrorBasementState(int version, this.errorMessage)
+      : super(version, [errorMessage]);
+
   @override
   String toString() => 'ErrorBasementState';
 
@@ -71,7 +54,6 @@ class ErrorBasementState extends BasementState {
 
   @override
   ErrorBasementState getNewVersion() {
-    return ErrorBasementState(version+1, 
-    errorMessage);
+    return ErrorBasementState(version + 1, errorMessage);
   }
 }

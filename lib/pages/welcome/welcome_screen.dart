@@ -25,9 +25,8 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     return BlocListener<WelcomeBloc, WelcomeState>(
       listener: (_, state) {
         if (state is InWelcomeState && state.routeInfo != null) {
-          state.routeInfo.show(context);
+          BasementRoute().show(context);
         }
-        LoginRoute().show(context);
       },
       child: BlocBuilder<WelcomeBloc, WelcomeState>(builder: (context, state) {
         return SafeArea(

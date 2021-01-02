@@ -12,7 +12,7 @@ class BasementBloc extends Bloc<BasementEvent, BasementState> {
   factory BasementBloc() {
     return _basementBlocSingleton;
   }
-  BasementBloc._internal() : super(UnBasementState(0));
+  BasementBloc._internal() : super(InBasementState(0));
 
   @override
   Future<void> close() async {

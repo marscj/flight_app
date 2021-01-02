@@ -29,13 +29,11 @@ class LoadWelcomeEvent extends WelcomeEvent {
     // ignore: close_sinks
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
 
-    // yield InWelcomeState(1, null);
+    yield InWelcomeState(1, null);
 
     try {
-      RestClient().getInfo().then((res) {
-        return 0;
+      yield await RestClient().getInfo().then((res) {
         // appBloc.add(Authorization(res));
-      }).then((res) {
         return InWelcomeState(2, BasementRoute());
       });
     } catch (_) {
