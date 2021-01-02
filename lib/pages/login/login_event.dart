@@ -9,14 +9,6 @@ abstract class LoginEvent {
   Stream<LoginState> applyAsync({LoginState currentState, LoginBloc bloc});
 }
 
-class UnLoginEvent extends LoginEvent {
-  @override
-  Stream<LoginState> applyAsync(
-      {LoginState currentState, LoginBloc bloc}) async* {
-    yield UnLoginState(0);
-  }
-}
-
 class LoadLoginEvent extends LoginEvent {
   final bool loading;
   @override
@@ -28,7 +20,6 @@ class LoadLoginEvent extends LoginEvent {
   Stream<LoginState> applyAsync(
       {LoginState currentState, LoginBloc bloc}) async* {
     try {
-      yield UnLoginState(0);
       yield InLoginState(0, false);
     } catch (_, stackTrace) {
       developer.log('$_',

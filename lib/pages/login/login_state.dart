@@ -17,24 +17,6 @@ abstract class LoginState extends Equatable {
   List<Object> get props => ([version, ...propss ?? []]);
 }
 
-/// UnInitialized
-class UnLoginState extends LoginState {
-  UnLoginState(int version) : super(version);
-
-  @override
-  String toString() => 'UnLoginState';
-
-  @override
-  UnLoginState getStateCopy() {
-    return UnLoginState(0);
-  }
-
-  @override
-  UnLoginState getNewVersion() {
-    return UnLoginState(version + 1);
-  }
-}
-
 /// Initialized
 class InLoginState extends LoginState {
   final bool loading;

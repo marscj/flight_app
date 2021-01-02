@@ -12,7 +12,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   factory LoginBloc() {
     return _loginBlocSingleton;
   }
-  LoginBloc._internal() : super(UnLoginState(0));
+  LoginBloc._internal() : super(InLoginState(0, false));
 
   @override
   Future<void> close() async {
