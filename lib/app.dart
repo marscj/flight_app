@@ -1,11 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:saadiyat/router/router.dart';
 import './router/router.gr.dart';
 
 import 'app/app_bloc.dart';
+import 'router/guard.dart';
 
 class App extends StatefulWidget {
   @override
@@ -13,17 +12,16 @@ class App extends StatefulWidget {
 }
 
 class _EletecAppState extends State<App> {
+  final _appRouter = AppRouter(authGuard: AuthGuard());
+
   @override
   Widget build(BuildContext context) => BlocListener<AppBloc, AppState>(
       listener: (_, __) {},
       child: BlocBuilder<AppBloc, AppState>(builder: (context, state) {
-        return MaterialApp(
+        return MaterialApp.router(
           title: 'Saadiyat',
-          builder: ExtendedNavigator.builder<AppRouter>(
-            router: AppRouter(),
-            // guards: [AuthGuard()],
-            builder: (context, child) => child,
-          ),
+          routerDelegate: _appRouter.delegate(),
+          routeInformationParser: _appRouter.defaultRouteParser(),
           theme: ThemeData(
               primarySwatch: Colors.indigo,
               accentColor: Colors.indigoAccent,

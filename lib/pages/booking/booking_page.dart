@@ -7,6 +7,10 @@ import 'booking_event.dart';
 import 'booking_screen.dart';
 
 class BookingPage extends StatefulWidget {
+  BookingPage({@PathParam('id') this.id});
+
+  final int id;
+
   @override
   _BookingPageState createState() => _BookingPageState();
 }
@@ -14,7 +18,12 @@ class BookingPage extends StatefulWidget {
 class _BookingPageState extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return BlocProvider<BookingBloc>(
+      create: (context) => BookingBloc()..add(LoadBookingEvent()),
+      child: Center(
+        child: Text('center'),
+      ),
+    );
   }
 }
 

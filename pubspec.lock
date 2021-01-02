@@ -63,14 +63,14 @@ packages:
       name: auto_route
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.9"
+    version: "1.0.0-beta.5+1"
   auto_route_generator:
     dependency: "direct dev"
     description:
       name: auto_route_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.10"
+    version: "1.0.0-beta.5"
   auto_size_text:
     dependency: "direct main"
     description:

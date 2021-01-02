@@ -101,7 +101,8 @@ class HomeScreenState extends State<HomeScreen> {
                       splashColor: colorScheme.onSurface.withOpacity(0.12),
                       highlightColor: Colors.transparent,
                       onTap: () {
-                        ExtendedNavigator.of(context).push('/bookings/1');
+                        // ExtendedNavigator.of(context).push('/bookings/1');
+                        context.rootNavigator.push('/bookings/1');
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
