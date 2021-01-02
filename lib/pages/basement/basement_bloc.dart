@@ -7,20 +7,18 @@ import 'package:saadiyat/pages/basement/index.dart';
 class BasementBloc extends Bloc<BasementEvent, BasementState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
+  // ignore: close_sinks
   static final BasementBloc _basementBlocSingleton = BasementBloc._internal();
   factory BasementBloc() {
     return _basementBlocSingleton;
   }
-  BasementBloc._internal(): super(UnBasementState(0));
-  
+  BasementBloc._internal() : super(UnBasementState(0));
+
   @override
-  Future<void> close() async{
+  Future<void> close() async {
     // dispose objects
     await super.close();
   }
-
-  @override
-  BasementState get initialState => UnBasementState(0);
 
   @override
   Stream<BasementState> mapEventToState(
@@ -29,7 +27,8 @@ class BasementBloc extends Bloc<BasementEvent, BasementState> {
     try {
       yield* event.applyAsync(currentState: state, bloc: this);
     } catch (_, stackTrace) {
-      developer.log('$_', name: 'BasementBloc', error: _, stackTrace: stackTrace);
+      developer.log('$_',
+          name: 'BasementBloc', error: _, stackTrace: stackTrace);
       yield state;
     }
   }

@@ -51,6 +51,7 @@ class LoginFormBloc extends FormBloc<String, String> {
 
   @override
   void onSubmitting() {
+    // ignore_for_file: close_sinks
     LoginBloc loginBloc = BlocProvider.of<LoginBloc>(context);
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
     loginBloc.add(LoadLoginEvent(true));

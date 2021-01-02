@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saadiyat/pages/bookings/index.dart';
 
 import 'booking_bloc.dart';
 import 'booking_event.dart';
@@ -23,7 +22,7 @@ class _BookingPageState extends State<BookingPage> {
   Widget build(BuildContext context) {
     return BlocProvider<BookingBloc>(
       create: (context) => BookingBloc()..add(LoadBookingEvent()),
-      child: BookingsScreen(),
+      child: BookingScreen(),
     );
   }
 }

@@ -12,12 +12,10 @@ class App extends StatefulWidget {
 }
 
 class _EletecAppState extends State<App> {
-  final _appRouter = AppRouter(authGuard: AuthGuard());
-
   @override
-  Widget build(BuildContext context) => BlocListener<AppBloc, AppState>(
-      listener: (_, __) {},
-      child: BlocBuilder<AppBloc, AppState>(builder: (context, state) {
+  Widget build(BuildContext context) =>
+      BlocBuilder<AppBloc, AppState>(builder: (context, state) {
+        final _appRouter = AppRouter(authGuard: AuthGuard(context));
         return MaterialApp.router(
           title: 'Saadiyat',
           routerDelegate: _appRouter.delegate(),
@@ -56,5 +54,5 @@ class _EletecAppState extends State<App> {
               hoverColor: Colors.blueAccent.withOpacity(0.04),
               splashColor: Colors.blueAccent),
         );
-      }));
+      });
 }

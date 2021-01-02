@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/welcome/index.dart';

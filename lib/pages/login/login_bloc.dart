@@ -7,20 +7,18 @@ import 'package:saadiyat/pages/login/index.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
+  // ignore: close_sinks
   static final LoginBloc _loginBlocSingleton = LoginBloc._internal();
   factory LoginBloc() {
     return _loginBlocSingleton;
   }
-  LoginBloc._internal(): super(UnLoginState(0));
-  
+  LoginBloc._internal() : super(UnLoginState(0));
+
   @override
-  Future<void> close() async{
+  Future<void> close() async {
     // dispose objects
     await super.close();
   }
-
-  @override
-  LoginState get initialState => UnLoginState(0);
 
   @override
   Stream<LoginState> mapEventToState(
