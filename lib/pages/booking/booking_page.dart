@@ -18,12 +18,7 @@ class _BookingPageState extends State<BookingPage> {
   }
 }
 
-class BookingRoutePage extends StatefulWidget {
-  @override
-  _BookingRoutePageState createState() => _BookingRoutePageState();
-}
-
-class _BookingRoutePageState extends State<BookingRoutePage> {
+class BookingRoutePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
