@@ -9,9 +9,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../booking/index.dart';
+import 'package:saadiyat/pages/booking/index.dart';
 import '../index/index.dart';
+import 'router.dart';
 
 class Routes {
   static const String indexPage = '/';
@@ -63,7 +63,8 @@ class BookingRoutePageRouter extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
-    RouteDef(BookingRoutePageRoutes.bookingPage, page: BookingPage),
+    RouteDef(BookingRoutePageRoutes.bookingPage,
+        page: BookingPage, guards: [AuthGuard]),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;

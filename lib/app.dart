@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saadiyat/router/router.dart';
 import './router/router.gr.dart';
 
 import 'app/app_bloc.dart';
@@ -20,6 +21,7 @@ class _EletecAppState extends State<App> {
           title: 'Saadiyat',
           builder: ExtendedNavigator.builder<AppRouter>(
             router: AppRouter(),
+            guards: [AuthGuard()],
             builder: (context, child) => child,
           ),
           theme: ThemeData(
