@@ -9,6 +9,7 @@ import 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
+  // ignore: close_sinks
   static final AppBloc _appBlocSingleton = AppBloc._internal();
   factory AppBloc() {
     return _appBlocSingleton;
@@ -20,9 +21,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     // dispose objects
     await super.close();
   }
-
-  @override
-  AppState get initialState => UnAppState(0);
 
   @override
   Stream<AppState> mapEventToState(

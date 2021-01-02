@@ -20,11 +20,11 @@ class WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     // ignore: close_sinks
-    WelcomeBloc welcomeBloc = BlocProvider.of<WelcomeBloc>(context);
     return BlocBuilder<WelcomeBloc, WelcomeState>(builder: (
       BuildContext context,
       WelcomeState currentState,
     ) {
+      print(currentState);
       if (currentState is InWelcomeState) {
         return SafeArea(
           top: true,
