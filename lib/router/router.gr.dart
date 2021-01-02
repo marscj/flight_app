@@ -10,8 +10,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../index/index.dart';
 import '../pages/booking/index.dart';
+import '../pages/index/index_page.dart';
 
 class Routes {
   static const String indexPage = '/';
