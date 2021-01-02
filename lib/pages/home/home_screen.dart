@@ -5,6 +5,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 import 'home_bloc.dart';
 import 'home_state.dart';
@@ -102,7 +103,8 @@ class HomeScreenState extends State<HomeScreen> {
                       highlightColor: Colors.transparent,
                       onTap: () {
                         // ExtendedNavigator.of(context).push('/bookings/1');
-                        context.rootNavigator.push('/bookings/1');
+                        // context.router.push(BookingRoutePageRoute());
+                        // BookingPageRoute(id: 1).show(context);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(

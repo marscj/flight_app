@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saadiyat/tickets/index.dart';
+
+import 'tickets_bloc.dart';
+import 'tickets_state.dart';
 
 class TicketsScreen extends StatefulWidget {
   const TicketsScreen({

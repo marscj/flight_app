@@ -8,7 +8,7 @@ import 'package:saadiyat/pages/home/index.dart';
 import 'package:saadiyat/pages/index/index_bloc.dart';
 import 'package:saadiyat/pages/index/index_state.dart';
 import 'package:saadiyat/pages/my/index.dart';
-import 'package:saadiyat/tickets/index.dart';
+import 'package:saadiyat/pages/tickets/index.dart';
 
 // import 'container_transition.dart';
 // import 'fade_scale_transition.dart';

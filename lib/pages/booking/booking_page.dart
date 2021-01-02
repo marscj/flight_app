@@ -1,12 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saadiyat/pages/bookings/index.dart';
 
 import 'booking_bloc.dart';
 import 'booking_event.dart';
 import 'booking_screen.dart';
 
 class BookingPage extends StatefulWidget {
+  static const String routeName = 'booking';
+
   BookingPage({@PathParam('id') this.id});
 
   final int id;
@@ -20,21 +23,7 @@ class _BookingPageState extends State<BookingPage> {
   Widget build(BuildContext context) {
     return BlocProvider<BookingBloc>(
       create: (context) => BookingBloc()..add(LoadBookingEvent()),
-      child: Center(
-        child: Text('center'),
-      ),
-    );
-  }
-}
-
-class BookingRoutePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Booking'),
-      ),
-      body: ExtendedNavigator(),
+      child: BookingsScreen(),
     );
   }
 }

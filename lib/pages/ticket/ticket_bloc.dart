@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
-import 'package:saadiyat/ticket/index.dart';
+
+import 'ticket_event.dart';
+import 'ticket_state.dart';
 
 class TicketBloc extends Bloc<TicketEvent, TicketState> {
   // todo: check singleton for logic in project

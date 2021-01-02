@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-
-import 'package:saadiyat/tickets/index.dart';
 import 'package:meta/meta.dart';
+
+import 'tickets_bloc.dart';
+import 'tickets_state.dart';
 
 @immutable
 abstract class TicketsEvent {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:saadiyat/tickets/index.dart';
+
+import 'tickets_screen.dart';
 
 class TicketsPage extends StatefulWidget {
-  static const String routeName = '/tickets';
+  static const String routeName = 'tickets';
 
   @override
   _TicketsPageState createState() => _TicketsPageState();
