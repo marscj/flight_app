@@ -7,9 +7,9 @@ import 'login_form_bloc.dart';
 import 'login_state.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({
-    Key key,
-  }) : super(key: key);
+  const LoginScreen({Key key, this.onLoginResult}) : super(key: key);
+
+  final void Function(bool isLoggedIn) onLoginResult;
 
   @override
   LoginScreenState createState() {
@@ -28,7 +28,9 @@ class LoginScreenState extends State<LoginScreen> {
                 BlocProvider.of<LoginFormBloc>(context);
             return FormBlocListener<LoginFormBloc, String, String>(
               onFailure: (context, state) {},
-              onSuccess: (context, state) {},
+              onSuccess: (context, state) {
+                widget.onLoginResult(true);
+              },
               onSubmitting: (context, state) {},
               child: ListBody(
                 children: [

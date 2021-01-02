@@ -63,7 +63,7 @@ class LoginFormBloc extends FormBloc<String, String> {
       emitFailure();
       addErrors(onError?.response?.data);
     }).whenComplete(() {
-      // indexBloc.add(LoadLoginEvent(false));
+      loginBloc.add(LoadLoginEvent(false));
     });
   }
 }

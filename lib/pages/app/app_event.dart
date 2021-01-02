@@ -42,6 +42,6 @@ class Authorization extends AppEvent {
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield InAppState(0, user);
+    yield InAppState(1, user);
   }
 }
