@@ -22,7 +22,7 @@ class AppRouter extends _i1.RootStackRouter {
 
   @override
   final Map<String, _i1.PageFactory> pagesMap = {
-    IndexPageRoute.name: (entry) {
+    IndexRoute.name: (entry) {
       return _i1.MaterialPageX(entry: entry, child: _i4.IndexPage());
     },
     HomeTab.name: (entry) {
@@ -39,19 +39,19 @@ class AppRouter extends _i1.RootStackRouter {
     MyTab.name: (entry) {
       return _i1.MaterialPageX(entry: entry, child: _i6.MyPage());
     },
-    BookingsScreenRoute.name: (entry) {
+    BookingsScreen.name: (entry) {
       return _i1.MaterialPageX(entry: entry, child: const _i7.BookingsScreen());
     },
-    BookingPageRoute.name: (entry) {
-      var route = entry.routeData.as<BookingPageRoute>();
+    BookingRoute.name: (entry) {
+      var route = entry.routeData.as<BookingRoute>();
       return _i1.MaterialPageX(
           entry: entry, child: _i8.BookingPage(id: route.id));
     },
-    TicketsPageRoute.name: (entry) {
+    TicketsRoute.name: (entry) {
       return _i1.MaterialPageX(entry: entry, child: _i9.TicketsPage());
     },
-    TicketPageRoute.name: (entry) {
-      var route = entry.routeData.as<TicketPageRoute>();
+    TicketRoute.name: (entry) {
+      var route = entry.routeData.as<TicketRoute>();
       return _i1.MaterialPageX(
           entry: entry, child: _i10.TicketPage(id: route.id));
     }
@@ -59,10 +59,10 @@ class AppRouter extends _i1.RootStackRouter {
 
   @override
   List<_i1.RouteConfig> get routes => [
-        _i1.RouteConfig<IndexPageRoute>(IndexPageRoute.name,
+        _i1.RouteConfig<IndexRoute>(IndexRoute.name,
             path: '/',
             usesTabsRouter: true,
-            routeBuilder: (match) => IndexPageRoute.fromMatch(match),
+            routeBuilder: (match) => IndexRoute.fromMatch(match),
             children: [
               _i1.RouteConfig<HomeTab>(HomeTab.name,
                   path: 'home', routeBuilder: (_) => const HomeTab()),
@@ -72,14 +72,12 @@ class AppRouter extends _i1.RootStackRouter {
                   children: [
                     _i1.RouteConfig('#redirect',
                         path: '', redirectTo: 'list', fullMatch: true),
-                    _i1.RouteConfig<BookingsScreenRoute>(
-                        BookingsScreenRoute.name,
+                    _i1.RouteConfig<BookingsScreen>(BookingsScreen.name,
                         path: 'list',
-                        routeBuilder: (_) => const BookingsScreenRoute()),
-                    _i1.RouteConfig<BookingPageRoute>(BookingPageRoute.name,
+                        routeBuilder: (_) => const BookingsScreen()),
+                    _i1.RouteConfig<BookingRoute>(BookingRoute.name,
                         path: 'list/:id',
-                        routeBuilder: (match) =>
-                            BookingPageRoute.fromMatch(match),
+                        routeBuilder: (match) => BookingRoute.fromMatch(match),
                         guards: [authGuard])
                   ]),
               _i1.RouteConfig<TicketTab>(TicketTab.name,
@@ -88,13 +86,12 @@ class AppRouter extends _i1.RootStackRouter {
                   children: [
                     _i1.RouteConfig('#redirect',
                         path: '', redirectTo: 'list', fullMatch: true),
-                    _i1.RouteConfig<TicketsPageRoute>(TicketsPageRoute.name,
+                    _i1.RouteConfig<TicketsRoute>(TicketsRoute.name,
                         path: 'list',
-                        routeBuilder: (_) => const TicketsPageRoute()),
-                    _i1.RouteConfig<TicketPageRoute>(TicketPageRoute.name,
+                        routeBuilder: (_) => const TicketsRoute()),
+                    _i1.RouteConfig<TicketRoute>(TicketRoute.name,
                         path: 'list/:id',
-                        routeBuilder: (match) =>
-                            TicketPageRoute.fromMatch(match),
+                        routeBuilder: (match) => TicketRoute.fromMatch(match),
                         guards: [authGuard])
                   ]),
               _i1.RouteConfig<MyTab>(MyTab.name,
@@ -103,13 +100,13 @@ class AppRouter extends _i1.RootStackRouter {
       ];
 }
 
-class IndexPageRoute extends _i1.PageRouteInfo {
-  const IndexPageRoute({List<_i1.PageRouteInfo> children})
+class IndexRoute extends _i1.PageRouteInfo {
+  const IndexRoute({List<_i1.PageRouteInfo> children})
       : super(name, path: '/', initialChildren: children);
 
-  IndexPageRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+  IndexRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
-  static const String name = 'IndexPageRoute';
+  static const String name = 'IndexRoute';
 }
 
 class HomeTab extends _i1.PageRouteInfo {
@@ -142,40 +139,40 @@ class MyTab extends _i1.PageRouteInfo {
   static const String name = 'MyTab';
 }
 
-class BookingsScreenRoute extends _i1.PageRouteInfo {
-  const BookingsScreenRoute() : super(name, path: 'list');
+class BookingsScreen extends _i1.PageRouteInfo {
+  const BookingsScreen() : super(name, path: 'list');
 
-  static const String name = 'BookingsScreenRoute';
+  static const String name = 'BookingsScreen';
 }
 
-class BookingPageRoute extends _i1.PageRouteInfo {
-  BookingPageRoute({this.id})
+class BookingRoute extends _i1.PageRouteInfo {
+  BookingRoute({this.id})
       : super(name, path: 'list/:id', params: {'id': id}, argProps: [id]);
 
-  BookingPageRoute.fromMatch(_i1.RouteMatch match)
+  BookingRoute.fromMatch(_i1.RouteMatch match)
       : id = match.pathParams.getInt('id'),
         super.fromMatch(match);
 
   final int id;
 
-  static const String name = 'BookingPageRoute';
+  static const String name = 'BookingRoute';
 }
 
-class TicketsPageRoute extends _i1.PageRouteInfo {
-  const TicketsPageRoute() : super(name, path: 'list');
+class TicketsRoute extends _i1.PageRouteInfo {
+  const TicketsRoute() : super(name, path: 'list');
 
-  static const String name = 'TicketsPageRoute';
+  static const String name = 'TicketsRoute';
 }
 
-class TicketPageRoute extends _i1.PageRouteInfo {
-  TicketPageRoute({this.id})
+class TicketRoute extends _i1.PageRouteInfo {
+  TicketRoute({this.id})
       : super(name, path: 'list/:id', params: {'id': id}, argProps: [id]);
 
-  TicketPageRoute.fromMatch(_i1.RouteMatch match)
+  TicketRoute.fromMatch(_i1.RouteMatch match)
       : id = match.pathParams.getInt('id'),
         super.fromMatch(match);
 
   final int id;
 
-  static const String name = 'TicketPageRoute';
+  static const String name = 'TicketRoute';
 }
