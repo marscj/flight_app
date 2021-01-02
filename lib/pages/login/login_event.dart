@@ -1,22 +1,39 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 
-import 'package:saadiyat/pages/index/index_bloc.dart';
-import 'package:saadiyat/pages/index/index_event.dart';
-import 'package:saadiyat/pages/index/index_state.dart';
+import 'package:saadiyat/pages/login/index.dart';
+import 'package:meta/meta.dart';
 
-import 'login_state.dart';
+@immutable
+abstract class LoginEvent {
+  Stream<LoginState> applyAsync({LoginState currentState, LoginBloc bloc});
+}
 
-class LoadLoginEvent extends IndexEvent {
+class UnLoginEvent extends LoginEvent {
+  @override
+  Stream<LoginState> applyAsync(
+      {LoginState currentState, LoginBloc bloc}) async* {
+    yield UnLoginState(0);
+  }
+}
+
+class LoadLoginEvent extends LoginEvent {
   final bool loading;
-
   @override
   String toString() => 'LoadLoginEvent';
 
   LoadLoginEvent(this.loading);
 
   @override
-  Stream<IndexState> applyAsync(
-      {IndexState currentState, IndexBloc bloc}) async* {
-    yield InLoginState(1, loading);
+  Stream<LoginState> applyAsync(
+      {LoginState currentState, LoginBloc bloc}) async* {
+    try {
+      yield UnLoginState(0);
+      yield InLoginState(0, false);
+    } catch (_, stackTrace) {
+      developer.log('$_',
+          name: 'LoadLoginEvent', error: _, stackTrace: stackTrace);
+      yield ErrorLoginState(0, _?.toString());
+    }
   }
 }

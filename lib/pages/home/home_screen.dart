@@ -105,7 +105,10 @@ class HomeScreenState extends State<HomeScreen> {
                         // ExtendedNavigator.of(context).push('/bookings/1');
                         // context.router.push(BookingRoutePageRoute());
                         // BookingRoute(id: 1).show(context);
-                        context.rootNavigator.push('/bookings/list/1');
+                        context.tabsRouter
+                          ..setActiveIndex(1)
+                          ..innerRouterOf<StackRouter>(BookingTab.name)
+                              .push(BookingRoute(id: 4));
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(

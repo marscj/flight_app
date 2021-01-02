@@ -1,8 +1,7 @@
 import 'package:loading_animations/loading_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saadiyat/pages/index/index_bloc.dart';
-import 'package:saadiyat/pages/index/index_state.dart';
+import 'package:saadiyat/pages/welcome/index.dart';
 
 import 'welcome_state.dart';
 
@@ -20,9 +19,9 @@ class WelcomeScreen extends StatefulWidget {
 class WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IndexBloc, IndexState>(builder: (
+    return BlocBuilder<WelcomeBloc, WelcomeState>(builder: (
       BuildContext context,
-      IndexState currentState,
+      WelcomeState currentState,
     ) {
       if (currentState is InWelcomeState) {
         return SafeArea(

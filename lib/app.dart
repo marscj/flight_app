@@ -22,6 +22,9 @@ class _EletecAppState extends State<App> {
           title: 'Saadiyat',
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
+          builder: (context, router) {
+            return router;
+          },
           theme: ThemeData(
               primarySwatch: Colors.indigo,
               accentColor: Colors.indigoAccent,

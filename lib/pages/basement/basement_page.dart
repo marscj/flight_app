@@ -5,8 +5,6 @@ import 'package:saadiyat/my_flutter_app_icons.dart';
 import 'package:saadiyat/pages/basement/index.dart';
 import 'package:saadiyat/pages/bookings/index.dart';
 import 'package:saadiyat/pages/home/index.dart';
-import 'package:saadiyat/pages/index/index_bloc.dart';
-import 'package:saadiyat/pages/index/index_state.dart';
 import 'package:saadiyat/pages/my/index.dart';
 import 'package:saadiyat/pages/tickets/index.dart';
 import 'package:saadiyat/router/router.gr.dart';
@@ -73,9 +71,9 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
     //   SharedAxisTransitionDemo()
     // ];
 
-    return BlocBuilder<IndexBloc, IndexState>(builder: (
+    return BlocBuilder<BasementBloc, BasementState>(builder: (
       BuildContext context,
-      IndexState currentState,
+      BasementState currentState,
     ) {
       if (currentState is InBasementState) {
         return MultiBlocProvider(

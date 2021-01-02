@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/app/app_bloc.dart';
-import 'package:saadiyat/pages/index/index_bloc.dart';
-import 'package:saadiyat/pages/welcome/index.dart';
 
 import 'my_bloc.dart';
 import 'my_state.dart';
@@ -116,8 +114,6 @@ class MyScreenState extends State<MyScreen> {
                 child: Text('SingOut'),
                 onPressed: () {
                   BlocProvider.of<AppBloc>(context).add(SignOut());
-                  BlocProvider.of<IndexBloc>(context)
-                      .add(LoadWelcomeEvent(BlocProvider.of<AppBloc>(context)));
                 })
           ]));
         },
