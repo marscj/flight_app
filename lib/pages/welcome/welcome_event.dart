@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/app/app_bloc.dart';
 import 'package:saadiyat/pages/welcome/index.dart';
 import 'package:meta/meta.dart';
 
@@ -10,36 +13,27 @@ abstract class WelcomeEvent {
       {WelcomeState currentState, WelcomeBloc bloc});
 }
 
-class UnWelcomeEvent extends WelcomeEvent {
-  @override
-  Stream<WelcomeState> applyAsync(
-      {WelcomeState currentState, WelcomeBloc bloc}) async* {
-    yield UnWelcomeState(0);
-  }
-}
-
 class LoadWelcomeEvent extends WelcomeEvent {
-  final bool isError;
+  final BuildContext context;
+
   @override
   String toString() => 'LoadWelcomeEvent';
 
-  LoadWelcomeEvent(this.isError);
+  LoadWelcomeEvent(this.context);
 
   @override
   Stream<WelcomeState> applyAsync(
       {WelcomeState currentState, WelcomeBloc bloc}) async* {
-    yield InWelcomeState(0, 'SAADIYAT WAY');
+    AppBloc appBloc = BlocProvider.of<AppBloc>(context);
 
     try {
-      await Future.delayed(Duration(seconds: 2)).then((rews) {
+      yield await Future.delayed(Duration(seconds: 2)).then((rews) {
         return RestClient().getInfo().then((res) {
-          // appBloc.add(UpdateAppUser(res));
-          // bloc.add(LoadBasementEvent());
+          return appBloc.add(UpdateAppUser(res));
+        }).then((res) {
+          return InWelcomeState(0, 'SAADIYAT WAY');
         });
       });
-    } catch (_) {
-      // bloc.add(LoadLoginEvent(false));
-      yield InWelcomeState(0, 'SAADIYAT WAY');
-    }
+    } catch (_) {}
   }
 }
