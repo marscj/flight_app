@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/auto_route_annotations.dart';
-import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/pages/booking/index.dart';
+import 'package:saadiyat/pages/index/index_page.dart';
 import 'package:saadiyat/store/store.dart';
 
 class AuthGuard extends RouteGuard {
@@ -21,7 +21,6 @@ class AuthGuard extends RouteGuard {
       CupertinoRoute(
         path: '/',
         page: BookingPage,
-        guards: [AuthGuard],
       ),
     ]),
     // CupertinoRoute<Widget>(

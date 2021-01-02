@@ -1,7 +1,9 @@
 import 'dart:async';
 
-import 'package:saadiyat/index/index.dart';
 import 'package:meta/meta.dart';
+
+import 'index_bloc.dart';
+import 'index_state.dart';
 
 @immutable
 abstract class IndexEvent {

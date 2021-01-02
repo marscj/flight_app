@@ -21,7 +21,7 @@ class _EletecAppState extends State<App> {
           title: 'Saadiyat',
           builder: ExtendedNavigator.builder<AppRouter>(
             router: AppRouter(),
-            guards: [AuthGuard()],
+            // guards: [AuthGuard()],
             builder: (context, child) => child,
           ),
           theme: ThemeData(

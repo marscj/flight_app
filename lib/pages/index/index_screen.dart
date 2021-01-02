@@ -1,10 +1,12 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/pages/basement/index.dart';
 import 'package:saadiyat/pages/login/index.dart';
 import 'package:saadiyat/pages/welcome/index.dart';
+
+import 'index_bloc.dart';
+import 'index_state.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({

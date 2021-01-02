@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
-import 'package:saadiyat/index/index.dart';
+
+import 'index_event.dart';
+import 'index_state.dart';
 
 class IndexBloc extends Bloc<IndexEvent, IndexState> {
   // todo: check singleton for logic in project

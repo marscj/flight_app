@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/app/app_bloc.dart';
-import 'package:saadiyat/index/index.dart';
+import 'package:saadiyat/pages/index/index_bloc.dart';
 import 'package:saadiyat/pages/welcome/index.dart';
 
 import 'my_bloc.dart';

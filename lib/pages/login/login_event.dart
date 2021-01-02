@@ -1,6 +1,8 @@
 import 'dart:async';
 
-import 'package:saadiyat/index/index.dart';
+import 'package:saadiyat/pages/index/index_bloc.dart';
+import 'package:saadiyat/pages/index/index_event.dart';
+import 'package:saadiyat/pages/index/index_state.dart';
 
 import 'login_state.dart';
 

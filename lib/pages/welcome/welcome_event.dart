@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/app/app_bloc.dart';
-import 'package:saadiyat/index/index.dart';
 import 'package:saadiyat/pages/basement/index.dart';
+import 'package:saadiyat/pages/index/index_bloc.dart';
+import 'package:saadiyat/pages/index/index_event.dart';
+import 'package:saadiyat/pages/index/index_state.dart';
 import 'package:saadiyat/pages/login/index.dart';
 
 import 'welcome_state.dart';

@@ -7,8 +7,6 @@ import 'booking_event.dart';
 import 'booking_screen.dart';
 
 class BookingPage extends StatefulWidget {
-  static const String routeName = '/booking';
-
   @override
   _BookingPageState createState() => _BookingPageState();
 }
@@ -16,10 +14,7 @@ class BookingPage extends StatefulWidget {
 class _BookingPageState extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BookingBloc>(
-      create: (context) => BookingBloc()..add(LoadBookingEvent()),
-      child: BookingScreen(),
-    );
+    return Container();
   }
 }
 
