@@ -8,6 +8,7 @@ import 'package:saadiyat/store/store.dart';
 import '../constanc.dart';
 
 part 'user.dart';
+part 'booking.dart';
 part 'client.g.dart';
 
 @RestApi(baseUrl: Constant.Host)

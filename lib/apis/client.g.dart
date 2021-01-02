@@ -60,6 +60,25 @@ Map<String, dynamic> _$TokenUserToJson(TokenUser instance) => <String, dynamic>{
       'user': instance.user,
     };
 
+Booking _$BookingFromJson(Map<String, dynamic> json) {
+  return Booking()
+    ..id = json['id'] as int
+    ..title = json['title'] as String
+    ..remark = json['remark'] as String
+    ..date = json['date'] as String
+    ..author = json['author'] == null
+        ? null
+        : User.fromJson(json['author'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'remark': instance.remark,
+      'date': instance.date,
+      'author': instance.author,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
