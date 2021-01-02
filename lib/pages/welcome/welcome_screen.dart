@@ -25,10 +25,33 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     return BlocListener<WelcomeBloc, WelcomeState>(
       listener: (_, state) {
         if (state is InWelcomeState && state.routeInfo != null) {
-          BasementRoute().show(context);
+          state.routeInfo.show(context);
         }
       },
       child: BlocBuilder<WelcomeBloc, WelcomeState>(builder: (context, state) {
+        // ignore: close_sinks
+        WelcomeBloc welcomeBloc = BlocProvider.of<WelcomeBloc>(context);
+
+        if (state is ErrorWelcomeState) {
+          return Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(state.errorMessage ?? 'Error'),
+              Padding(
+                padding: const EdgeInsets.only(top: 32.0),
+                child: RaisedButton(
+                  color: Colors.blue,
+                  child: Text('reload'),
+                  onPressed: () {
+                    welcomeBloc.add(LoadWelcomeEvent(context));
+                  },
+                ),
+              ),
+            ],
+          ));
+        }
+
         return SafeArea(
           top: true,
           child: SizedBox.expand(

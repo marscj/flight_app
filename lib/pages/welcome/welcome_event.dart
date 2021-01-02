@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/apis/client.dart';
@@ -33,11 +34,18 @@ class LoadWelcomeEvent extends WelcomeEvent {
 
     try {
       yield await RestClient().getInfo().then((res) {
-        // appBloc.add(Authorization(res));
-        return InWelcomeState(2, BasementRoute());
+        return appBloc.add(Authorization(res));
+      }).then((res) {
+        return InWelcomeState(1, BasementRoute());
       });
-    } catch (_) {
-      yield InWelcomeState(1, LoginRoute());
+    } catch (errors) {
+      if (errors is DioError) {
+        if (errors?.response?.statusCode == 401) {
+          yield InWelcomeState(1, LoginRoute());
+        } else {
+          yield ErrorWelcomeState(1, 'Connection timed out!');
+        }
+      }
     }
   }
 }
