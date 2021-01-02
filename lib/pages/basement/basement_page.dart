@@ -2,8 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/my_flutter_app_icons.dart';
+import 'package:saadiyat/pages/basement/index.dart';
 import 'package:saadiyat/pages/bookings/index.dart';
 import 'package:saadiyat/pages/home/index.dart';
+import 'package:saadiyat/pages/index/index_bloc.dart';
+import 'package:saadiyat/pages/index/index_state.dart';
 import 'package:saadiyat/pages/my/index.dart';
 import 'package:saadiyat/tickets/index.dart';
 
@@ -69,33 +72,43 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
     //   SharedAxisTransitionDemo()
     // ];
 
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => HomeBloc()..add(LoadHomeEvent())),
-          BlocProvider(
-              create: (context) => BookingsBloc()..add(LoadBookingsEvent())),
-          BlocProvider(
-              create: (context) => TicketsBloc()..add(LoadTicketsEvent())),
-          BlocProvider(create: (context) => MyBloc()..add(LoadMyEvent()))
-        ],
-        child: Scaffold(
-          body: pages[_currentIndex.value],
-          bottomNavigationBar: BottomNavigationBar(
-            showUnselectedLabels: true,
-            items: bottomNavigationBarItems,
-            currentIndex: _currentIndex.value,
-            type: BottomNavigationBarType.fixed,
-            selectedFontSize: textTheme.caption.fontSize,
-            unselectedFontSize: textTheme.caption.fontSize,
-            onTap: (index) {
-              setState(() {
-                _currentIndex.value = index;
-              });
-            },
-            selectedItemColor: Colors.indigo,
-            unselectedItemColor: Colors.grey,
-            backgroundColor: Colors.white,
-          ),
-        ));
+    return BlocBuilder<IndexBloc, IndexState>(builder: (
+      BuildContext context,
+      IndexState currentState,
+    ) {
+      if (currentState is InBasementState) {
+        return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                  create: (context) => HomeBloc()..add(LoadHomeEvent())),
+              BlocProvider(
+                  create: (context) =>
+                      BookingsBloc()..add(LoadBookingsEvent())),
+              BlocProvider(
+                  create: (context) => TicketsBloc()..add(LoadTicketsEvent())),
+              BlocProvider(create: (context) => MyBloc()..add(LoadMyEvent()))
+            ],
+            child: Scaffold(
+              body: pages[_currentIndex.value],
+              bottomNavigationBar: BottomNavigationBar(
+                showUnselectedLabels: true,
+                items: bottomNavigationBarItems,
+                currentIndex: _currentIndex.value,
+                type: BottomNavigationBarType.fixed,
+                selectedFontSize: textTheme.caption.fontSize,
+                unselectedFontSize: textTheme.caption.fontSize,
+                onTap: (index) {
+                  setState(() {
+                    _currentIndex.value = index;
+                  });
+                },
+                selectedItemColor: Colors.indigo,
+                unselectedItemColor: Colors.grey,
+                backgroundColor: Colors.white,
+              ),
+            ));
+      }
+      return Container();
+    });
   }
 }
