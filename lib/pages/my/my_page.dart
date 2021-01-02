@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'my_screen.dart';
 
 class MyPage extends StatefulWidget {
-  static const String routeName = '/my';
+  static const String routeName = 'my';
 
   @override
   _MyPageState createState() => _MyPageState();

@@ -9,6 +9,7 @@ import 'package:saadiyat/pages/index/index_bloc.dart';
 import 'package:saadiyat/pages/index/index_state.dart';
 import 'package:saadiyat/pages/my/index.dart';
 import 'package:saadiyat/pages/tickets/index.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 // import 'container_transition.dart';
 // import 'fade_scale_transition.dart';
@@ -88,24 +89,30 @@ class _BasementPageState extends State<BasementPage> with RestorationMixin {
                   create: (context) => TicketsBloc()..add(LoadTicketsEvent())),
               BlocProvider(create: (context) => MyBloc()..add(LoadMyEvent()))
             ],
-            child: Scaffold(
-              body: pages[_currentIndex.value],
-              bottomNavigationBar: BottomNavigationBar(
-                showUnselectedLabels: true,
-                items: bottomNavigationBarItems,
-                currentIndex: _currentIndex.value,
-                type: BottomNavigationBarType.fixed,
-                selectedFontSize: textTheme.caption.fontSize,
-                unselectedFontSize: textTheme.caption.fontSize,
-                onTap: (index) {
-                  setState(() {
-                    _currentIndex.value = index;
-                  });
-                },
-                selectedItemColor: Colors.indigo,
-                unselectedItemColor: Colors.grey,
-                backgroundColor: Colors.white,
-              ),
+            child: AutoTabsRouter(
+              routes: [HomeTab(), BookingTab(), TicketTab(), MyTab()],
+              duration: Duration(milliseconds: 400),
+              builder: (context, child, animation) {
+                return Scaffold(
+                  body: pages[_currentIndex.value],
+                  bottomNavigationBar: BottomNavigationBar(
+                    showUnselectedLabels: true,
+                    items: bottomNavigationBarItems,
+                    currentIndex: _currentIndex.value,
+                    type: BottomNavigationBarType.fixed,
+                    selectedFontSize: textTheme.caption.fontSize,
+                    unselectedFontSize: textTheme.caption.fontSize,
+                    onTap: (index) {
+                      setState(() {
+                        _currentIndex.value = index;
+                      });
+                    },
+                    selectedItemColor: Colors.indigo,
+                    unselectedItemColor: Colors.grey,
+                    backgroundColor: Colors.white,
+                  ),
+                );
+              },
             ));
       }
       return Container();

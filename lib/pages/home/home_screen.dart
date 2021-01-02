@@ -104,7 +104,7 @@ class HomeScreenState extends State<HomeScreen> {
                       onTap: () {
                         // ExtendedNavigator.of(context).push('/bookings/1');
                         // context.router.push(BookingRoutePageRoute());
-                        // BookingPageRoute(id: 1).show(context);
+                        BookingPageRoute(id: 1).show(context);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
