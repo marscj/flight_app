@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/app/app_bloc.dart';
+import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/login/index.dart';
 import 'package:saadiyat/store/store.dart';
 
@@ -58,7 +58,6 @@ class LoginFormBloc extends FormBloc<String, String> {
     RestClient()
         .login({'email': email.value, 'password': password.value}).then((res) {
       Store.instance.setToken(res.token);
-      appBloc.add(UpdateAppUser(res.user));
       emitSuccess(canSubmitAgain: true);
     }).catchError((onError) {
       emitFailure();
