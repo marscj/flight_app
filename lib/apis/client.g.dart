@@ -119,7 +119,7 @@ BookingListExtra _$BookingListExtraFromJson(Map<String, dynamic> json) {
     ..data = json['data'] == null
         ? null
         : BookingList.fromJson(json['data'] as Map<String, dynamic>)
-    ..extra = json['extra'];
+    ..extra = json['extra'] as Map<String, dynamic>;
 }
 
 Map<String, dynamic> _$BookingListExtraToJson(BookingListExtra instance) =>

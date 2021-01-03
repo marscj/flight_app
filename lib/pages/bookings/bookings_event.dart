@@ -23,10 +23,12 @@ class RefreshBookingsEvent extends BookingsEvent {
       'sorter': '-id'
     }).then((res) {
       bloc.easyRefreshController.finishRefresh(success: true);
+      bloc.easyRefreshController.finishLoad(
+          noMore: currentState.list.length + res.data.data.length >=
+              res.data.totalCount);
       return currentState.copyWith(
           pageNo: 2, totalCount: res.data.totalCount, list: res.data.data);
     }).catchError((error) {
-      print(error.toString());
       bloc.easyRefreshController.finishRefresh(success: false);
       return currentState.copyWith(pageNo: 1, totalCount: 0, list: []);
     });
@@ -37,18 +39,26 @@ class LoadBookingsEvent extends BookingsEvent {
   @override
   Stream<BookingsState> applyAsync(
       {BookingsState currentState, BookingsBloc bloc}) async* {
-    yield await RestClient().getBookings(query: {
-      'pageNo': currentState.pageNo,
-      'pageSize': currentState.pageSize,
-      'sorter': '-id'
-    }).then((res) {
-      bloc.easyRefreshController.finishLoad(
-          success: true,
-          noMore: currentState.list.length < currentState.totalCount);
-      return currentState.copyWith(
-          list: currentState.list + res.data.data,
-          pageNo: currentState.pageNo + 1,
-          totalCount: currentState.totalCount);
-    });
+    if (currentState.list.length < currentState.totalCount) {
+      yield await RestClient().getBookings(query: {
+        'pageNo': currentState.pageNo,
+        'pageSize': currentState.pageSize,
+        'sorter': '-id'
+      }).then((res) {
+        bloc.easyRefreshController.finishLoad(
+            success: true,
+            noMore: currentState.list.length + res.data.data.length >=
+                res.data.totalCount);
+        return currentState.copyWith(
+            list: currentState.list + res.data.data,
+            pageNo: currentState.pageNo + 1,
+            totalCount: currentState.totalCount);
+      }).catchError((error) {
+        bloc.easyRefreshController.finishLoad(success: false);
+        return currentState;
+      });
+    } else {
+      bloc.easyRefreshController.finishLoad(success: true, noMore: true);
+    }
   }
 }
