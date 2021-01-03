@@ -36,16 +36,17 @@ class LoadWelcomeEvent extends WelcomeEvent {
       yield await RestClient().getInfo().then((res) {
         return appBloc.add(Authorization(res));
       }).then((res) {
-        return InWelcomeState(1, BasementRoute());
+        return Future.delayed(Duration(milliseconds: 1)).then((res) {
+          return InWelcomeState(1, BasementRoute());
+        });
       });
     } catch (errors) {
       if (errors is DioError) {
         if (errors?.response?.statusCode == 401) {
           yield InWelcomeState(1, BasementRoute());
-        } else {
-          yield ErrorWelcomeState(1, 'Connection timed out!');
         }
       }
+      yield ErrorWelcomeState(1, 'Connection timed out!');
     }
   }
 }
