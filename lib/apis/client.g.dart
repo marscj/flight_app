@@ -86,7 +86,11 @@ Booking _$BookingFromJson(Map<String, dynamic> json) {
     ..title = json['title'] as String
     ..remark = json['remark'] as String
     ..date = json['date'] as String
-    ..author = json['author'] as String;
+    ..author = json['author'] as String
+    ..uploads = (json['uploads'] as List)
+        ?.map((e) =>
+            e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
@@ -95,6 +99,7 @@ Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
       'remark': instance.remark,
       'date': instance.date,
       'author': instance.author,
+      'uploads': instance.uploads,
     };
 
 BookingList _$BookingListFromJson(Map<String, dynamic> json) {
@@ -167,6 +172,104 @@ Map<String, dynamic> _$UploadToJson(Upload instance) => <String, dynamic>{
       'file': instance.file,
       'date': instance.date,
       'object_id': instance.object_id,
+    };
+
+UploadList _$UploadListFromJson(Map<String, dynamic> json) {
+  return UploadList()
+    ..totalCount = json['totalCount'] as int
+    ..pageNo = json['pageNo'] as int
+    ..data = (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$UploadListToJson(UploadList instance) =>
+    <String, dynamic>{
+      'totalCount': instance.totalCount,
+      'pageNo': instance.pageNo,
+      'data': instance.data,
+    };
+
+UploadExtra _$UploadExtraFromJson(Map<String, dynamic> json) {
+  return UploadExtra()
+    ..data = json['data'] == null
+        ? null
+        : Upload.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$UploadExtraToJson(UploadExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
+    };
+
+UploadListExtra _$UploadListExtraFromJson(Map<String, dynamic> json) {
+  return UploadListExtra()
+    ..data = json['data'] == null
+        ? null
+        : UploadList.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$UploadListExtraToJson(UploadListExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
+    };
+
+Itinerary _$ItineraryFromJson(Map<String, dynamic> json) {
+  return Itinerary()..id = json['id'] as int;
+}
+
+Map<String, dynamic> _$ItineraryToJson(Itinerary instance) => <String, dynamic>{
+      'id': instance.id,
+    };
+
+ItineraryList _$ItineraryListFromJson(Map<String, dynamic> json) {
+  return ItineraryList()
+    ..totalCount = json['totalCount'] as int
+    ..pageNo = json['pageNo'] as int
+    ..data = (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : Itinerary.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$ItineraryListToJson(ItineraryList instance) =>
+    <String, dynamic>{
+      'totalCount': instance.totalCount,
+      'pageNo': instance.pageNo,
+      'data': instance.data,
+    };
+
+ItineraryExtra _$ItineraryExtraFromJson(Map<String, dynamic> json) {
+  return ItineraryExtra()
+    ..data = json['data'] == null
+        ? null
+        : Itinerary.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$ItineraryExtraToJson(ItineraryExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
+    };
+
+ItineraryListExtra _$ItineraryListExtraFromJson(Map<String, dynamic> json) {
+  return ItineraryListExtra()
+    ..data = json['data'] == null
+        ? null
+        : ItineraryList.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$ItineraryListExtraToJson(ItineraryListExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
     };
 
 // **************************************************************************
@@ -275,6 +378,25 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = BookingExtra.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<ItineraryListExtra> getItinerarys({query}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(query ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/uploads/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ItineraryListExtra.fromJson(_result.data);
     return value;
   }
 }

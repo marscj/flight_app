@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 
+import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking/itinerary/index.dart';
 import 'package:meta/meta.dart';
 
@@ -10,30 +10,14 @@ abstract class ItineraryEvent {
       {ItineraryState currentState, ItineraryBloc bloc});
 }
 
-class UnItineraryEvent extends ItineraryEvent {
-  @override
-  Stream<ItineraryState> applyAsync(
-      {ItineraryState currentState, ItineraryBloc bloc}) async* {
-    yield UnItineraryState(0);
-  }
-}
+class RefreshItineraryEvent extends ItineraryEvent {
+  final ItineraryListExtra result;
 
-class LoadItineraryEvent extends ItineraryEvent {
-  final bool isError;
-  @override
-  String toString() => 'LoadItineraryEvent';
-
-  LoadItineraryEvent(this.isError);
+  RefreshItineraryEvent(this.result);
 
   @override
   Stream<ItineraryState> applyAsync(
       {ItineraryState currentState, ItineraryBloc bloc}) async* {
-    try {
-      yield UnItineraryState(0);
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadItineraryEvent', error: _, stackTrace: stackTrace);
-      yield ErrorItineraryState(0, _?.toString());
-    }
+    yield currentState.copyWith(list: result?.data?.data ?? []);
   }
 }

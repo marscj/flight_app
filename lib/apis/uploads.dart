@@ -6,7 +6,6 @@ part of 'client.dart';
 @JsonSerializable()
 class Upload extends Equatable {
   int id;
-
   String content_type;
   int author_id;
   String name;
@@ -33,4 +32,44 @@ class Upload extends Equatable {
         date,
         object_id
       ];
+}
+
+@JsonSerializable()
+class UploadList extends Equatable {
+  int totalCount;
+  int pageNo;
+  List<Upload> data;
+
+  static UploadList fromJson(Map<String, dynamic> json) =>
+      _$UploadListFromJson(json);
+  Map<String, dynamic> toJson() => _$UploadListToJson(this);
+
+  @override
+  List<Object> get props => [totalCount, pageNo, data];
+}
+
+@JsonSerializable()
+class UploadExtra extends Equatable {
+  Upload data;
+  Map<String, dynamic> extra;
+
+  static UploadExtra fromJson(Map<String, dynamic> json) =>
+      _$UploadExtraFromJson(json);
+  Map<String, dynamic> toJson() => _$UploadExtraToJson(this);
+
+  @override
+  List<Object> get props => [data, extra];
+}
+
+@JsonSerializable()
+class UploadListExtra extends Equatable {
+  UploadList data;
+  Map<String, dynamic> extra;
+
+  static UploadListExtra fromJson(Map<String, dynamic> json) =>
+      _$UploadListExtraFromJson(json);
+  Map<String, dynamic> toJson() => _$UploadListExtraToJson(this);
+
+  @override
+  List<Object> get props => [data, extra];
 }

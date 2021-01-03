@@ -116,8 +116,8 @@ class _BookingBasementPageState extends State<BookingBasementPage>
                         iconSize: 24,
                         padding:
                             EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                        icon: FontAwesomeIcons.file,
-                        text: 'BTA',
+                        icon: FontAwesomeIcons.calendar,
+                        text: 'Itinerary',
                       ),
                       GButton(
                         gap: 10,
@@ -129,8 +129,8 @@ class _BookingBasementPageState extends State<BookingBasementPage>
                         iconSize: 24,
                         padding:
                             EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                        icon: FontAwesomeIcons.calendar,
-                        text: 'Itinerary',
+                        icon: FontAwesomeIcons.file,
+                        text: 'BTA',
                       ),
                       GButton(
                         gap: 10,

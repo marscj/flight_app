@@ -13,7 +13,7 @@ class ItineraryBloc extends Bloc<ItineraryEvent, ItineraryState> {
   factory ItineraryBloc() {
     return _itineraryBlocSingleton;
   }
-  ItineraryBloc._internal() : super(UnItineraryState(0));
+  ItineraryBloc._internal() : super(ItineraryState.initial());
 
   @override
   Future<void> close() async {
