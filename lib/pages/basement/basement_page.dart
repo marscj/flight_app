@@ -25,21 +25,13 @@ class _BasementPageState extends State<BasementPage> {
   Widget build(BuildContext context) {
     return BlocProvider<BasementBloc>(
       create: (context) => BasementBloc(),
-      child: MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => HomeBloc()..add(LoadHomeEvent())),
-            BlocProvider(create: (context) => BookingsBloc()),
-            BlocProvider(
-                create: (context) => TicketsBloc()..add(LoadTicketsEvent())),
-            BlocProvider(create: (context) => MyBloc()..add(LoadMyEvent()))
-          ],
-          child: AutoTabsRouter(
-            routes: [HomeTab(), BookingTab(), TicketTab(), MyTab()],
-            duration: Duration(milliseconds: 400),
-            builder: (context, child, animation) {
-              return BasementScreen();
-            },
-          )),
+      child: MultiBlocProvider(providers: [
+        BlocProvider(create: (context) => HomeBloc()..add(LoadHomeEvent())),
+        BlocProvider(create: (context) => BookingsBloc()),
+        BlocProvider(
+            create: (context) => TicketsBloc()..add(LoadTicketsEvent())),
+        BlocProvider(create: (context) => MyBloc()..add(LoadMyEvent()))
+      ], child: BasementScreen()),
     );
   }
 }

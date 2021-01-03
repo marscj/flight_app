@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import 'bookings_event.dart';
 import 'bookings_state.dart';

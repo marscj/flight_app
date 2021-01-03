@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 import 'bookings_bloc.dart';
 import 'bookings_event.dart';
@@ -123,30 +125,59 @@ class BookingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.fromSize(
-      // size: Size.fromHeight(180),
-      child: Card(
-        elevation: 2,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(14.0))),
-        child: Container(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(data.date),
-                Divider(),
-                AutoSizeText(
-                  data.title ?? '',
-                  maxLines: 1,
-                ),
-                AutoSizeText(
-                  data.remark ?? '',
-                  maxLines: 5,
-                )
-              ],
-            )),
-      ),
+    return Card(
+      elevation: 8.0,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14.0))),
+      child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+          decoration: BoxDecoration(
+              color: Colors.indigo,
+              borderRadius: BorderRadius.all(Radius.circular(14.0))),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AutoSizeText(
+                data.date,
+                maxLines: 1,
+                style: TextStyle(color: Colors.white),
+              ),
+              Divider(
+                color: Colors.white,
+              ),
+              ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  onTap: () {
+                    context.tabsRouter.root.push(BookingRoute(id: data.id));
+                    // context.tabsRouter
+                    //   ..setActiveIndex(1)
+                    //   ..innerRouterOf<StackRouter>(BookingTab.name)
+                    //       .push(BookingRoute(id: data.id));
+                  },
+                  title: AutoSizeText(
+                    data.title ?? '',
+                    maxLines: 2,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Row(
+                    children: <Widget>[
+                      Icon(Icons.linear_scale, color: Colors.yellowAccent),
+                      Expanded(
+                          child: AutoSizeText(
+                        data.remark ?? '',
+                        maxLines: 1,
+                        style: Theme.of(context)
+                            .textTheme
+                            .caption
+                            .copyWith(color: Colors.white54),
+                      ))
+                    ],
+                  ),
+                  trailing: Icon(Icons.keyboard_arrow_right,
+                      color: Colors.white, size: 30.0))
+            ],
+          )),
     );
   }
 }

@@ -5,6 +5,8 @@ import 'package:saadiyat/pages/bookings/bookings_page.dart';
 import 'package:saadiyat/pages/home/home_page.dart';
 import 'package:saadiyat/pages/my/my_page.dart';
 import 'package:saadiyat/pages/tickets/tickets_page.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 import 'basement_bloc.dart';
 import 'basement_state.dart';
@@ -44,10 +46,6 @@ class BasementScreenState extends State<BasementScreen> with RestorationMixin {
     super.dispose();
   }
 
-  void _onBottomNavigationBarTap(int index) {
-    _pageController.jumpToPage(index);
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BasementBloc, BasementState>(builder: (
@@ -78,28 +76,30 @@ class BasementScreenState extends State<BasementScreen> with RestorationMixin {
         )
       ];
 
-      return Scaffold(
-        body: PageView(
-          controller: _pageController,
-          children: [HomePage(), BookingsPage(), TicketsPage(), MyPage()],
-          onPageChanged: (index) {
-            setState(() {
-              _currentIndex.value = index;
-            });
-          },
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          showUnselectedLabels: true,
-          items: bottomNavigationBarItems,
-          currentIndex: _currentIndex.value,
-          type: BottomNavigationBarType.fixed,
-          selectedFontSize: textTheme.caption.fontSize,
-          unselectedFontSize: textTheme.caption.fontSize,
-          onTap: _onBottomNavigationBarTap,
-          selectedItemColor: Colors.indigo,
-          unselectedItemColor: Colors.grey,
-          backgroundColor: Colors.white,
-        ),
+      return AutoTabsRouter(
+        routes: [HomeTab(), BookingTab(), TicketTab(), MyTab()],
+        duration: Duration(milliseconds: 400),
+        builder: (context, child, animation) {
+          var tabsRouter = context.tabsRouter;
+          return Scaffold(
+            body: FadeTransition(child: child, opacity: animation),
+            bottomNavigationBar: BottomNavigationBar(
+              showUnselectedLabels: true,
+              items: bottomNavigationBarItems,
+              currentIndex: tabsRouter.activeIndex,
+              type: BottomNavigationBarType.shifting,
+              selectedFontSize: textTheme.caption.fontSize,
+              unselectedFontSize: textTheme.caption.fontSize,
+              onTap: (index) {
+                tabsRouter.setActiveIndex(index);
+                // _pageController.jumpToPage(index);
+              },
+              selectedItemColor: Colors.indigo,
+              unselectedItemColor: Colors.grey,
+              backgroundColor: Colors.white,
+            ),
+          );
+        },
       );
     });
   }

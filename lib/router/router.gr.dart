@@ -10,12 +10,12 @@ import 'guard.dart' as _i3;
 import '../pages/welcome/welcome_page.dart' as _i4;
 import '../pages/login/login_page.dart' as _i5;
 import '../pages/basement/basement_page.dart' as _i6;
-import '../pages/home/index.dart' as _i7;
-import '../pages/my/index.dart' as _i8;
-import '../pages/bookings/index.dart' as _i9;
-import '../pages/booking/index.dart' as _i10;
-import '../pages/tickets/tickets_page.dart' as _i11;
-import '../pages/ticket/ticket_page.dart' as _i12;
+import '../pages/booking/index.dart' as _i7;
+import '../pages/ticket/ticket_page.dart' as _i8;
+import '../pages/home/index.dart' as _i9;
+import '../pages/my/index.dart' as _i10;
+import '../pages/bookings/index.dart' as _i11;
+import '../pages/tickets/tickets_page.dart' as _i12;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter({@_i2.required this.authGuard}) : assert(authGuard != null);
@@ -25,48 +25,48 @@ class AppRouter extends _i1.RootStackRouter {
   @override
   final Map<String, _i1.PageFactory> pagesMap = {
     WelcomeRoute.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: _i4.WelcomePage());
+      return _i1.CupertinoPageX(entry: entry, child: _i4.WelcomePage());
     },
     LoginRoute.name: (entry) {
       var route = entry.routeData.as<LoginRoute>();
-      return _i1.MaterialPageX(
+      return _i1.CupertinoPageX(
           entry: entry,
           child:
               _i5.LoginPage(key: route.key, onLoginResult: route.onLoginResult),
           fullscreenDialog: false);
     },
     BasementRoute.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: _i6.BasementPage());
-    },
-    HomeTab.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: _i7.HomePage());
-    },
-    BookingTab.name: (entry) {
-      return _i1.MaterialPageX(
-          entry: entry, child: const _i1.EmptyRouterPage());
-    },
-    TicketTab.name: (entry) {
-      return _i1.MaterialPageX(
-          entry: entry, child: const _i1.EmptyRouterPage());
-    },
-    MyTab.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: _i8.MyPage());
-    },
-    BookingsScreen.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: const _i9.BookingsScreen());
+      return _i1.CupertinoPageX(entry: entry, child: _i6.BasementPage());
     },
     BookingRoute.name: (entry) {
       var route = entry.routeData.as<BookingRoute>();
-      return _i1.MaterialPageX(
-          entry: entry, child: _i10.BookingPage(id: route.id));
-    },
-    TicketsRoute.name: (entry) {
-      return _i1.MaterialPageX(entry: entry, child: _i11.TicketsPage());
+      return _i1.CupertinoPageX(
+          entry: entry, child: _i7.BookingPage(id: route.id));
     },
     TicketRoute.name: (entry) {
       var route = entry.routeData.as<TicketRoute>();
-      return _i1.MaterialPageX(
-          entry: entry, child: _i12.TicketPage(id: route.id));
+      return _i1.CupertinoPageX(
+          entry: entry, child: _i8.TicketPage(id: route.id));
+    },
+    HomeTab.name: (entry) {
+      return _i1.CupertinoPageX(entry: entry, child: _i9.HomePage());
+    },
+    BookingTab.name: (entry) {
+      return _i1.CupertinoPageX(
+          entry: entry, child: const _i1.EmptyRouterPage());
+    },
+    TicketTab.name: (entry) {
+      return _i1.CupertinoPageX(
+          entry: entry, child: const _i1.EmptyRouterPage());
+    },
+    MyTab.name: (entry) {
+      return _i1.CupertinoPageX(entry: entry, child: _i10.MyPage());
+    },
+    BookingsRoute.name: (entry) {
+      return _i1.CupertinoPageX(entry: entry, child: _i11.BookingsPage());
+    },
+    TicketsRoute.name: (entry) {
+      return _i1.CupertinoPageX(entry: entry, child: _i12.TicketsPage());
     }
   };
 
@@ -93,12 +93,9 @@ class AppRouter extends _i1.RootStackRouter {
                   children: [
                     _i1.RouteConfig('#redirect',
                         path: '', redirectTo: 'list', fullMatch: true),
-                    _i1.RouteConfig<BookingsScreen>(BookingsScreen.name,
+                    _i1.RouteConfig<BookingsRoute>(BookingsRoute.name,
                         path: 'list',
-                        routeBuilder: (_) => const BookingsScreen()),
-                    _i1.RouteConfig<BookingRoute>(BookingRoute.name,
-                        path: 'list/:id',
-                        routeBuilder: (match) => BookingRoute.fromMatch(match))
+                        routeBuilder: (_) => const BookingsRoute())
                   ]),
               _i1.RouteConfig<TicketTab>(TicketTab.name,
                   path: 'tickets',
@@ -107,16 +104,19 @@ class AppRouter extends _i1.RootStackRouter {
                     _i1.RouteConfig('#redirect',
                         path: '', redirectTo: 'list', fullMatch: true),
                     _i1.RouteConfig<TicketsRoute>(TicketsRoute.name,
-                        path: 'list',
-                        routeBuilder: (_) => const TicketsRoute()),
-                    _i1.RouteConfig<TicketRoute>(TicketRoute.name,
-                        path: 'list/:id',
-                        routeBuilder: (match) => TicketRoute.fromMatch(match),
-                        guards: [authGuard])
+                        path: 'list', routeBuilder: (_) => const TicketsRoute())
                   ]),
               _i1.RouteConfig<MyTab>(MyTab.name,
                   path: 'my', routeBuilder: (_) => const MyTab())
-            ])
+            ]),
+        _i1.RouteConfig<BookingRoute>(BookingRoute.name,
+            path: 'bookings/:id',
+            routeBuilder: (match) => BookingRoute.fromMatch(match),
+            guards: [authGuard]),
+        _i1.RouteConfig<TicketRoute>(TicketRoute.name,
+            path: 'tickets/:id',
+            routeBuilder: (match) => TicketRoute.fromMatch(match),
+            guards: [authGuard])
       ];
 }
 
@@ -151,6 +151,32 @@ class BasementRoute extends _i1.PageRouteInfo {
   static const String name = 'BasementRoute';
 }
 
+class BookingRoute extends _i1.PageRouteInfo {
+  BookingRoute({this.id})
+      : super(name, path: 'bookings/:id', params: {'id': id}, argProps: [id]);
+
+  BookingRoute.fromMatch(_i1.RouteMatch match)
+      : id = match.pathParams.getInt('id'),
+        super.fromMatch(match);
+
+  final int id;
+
+  static const String name = 'BookingRoute';
+}
+
+class TicketRoute extends _i1.PageRouteInfo {
+  TicketRoute({this.id})
+      : super(name, path: 'tickets/:id', params: {'id': id}, argProps: [id]);
+
+  TicketRoute.fromMatch(_i1.RouteMatch match)
+      : id = match.pathParams.getInt('id'),
+        super.fromMatch(match);
+
+  final int id;
+
+  static const String name = 'TicketRoute';
+}
+
 class HomeTab extends _i1.PageRouteInfo {
   const HomeTab() : super(name, path: 'home');
 
@@ -181,40 +207,14 @@ class MyTab extends _i1.PageRouteInfo {
   static const String name = 'MyTab';
 }
 
-class BookingsScreen extends _i1.PageRouteInfo {
-  const BookingsScreen() : super(name, path: 'list');
+class BookingsRoute extends _i1.PageRouteInfo {
+  const BookingsRoute() : super(name, path: 'list');
 
-  static const String name = 'BookingsScreen';
-}
-
-class BookingRoute extends _i1.PageRouteInfo {
-  BookingRoute({this.id})
-      : super(name, path: 'list/:id', params: {'id': id}, argProps: [id]);
-
-  BookingRoute.fromMatch(_i1.RouteMatch match)
-      : id = match.pathParams.getInt('id'),
-        super.fromMatch(match);
-
-  final int id;
-
-  static const String name = 'BookingRoute';
+  static const String name = 'BookingsRoute';
 }
 
 class TicketsRoute extends _i1.PageRouteInfo {
   const TicketsRoute() : super(name, path: 'list');
 
   static const String name = 'TicketsRoute';
-}
-
-class TicketRoute extends _i1.PageRouteInfo {
-  TicketRoute({this.id})
-      : super(name, path: 'list/:id', params: {'id': id}, argProps: [id]);
-
-  TicketRoute.fromMatch(_i1.RouteMatch match)
-      : id = match.pathParams.getInt('id'),
-        super.fromMatch(match);
-
-  final int id;
-
-  static const String name = 'TicketRoute';
 }
