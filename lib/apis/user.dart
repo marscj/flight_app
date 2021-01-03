@@ -16,6 +16,17 @@ class User extends Equatable {
   String department;
   Map<String, String> avatar;
 
+  String possport_type;
+  String passport_code;
+  String passport_no;
+  String passport_sex;
+  String passport_nationality;
+  String passport_date_birth;
+  String passport_place_birth;
+  String passport_date_issue;
+  String passport_date_expiry;
+  String passport_issuing_authority;
+
   static User fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
@@ -29,7 +40,17 @@ class User extends Equatable {
         is_superuser,
         avatar,
         email,
-        department
+        department,
+        possport_type,
+        passport_code,
+        passport_no,
+        passport_sex,
+        passport_nationality,
+        passport_date_birth,
+        passport_place_birth,
+        passport_date_issue,
+        passport_date_expiry,
+        passport_issuing_authority,
       ];
 }
 

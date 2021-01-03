@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -7,6 +9,8 @@ import 'package:saadiyat/pages/app/index.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:saadiyat/widgets/list_item.dart';
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
+    as extended;
 
 import 'my_bloc.dart';
 import 'my_state.dart';
@@ -25,211 +29,267 @@ class MyScreen extends StatefulWidget {
 class MyScreenState extends State<MyScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyBloc, MyState>(builder: (
-      BuildContext context,
-      MyState currentState,
-    ) {
-      return BlocBuilder<AppBloc, AppState>(
-        builder: (BuildContext context, state) {
-          return Stack(
-            children: [
-              Container(
-                height: double.infinity,
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        color: Theme.of(context).primaryColor,
-                      ),
+    return BlocBuilder<AppBloc, AppState>(
+      builder: (BuildContext context, state) {
+        return Stack(
+          children: [
+            Container(
+              height: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Theme.of(context).primaryColor,
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        color: Colors.white,
-                      ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.white,
                     ),
-                  ],
-                ),
-              ),
-              EasyRefresh.custom(
-                slivers: <Widget>[
-                  SliverList(
-                    delegate: SliverChildListDelegate([
-                      // 顶部栏
-                      new Stack(
-                        children: <Widget>[
-                          Container(
-                            width: double.infinity,
-                            height: 220.0,
-                            color: Colors.white,
-                          ),
-                          ClipPath(
-                            clipper: new TopBarClipper(
-                                MediaQuery.of(context).size.width, 200.0),
-                            child: new SizedBox(
-                              width: double.infinity,
-                              height: 200.0,
-                              child: new Container(
-                                width: double.infinity,
-                                height: 240.0,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                          ),
-                          // 名字
-                          Container(
-                            margin: new EdgeInsets.only(top: 40.0),
-                            child: new Center(
-                              child: new Text(
-                                'KnoYo',
-                                style: new TextStyle(
-                                    fontSize: 30.0, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          // 图标
-                          Container(
-                            margin: new EdgeInsets.only(top: 100.0),
-                            child: new Center(
-                                child: new Container(
-                              width: 100.0,
-                              height: 100.0,
-                              child: new PreferredSize(
-                                child: new Container(
-                                  child: new ClipOval(
-                                    child: new Container(
-                                      color: Colors.white,
-                                      child: new Image.asset(
-                                          'assets/image/head_knoyo.jpg'),
-                                    ),
-                                  ),
-                                ),
-                                preferredSize: new Size(80.0, 80.0),
-                              ),
-                            )),
-                          ),
-                        ],
-                      ),
-                      // 内容
-                      Container(
-                        width: double.infinity,
-                        color: Colors.white,
-                        padding: EdgeInsets.all(10.0),
-                        child: Card(
-                            color: Colors.blue,
-                            child: Container(
-                              padding: EdgeInsets.all(10.0),
-                              child: Column(
-                                children: <Widget>[
-                                  ListItem(
-                                    icon: Icon(
-                                      Icons.supervised_user_circle,
-                                      color: Colors.white,
-                                    ),
-                                    title: 'S.of(context).qqGroup',
-                                    titleColor: Colors.white,
-                                    describe: '554981921',
-                                    describeColor: Colors.white,
-                                    onPressed: () {},
-                                  ),
-                                  ListItem(
-                                    icon: Icon(
-                                      Icons.http,
-                                      color: Colors.white,
-                                    ),
-                                    title: 'S.of(context).github',
-                                    titleColor: Colors.white,
-                                    describe: 'https://github.com/xuelongqy',
-                                    describeColor: Colors.white,
-                                    onPressed: () {},
-                                  )
-                                ],
-                              ),
-                            )),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        color: Colors.white,
-                        padding: EdgeInsets.all(10.0),
-                        child: Card(
-                            color: Colors.green,
-                            child: Container(
-                              padding: EdgeInsets.all(10.0),
-                              child: Column(
-                                children: <Widget>[
-                                  ListItem(
-                                    icon: Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                    ),
-                                    title: 'S.of(context).name',
-                                    titleColor: Colors.white,
-                                    describe: 'KnoYo',
-                                    describeColor: Colors.white,
-                                  ),
-                                  ListItem(
-                                    icon: EmptyIcon(),
-                                    title: 'S.of(context).old',
-                                    titleColor: Colors.white,
-                                    describe: 'S.of(context).noBald',
-                                    describeColor: Colors.white,
-                                  ),
-                                  ListItem(
-                                    icon: EmptyIcon(),
-                                    title: 'S.of(context).city',
-                                    titleColor: Colors.white,
-                                    describe: 'S.of(context).chengdu',
-                                    describeColor: Colors.white,
-                                  )
-                                ],
-                              ),
-                            )),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        color: Colors.white,
-                        padding: EdgeInsets.all(10.0),
-                        child: Card(
-                            color: Colors.teal,
-                            child: Container(
-                              padding: EdgeInsets.all(10.0),
-                              child: Column(
-                                children: <Widget>[
-                                  ListItem(
-                                    icon: Icon(
-                                      Icons.phone,
-                                      color: Colors.white,
-                                    ),
-                                    title: 'Phone',
-                                    titleColor: Colors.white,
-                                    describe: '18888888888',
-                                    describeColor: Colors.white,
-                                  ),
-                                  ListItem(
-                                    icon: Icon(
-                                      Icons.email,
-                                      color: Colors.white,
-                                    ),
-                                    title: 'Email',
-                                    titleColor: Colors.white,
-                                    describe: 'xuelongqy@foxmail.com',
-                                    describeColor: Colors.white,
-                                    onPressed: () {},
-                                  )
-                                ],
-                              ),
-                            )),
-                      ),
-                    ]),
                   ),
                 ],
               ),
-            ],
-          );
-        },
-      );
-    });
+            ),
+            EasyRefresh.custom(
+              header: ClassicalHeader(textColor: Colors.white),
+              onRefresh: () {
+                return Future.delayed(Duration(seconds: 1));
+              },
+              slivers: <Widget>[
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    // 顶部栏
+                    new Stack(
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height: 220.0,
+                          color: Colors.white,
+                        ),
+                        ClipPath(
+                          clipper: new TopBarClipper(
+                              MediaQuery.of(context).size.width, 200.0),
+                          child: new SizedBox(
+                            width: double.infinity,
+                            height: 200.0,
+                            child: new Container(
+                              width: double.infinity,
+                              height: 240.0,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                        // 名字
+                        Container(
+                          margin: new EdgeInsets.only(top: 40.0),
+                          child: new Center(
+                            child: new Text(
+                              state?.user?.name ?? '',
+                              style: new TextStyle(
+                                  fontSize: 30.0, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        // 图标
+                        Container(
+                          margin: new EdgeInsets.only(top: 100.0),
+                          child: new Center(
+                              child: new Container(
+                            width: 100.0,
+                            height: 100.0,
+                            child: new PreferredSize(
+                              child: new Container(
+                                child: new ClipOval(
+                                  child: new Container(
+                                    color: Colors.white,
+                                    child: state?.user?.avatar['thumbnail'] !=
+                                            null
+                                        ? CachedNetworkImage(
+                                            fit: BoxFit.cover,
+                                            imageUrl: state
+                                                ?.user?.avatar['thumbnail'],
+                                            placeholder: (context, url) =>
+                                                CircularProgressIndicator(),
+                                            errorWidget: (context, url,
+                                                    error) =>
+                                                Image.asset('assets/user.png'))
+                                        : Image.asset('assets/user.png'),
+                                  ),
+                                ),
+                              ),
+                              preferredSize: new Size(80.0, 80.0),
+                            ),
+                          )),
+                        ),
+                      ],
+                    ),
+                    // 内容
+                    Container(
+                      width: double.infinity,
+                      color: Colors.white,
+                      padding: EdgeInsets.all(10.0),
+                      child: Card(
+                          color: Theme.of(context).primaryColor,
+                          child: Container(
+                              padding: EdgeInsets.all(10.0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      children: <Widget>[
+                                        ListItem(
+                                          icon: Icon(
+                                            FontAwesomeIcons.passport,
+                                            color: Colors.white,
+                                          ),
+                                          title: 'Code',
+                                          titleColor: Colors.white,
+                                          describe:
+                                              state?.user?.passport_code ??
+                                                  'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'Type',
+                                          titleColor: Colors.white,
+                                          describe:
+                                              state?.user?.possport_type ??
+                                                  'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'First Name',
+                                          titleColor: Colors.white,
+                                          describe: state?.user?.first_name ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'Nationality',
+                                          titleColor: Colors.white,
+                                          describe: state?.user
+                                                  ?.passport_nationality ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'Date of birth',
+                                          titleColor: Colors.white,
+                                          describe: state
+                                                  ?.user?.passport_date_birth ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'Date of issue',
+                                          titleColor: Colors.white,
+                                          describe: state
+                                                  ?.user?.passport_date_issue ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      children: <Widget>[
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'No.',
+                                          titleColor: Colors.white,
+                                          describe: state?.user?.passport_no ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'Issuing authority',
+                                          titleColor: Colors.white,
+                                          describe: state?.user
+                                                  ?.passport_issuing_authority ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'Last Name',
+                                          titleColor: Colors.white,
+                                          describe: state?.user?.last_name ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'Sex',
+                                          titleColor: Colors.white,
+                                          describe: state?.user?.passport_sex ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'Place of birth',
+                                          titleColor: Colors.white,
+                                          describe: state?.user
+                                                  ?.passport_place_birth ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                        ListItem(
+                                          icon: EmptyIcon(),
+                                          title: 'Date of expiry',
+                                          titleColor: Colors.white,
+                                          describe: state?.user
+                                                  ?.passport_date_expiry ??
+                                              'unknown',
+                                          describeColor: Colors.white,
+                                          onPressed: () {},
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ))),
+                    ),
+                    ElevatedButton(
+                      child: Text('Sign Out'),
+                      onPressed: () {
+                        BlocProvider.of<AppBloc>(context)
+                            .add(UnAuthorization());
+                        context.tabsRouter.root.pushAndRemoveUntil(LoginRoute(),
+                            predicate: (RouteData<PageRouteInfo> route) {
+                          return true;
+                        });
+                      },
+                    )
+                  ]),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

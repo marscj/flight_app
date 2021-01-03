@@ -19,7 +19,17 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..department = json['department'] as String
     ..avatar = (json['avatar'] as Map<String, dynamic>)?.map(
       (k, e) => MapEntry(k, e as String),
-    );
+    )
+    ..possport_type = json['possport_type'] as String
+    ..passport_code = json['passport_code'] as String
+    ..passport_no = json['passport_no'] as String
+    ..passport_sex = json['passport_sex'] as String
+    ..passport_nationality = json['passport_nationality'] as String
+    ..passport_date_birth = json['passport_date_birth'] as String
+    ..passport_place_birth = json['passport_place_birth'] as String
+    ..passport_date_issue = json['passport_date_issue'] as String
+    ..passport_date_expiry = json['passport_date_expiry'] as String
+    ..passport_issuing_authority = json['passport_issuing_authority'] as String;
 }
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -33,6 +43,16 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'email': instance.email,
       'department': instance.department,
       'avatar': instance.avatar,
+      'possport_type': instance.possport_type,
+      'passport_code': instance.passport_code,
+      'passport_no': instance.passport_no,
+      'passport_sex': instance.passport_sex,
+      'passport_nationality': instance.passport_nationality,
+      'passport_date_birth': instance.passport_date_birth,
+      'passport_place_birth': instance.passport_place_birth,
+      'passport_date_issue': instance.passport_date_issue,
+      'passport_date_expiry': instance.passport_date_expiry,
+      'passport_issuing_authority': instance.passport_issuing_authority,
     };
 
 Department _$DepartmentFromJson(Map<String, dynamic> json) {
