@@ -114,6 +114,20 @@ Map<String, dynamic> _$BookingListToJson(BookingList instance) =>
       'data': instance.data,
     };
 
+BookingExtra _$BookingExtraFromJson(Map<String, dynamic> json) {
+  return BookingExtra()
+    ..data = json['data'] == null
+        ? null
+        : Booking.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$BookingExtraToJson(BookingExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
+    };
+
 BookingListExtra _$BookingListExtraFromJson(Map<String, dynamic> json) {
   return BookingListExtra()
     ..data = json['data'] == null
@@ -126,6 +140,33 @@ Map<String, dynamic> _$BookingListExtraToJson(BookingListExtra instance) =>
     <String, dynamic>{
       'data': instance.data,
       'extra': instance.extra,
+    };
+
+Upload _$UploadFromJson(Map<String, dynamic> json) {
+  return Upload()
+    ..id = json['id'] as int
+    ..content_type = json['content_type'] as String
+    ..author_id = json['author_id'] as int
+    ..name = json['name'] as String
+    ..url = json['url'] as String
+    ..uid = json['uid'] as String
+    ..remark = json['remark'] as String
+    ..file = json['file'] as String
+    ..date = json['date'] as String
+    ..object_id = json['object_id'] as int;
+}
+
+Map<String, dynamic> _$UploadToJson(Upload instance) => <String, dynamic>{
+      'id': instance.id,
+      'content_type': instance.content_type,
+      'author_id': instance.author_id,
+      'name': instance.name,
+      'url': instance.url,
+      'uid': instance.uid,
+      'remark': instance.remark,
+      'file': instance.file,
+      'date': instance.date,
+      'object_id': instance.object_id,
     };
 
 // **************************************************************************
@@ -220,7 +261,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<Booking> getBooking(id) async {
+  Future<BookingExtra> getBooking(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -233,7 +274,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = Booking.fromJson(_result.data);
+    final value = BookingExtra.fromJson(_result.data);
     return value;
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'booking_bloc.dart';
-import 'booking_event.dart';
 import 'booking_screen.dart';
 
 class BookingPage extends StatefulWidget {

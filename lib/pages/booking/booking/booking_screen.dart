@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/widgets/list_item.dart';
 
 import 'booking_bloc.dart';
 import 'booking_event.dart';
@@ -43,35 +44,34 @@ class BookingScreenState extends State<BookingScreen> {
       // ignore: close_sinks
       BookingBloc bookingsBloc = BlocProvider.of<BookingBloc>(context);
       return Scaffold(
-        body: EasyRefresh.builder(
-            builder: (context, physics, header, footer) {
-              return CustomScrollView(
-                physics: physics,
-                slivers: <Widget>[
-                  SliverAppBar(
-                    expandedHeight: 100.0,
-                    pinned: true,
-                    backgroundColor: Colors.white,
-                    flexibleSpace: FlexibleSpaceBar(
-                      centerTitle: false,
-                      title: Text(
-                        'Booking',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
+        appBar: AppBar(
+          title: Text('Booking Detail'),
+        ),
+        body: EasyRefresh(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              child: Column(
+                children: [
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Create Date:'),
+                    subtitle: Text(currentState?.data?.date ?? ''),
                   ),
-                  header,
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(),
-                      );
-                    }, childCount: 1),
+                  Divider(),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Title:'),
+                    subtitle: Text(currentState?.data?.title ?? ''),
+                  ),
+                  Divider(),
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('Remark:'),
+                    subtitle: Text(currentState?.data?.remark ?? ''),
                   ),
                 ],
-              );
-            },
+              ),
+            ),
             firstRefresh: currentState.data == null,
             controller: _controller,
             enableControlFinishRefresh: true,

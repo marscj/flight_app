@@ -12,13 +12,13 @@ abstract class BookingEvent {
 }
 
 class RefreshBookingEvent extends BookingEvent {
-  final Booking result;
+  final BookingExtra result;
 
   RefreshBookingEvent(this.result);
 
   @override
   Stream<BookingState> applyAsync(
       {BookingState currentState, BookingBloc bloc}) async* {
-    yield currentState.copyWith(data: result);
+    yield currentState.copyWith(data: result.data);
   }
 }

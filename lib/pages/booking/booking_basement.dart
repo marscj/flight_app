@@ -66,7 +66,12 @@ class _BookingBasementPageState extends State<BookingBasementPage>
               });
             },
             controller: controller,
-            children: [BookingPage(), ItineraryPage(), BtaPage(), ChatPage()],
+            children: [
+              BookingPage(id: widget.id),
+              ItineraryPage(),
+              BtaPage(),
+              ChatPage()
+            ],
           ),
           bottomNavigationBar: SafeArea(
             child: Container(

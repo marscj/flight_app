@@ -10,6 +10,7 @@ import '../constanc.dart';
 part 'user.dart';
 part 'booking.dart';
 part 'client.g.dart';
+part 'uploads.dart';
 
 @RestApi(baseUrl: Constant.Host)
 abstract class RestClient {
@@ -60,5 +61,5 @@ abstract class RestClient {
   Future<BookingListExtra> getBookings({@Queries() Map<String, dynamic> query});
 
   @GET('/bookings/{id}/')
-  Future<Booking> getBooking(@Path("id") String id);
+  Future<BookingExtra> getBooking(@Path("id") String id);
 }
