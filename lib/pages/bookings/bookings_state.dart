@@ -1,77 +1,26 @@
 import 'package:equatable/equatable.dart';
+import 'package:saadiyat/apis/client.dart';
 
-abstract class BookingsState extends Equatable {
+class BookingsState extends Equatable {
   /// notify change state without deep clone state
-  final int version;
-  
-  final List propss;
-  BookingsState(this.version,[this.propss]);
+  final List<Booking> list;
+  final int pageNo;
+  final int pageSize;
+  final int totalCount;
 
-  /// Copy object for use in action
-  /// if need use deep clone
-  BookingsState getStateCopy();
+  BookingsState({this.pageNo, this.pageSize, this.totalCount, this.list});
 
-  BookingsState getNewVersion();
+  factory BookingsState.initial() => BookingsState(
+      list: List<Booking>(), pageNo: 1, pageSize: 10, totalCount: 0);
 
-  @override
-  List<Object> get props => ([version, ...propss ?? []]);
-}
-
-/// UnInitialized
-class UnBookingsState extends BookingsState {
-
-  UnBookingsState(int version) : super(version);
+  BookingsState copyWith(
+          {List<Booking> list, int pageNo, int pageSize, int totalCount}) =>
+      BookingsState(
+          list: list ?? this.list,
+          pageNo: pageNo ?? this.pageNo,
+          pageSize: pageSize ?? this.pageSize,
+          totalCount: totalCount ?? this.totalCount);
 
   @override
-  String toString() => 'UnBookingsState';
-
-  @override
-  UnBookingsState getStateCopy() {
-    return UnBookingsState(0);
-  }
-
-  @override
-  UnBookingsState getNewVersion() {
-    return UnBookingsState(version+1);
-  }
-}
-
-/// Initialized
-class InBookingsState extends BookingsState {
-  final String hello;
-
-  InBookingsState(int version, this.hello) : super(version, [hello]);
-
-  @override
-  String toString() => 'InBookingsState $hello';
-
-  @override
-  InBookingsState getStateCopy() {
-    return InBookingsState(version, hello);
-  }
-
-  @override
-  InBookingsState getNewVersion() {
-    return InBookingsState(version+1, hello);
-  }
-}
-
-class ErrorBookingsState extends BookingsState {
-  final String errorMessage;
-
-  ErrorBookingsState(int version, this.errorMessage): super(version, [errorMessage]);
-  
-  @override
-  String toString() => 'ErrorBookingsState';
-
-  @override
-  ErrorBookingsState getStateCopy() {
-    return ErrorBookingsState(version, errorMessage);
-  }
-
-  @override
-  ErrorBookingsState getNewVersion() {
-    return ErrorBookingsState(version+1, 
-    errorMessage);
-  }
+  List<Object> get props => [list, pageNo, pageSize, totalCount];
 }

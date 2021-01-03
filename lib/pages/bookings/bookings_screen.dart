@@ -4,6 +4,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'bookings_bloc.dart';
+import 'bookings_event.dart';
 import 'bookings_state.dart';
 
 class BookingsScreen extends StatefulWidget {
@@ -24,6 +25,7 @@ class BookingsScreenState extends State<BookingsScreen> {
       BuildContext context,
       BookingsState currentState,
     ) {
+      BookingsBloc bookingsBloc = BlocProvider.of<BookingsBloc>(context);
       return Scaffold(
         body: EasyRefresh.builder(
           builder: (context, physics, header, footer) {
@@ -52,19 +54,15 @@ class BookingsScreenState extends State<BookingsScreen> {
               ],
             );
           },
+          firstRefresh: true,
+          enableControlFinishRefresh: true,
+          enableControlFinishLoad: true,
+          controller: bookingsBloc.easyRefreshController,
           onRefresh: () async {
-            await Future.delayed(Duration(seconds: 2), () {
-              if (mounted) {
-                setState(() {});
-              }
-            });
+            bookingsBloc.add(RefreshBookingsEvent());
           },
           onLoad: () async {
-            await Future.delayed(Duration(seconds: 2), () {
-              if (mounted) {
-                setState(() {});
-              }
-            });
+            bookingsBloc.add(LoadBookingsEvent());
           },
         ),
       );

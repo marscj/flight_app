@@ -55,4 +55,10 @@ abstract class RestClient {
   @PATCH('/users/{id}/')
   Future<User> updateUser(
       @Path() int id, @Body() Map<String, dynamic> playload);
+
+  @GET('/bookings/')
+  Future<BookingList> getBookings({@Queries() Map<String, dynamic> query});
+
+  @GET('/bookings/{id}/')
+  Future<Booking> getBooking(@Path("id") String id);
 }

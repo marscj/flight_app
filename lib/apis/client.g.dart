@@ -99,6 +99,23 @@ Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
       'author': instance.author,
     };
 
+BookingList _$BookingListFromJson(Map<String, dynamic> json) {
+  return BookingList()
+    ..totalCount = json['totalCount'] as int
+    ..pageNo = json['pageNo'] as int
+    ..data = (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : Booking.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$BookingListToJson(BookingList instance) =>
+    <String, dynamic>{
+      'totalCount': instance.totalCount,
+      'pageNo': instance.pageNo,
+      'data': instance.data,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -168,6 +185,43 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = User.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<BookingList> getBookings({query}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(query ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/bookings/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BookingList.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<Booking> getBooking(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/bookings/$id/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Booking.fromJson(_result.data);
     return value;
   }
 }

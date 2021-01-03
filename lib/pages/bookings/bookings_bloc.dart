@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import 'bookings_event.dart';
 import 'bookings_state.dart';
@@ -14,7 +15,9 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
   factory BookingsBloc() {
     return _bookingsBlocSingleton;
   }
-  BookingsBloc._internal() : super(UnBookingsState(0));
+  BookingsBloc._internal() : super(BookingsState.initial());
+
+  EasyRefreshController easyRefreshController = EasyRefreshController();
 
   @override
   Future<void> close() async {

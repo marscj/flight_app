@@ -17,3 +17,17 @@ class Booking extends Equatable {
   @override
   List<Object> get props => [id, title, remark, date, author];
 }
+
+@JsonSerializable()
+class BookingList extends Equatable {
+  int totalCount;
+  int pageNo;
+  List<Booking> data;
+
+  static BookingList fromJson(Map<String, dynamic> json) =>
+      _$BookingListFromJson(json);
+  Map<String, dynamic> toJson() => _$BookingListToJson(this);
+
+  @override
+  List<Object> get props => [totalCount, pageNo, data];
+}

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:meta/meta.dart';
+import 'package:saadiyat/apis/client.dart';
 
 import 'bookings_bloc.dart';
 import 'bookings_state.dart';
@@ -12,29 +13,42 @@ abstract class BookingsEvent {
       {BookingsState currentState, BookingsBloc bloc});
 }
 
-class UnBookingsEvent extends BookingsEvent {
+class RefreshBookingsEvent extends BookingsEvent {
   @override
   Stream<BookingsState> applyAsync(
       {BookingsState currentState, BookingsBloc bloc}) async* {
-    yield UnBookingsState(0);
+    yield await RestClient().getBookings(query: {
+      'pageNo': 1,
+      'pageSize': currentState.pageSize,
+      'sorter': '-id'
+    }).then((res) {
+      bloc.easyRefreshController.finishRefresh(success: true);
+      return currentState.copyWith(
+          pageNo: 2, totalCount: res.totalCount, list: res.data);
+    }).catchError((error) {
+      print(error.toString());
+      bloc.easyRefreshController.finishRefresh(success: false);
+      return currentState.copyWith(pageNo: 1, totalCount: 0, list: []);
+    });
   }
 }
 
 class LoadBookingsEvent extends BookingsEvent {
   @override
-  String toString() => 'LoadBookingsEvent';
-
-  LoadBookingsEvent();
-
-  @override
   Stream<BookingsState> applyAsync(
       {BookingsState currentState, BookingsBloc bloc}) async* {
-    try {
-      yield InBookingsState(0, 'Hello world');
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadBookingsEvent', error: _, stackTrace: stackTrace);
-      yield ErrorBookingsState(0, _?.toString());
-    }
+    yield await RestClient().getBookings(query: {
+      'pageNo': currentState.pageNo,
+      'pageSize': currentState.pageSize,
+      'sorter': '-id'
+    }).then((res) {
+      bloc.easyRefreshController.finishLoad(
+          success: true,
+          noMore: currentState.list.length < currentState.totalCount);
+      return currentState.copyWith(
+          list: currentState.list + res.data,
+          pageNo: currentState.pageNo + 1,
+          totalCount: currentState.totalCount);
+    });
   }
 }
