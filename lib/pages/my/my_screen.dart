@@ -271,16 +271,21 @@ class MyScreenState extends State<MyScreen> {
                                 ],
                               ))),
                     ),
-                    ElevatedButton(
-                      child: Text('Sign Out'),
-                      onPressed: () {
-                        BlocProvider.of<AppBloc>(context)
-                            .add(UnAuthorization());
-                        context.tabsRouter.root.pushAndRemoveUntil(LoginRoute(),
-                            predicate: (RouteData<PageRouteInfo> route) {
-                          return true;
-                        });
-                      },
+                    Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: FloatingActionButton.extended(
+                        icon: Icon(Icons.logout),
+                        label: Text('Sign Out'),
+                        onPressed: () {
+                          BlocProvider.of<AppBloc>(context)
+                              .add(UnAuthorization());
+                          context.tabsRouter.root
+                              .pushAndRemoveUntil(LoginRoute(),
+                                  predicate: (RouteData<PageRouteInfo> route) {
+                            return true;
+                          });
+                        },
+                      ),
                     )
                   ]),
                 ),
