@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     return BlocProvider<LoginBloc>(
       create: (context) => LoginBloc(),
       child: Scaffold(
-        body: LoginScreen(),
+        body: LoginScreen(onLoginResult: widget.onLoginResult),
       ),
     );
   }

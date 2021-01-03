@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/store/store.dart';
 import 'package:wakelock/wakelock.dart';
 
 import 'app_bloc.dart';
@@ -43,5 +44,16 @@ class Authorization extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     yield InAppState(1, user);
+  }
+}
+
+class UnAuthorization extends AppEvent {
+  @override
+  String toString() => 'LoadAppEvent';
+
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    await Store.instance.clearToken();
+    yield InAppState(1, null);
   }
 }

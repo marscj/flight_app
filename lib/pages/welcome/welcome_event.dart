@@ -41,7 +41,7 @@ class LoadWelcomeEvent extends WelcomeEvent {
     } catch (errors) {
       if (errors is DioError) {
         if (errors?.response?.statusCode == 401) {
-          yield InWelcomeState(1, LoginRoute());
+          yield InWelcomeState(1, BasementRoute());
         } else {
           yield ErrorWelcomeState(1, 'Connection timed out!');
         }

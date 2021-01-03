@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
+import 'package:saadiyat/pages/app/index.dart';
+import 'package:auto_route/auto_route.dart';
 
 import 'my_bloc.dart';
 import 'my_state.dart';
@@ -26,7 +28,6 @@ class MyScreenState extends State<MyScreen> {
     ) {
       return BlocBuilder<AppBloc, AppState>(
         builder: (BuildContext context, state) {
-          print('caonima');
           if (state is InAppState) {
             return SingleChildScrollView(
                 child: Column(children: <Widget>[
@@ -118,7 +119,8 @@ class MyScreenState extends State<MyScreen> {
               RaisedButton(
                   child: Text('SingOut'),
                   onPressed: () {
-                    // BlocProvider.of<AppBloc>(context).add(SignOut());
+                    BlocProvider.of<AppBloc>(context).add(UnAuthorization());
+                    context.tabsRouter.pop();
                   })
             ]));
           }

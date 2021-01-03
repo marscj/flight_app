@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/router/router.gr.dart';
-
-// mock auth state
-bool isAuthenticated = false;
 
 class AuthGuard extends AutoRouteGuard {
   final BuildContext context;
@@ -16,13 +14,10 @@ class AuthGuard extends AutoRouteGuard {
       List<PageRouteInfo> pendingRoutes, StackRouter router) async {
     // ignore: close_sinks
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
-    print(appBloc.state.propss);
-    print('---------');
-    if (appBloc.state.propss == null) {
+    if (!(appBloc.state?.props[0] is User)) {
       // ignore: unawaited_futures
       router.root.push(LoginRoute(onLoginResult: (success) {
         if (success) {
-          isAuthenticated = true;
           router.root.pop();
           router.pushAll(pendingRoutes);
         }

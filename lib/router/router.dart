@@ -21,6 +21,9 @@ import 'guard.dart';
         path: BasementPage.routeName,
         page: BasementPage,
         usesTabsRouter: true,
+        guards: [
+          AuthGuard
+        ],
         children: [
           MaterialRoute(
               path: HomePage.routeName, page: HomePage, name: 'homeTab'),
@@ -34,7 +37,6 @@ import 'guard.dart';
               AutoRoute(
                 path: 'list/:id',
                 page: BookingPage,
-                guards: [AuthGuard],
               ),
             ],
           ),

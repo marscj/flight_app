@@ -81,6 +81,9 @@ class AppRouter extends _i1.RootStackRouter {
             path: '/',
             usesTabsRouter: true,
             routeBuilder: (match) => BasementRoute.fromMatch(match),
+            guards: [
+              authGuard
+            ],
             children: [
               _i1.RouteConfig<HomeTab>(HomeTab.name,
                   path: 'home', routeBuilder: (_) => const HomeTab()),
@@ -95,8 +98,7 @@ class AppRouter extends _i1.RootStackRouter {
                         routeBuilder: (_) => const BookingsScreen()),
                     _i1.RouteConfig<BookingRoute>(BookingRoute.name,
                         path: 'list/:id',
-                        routeBuilder: (match) => BookingRoute.fromMatch(match),
-                        guards: [authGuard])
+                        routeBuilder: (match) => BookingRoute.fromMatch(match))
                   ]),
               _i1.RouteConfig<TicketTab>(TicketTab.name,
                   path: 'tickets',
