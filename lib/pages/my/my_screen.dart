@@ -52,16 +52,12 @@ class MyScreenState extends State<MyScreen> {
                 ],
               ),
             ),
-            EasyRefresh.custom(
-              header: ClassicalHeader(textColor: Colors.white),
-              onRefresh: () {
-                return Future.delayed(Duration(seconds: 1));
-              },
+            CustomScrollView(
               slivers: <Widget>[
                 SliverList(
                   delegate: SliverChildListDelegate([
                     // 顶部栏
-                    new Stack(
+                    Stack(
                       children: <Widget>[
                         Container(
                           width: double.infinity,
@@ -69,12 +65,12 @@ class MyScreenState extends State<MyScreen> {
                           color: Colors.white,
                         ),
                         ClipPath(
-                          clipper: new TopBarClipper(
+                          clipper: TopBarClipper(
                               MediaQuery.of(context).size.width, 200.0),
-                          child: new SizedBox(
+                          child: SizedBox(
                             width: double.infinity,
                             height: 200.0,
-                            child: new Container(
+                            child: Container(
                               width: double.infinity,
                               height: 240.0,
                               color: Theme.of(context).primaryColor,
@@ -83,26 +79,35 @@ class MyScreenState extends State<MyScreen> {
                         ),
                         // 名字
                         Container(
-                          margin: new EdgeInsets.only(top: 40.0),
-                          child: new Center(
-                            child: new Text(
+                          margin: EdgeInsets.only(top: 20.0),
+                          child: Center(
+                            child: Text(
                               state?.user?.name ?? '',
-                              style: new TextStyle(
+                              style: TextStyle(
                                   fontSize: 30.0, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 60.0),
+                          child: Center(
+                            child: Text(
+                              state?.user?.department ?? '',
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
                         // 图标
                         Container(
-                          margin: new EdgeInsets.only(top: 100.0),
-                          child: new Center(
-                              child: new Container(
+                          margin: EdgeInsets.only(top: 100.0),
+                          child: Center(
+                              child: Container(
                             width: 100.0,
                             height: 100.0,
-                            child: new PreferredSize(
-                              child: new Container(
-                                child: new ClipOval(
-                                  child: new Container(
+                            child: PreferredSize(
+                              child: Container(
+                                child: ClipOval(
+                                  child: Container(
                                     color: Colors.white,
                                     child: state?.user?.avatar['thumbnail'] !=
                                             null
@@ -119,7 +124,7 @@ class MyScreenState extends State<MyScreen> {
                                   ),
                                 ),
                               ),
-                              preferredSize: new Size(80.0, 80.0),
+                              preferredSize: Size(80.0, 80.0),
                             ),
                           )),
                         ),
@@ -307,7 +312,7 @@ class TopBarClipper extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
-    Path path = new Path();
+    Path path = Path();
     path.moveTo(0.0, 0.0);
     path.lineTo(width, 0.0);
     path.lineTo(width, height / 2);

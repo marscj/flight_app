@@ -22,6 +22,7 @@ class BasementScreen extends StatefulWidget {
 
 class BasementScreenState extends State<BasementScreen> with RestorationMixin {
   final RestorableInt _currentIndex = RestorableInt(0);
+  PageController _pageController;
 
   @override
   String get restorationId => 'basement';
@@ -29,6 +30,23 @@ class BasementScreenState extends State<BasementScreen> with RestorationMixin {
   @override
   void restoreState(RestorationBucket oldBucket, bool initialRestore) {
     registerForRestoration(_currentIndex, 'bottom_navigation_tab_index');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onBottomNavigationBarTap(int index) {
+    _pageController.animateToPage(index,
+        duration: Duration(milliseconds: 200), curve: Curves.linear);
   }
 
   @override
@@ -60,14 +78,17 @@ class BasementScreenState extends State<BasementScreen> with RestorationMixin {
           label: 'My',
         )
       ];
-      final List<Widget> pages = [
-        HomePage(),
-        BookingsPage(),
-        TicketsPage(),
-        MyPage()
-      ];
+
       return Scaffold(
-        body: pages[_currentIndex.value],
+        body: PageView(
+          controller: _pageController,
+          children: [HomePage(), BookingsPage(), TicketsPage(), MyPage()],
+          onPageChanged: (index) {
+            setState(() {
+              _currentIndex.value = index;
+            });
+          },
+        ),
         bottomNavigationBar: BottomNavigationBar(
           showUnselectedLabels: true,
           items: bottomNavigationBarItems,
@@ -75,11 +96,7 @@ class BasementScreenState extends State<BasementScreen> with RestorationMixin {
           type: BottomNavigationBarType.fixed,
           selectedFontSize: textTheme.caption.fontSize,
           unselectedFontSize: textTheme.caption.fontSize,
-          onTap: (index) {
-            setState(() {
-              _currentIndex.value = index;
-            });
-          },
+          onTap: _onBottomNavigationBarTap,
           selectedItemColor: Colors.indigo,
           unselectedItemColor: Colors.grey,
           backgroundColor: Colors.white,

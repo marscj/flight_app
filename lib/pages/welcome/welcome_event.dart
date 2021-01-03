@@ -36,7 +36,7 @@ class LoadWelcomeEvent extends WelcomeEvent {
       yield await RestClient().getInfo().then((res) {
         return appBloc.add(Authorization(res));
       }).then((res) {
-        return Future.delayed(Duration(milliseconds: 1)).then((res) {
+        return Future.delayed(Duration(seconds: 1)).then((res) {
           return InWelcomeState(1, BasementRoute());
         });
       });
