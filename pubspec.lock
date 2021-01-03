@@ -425,7 +425,7 @@ packages:
       name: flutter_easyrefresh
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.7"
+    version: "2.1.8"
   flutter_form_bloc:
     dependency: "direct main"
     description:

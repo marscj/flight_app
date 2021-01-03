@@ -12,8 +12,12 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: MyScreen(),
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.only(top: kToolbarHeight),
+        color: Theme.of(context).primaryColor,
+        child: MyScreen(),
+      ),
     );
   }
 }

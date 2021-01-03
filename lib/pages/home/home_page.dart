@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
+              brightness: Brightness.dark,
               title: Image.asset(
                 'assets/logo-title.png',
                 fit: BoxFit.contain,
