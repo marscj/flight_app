@@ -1,74 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:saadiyat/apis/client.dart';
 
-abstract class BookingState extends Equatable {
-  /// notify change state without deep clone state
-  final int version;
+class BookingState extends Equatable {
+  final Booking data;
 
-  final List propss;
-  BookingState(this.version, [this.propss]);
+  BookingState({this.data});
 
-  /// Copy object for use in action
-  /// if need use deep clone
-  BookingState getStateCopy();
+  factory BookingState.initial() => BookingState(data: null);
 
-  BookingState getNewVersion();
+  BookingState copyWith({Booking data}) => BookingState(data: data);
 
   @override
-  List<Object> get props => ([version, ...propss ?? []]);
-}
-
-/// UnInitialized
-class UnBookingState extends BookingState {
-  UnBookingState(int version) : super(version);
-
-  @override
-  String toString() => 'UnBookingState';
-
-  @override
-  UnBookingState getStateCopy() {
-    return UnBookingState(0);
-  }
-
-  @override
-  UnBookingState getNewVersion() {
-    return UnBookingState(version + 1);
-  }
-}
-
-/// Initialized
-class InBookingState extends BookingState {
-  InBookingState(int version) : super(version);
-
-  @override
-  String toString() => 'InBookingState';
-
-  @override
-  InBookingState getStateCopy() {
-    return InBookingState(version);
-  }
-
-  @override
-  InBookingState getNewVersion() {
-    return InBookingState(version + 1);
-  }
-}
-
-class ErrorBookingState extends BookingState {
-  final String errorMessage;
-
-  ErrorBookingState(int version, this.errorMessage)
-      : super(version, [errorMessage]);
-
-  @override
-  String toString() => 'ErrorBookingState';
-
-  @override
-  ErrorBookingState getStateCopy() {
-    return ErrorBookingState(version, errorMessage);
-  }
-
-  @override
-  ErrorBookingState getNewVersion() {
-    return ErrorBookingState(version + 1, errorMessage);
-  }
+  List<Object> get props => [data];
 }

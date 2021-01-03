@@ -98,8 +98,8 @@ class BasementScreenState extends State<BasementScreen> with RestorationMixin {
               onTap: (index) {
                 setState(() {
                   _currentIndex.value = index;
-                  _pageController.jumpToPage(index);
                 });
+                _pageController.jumpToPage(index);
               },
               selectedItemColor: Colors.indigo,
               unselectedItemColor: Colors.grey,

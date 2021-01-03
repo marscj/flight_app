@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 
 import 'package:meta/meta.dart';
+import 'package:saadiyat/apis/client.dart';
 
 import 'index.dart';
 
@@ -11,29 +11,14 @@ abstract class BookingEvent {
       {BookingState currentState, BookingBloc bloc});
 }
 
-class UnBookingEvent extends BookingEvent {
-  @override
-  Stream<BookingState> applyAsync(
-      {BookingState currentState, BookingBloc bloc}) async* {
-    yield UnBookingState(0);
-  }
-}
+class RefreshBookingEvent extends BookingEvent {
+  final Booking result;
 
-class LoadBookingEvent extends BookingEvent {
-  @override
-  String toString() => 'LoadBookingEvent';
-
-  LoadBookingEvent();
+  RefreshBookingEvent(this.result);
 
   @override
   Stream<BookingState> applyAsync(
       {BookingState currentState, BookingBloc bloc}) async* {
-    try {
-      yield InBookingState(0);
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadBookingEvent', error: _, stackTrace: stackTrace);
-      yield ErrorBookingState(0, _?.toString());
-    }
+    yield currentState.copyWith(data: result);
   }
 }

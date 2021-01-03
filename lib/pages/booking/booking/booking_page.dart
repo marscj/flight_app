@@ -21,8 +21,8 @@ class _BookingPageState extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BookingBloc>(
-      create: (context) => BookingBloc()..add(LoadBookingEvent()),
-      child: BookingScreen(),
+      create: (context) => BookingBloc(),
+      child: BookingScreen(id: widget.id),
     );
   }
 }

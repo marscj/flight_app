@@ -14,7 +14,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
   factory BookingBloc() {
     return _bookingBlocSingleton;
   }
-  BookingBloc._internal() : super(UnBookingState(0));
+  BookingBloc._internal() : super(BookingState.initial());
 
   @override
   Future<void> close() async {
