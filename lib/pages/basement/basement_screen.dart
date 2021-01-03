@@ -5,8 +5,6 @@ import 'package:saadiyat/pages/bookings/bookings_page.dart';
 import 'package:saadiyat/pages/home/home_page.dart';
 import 'package:saadiyat/pages/my/my_page.dart';
 import 'package:saadiyat/pages/tickets/tickets_page.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:saadiyat/router/router.gr.dart';
 
 import 'basement_bloc.dart';
 import 'basement_state.dart';

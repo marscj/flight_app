@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/basement/basement_screen.dart';
@@ -7,7 +6,6 @@ import 'package:saadiyat/pages/bookings/index.dart';
 import 'package:saadiyat/pages/home/index.dart';
 import 'package:saadiyat/pages/my/index.dart';
 import 'package:saadiyat/pages/tickets/index.dart';
-import 'package:saadiyat/router/router.gr.dart';
 
 // import 'container_transition.dart';
 // import 'fade_scale_transition.dart';
