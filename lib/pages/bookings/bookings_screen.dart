@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -29,45 +30,60 @@ class BookingsScreenState extends State<BookingsScreen> {
       BookingsBloc bookingsBloc = BlocProvider.of<BookingsBloc>(context);
       return Scaffold(
         body: EasyRefresh.builder(
-          builder: (context, physics, header, footer) {
-            return CustomScrollView(
-              physics: physics,
-              slivers: <Widget>[
-                SliverAppBar(
-                  expandedHeight: 100.0,
-                  pinned: true,
-                  backgroundColor: Colors.white,
-                  flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: false,
-                    title: Text(
-                      'Booking',
-                      style: TextStyle(color: Colors.black),
+            builder: (context, physics, header, footer) {
+              return CustomScrollView(
+                physics: physics,
+                slivers: <Widget>[
+                  SliverAppBar(
+                    expandedHeight: 100.0,
+                    pinned: true,
+                    backgroundColor: Colors.white,
+                    flexibleSpace: FlexibleSpaceBar(
+                      centerTitle: false,
+                      title: Text(
+                        'Booking',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ),
-                ),
-                header,
-                SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    return BookingItem(
-                      data: currentState?.list[index],
-                    );
-                  }, childCount: currentState?.list?.length ?? 0),
-                ),
-                footer,
-              ],
-            );
-          },
-          firstRefresh: true,
-          enableControlFinishRefresh: true,
-          enableControlFinishLoad: true,
-          controller: bookingsBloc.easyRefreshController,
-          onRefresh: () async {
-            bookingsBloc.add(RefreshBookingsEvent());
-          },
-          onLoad: () async {
-            bookingsBloc.add(LoadBookingsEvent());
-          },
-        ),
+                  header,
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: BookingItem(
+                          data: currentState?.list[index],
+                        ),
+                      );
+                    }, childCount: currentState?.list?.length ?? 0),
+                  ),
+                  footer
+                ],
+              );
+            },
+            firstRefresh: currentState.list.length == 0,
+            onRefresh: () async {
+              return RestClient().getBookings(query: {
+                'pageNo': 1,
+                'pageSize': currentState.pageSize,
+                'sorter': '-id'
+              }).then((res) {
+                bookingsBloc.add(RefreshBookingsEvent(res));
+              }).catchError((error) {
+                bookingsBloc.add(RefreshBookingsEvent(null));
+              });
+            },
+            onLoad: () async {
+              return RestClient().getBookings(query: {
+                'pageNo': currentState.pageNo,
+                'pageSize': currentState.pageSize,
+                'sorter': '-id'
+              }).then((res) {
+                bookingsBloc.add(LoadBookingsEvent(res));
+              }).catchError((error) {
+                bookingsBloc.add(LoadBookingsEvent(null));
+              });
+            }),
       );
     });
   }
@@ -82,30 +98,29 @@ class BookingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      bottom: false,
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: SizedBox(
-          height: height,
-          child: Card(
-            // This ensures that the Card's children (including the ink splash) are clipped correctly.
-            clipBehavior: Clip.antiAlias,
-            shape: null,
-            child: InkWell(
-              onTap: () {
-                print('Card was tapped');
-              },
-              // Generally, material cards use onSurface with 12% opacity for the pressed state.
-              splashColor:
-                  Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-              // Generally, material cards do not have a highlight overlay.
-              highlightColor: Colors.transparent,
-              child: Text('abc'),
-            ),
-          ),
-        ),
+    return SizedBox.fromSize(
+      // size: Size.fromHeight(180),
+      child: Card(
+        elevation: 2,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(14.0))),
+        child: Container(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(data.date),
+                Divider(),
+                AutoSizeText(
+                  data.title ?? '',
+                  maxLines: 1,
+                ),
+                AutoSizeText(
+                  data.remark ?? '',
+                  maxLines: 5,
+                )
+              ],
+            )),
       ),
     );
   }

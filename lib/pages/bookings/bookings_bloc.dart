@@ -17,8 +17,6 @@ class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
   }
   BookingsBloc._internal() : super(BookingsState.initial());
 
-  EasyRefreshController easyRefreshController = EasyRefreshController();
-
   @override
   Future<void> close() async {
     // dispose objects
