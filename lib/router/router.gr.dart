@@ -10,7 +10,7 @@ import 'guard.dart' as _i3;
 import '../pages/welcome/welcome_page.dart' as _i4;
 import '../pages/login/login_page.dart' as _i5;
 import '../pages/basement/basement_page.dart' as _i6;
-import '../pages/booking/index.dart' as _i7;
+import '../pages/booking/booking_basement.dart' as _i7;
 import '../pages/ticket/ticket_page.dart' as _i8;
 
 class AppRouter extends _i1.RootStackRouter {
@@ -34,10 +34,10 @@ class AppRouter extends _i1.RootStackRouter {
     BasementRoute.name: (entry) {
       return _i1.CupertinoPageX(entry: entry, child: _i6.BasementPage());
     },
-    BookingRoute.name: (entry) {
-      var route = entry.routeData.as<BookingRoute>();
+    BookingBasementRoute.name: (entry) {
+      var route = entry.routeData.as<BookingBasementRoute>();
       return _i1.CupertinoPageX(
-          entry: entry, child: _i7.BookingPage(id: route.id));
+          entry: entry, child: _i7.BookingBasementPage(id: route.id));
     },
     TicketRoute.name: (entry) {
       var route = entry.routeData.as<TicketRoute>();
@@ -57,9 +57,9 @@ class AppRouter extends _i1.RootStackRouter {
             path: '/',
             routeBuilder: (_) => const BasementRoute(),
             guards: [authGuard]),
-        _i1.RouteConfig<BookingRoute>(BookingRoute.name,
+        _i1.RouteConfig<BookingBasementRoute>(BookingBasementRoute.name,
             path: 'bookings/:id',
-            routeBuilder: (match) => BookingRoute.fromMatch(match),
+            routeBuilder: (match) => BookingBasementRoute.fromMatch(match),
             guards: [authGuard]),
         _i1.RouteConfig<TicketRoute>(TicketRoute.name,
             path: 'tickets/:id',
@@ -96,17 +96,17 @@ class BasementRoute extends _i1.PageRouteInfo {
   static const String name = 'BasementRoute';
 }
 
-class BookingRoute extends _i1.PageRouteInfo {
-  BookingRoute({this.id})
+class BookingBasementRoute extends _i1.PageRouteInfo {
+  BookingBasementRoute({this.id})
       : super(name, path: 'bookings/:id', params: {'id': id}, argProps: [id]);
 
-  BookingRoute.fromMatch(_i1.RouteMatch match)
+  BookingBasementRoute.fromMatch(_i1.RouteMatch match)
       : id = match.pathParams.getInt('id'),
         super.fromMatch(match);
 
   final int id;
 
-  static const String name = 'BookingRoute';
+  static const String name = 'BookingBasementRoute';
 }
 
 class TicketRoute extends _i1.PageRouteInfo {

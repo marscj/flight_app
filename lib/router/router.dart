@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/pages/basement/basement_page.dart';
-import 'package:saadiyat/pages/booking/index.dart';
+import 'package:saadiyat/pages/booking/booking_basement.dart';
 import 'package:saadiyat/pages/bookings/index.dart';
 import 'package:saadiyat/pages/login/login_page.dart';
 import 'package:saadiyat/pages/ticket/ticket_page.dart';
@@ -18,7 +18,7 @@ import 'guard.dart';
         path: BasementPage.routeName, page: BasementPage, guards: [AuthGuard]),
     AutoRoute(
       path: BookingsPage.routeName + '/:id',
-      page: BookingPage,
+      page: BookingBasementPage,
       guards: [AuthGuard],
     ),
     AutoRoute(

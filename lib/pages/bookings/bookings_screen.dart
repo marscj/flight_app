@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -149,7 +148,7 @@ class BookingItem extends StatelessWidget {
               ListTile(
                   contentPadding: EdgeInsets.zero,
                   onTap: () {
-                    context.router.push(BookingRoute(id: data.id));
+                    context.router.push(BookingBasementRoute(id: data.id));
                   },
                   title: AutoSizeText(
                     data.title ?? '',
