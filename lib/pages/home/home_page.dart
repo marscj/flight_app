@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
           Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
+              elevation: 0,
               backgroundColor: Colors.transparent,
               brightness: Brightness.dark,
               title: Image.asset(

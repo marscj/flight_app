@@ -273,7 +273,7 @@ class MyScreenState extends State<MyScreen> {
                     ),
                     Container(
                       padding: EdgeInsets.all(10.0),
-                      child: FloatingActionButton.extended(
+                      child: ElevatedButton.icon(
                         icon: Icon(Icons.logout),
                         label: Text('Sign Out'),
                         onPressed: () {
