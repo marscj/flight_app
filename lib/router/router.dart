@@ -17,34 +17,7 @@ import 'guard.dart';
     AutoRoute(
         path: LoginPage.routeName, page: LoginPage, fullscreenDialog: false),
     AutoRoute(
-        path: BasementPage.routeName,
-        page: BasementPage,
-        usesTabsRouter: true,
-        guards: [
-          AuthGuard
-        ],
-        children: [
-          AutoRoute(path: HomePage.routeName, page: HomePage, name: 'homeTab'),
-          AutoRoute(
-            path: BookingsPage.routeName,
-            page: EmptyRouterPage,
-            name: 'bookingTab',
-            children: [
-              RedirectRoute(path: '', redirectTo: 'list'),
-              AutoRoute(path: 'list', page: BookingsPage),
-            ],
-          ),
-          AutoRoute(
-            path: TicketsPage.routeName,
-            page: EmptyRouterPage,
-            name: 'ticketTab',
-            children: [
-              RedirectRoute(path: '', redirectTo: 'list'),
-              AutoRoute(path: 'list', page: TicketsPage),
-            ],
-          ),
-          AutoRoute(path: MyPage.routeName, page: MyPage, name: 'myTab'),
-        ]),
+        path: BasementPage.routeName, page: BasementPage, guards: [AuthGuard]),
     AutoRoute(
       path: BookingsPage.routeName + '/:id',
       page: BookingPage,

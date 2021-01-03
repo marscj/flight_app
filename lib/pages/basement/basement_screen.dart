@@ -76,30 +76,33 @@ class BasementScreenState extends State<BasementScreen> with RestorationMixin {
         )
       ];
 
-      return AutoTabsRouter(
-        routes: [HomeTab(), BookingTab(), TicketTab(), MyTab()],
-        duration: Duration(milliseconds: 400),
-        builder: (context, child, animation) {
-          var tabsRouter = context.tabsRouter;
-          return Scaffold(
-            body: FadeTransition(child: child, opacity: animation),
-            bottomNavigationBar: BottomNavigationBar(
-              showUnselectedLabels: true,
-              items: bottomNavigationBarItems,
-              currentIndex: tabsRouter.activeIndex,
-              type: BottomNavigationBarType.shifting,
-              selectedFontSize: textTheme.caption.fontSize,
-              unselectedFontSize: textTheme.caption.fontSize,
-              onTap: (index) {
-                tabsRouter.setActiveIndex(index);
-                // _pageController.jumpToPage(index);
-              },
-              selectedItemColor: Colors.indigo,
-              unselectedItemColor: Colors.grey,
-              backgroundColor: Colors.white,
-            ),
-          );
-        },
+      return Scaffold(
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              _currentIndex.value = index;
+            });
+          },
+          children: [HomePage(), BookingsPage(), TicketsPage(), MyPage()],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          showUnselectedLabels: true,
+          items: bottomNavigationBarItems,
+          currentIndex: _currentIndex.value,
+          type: BottomNavigationBarType.shifting,
+          selectedFontSize: textTheme.caption.fontSize,
+          unselectedFontSize: textTheme.caption.fontSize,
+          onTap: (index) {
+            setState(() {
+              _currentIndex.value = index;
+              _pageController.jumpToPage(index);
+            });
+          },
+          selectedItemColor: Colors.indigo,
+          unselectedItemColor: Colors.grey,
+          backgroundColor: Colors.white,
+        ),
       );
     });
   }

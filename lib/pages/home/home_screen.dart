@@ -101,15 +101,7 @@ class HomeScreenState extends State<HomeScreen> {
                   child: InkWell(
                       splashColor: colorScheme.onSurface.withOpacity(0.12),
                       highlightColor: Colors.transparent,
-                      onTap: () {
-                        // ExtendedNavigator.of(context).push('/bookings/1');
-                        // context.router.push(BookingRoutePageRoute());
-                        // BookingRoute(id: 1).show(context);
-                        context.tabsRouter
-                          ..setActiveIndex(1)
-                          ..innerRouterOf<StackRouter>(BookingTab.name)
-                              .push(BookingRoute(id: 4));
-                      },
+                      onTap: () {},
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             vertical: 15, horizontal: 20),

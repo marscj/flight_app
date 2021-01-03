@@ -149,10 +149,6 @@ class BookingItem extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   onTap: () {
                     context.tabsRouter.root.push(BookingRoute(id: data.id));
-                    // context.tabsRouter
-                    //   ..setActiveIndex(1)
-                    //   ..innerRouterOf<StackRouter>(BookingTab.name)
-                    //       .push(BookingRoute(id: data.id));
                   },
                   title: AutoSizeText(
                     data.title ?? '',

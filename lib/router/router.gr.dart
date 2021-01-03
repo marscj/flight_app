@@ -12,10 +12,6 @@ import '../pages/login/login_page.dart' as _i5;
 import '../pages/basement/basement_page.dart' as _i6;
 import '../pages/booking/index.dart' as _i7;
 import '../pages/ticket/ticket_page.dart' as _i8;
-import '../pages/home/index.dart' as _i9;
-import '../pages/my/index.dart' as _i10;
-import '../pages/bookings/index.dart' as _i11;
-import '../pages/tickets/tickets_page.dart' as _i12;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter({@_i2.required this.authGuard}) : assert(authGuard != null);
@@ -47,26 +43,6 @@ class AppRouter extends _i1.RootStackRouter {
       var route = entry.routeData.as<TicketRoute>();
       return _i1.CupertinoPageX(
           entry: entry, child: _i8.TicketPage(id: route.id));
-    },
-    HomeTab.name: (entry) {
-      return _i1.CupertinoPageX(entry: entry, child: _i9.HomePage());
-    },
-    BookingTab.name: (entry) {
-      return _i1.CupertinoPageX(
-          entry: entry, child: const _i1.EmptyRouterPage());
-    },
-    TicketTab.name: (entry) {
-      return _i1.CupertinoPageX(
-          entry: entry, child: const _i1.EmptyRouterPage());
-    },
-    MyTab.name: (entry) {
-      return _i1.CupertinoPageX(entry: entry, child: _i10.MyPage());
-    },
-    BookingsRoute.name: (entry) {
-      return _i1.CupertinoPageX(entry: entry, child: _i11.BookingsPage());
-    },
-    TicketsRoute.name: (entry) {
-      return _i1.CupertinoPageX(entry: entry, child: _i12.TicketsPage());
     }
   };
 
@@ -79,36 +55,8 @@ class AppRouter extends _i1.RootStackRouter {
             routeBuilder: (match) => LoginRoute.fromMatch(match)),
         _i1.RouteConfig<BasementRoute>(BasementRoute.name,
             path: '/',
-            usesTabsRouter: true,
-            routeBuilder: (match) => BasementRoute.fromMatch(match),
-            guards: [
-              authGuard
-            ],
-            children: [
-              _i1.RouteConfig<HomeTab>(HomeTab.name,
-                  path: 'home', routeBuilder: (_) => const HomeTab()),
-              _i1.RouteConfig<BookingTab>(BookingTab.name,
-                  path: 'bookings',
-                  routeBuilder: (match) => BookingTab.fromMatch(match),
-                  children: [
-                    _i1.RouteConfig('#redirect',
-                        path: '', redirectTo: 'list', fullMatch: true),
-                    _i1.RouteConfig<BookingsRoute>(BookingsRoute.name,
-                        path: 'list',
-                        routeBuilder: (_) => const BookingsRoute())
-                  ]),
-              _i1.RouteConfig<TicketTab>(TicketTab.name,
-                  path: 'tickets',
-                  routeBuilder: (match) => TicketTab.fromMatch(match),
-                  children: [
-                    _i1.RouteConfig('#redirect',
-                        path: '', redirectTo: 'list', fullMatch: true),
-                    _i1.RouteConfig<TicketsRoute>(TicketsRoute.name,
-                        path: 'list', routeBuilder: (_) => const TicketsRoute())
-                  ]),
-              _i1.RouteConfig<MyTab>(MyTab.name,
-                  path: 'my', routeBuilder: (_) => const MyTab())
-            ]),
+            routeBuilder: (_) => const BasementRoute(),
+            guards: [authGuard]),
         _i1.RouteConfig<BookingRoute>(BookingRoute.name,
             path: 'bookings/:id',
             routeBuilder: (match) => BookingRoute.fromMatch(match),
@@ -143,10 +91,7 @@ class LoginRoute extends _i1.PageRouteInfo {
 }
 
 class BasementRoute extends _i1.PageRouteInfo {
-  const BasementRoute({List<_i1.PageRouteInfo> children})
-      : super(name, path: '/', initialChildren: children);
-
-  BasementRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+  const BasementRoute() : super(name, path: '/');
 
   static const String name = 'BasementRoute';
 }
@@ -175,46 +120,4 @@ class TicketRoute extends _i1.PageRouteInfo {
   final int id;
 
   static const String name = 'TicketRoute';
-}
-
-class HomeTab extends _i1.PageRouteInfo {
-  const HomeTab() : super(name, path: 'home');
-
-  static const String name = 'HomeTab';
-}
-
-class BookingTab extends _i1.PageRouteInfo {
-  const BookingTab({List<_i1.PageRouteInfo> children})
-      : super(name, path: 'bookings', initialChildren: children);
-
-  BookingTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
-
-  static const String name = 'BookingTab';
-}
-
-class TicketTab extends _i1.PageRouteInfo {
-  const TicketTab({List<_i1.PageRouteInfo> children})
-      : super(name, path: 'tickets', initialChildren: children);
-
-  TicketTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
-
-  static const String name = 'TicketTab';
-}
-
-class MyTab extends _i1.PageRouteInfo {
-  const MyTab() : super(name, path: 'my');
-
-  static const String name = 'MyTab';
-}
-
-class BookingsRoute extends _i1.PageRouteInfo {
-  const BookingsRoute() : super(name, path: 'list');
-
-  static const String name = 'BookingsRoute';
-}
-
-class TicketsRoute extends _i1.PageRouteInfo {
-  const TicketsRoute() : super(name, path: 'list');
-
-  static const String name = 'TicketsRoute';
 }
