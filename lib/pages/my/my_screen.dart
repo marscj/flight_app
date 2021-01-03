@@ -4,6 +4,7 @@ import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
 import 'package:saadiyat/pages/app/index.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 import 'my_bloc.dart';
 import 'my_state.dart';
@@ -120,7 +121,10 @@ class MyScreenState extends State<MyScreen> {
                   child: Text('SingOut'),
                   onPressed: () {
                     BlocProvider.of<AppBloc>(context).add(UnAuthorization());
-                    context.tabsRouter.pop();
+                    context.tabsRouter.root.pushAndRemoveUntil(LoginRoute(),
+                        predicate: (RouteData<PageRouteInfo> route) {
+                      return true;
+                    });
                   })
             ]));
           }

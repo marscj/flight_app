@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
+import 'package:saadiyat/pages/app/app_state.dart';
 import 'package:saadiyat/router/router.gr.dart';
 
 class AuthGuard extends AutoRouteGuard {
@@ -13,9 +14,8 @@ class AuthGuard extends AutoRouteGuard {
   Future<bool> canNavigate(
       List<PageRouteInfo> pendingRoutes, StackRouter router) async {
     // ignore: close_sinks
-    AppBloc appBloc = BlocProvider.of<AppBloc>(context);
-    if (!(appBloc.state?.props[0] is User)) {
-      // ignore: unawaited_futures
+    AppState appState = BlocProvider.of<AppBloc>(context).state;
+    if (appState.user == null) {
       router.root.push(LoginRoute(onLoginResult: (success) {
         if (success) {
           router.root.pop();

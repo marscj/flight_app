@@ -2,6 +2,7 @@ import 'package:loading_animations/loading_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/welcome/index.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
 
 import 'welcome_state.dart';
@@ -25,7 +26,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     return BlocListener<WelcomeBloc, WelcomeState>(
       listener: (_, state) {
         if (state is InWelcomeState && state.routeInfo != null) {
-          state.routeInfo.show(context);
+          context.router.replace(state.routeInfo);
         }
       },
       child: BlocBuilder<WelcomeBloc, WelcomeState>(builder: (context, state) {

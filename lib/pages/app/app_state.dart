@@ -5,9 +5,11 @@ abstract class AppState extends Equatable {
   /// notify change state without deep clone state
   final int version;
 
+  final User user;
+
   final List propss;
 
-  AppState(this.version, [this.propss]);
+  AppState(this.version, this.user, [this.propss]);
 
   /// Copy object for use in action
   /// if need use deep clone
@@ -21,7 +23,7 @@ abstract class AppState extends Equatable {
 
 /// UnInitialized
 class UnAppState extends AppState {
-  UnAppState(int version) : super(version);
+  UnAppState(int version) : super(version, null);
 
   @override
   String toString() => 'UnAppState';
@@ -39,9 +41,7 @@ class UnAppState extends AppState {
 
 /// Initialized
 class InAppState extends AppState {
-  final User user;
-
-  InAppState(int version, this.user) : super(version, [user]);
+  InAppState(int version, User user) : super(version, user);
 
   @override
   String toString() => 'InAppState $user';
@@ -61,7 +61,7 @@ class ErrorAppState extends AppState {
   final String errorMessage;
 
   ErrorAppState(int version, this.errorMessage)
-      : super(version, [errorMessage]);
+      : super(version, null, [errorMessage]);
 
   @override
   String toString() => 'ErrorAppState';

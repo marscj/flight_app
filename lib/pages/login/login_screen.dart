@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 import 'login_bloc.dart';
 import 'login_form_bloc.dart';
@@ -29,7 +31,11 @@ class LoginScreenState extends State<LoginScreen> {
             return FormBlocListener<LoginFormBloc, String, String>(
               onFailure: (context, state) {},
               onSuccess: (context, state) {
-                widget.onLoginResult(true);
+                if (widget?.onLoginResult != null) {
+                  widget?.onLoginResult(true);
+                } else {
+                  context.router.replace(BasementRoute());
+                }
               },
               onSubmitting: (context, state) {},
               child: ListBody(
