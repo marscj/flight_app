@@ -86,9 +86,7 @@ Booking _$BookingFromJson(Map<String, dynamic> json) {
     ..title = json['title'] as String
     ..remark = json['remark'] as String
     ..date = json['date'] as String
-    ..author = json['author'] == null
-        ? null
-        : User.fromJson(json['author'] as Map<String, dynamic>);
+    ..author = json['author'] as String;
 }
 
 Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
@@ -114,6 +112,20 @@ Map<String, dynamic> _$BookingListToJson(BookingList instance) =>
       'totalCount': instance.totalCount,
       'pageNo': instance.pageNo,
       'data': instance.data,
+    };
+
+BookingListExtra _$BookingListExtraFromJson(Map<String, dynamic> json) {
+  return BookingListExtra()
+    ..data = json['data'] == null
+        ? null
+        : BookingList.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'];
+}
+
+Map<String, dynamic> _$BookingListExtraToJson(BookingListExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
     };
 
 // **************************************************************************
@@ -189,7 +201,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<BookingList> getBookings({query}) async {
+  Future<BookingListExtra> getBookings({query}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(query ?? <String, dynamic>{});
@@ -203,7 +215,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = BookingList.fromJson(_result.data);
+    final value = BookingListExtra.fromJson(_result.data);
     return value;
   }
 

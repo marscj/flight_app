@@ -24,7 +24,7 @@ class RefreshBookingsEvent extends BookingsEvent {
     }).then((res) {
       bloc.easyRefreshController.finishRefresh(success: true);
       return currentState.copyWith(
-          pageNo: 2, totalCount: res.totalCount, list: res.data);
+          pageNo: 2, totalCount: res.data.totalCount, list: res.data.data);
     }).catchError((error) {
       print(error.toString());
       bloc.easyRefreshController.finishRefresh(success: false);
@@ -46,7 +46,7 @@ class LoadBookingsEvent extends BookingsEvent {
           success: true,
           noMore: currentState.list.length < currentState.totalCount);
       return currentState.copyWith(
-          list: currentState.list + res.data,
+          list: currentState.list + res.data.data,
           pageNo: currentState.pageNo + 1,
           totalCount: currentState.totalCount);
     });

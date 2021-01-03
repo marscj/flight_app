@@ -9,7 +9,7 @@ class Booking extends Equatable {
   String title;
   String remark;
   String date;
-  User author;
+  String author;
 
   static Booking fromJson(Map<String, dynamic> json) => _$BookingFromJson(json);
   Map<String, dynamic> toJson() => _$BookingToJson(this);
@@ -30,4 +30,17 @@ class BookingList extends Equatable {
 
   @override
   List<Object> get props => [totalCount, pageNo, data];
+}
+
+@JsonSerializable()
+class BookingListExtra extends Equatable {
+  BookingList data;
+  Map<String, dynamic> extra;
+
+  static BookingListExtra fromJson(Map<String, dynamic> json) =>
+      _$BookingListExtraFromJson(json);
+  Map<String, dynamic> toJson() => _$BookingListExtraToJson(this);
+
+  @override
+  List<Object> get props => [data, extra];
 }
