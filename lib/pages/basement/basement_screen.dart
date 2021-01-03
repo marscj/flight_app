@@ -84,23 +84,27 @@ class BasementScreenState extends State<BasementScreen> with RestorationMixin {
           },
           children: [HomePage(), BookingsPage(), TicketsPage(), MyPage()],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          showUnselectedLabels: true,
-          items: bottomNavigationBarItems,
-          currentIndex: _currentIndex.value,
-          type: BottomNavigationBarType.shifting,
-          selectedFontSize: textTheme.caption.fontSize,
-          unselectedFontSize: textTheme.caption.fontSize,
-          onTap: (index) {
-            setState(() {
-              _currentIndex.value = index;
-              _pageController.jumpToPage(index);
-            });
-          },
-          selectedItemColor: Colors.indigo,
-          unselectedItemColor: Colors.grey,
-          backgroundColor: Colors.white,
-        ),
+        bottomNavigationBar: Container(
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
+            ]),
+            child: BottomNavigationBar(
+              showUnselectedLabels: true,
+              items: bottomNavigationBarItems,
+              currentIndex: _currentIndex.value,
+              type: BottomNavigationBarType.shifting,
+              selectedFontSize: textTheme.caption.fontSize,
+              unselectedFontSize: textTheme.caption.fontSize,
+              onTap: (index) {
+                setState(() {
+                  _currentIndex.value = index;
+                  _pageController.jumpToPage(index);
+                });
+              },
+              selectedItemColor: Colors.indigo,
+              unselectedItemColor: Colors.grey,
+              backgroundColor: Colors.white,
+            )),
       );
     });
   }
