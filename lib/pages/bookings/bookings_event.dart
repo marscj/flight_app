@@ -21,7 +21,7 @@ class RefreshBookingsEvent extends BookingsEvent {
   Stream<BookingsState> applyAsync(
       {BookingsState currentState, BookingsBloc bloc}) async* {
     yield currentState.copyWith(
-        pageNo: 1,
+        pageNo: 2,
         totalCount: result?.data?.totalCount ?? 0,
         list: result?.data?.data ?? []);
   }
@@ -36,8 +36,7 @@ class LoadBookingsEvent extends BookingsEvent {
   Stream<BookingsState> applyAsync(
       {BookingsState currentState, BookingsBloc bloc}) async* {
     yield currentState.copyWith(
-        list: currentState.list + result?.data?.data ?? [],
-        pageNo: currentState.pageNo + 1,
-        totalCount: result?.data?.totalCount ?? 0);
+        list: currentState.list + (result?.data?.data ?? []),
+        pageNo: currentState.pageNo + 1);
   }
 }

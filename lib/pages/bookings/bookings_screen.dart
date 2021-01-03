@@ -20,6 +20,21 @@ class BookingsScreen extends StatefulWidget {
 }
 
 class BookingsScreenState extends State<BookingsScreen> {
+  EasyRefreshController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = EasyRefreshController();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookingsBloc, BookingsState>(builder: (
@@ -62,6 +77,9 @@ class BookingsScreenState extends State<BookingsScreen> {
               );
             },
             firstRefresh: currentState.list.length == 0,
+            controller: _controller,
+            enableControlFinishRefresh: true,
+            enableControlFinishLoad: true,
             onRefresh: () async {
               return RestClient().getBookings(query: {
                 'pageNo': 1,
@@ -71,6 +89,9 @@ class BookingsScreenState extends State<BookingsScreen> {
                 bookingsBloc.add(RefreshBookingsEvent(res));
               }).catchError((error) {
                 bookingsBloc.add(RefreshBookingsEvent(null));
+              }).whenComplete(() {
+                _controller.resetLoadState();
+                _controller.finishRefresh();
               });
             },
             onLoad: () async {
@@ -82,6 +103,10 @@ class BookingsScreenState extends State<BookingsScreen> {
                 bookingsBloc.add(LoadBookingsEvent(res));
               }).catchError((error) {
                 bookingsBloc.add(LoadBookingsEvent(null));
+              }).whenComplete(() {
+                _controller.finishLoad(
+                    noMore:
+                        currentState.list.length >= currentState.totalCount);
               });
             }),
       );
