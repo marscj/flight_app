@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/welcome/index.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:saadiyat/router/router.gr.dart';
 
 import 'welcome_state.dart';
 
