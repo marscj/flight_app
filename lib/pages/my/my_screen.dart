@@ -2,18 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
 import 'package:saadiyat/pages/app/index.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:saadiyat/widgets/list_item.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
-    as extended;
-
-import 'my_bloc.dart';
-import 'my_state.dart';
 
 class MyScreen extends StatefulWidget {
   const MyScreen({

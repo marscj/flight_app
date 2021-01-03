@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer' as developer;
 
 import 'package:meta/meta.dart';
 import 'package:saadiyat/apis/client.dart';
@@ -23,9 +22,6 @@ class RefreshBookingsEvent extends BookingsEvent {
       'sorter': '-id'
     }).then((res) {
       bloc.easyRefreshController.finishRefresh(success: true);
-      bloc.easyRefreshController.finishLoad(
-          noMore: currentState.list.length + res.data.data.length >=
-              res.data.totalCount);
       return currentState.copyWith(
           pageNo: 2, totalCount: res.data.totalCount, list: res.data.data);
     }).catchError((error) {
@@ -58,7 +54,7 @@ class LoadBookingsEvent extends BookingsEvent {
         return currentState;
       });
     } else {
-      bloc.easyRefreshController.finishLoad(success: true, noMore: true);
+      bloc.easyRefreshController.finishLoad(noMore: true);
     }
   }
 }

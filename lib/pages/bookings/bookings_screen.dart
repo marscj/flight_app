@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:saadiyat/apis/client.dart';
 
 import 'bookings_bloc.dart';
@@ -26,6 +25,7 @@ class BookingsScreenState extends State<BookingsScreen> {
       BuildContext context,
       BookingsState currentState,
     ) {
+      // ignore: close_sinks
       BookingsBloc bookingsBloc = BlocProvider.of<BookingsBloc>(context);
       return Scaffold(
         body: EasyRefresh.builder(

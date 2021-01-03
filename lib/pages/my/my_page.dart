@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
-    as extended;
 
 import 'my_screen.dart';
 
