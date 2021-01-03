@@ -45,8 +45,7 @@ class BasementScreenState extends State<BasementScreen> with RestorationMixin {
   }
 
   void _onBottomNavigationBarTap(int index) {
-    _pageController.animateToPage(index,
-        duration: Duration(milliseconds: 200), curve: Curves.linear);
+    _pageController.jumpToPage(index);
   }
 
   @override
