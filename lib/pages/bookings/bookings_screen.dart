@@ -55,8 +55,15 @@ class BookingsScreenState extends State<BookingsScreen> {
                   SliverAppBar(
                     expandedHeight: 100.0,
                     pinned: true,
+                    elevation: 8,
                     backgroundColor: Colors.white,
+                    brightness: Brightness.light,
                     flexibleSpace: FlexibleSpaceBar(
+                      stretchModes: <StretchMode>[
+                        StretchMode.zoomBackground,
+                        StretchMode.blurBackground,
+                        StretchMode.fadeTitle,
+                      ],
                       centerTitle: false,
                       title: Text(
                         'Booking',
