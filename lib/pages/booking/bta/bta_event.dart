@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:meta/meta.dart';
+import 'package:saadiyat/apis/client.dart';
 
 import 'bta_bloc.dart';
 import 'bta_state.dart';
@@ -11,28 +12,13 @@ abstract class BtaEvent {
   Stream<BtaState> applyAsync({BtaState currentState, BtaBloc bloc});
 }
 
-class UnBtaEvent extends BtaEvent {
-  @override
-  Stream<BtaState> applyAsync({BtaState currentState, BtaBloc bloc}) async* {
-    yield UnBtaState(0);
-  }
-}
+class RefreshBtaEvent extends BtaEvent {
+  final UploadList result;
 
-class LoadBtaEvent extends BtaEvent {
-  final bool isError;
-  @override
-  String toString() => 'LoadBtaEvent';
-
-  LoadBtaEvent(this.isError);
+  RefreshBtaEvent(this.result);
 
   @override
   Stream<BtaState> applyAsync({BtaState currentState, BtaBloc bloc}) async* {
-    try {
-      yield UnBtaState(0);
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadBtaEvent', error: _, stackTrace: stackTrace);
-      yield ErrorBtaState(0, _?.toString());
-    }
+    yield currentState.copyWith(list: result?.data ?? []);
   }
 }

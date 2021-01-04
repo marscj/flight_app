@@ -48,7 +48,6 @@ class _BookingBasementPageState extends State<BookingBasementPage>
           BlocProvider(create: (context) => ChatBloc())
         ],
         child: Scaffold(
-            extendBody: true,
             appBar: AppBar(
               title: Text('Booking Detail'),
               bottom: TabBar(

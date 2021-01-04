@@ -43,12 +43,9 @@ class ItineraryScreenState extends State<ItineraryScreen> {
       return EasyRefresh(
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            children: ListTile.divideTiles(
-                    tiles: currentState.list.map((f) {
-                      return ItineraryItem(data: f);
-                    }),
-                    color: Theme.of(context).dividerColor)
-                .toList(),
+            children: currentState.list.map((f) {
+              return ItineraryItem(data: f);
+            }).toList(),
           ),
           firstRefresh: currentState.list.length == 0,
           controller: _controller,

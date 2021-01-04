@@ -31,14 +31,13 @@ class Comment extends Equatable {
 }
 
 @JsonSerializable()
-class CommentListExtra extends Equatable {
+class CommentList extends Equatable {
   List<Comment> data;
-  Map<String, dynamic> extra;
 
-  static CommentListExtra fromJson(Map<String, dynamic> json) =>
-      _$CommentListExtraFromJson(json);
-  Map<String, dynamic> toJson() => _$CommentListExtraToJson(this);
+  static CommentList fromJson(Map<String, dynamic> json) =>
+      _$CommentListFromJson(json);
+  Map<String, dynamic> toJson() => _$CommentListToJson(this);
 
   @override
-  List<Object> get props => [data, extra];
+  List<Object> get props => [data];
 }

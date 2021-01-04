@@ -10,11 +10,8 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
   // ignore: close_sinks
-  static final BookingBloc _bookingBlocSingleton = BookingBloc._internal();
-  factory BookingBloc() {
-    return _bookingBlocSingleton;
-  }
-  BookingBloc._internal() : super(BookingState.initial());
+
+  BookingBloc() : super(BookingState.initial());
 
   @override
   Future<void> close() async {

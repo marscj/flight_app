@@ -36,8 +36,6 @@ class Upload extends Equatable {
 
 @JsonSerializable()
 class UploadList extends Equatable {
-  int totalCount;
-  int pageNo;
   List<Upload> data;
 
   static UploadList fromJson(Map<String, dynamic> json) =>
@@ -45,31 +43,5 @@ class UploadList extends Equatable {
   Map<String, dynamic> toJson() => _$UploadListToJson(this);
 
   @override
-  List<Object> get props => [totalCount, pageNo, data];
-}
-
-@JsonSerializable()
-class UploadExtra extends Equatable {
-  Upload data;
-  Map<String, dynamic> extra;
-
-  static UploadExtra fromJson(Map<String, dynamic> json) =>
-      _$UploadExtraFromJson(json);
-  Map<String, dynamic> toJson() => _$UploadExtraToJson(this);
-
-  @override
-  List<Object> get props => [data, extra];
-}
-
-@JsonSerializable()
-class UploadListExtra extends Equatable {
-  List<Upload> data;
-  Map<String, dynamic> extra;
-
-  static UploadListExtra fromJson(Map<String, dynamic> json) =>
-      _$UploadListExtraFromJson(json);
-  Map<String, dynamic> toJson() => _$UploadListExtraToJson(this);
-
-  @override
-  List<Object> get props => [data, extra];
+  List<Object> get props => [data];
 }

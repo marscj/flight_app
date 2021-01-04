@@ -8,11 +8,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
   // ignore: close_sinks
-  static final ChatBloc _chatBlocSingleton = ChatBloc._internal();
-  factory ChatBloc() {
-    return _chatBlocSingleton;
-  }
-  ChatBloc._internal() : super(UnChatState(0));
+  ChatBloc() : super(ChatState.initial());
 
   @override
   Future<void> close() async {

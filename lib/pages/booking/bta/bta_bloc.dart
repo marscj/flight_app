@@ -10,11 +10,7 @@ class BtaBloc extends Bloc<BtaEvent, BtaState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
   // ignore: close_sinks
-  static final BtaBloc _btaBlocSingleton = BtaBloc._internal();
-  factory BtaBloc() {
-    return _btaBlocSingleton;
-  }
-  BtaBloc._internal() : super(UnBtaState(0));
+  BtaBloc() : super(BtaState.initial());
 
   @override
   Future<void> close() async {

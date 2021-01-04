@@ -8,12 +8,7 @@ class ItineraryBloc extends Bloc<ItineraryEvent, ItineraryState> {
   // todo: check singleton for logic in project
   // use GetIt for DI in projct
   // ignore: close_sinks
-  static final ItineraryBloc _itineraryBlocSingleton =
-      ItineraryBloc._internal();
-  factory ItineraryBloc() {
-    return _itineraryBlocSingleton;
-  }
-  ItineraryBloc._internal() : super(ItineraryState.initial());
+  ItineraryBloc() : super(ItineraryState.initial());
 
   @override
   Future<void> close() async {

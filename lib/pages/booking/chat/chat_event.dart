@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 
+import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking/chat/index.dart';
 import 'package:meta/meta.dart';
 
@@ -9,28 +10,13 @@ abstract class ChatEvent {
   Stream<ChatState> applyAsync({ChatState currentState, ChatBloc bloc});
 }
 
-class UnChatEvent extends ChatEvent {
-  @override
-  Stream<ChatState> applyAsync({ChatState currentState, ChatBloc bloc}) async* {
-    yield UnChatState(0);
-  }
-}
+class RefreshChatEvent extends ChatEvent {
+  final CommentList result;
 
-class LoadChatEvent extends ChatEvent {
-  final bool isError;
-  @override
-  String toString() => 'LoadChatEvent';
-
-  LoadChatEvent(this.isError);
+  RefreshChatEvent(this.result);
 
   @override
   Stream<ChatState> applyAsync({ChatState currentState, ChatBloc bloc}) async* {
-    try {
-      yield UnChatState(0);
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadChatEvent', error: _, stackTrace: stackTrace);
-      yield ErrorChatState(0, _?.toString());
-    }
+    yield currentState.copyWith(list: result?.data ?? []);
   }
 }

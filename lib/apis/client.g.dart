@@ -176,8 +176,6 @@ Map<String, dynamic> _$UploadToJson(Upload instance) => <String, dynamic>{
 
 UploadList _$UploadListFromJson(Map<String, dynamic> json) {
   return UploadList()
-    ..totalCount = json['totalCount'] as int
-    ..pageNo = json['pageNo'] as int
     ..data = (json['data'] as List)
         ?.map((e) =>
             e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
@@ -186,38 +184,7 @@ UploadList _$UploadListFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$UploadListToJson(UploadList instance) =>
     <String, dynamic>{
-      'totalCount': instance.totalCount,
-      'pageNo': instance.pageNo,
       'data': instance.data,
-    };
-
-UploadExtra _$UploadExtraFromJson(Map<String, dynamic> json) {
-  return UploadExtra()
-    ..data = json['data'] == null
-        ? null
-        : Upload.fromJson(json['data'] as Map<String, dynamic>)
-    ..extra = json['extra'] as Map<String, dynamic>;
-}
-
-Map<String, dynamic> _$UploadExtraToJson(UploadExtra instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-      'extra': instance.extra,
-    };
-
-UploadListExtra _$UploadListExtraFromJson(Map<String, dynamic> json) {
-  return UploadListExtra()
-    ..data = (json['data'] as List)
-        ?.map((e) =>
-            e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..extra = json['extra'] as Map<String, dynamic>;
-}
-
-Map<String, dynamic> _$UploadListExtraToJson(UploadListExtra instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-      'extra': instance.extra,
     };
 
 Itinerary _$ItineraryFromJson(Map<String, dynamic> json) {
@@ -299,19 +266,17 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'object_id': instance.object_id,
     };
 
-CommentListExtra _$CommentListExtraFromJson(Map<String, dynamic> json) {
-  return CommentListExtra()
+CommentList _$CommentListFromJson(Map<String, dynamic> json) {
+  return CommentList()
     ..data = (json['data'] as List)
         ?.map((e) =>
             e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..extra = json['extra'] as Map<String, dynamic>;
+        ?.toList();
 }
 
-Map<String, dynamic> _$CommentListExtraToJson(CommentListExtra instance) =>
+Map<String, dynamic> _$CommentListToJson(CommentList instance) =>
     <String, dynamic>{
       'data': instance.data,
-      'extra': instance.extra,
     };
 
 // **************************************************************************
