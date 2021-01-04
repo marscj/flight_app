@@ -11,7 +11,7 @@ abstract class ItineraryEvent {
 }
 
 class RefreshItineraryEvent extends ItineraryEvent {
-  final ItineraryListExtra result;
+  final ItineraryList result;
 
   RefreshItineraryEvent(this.result);
 

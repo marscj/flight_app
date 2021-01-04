@@ -66,6 +66,5 @@ abstract class RestClient {
   Future<BookingExtra> getBooking(@Path("id") String id);
 
   @GET('/itineraries/')
-  Future<ItineraryListExtra> getItinerarys(
-      {@Queries() Map<String, dynamic> query});
+  Future<ItineraryList> getItinerarys({@Queries() Map<String, dynamic> query});
 }

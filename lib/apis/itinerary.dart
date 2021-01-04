@@ -44,27 +44,13 @@ class Itinerary extends Equatable {
 }
 
 @JsonSerializable()
-class ItineraryExtra extends Equatable {
-  Itinerary data;
-  Map<String, dynamic> extra;
-
-  static ItineraryExtra fromJson(Map<String, dynamic> json) =>
-      _$ItineraryExtraFromJson(json);
-  Map<String, dynamic> toJson() => _$ItineraryExtraToJson(this);
-
-  @override
-  List<Object> get props => [data, extra];
-}
-
-@JsonSerializable()
-class ItineraryListExtra extends Equatable {
+class ItineraryList extends Equatable {
   List<Itinerary> data;
-  Map<String, dynamic> extra;
 
-  static ItineraryListExtra fromJson(Map<String, dynamic> json) =>
-      _$ItineraryListExtraFromJson(json);
-  Map<String, dynamic> toJson() => _$ItineraryListExtraToJson(this);
+  static ItineraryList fromJson(Map<String, dynamic> json) =>
+      _$ItineraryListFromJson(json);
+  Map<String, dynamic> toJson() => _$ItineraryListToJson(this);
 
   @override
-  List<Object> get props => [data, extra];
+  List<Object> get props => [data];
 }

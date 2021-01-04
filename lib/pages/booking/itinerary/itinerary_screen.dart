@@ -39,7 +39,7 @@ class ItineraryScreenState extends State<ItineraryScreen> {
       ItineraryState currentState,
     ) {
       // ignore: close_sinks
-      ItineraryBloc bookingsBloc = BlocProvider.of<ItineraryBloc>(context);
+      ItineraryBloc itineraryBloc = BlocProvider.of<ItineraryBloc>(context);
       return EasyRefresh(
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -56,9 +56,9 @@ class ItineraryScreenState extends State<ItineraryScreen> {
           onRefresh: () async {
             return RestClient()
                 .getItinerarys(query: {'booking_id': widget.id}).then((res) {
-              bookingsBloc.add(RefreshItineraryEvent(res));
+              itineraryBloc.add(RefreshItineraryEvent(res));
             }).catchError((error) {
-              bookingsBloc.add(RefreshItineraryEvent(null));
+              itineraryBloc.add(RefreshItineraryEvent(null));
             }).whenComplete(() {
               _controller.resetLoadState();
               _controller.finishRefresh();

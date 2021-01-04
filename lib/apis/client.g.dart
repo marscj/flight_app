@@ -263,33 +263,17 @@ Map<String, dynamic> _$ItineraryToJson(Itinerary instance) => <String, dynamic>{
       'comments': instance.comments,
     };
 
-ItineraryExtra _$ItineraryExtraFromJson(Map<String, dynamic> json) {
-  return ItineraryExtra()
-    ..data = json['data'] == null
-        ? null
-        : Itinerary.fromJson(json['data'] as Map<String, dynamic>)
-    ..extra = json['extra'] as Map<String, dynamic>;
-}
-
-Map<String, dynamic> _$ItineraryExtraToJson(ItineraryExtra instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-      'extra': instance.extra,
-    };
-
-ItineraryListExtra _$ItineraryListExtraFromJson(Map<String, dynamic> json) {
-  return ItineraryListExtra()
+ItineraryList _$ItineraryListFromJson(Map<String, dynamic> json) {
+  return ItineraryList()
     ..data = (json['data'] as List)
         ?.map((e) =>
             e == null ? null : Itinerary.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..extra = json['extra'] as Map<String, dynamic>;
+        ?.toList();
 }
 
-Map<String, dynamic> _$ItineraryListExtraToJson(ItineraryListExtra instance) =>
+Map<String, dynamic> _$ItineraryListToJson(ItineraryList instance) =>
     <String, dynamic>{
       'data': instance.data,
-      'extra': instance.extra,
     };
 
 Comment _$CommentFromJson(Map<String, dynamic> json) {
@@ -440,7 +424,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<ItineraryListExtra> getItinerarys({query}) async {
+  Future<ItineraryList> getItinerarys({query}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(query ?? <String, dynamic>{});
@@ -454,7 +438,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = ItineraryListExtra.fromJson(_result.data);
+    final value = ItineraryList.fromJson(_result.data);
     return value;
   }
 }
