@@ -1,3 +1,5 @@
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:open_file/open_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -47,7 +49,16 @@ class BtaScreenState extends State<BtaScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                title: Text(currentState.list[index].name),
+                title: Text(currentState?.list[index]?.name ?? ''),
+                subtitle: Text(currentState?.list[index]?.date ?? ''),
+                onTap: () {
+                  DefaultCacheManager()
+                      .getSingleFile(currentState?.list[index]?.url)
+                      .then((file) {
+                    print(file.path);
+                    OpenFile.open(file.path);
+                  });
+                },
               );
             },
             itemCount: currentState?.list?.length ?? 0,
@@ -55,7 +66,7 @@ class BtaScreenState extends State<BtaScreen> {
               return Divider();
             },
           ),
-          firstRefresh: currentState.list.length == 0,
+          firstRefresh: currentState?.list?.length == 0 ?? 0,
           controller: _controller,
           enableControlFinishRefresh: true,
           onRefresh: () async {

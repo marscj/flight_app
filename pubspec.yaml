@@ -61,6 +61,8 @@ dependencies:
   file_picker: ^2.1.4
   url_launcher: ^5.7.10
   shared_preferences: ^0.5.12+4
+  open_file: ^3.0.3 
+  flutter_cache_manager: ^2.1.0
   #bloc
   rxdart: ^0.24.0 
   equatable: ^1.2.5
