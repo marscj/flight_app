@@ -28,7 +28,7 @@ class _BookingBasementPageState extends State<BookingBasementPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -65,22 +65,22 @@ class _BookingBasementPageState extends State<BookingBasementPage>
                     icon: Icon(FontAwesomeIcons.file),
                     child: Text('BTA'),
                   ),
-                  Tab(
-                    icon: badge == 0
-                        ? Icon(Icons.message)
-                        : Badge(
-                            badgeColor: Colors.red,
-                            position:
-                                BadgePosition.topStart(top: -12, start: -12),
-                            badgeContent: Text(
-                              badge.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            child: Icon(
-                              Icons.message,
-                            )),
-                    child: Text('Message'),
-                  )
+                  // Tab(
+                  //   icon: badge == 0
+                  //       ? Icon(Icons.message)
+                  //       : Badge(
+                  //           badgeColor: Colors.red,
+                  //           position:
+                  //               BadgePosition.topStart(top: -12, start: -12),
+                  //           badgeContent: Text(
+                  //             badge.toString(),
+                  //             style: TextStyle(color: Colors.white),
+                  //           ),
+                  //           child: Icon(
+                  //             Icons.message,
+                  //           )),
+                  //   child: Text('Message'),
+                  // )
                 ],
               ),
             ),
@@ -90,7 +90,7 @@ class _BookingBasementPageState extends State<BookingBasementPage>
                 BookingPage(widget.id),
                 ItineraryPage(widget.id),
                 BtaPage(widget.id),
-                ChatPage(widget.id)
+                // ChatPage(widget.id)
               ],
             )));
   }

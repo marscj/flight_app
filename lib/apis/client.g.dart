@@ -406,4 +406,23 @@ class _RestClient implements RestClient {
     final value = ItineraryList.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<UploadList> getUploads({query}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(query ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/uploads/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UploadList.fromJson(_result.data);
+    return value;
+  }
 }

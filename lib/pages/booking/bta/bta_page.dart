@@ -15,6 +15,6 @@ class BtaPage extends StatefulWidget {
 class _BtaPageState extends State<BtaPage> {
   @override
   Widget build(BuildContext context) {
-    return BtaScreen();
+    return BtaScreen(widget.id);
   }
 }

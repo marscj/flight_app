@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 /// 列表项
@@ -43,8 +44,8 @@ class _ListItemState extends State<ListItem> {
         style: BorderStyle.none,
       ),
       child: Container(
-          height: 60.0,
           width: double.infinity,
+          // height: 60,
           child: Row(
             children: <Widget>[
               widget.icon != null
@@ -66,8 +67,9 @@ class _ListItemState extends State<ListItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     widget.title != null
-                        ? Text(
+                        ? AutoSizeText(
                             widget.title,
+                            maxLines: 1,
                             style: TextStyle(
                               color: widget.titleColor,
                               fontSize: 14.0,
@@ -76,9 +78,8 @@ class _ListItemState extends State<ListItem> {
                           )
                         : Container(),
                     widget.describe != null
-                        ? Text(
+                        ? AutoSizeText(
                             widget.describe,
-                            maxLines: 2,
                             style: TextStyle(
                                 color: widget.describeColor, fontSize: 12.0),
                           )
