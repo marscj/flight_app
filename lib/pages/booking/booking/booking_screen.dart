@@ -76,8 +76,8 @@ class BookingScreenState extends State<BookingScreen> {
             }).catchError((error) {
               bookingsBloc.add(RefreshBookingEvent(null));
             }).whenComplete(() {
-              _controller.resetLoadState();
-              _controller.finishRefresh();
+              _controller?.resetLoadState();
+              _controller?.finishRefresh();
             });
           });
     });

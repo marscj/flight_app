@@ -64,8 +64,8 @@ class ItineraryScreenState extends State<ItineraryScreen> {
             }).catchError((error) {
               itineraryBloc.add(RefreshItineraryEvent(null));
             }).whenComplete(() {
-              _controller.resetLoadState();
-              _controller.finishRefresh();
+              _controller?.resetLoadState();
+              _controller?.finishRefresh();
             });
           });
     });

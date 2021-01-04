@@ -92,8 +92,8 @@ class BookingsScreenState extends State<BookingsScreen> {
               }).catchError((error) {
                 bookingsBloc.add(RefreshBookingsEvent(null));
               }).whenComplete(() {
-                _controller.resetLoadState();
-                _controller.finishRefresh();
+                _controller?.resetLoadState();
+                _controller?.finishRefresh();
               });
             },
             onLoad: () async {
@@ -106,7 +106,7 @@ class BookingsScreenState extends State<BookingsScreen> {
               }).catchError((error) {
                 bookingsBloc.add(LoadBookingsEvent(null));
               }).whenComplete(() {
-                _controller.finishLoad(
+                _controller?.finishLoad(
                     noMore:
                         currentState.list.length >= currentState.totalCount);
               });

@@ -59,16 +59,14 @@ class BtaScreenState extends State<BtaScreen> {
           controller: _controller,
           enableControlFinishRefresh: true,
           onRefresh: () async {
-            return RestClient().getUploads(query: {
-              'object_id': widget.id,
-              'content_type': 'booking'
-            }).then((res) {
+            return RestClient().getUploads(
+                query: {'object_id': widget.id, 'type': 'booking'}).then((res) {
               btaBloc.add(RefreshBtaEvent(res));
             }).catchError((error) {
               btaBloc.add(RefreshBtaEvent(null));
             }).whenComplete(() {
-              _controller.resetLoadState();
-              _controller.finishRefresh();
+              _controller?.resetLoadState();
+              _controller?.finishRefresh();
             });
           });
     });
