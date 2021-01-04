@@ -4,6 +4,10 @@ import 'package:saadiyat/pages/booking/chat/index.dart';
 class ChatPage extends StatefulWidget {
   static const String routeName = '/chat';
 
+  final int id;
+
+  const ChatPage(this.id);
+
   @override
   _ChatPageState createState() => _ChatPageState();
 }

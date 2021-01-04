@@ -4,6 +4,10 @@ import 'bta_screen.dart';
 class BtaPage extends StatefulWidget {
   static const String routeName = '/bta';
 
+  BtaPage(this.id);
+
+  final int id;
+
   @override
   _BtaPageState createState() => _BtaPageState();
 }

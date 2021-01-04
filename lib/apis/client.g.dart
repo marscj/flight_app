@@ -446,7 +446,7 @@ class _RestClient implements RestClient {
     queryParameters.addAll(query ?? <String, dynamic>{});
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/uploads/',
+    final _result = await _dio.request<Map<String, dynamic>>('/itineraries/',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

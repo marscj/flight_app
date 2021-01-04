@@ -88,10 +88,10 @@ class _BookingBasementPageState extends State<BookingBasementPage>
             body: TabBarView(
               controller: _tabController,
               children: [
-                BookingPage(id: widget.id),
-                ItineraryPage(),
-                BtaPage(),
-                ChatPage()
+                BookingPage(widget.id),
+                ItineraryPage(widget.id),
+                BtaPage(widget.id),
+                ChatPage(widget.id)
               ],
             )));
   }

@@ -1,14 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'booking_bloc.dart';
 import 'booking_screen.dart';
 
 class BookingPage extends StatefulWidget {
   static const String routeName = 'booking';
 
-  BookingPage({@PathParam('id') this.id});
+  BookingPage(this.id);
 
   final int id;
 

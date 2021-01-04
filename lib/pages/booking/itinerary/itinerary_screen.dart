@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/pages/booking/booking/booking_event.dart';
 import 'package:saadiyat/pages/booking/itinerary/index.dart';
 
 class ItineraryScreen extends StatefulWidget {
@@ -56,7 +55,7 @@ class ItineraryScreenState extends State<ItineraryScreen> {
           enableControlFinishRefresh: true,
           onRefresh: () async {
             return RestClient()
-                .getItinerarys(query: {'object_id': widget.id}).then((res) {
+                .getItinerarys(query: {'booking_id': widget.id}).then((res) {
               bookingsBloc.add(RefreshItineraryEvent(res));
             }).catchError((error) {
               bookingsBloc.add(RefreshItineraryEvent(null));
@@ -88,7 +87,7 @@ class ItineraryItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
-                data.date,
+                data.serial_no ?? '',
                 maxLines: 1,
                 style: TextStyle(color: Colors.white),
               ),
