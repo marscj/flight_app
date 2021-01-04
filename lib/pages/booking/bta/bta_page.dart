@@ -11,11 +11,6 @@ class BtaPage extends StatefulWidget {
 class _BtaPageState extends State<BtaPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Bta'),
-      ),
-      body: BtaScreen(),
-    );
+    return BtaScreen();
   }
 }

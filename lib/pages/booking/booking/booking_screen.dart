@@ -42,49 +42,44 @@ class BookingScreenState extends State<BookingScreen> {
     ) {
       // ignore: close_sinks
       BookingBloc bookingsBloc = BlocProvider.of<BookingBloc>(context);
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Booking Detail'),
-        ),
-        body: EasyRefresh(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              child: Column(
-                children: [
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Create Date:'),
-                    subtitle: Text(currentState?.data?.date ?? ''),
-                  ),
-                  Divider(),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Title:'),
-                    subtitle: Text(currentState?.data?.title ?? ''),
-                  ),
-                  Divider(),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Remark:'),
-                    subtitle: Text(currentState?.data?.remark ?? ''),
-                  ),
-                ],
-              ),
+      return EasyRefresh(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            child: Column(
+              children: [
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text('Create Date:'),
+                  subtitle: Text(currentState?.data?.date ?? ''),
+                ),
+                Divider(),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text('Title:'),
+                  subtitle: Text(currentState?.data?.title ?? ''),
+                ),
+                Divider(),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text('Remark:'),
+                  subtitle: Text(currentState?.data?.remark ?? ''),
+                ),
+              ],
             ),
-            firstRefresh: currentState.data == null,
-            controller: _controller,
-            enableControlFinishRefresh: true,
-            onRefresh: () async {
-              return RestClient().getBooking(widget.id.toString()).then((res) {
-                bookingsBloc.add(RefreshBookingEvent(res));
-              }).catchError((error) {
-                bookingsBloc.add(RefreshBookingEvent(null));
-              }).whenComplete(() {
-                _controller.resetLoadState();
-                _controller.finishRefresh();
-              });
-            }),
-      );
+          ),
+          firstRefresh: currentState.data == null,
+          controller: _controller,
+          enableControlFinishRefresh: true,
+          onRefresh: () async {
+            return RestClient().getBooking(widget.id.toString()).then((res) {
+              bookingsBloc.add(RefreshBookingEvent(res));
+            }).catchError((error) {
+              bookingsBloc.add(RefreshBookingEvent(null));
+            }).whenComplete(() {
+              _controller.resetLoadState();
+              _controller.finishRefresh();
+            });
+          });
     });
   }
 }

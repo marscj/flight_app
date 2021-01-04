@@ -20,50 +20,7 @@ class ChatScreenState extends State<ChatScreen> {
       BuildContext context,
       ChatState currentState,
     ) {
-      if (currentState is UnChatState) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      if (currentState is ErrorChatState) {
-        return Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(currentState.errorMessage ?? 'Error'),
-            Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: RaisedButton(
-                color: Colors.blue,
-                child: Text('reload'),
-                onPressed: () {},
-              ),
-            ),
-          ],
-        ));
-      }
-      if (currentState is InChatState) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(currentState.hello),
-              Text('Flutter files: done'),
-              Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: RaisedButton(
-                  color: Colors.red,
-                  child: Text('throw error'),
-                  onPressed: () => () {},
-                ),
-              ),
-            ],
-          ),
-        );
-      }
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      return Container();
     });
   }
 }
