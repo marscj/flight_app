@@ -12,6 +12,7 @@ part 'booking.dart';
 part 'client.g.dart';
 part 'uploads.dart';
 part 'itinerary.dart';
+part 'comment.dart';
 
 @RestApi(baseUrl: Constant.Host)
 abstract class RestClient {

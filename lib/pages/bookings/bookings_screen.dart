@@ -119,8 +119,6 @@ class BookingsScreenState extends State<BookingsScreen> {
 class BookingItem extends StatelessWidget {
   const BookingItem({Key key, @required this.data}) : super(key: key);
 
-  // This height will allow for all the Card's content to fit comfortably within the card.
-  static const height = 298.0;
   final Booking data;
 
   @override

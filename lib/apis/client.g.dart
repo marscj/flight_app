@@ -221,28 +221,46 @@ Map<String, dynamic> _$UploadListExtraToJson(UploadListExtra instance) =>
     };
 
 Itinerary _$ItineraryFromJson(Map<String, dynamic> json) {
-  return Itinerary()..id = json['id'] as int;
+  return Itinerary()
+    ..id = json['id'] as int
+    ..serial_no = json['serial_no'] as String
+    ..email = json['email'] as String
+    ..name = json['name'] as String
+    ..passport_no = json['passport_no'] as String
+    ..entry = json['entry'] as String
+    ..exit = json['exit'] as String
+    ..ticket1 = json['ticket1'] as String
+    ..ticket2 = json['ticket2'] as String
+    ..hotel = json['hotel'] as String
+    ..is_lock = json['is_lock'] as bool
+    ..remark = json['remark'] as String
+    ..date = json['date'] as String
+    ..uploads = (json['uploads'] as List)
+        ?.map((e) =>
+            e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..comments = (json['comments'] as List)
+        ?.map((e) =>
+            e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$ItineraryToJson(Itinerary instance) => <String, dynamic>{
       'id': instance.id,
-    };
-
-ItineraryList _$ItineraryListFromJson(Map<String, dynamic> json) {
-  return ItineraryList()
-    ..totalCount = json['totalCount'] as int
-    ..pageNo = json['pageNo'] as int
-    ..data = (json['data'] as List)
-        ?.map((e) =>
-            e == null ? null : Itinerary.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$ItineraryListToJson(ItineraryList instance) =>
-    <String, dynamic>{
-      'totalCount': instance.totalCount,
-      'pageNo': instance.pageNo,
-      'data': instance.data,
+      'serial_no': instance.serial_no,
+      'email': instance.email,
+      'name': instance.name,
+      'passport_no': instance.passport_no,
+      'entry': instance.entry,
+      'exit': instance.exit,
+      'ticket1': instance.ticket1,
+      'ticket2': instance.ticket2,
+      'hotel': instance.hotel,
+      'is_lock': instance.is_lock,
+      'remark': instance.remark,
+      'date': instance.date,
+      'uploads': instance.uploads,
+      'comments': instance.comments,
     };
 
 ItineraryExtra _$ItineraryExtraFromJson(Map<String, dynamic> json) {
@@ -269,6 +287,44 @@ ItineraryListExtra _$ItineraryListExtraFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$ItineraryListExtraToJson(ItineraryListExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
+    };
+
+Comment _$CommentFromJson(Map<String, dynamic> json) {
+  return Comment()
+    ..id = json['id'] as int
+    ..comment = json['comment'] as String
+    ..rating = json['rating'] as int
+    ..read = json['read'] as bool
+    ..content_type = json['content_type'] as String
+    ..author_id = json['author_id'] as int
+    ..date = json['date'] as String
+    ..object_id = json['object_id'] as int;
+}
+
+Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
+      'id': instance.id,
+      'comment': instance.comment,
+      'rating': instance.rating,
+      'read': instance.read,
+      'content_type': instance.content_type,
+      'author_id': instance.author_id,
+      'date': instance.date,
+      'object_id': instance.object_id,
+    };
+
+CommentListExtra _$CommentListExtraFromJson(Map<String, dynamic> json) {
+  return CommentListExtra()
+    ..data = (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$CommentListExtraToJson(CommentListExtra instance) =>
     <String, dynamic>{
       'data': instance.data,
       'extra': instance.extra,

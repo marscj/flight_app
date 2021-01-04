@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -45,7 +46,7 @@ class ItineraryScreenState extends State<ItineraryScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             children: ListTile.divideTiles(
                     tiles: currentState.list.map((f) {
-                      return ListTile(title: Text(f.id.toString()));
+                      return ItineraryItem(data: f);
                     }),
                     color: Theme.of(context).dividerColor)
                 .toList(),
@@ -65,5 +66,62 @@ class ItineraryScreenState extends State<ItineraryScreen> {
             });
           });
     });
+  }
+}
+
+class ItineraryItem extends StatelessWidget {
+  const ItineraryItem({Key key, this.data}) : super(key: key);
+
+  final Itinerary data;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 8.0,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(14.0))),
+      child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+          decoration: BoxDecoration(
+              color: Colors.indigo,
+              borderRadius: BorderRadius.all(Radius.circular(14.0))),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AutoSizeText(
+                data.date,
+                maxLines: 1,
+                style: TextStyle(color: Colors.white),
+              ),
+              Divider(
+                color: Colors.white,
+              ),
+              ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  onTap: () {},
+                  title: AutoSizeText(
+                    data.serial_no ?? '',
+                    maxLines: 2,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Row(
+                    children: <Widget>[
+                      Icon(Icons.linear_scale, color: Colors.yellowAccent),
+                      Expanded(
+                          child: AutoSizeText(
+                        data.remark ?? '',
+                        maxLines: 1,
+                        style: Theme.of(context)
+                            .textTheme
+                            .caption
+                            .copyWith(color: Colors.white54),
+                      ))
+                    ],
+                  ),
+                  trailing: Icon(Icons.keyboard_arrow_right,
+                      color: Colors.white, size: 30.0))
+            ],
+          )),
+    );
   }
 }
