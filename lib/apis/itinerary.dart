@@ -46,7 +46,7 @@ class ItineraryExtra extends Equatable {
 
 @JsonSerializable()
 class ItineraryListExtra extends Equatable {
-  ItineraryList data;
+  List<Itinerary> data;
   Map<String, dynamic> extra;
 
   static ItineraryListExtra fromJson(Map<String, dynamic> json) =>

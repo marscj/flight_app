@@ -207,9 +207,10 @@ Map<String, dynamic> _$UploadExtraToJson(UploadExtra instance) =>
 
 UploadListExtra _$UploadListExtraFromJson(Map<String, dynamic> json) {
   return UploadListExtra()
-    ..data = json['data'] == null
-        ? null
-        : UploadList.fromJson(json['data'] as Map<String, dynamic>)
+    ..data = (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..extra = json['extra'] as Map<String, dynamic>;
 }
 
@@ -260,9 +261,10 @@ Map<String, dynamic> _$ItineraryExtraToJson(ItineraryExtra instance) =>
 
 ItineraryListExtra _$ItineraryListExtraFromJson(Map<String, dynamic> json) {
   return ItineraryListExtra()
-    ..data = json['data'] == null
-        ? null
-        : ItineraryList.fromJson(json['data'] as Map<String, dynamic>)
+    ..data = (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : Itinerary.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..extra = json['extra'] as Map<String, dynamic>;
 }
 

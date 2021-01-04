@@ -63,7 +63,7 @@ class UploadExtra extends Equatable {
 
 @JsonSerializable()
 class UploadListExtra extends Equatable {
-  UploadList data;
+  List<Upload> data;
   Map<String, dynamic> extra;
 
   static UploadListExtra fromJson(Map<String, dynamic> json) =>

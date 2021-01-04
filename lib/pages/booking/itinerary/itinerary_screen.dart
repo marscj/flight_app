@@ -45,9 +45,14 @@ class ItineraryScreenState extends State<ItineraryScreen> {
           title: Text('Booking Detail'),
         ),
         body: EasyRefresh(
-            child: SingleChildScrollView(
+            child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              child: Column(),
+              children: ListTile.divideTiles(
+                      tiles: currentState.list.map((f) {
+                        return ListTile(title: Text(f.id.toString()));
+                      }),
+                      color: Theme.of(context).dividerColor)
+                  .toList(),
             ),
             firstRefresh: currentState.list.length == 0,
             controller: _controller,

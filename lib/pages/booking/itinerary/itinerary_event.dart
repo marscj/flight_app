@@ -18,6 +18,6 @@ class RefreshItineraryEvent extends ItineraryEvent {
   @override
   Stream<ItineraryState> applyAsync(
       {ItineraryState currentState, ItineraryBloc bloc}) async* {
-    yield currentState.copyWith(list: result?.data?.data ?? []);
+    yield currentState.copyWith(list: result?.data ?? []);
   }
 }
