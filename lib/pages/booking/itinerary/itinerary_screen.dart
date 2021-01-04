@@ -31,6 +31,7 @@ class ItineraryScreenState extends State<ItineraryScreen> {
   void dispose() {
     // TODO: implement dispose
     _controller.dispose();
+    _controller = null;
     super.dispose();
   }
 

@@ -33,6 +33,7 @@ class BtaScreenState extends State<BtaScreen> {
   void dispose() {
     // TODO: implement dispose
     _controller.dispose();
+    _controller = null;
     super.dispose();
   }
 
@@ -52,11 +53,23 @@ class BtaScreenState extends State<BtaScreen> {
                 title: Text(currentState?.list[index]?.name ?? ''),
                 subtitle: Text(currentState?.list[index]?.date ?? ''),
                 onTap: () {
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('loading file...'),
+                    ),
+                  );
                   DefaultCacheManager()
                       .getSingleFile(currentState?.list[index]?.url)
                       .then((file) {
-                    print(file.path);
-                    OpenFile.open(file.path);
+                    if (file != null) {
+                      OpenFile.open(file.path);
+                    }
+                  }).catchError((error) {
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('download failed!'),
+                      ),
+                    );
                   });
                 },
               );

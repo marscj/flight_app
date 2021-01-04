@@ -31,6 +31,7 @@ class BookingScreenState extends State<BookingScreen> {
   void dispose() {
     // TODO: implement dispose
     _controller.dispose();
+    _controller = null;
     super.dispose();
   }
 

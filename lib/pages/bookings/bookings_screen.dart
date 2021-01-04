@@ -34,6 +34,7 @@ class BookingsScreenState extends State<BookingsScreen> {
   void dispose() {
     // TODO: implement dispose
     _controller.dispose();
+    _controller = null;
     super.dispose();
   }
 
@@ -128,43 +129,43 @@ class BookingItem extends StatelessWidget {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(14.0))),
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
           decoration: BoxDecoration(
-              color: Colors.indigo,
+              color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(14.0))),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AutoSizeText(
-                data.date,
-                maxLines: 1,
-                style: TextStyle(color: Colors.white),
-              ),
-              Divider(
-                color: Colors.white,
-              ),
+              Container(
+                  decoration: BoxDecoration(
+                      color: Colors.indigo,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(14.0))),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                  width: double.infinity,
+                  child: AutoSizeText(
+                    data.date,
+                    maxLines: 1,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  )),
               ListTile(
-                  contentPadding: EdgeInsets.zero,
                   onTap: () {
                     context.router.push(BookingBasementRoute(id: data.id));
                   },
                   title: AutoSizeText(
                     data.title ?? '',
                     maxLines: 2,
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Row(
                     children: <Widget>[
-                      Icon(Icons.linear_scale, color: Colors.yellowAccent),
+                      Icon(Icons.linear_scale, color: Colors.black),
                       Expanded(
                           child: AutoSizeText(
                         data.remark ?? '',
                         maxLines: 1,
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption
-                            .copyWith(color: Colors.white54),
+                        style: Theme.of(context).textTheme.caption,
                       ))
                     ],
                   ),
