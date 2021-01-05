@@ -43,14 +43,14 @@ class _BookingBasementPageState extends State<BookingBasementPage>
         providers: [
           BlocProvider(create: (context) => BookingBloc()),
           BlocProvider(create: (context) => ItineraryBloc()),
-          BlocProvider(create: (context) => BtaBloc()),
-          BlocProvider(create: (context) => ChatBloc())
+          BlocProvider(create: (context) => BtaBloc())
         ],
         child: Scaffold(
             appBar: AppBar(
               title: Text('Booking Detail'),
               bottom: TabBar(
                 controller: _tabController,
+                indicatorColor: Colors.white,
                 tabs: [
                   Tab(
                     icon: Icon(FontAwesomeIcons.info),

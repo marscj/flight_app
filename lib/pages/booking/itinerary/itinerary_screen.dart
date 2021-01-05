@@ -19,22 +19,6 @@ class ItineraryScreen extends StatefulWidget {
 }
 
 class ItineraryScreenState extends State<ItineraryScreen> {
-  EasyRefreshController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = EasyRefreshController();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _controller.dispose();
-    _controller = null;
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ItineraryBloc, ItineraryState>(builder: (
@@ -55,18 +39,14 @@ class ItineraryScreenState extends State<ItineraryScreen> {
               );
             }).toList(),
           ),
-          firstRefresh: currentState.list.length == 0,
-          controller: _controller,
-          enableControlFinishRefresh: true,
+          firstRefresh: currentState?.list?.length == 0 ?? 0,
+          firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
             return RestClient()
                 .getItinerarys(query: {'booking_id': widget.id}).then((res) {
               itineraryBloc.add(RefreshItineraryEvent(res));
             }).catchError((error) {
               itineraryBloc.add(RefreshItineraryEvent(null));
-            }).whenComplete(() {
-              _controller?.resetLoadState();
-              _controller?.finishRefresh();
             });
           });
     });

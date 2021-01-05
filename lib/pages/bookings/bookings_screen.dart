@@ -56,20 +56,21 @@ class BookingsScreenState extends State<BookingsScreen> {
                     expandedHeight: 100.0,
                     pinned: true,
                     elevation: 8,
-                    backgroundColor: Colors.white,
-                    brightness: Brightness.light,
                     flexibleSpace: FlexibleSpaceBar(
-                      stretchModes: <StretchMode>[
-                        StretchMode.zoomBackground,
-                        StretchMode.blurBackground,
-                        StretchMode.fadeTitle,
-                      ],
-                      centerTitle: false,
-                      title: Text(
-                        'Booking',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
+                        centerTitle: false,
+                        background: Image.asset(
+                          'assets/header.png',
+                          fit: BoxFit.cover,
+                        ),
+                        title: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'Booking',
+                              ),
+                            ),
+                          ],
+                        )),
                   ),
                   header,
                   SliverList(
@@ -157,6 +158,8 @@ class BookingItem extends StatelessWidget {
                         color: Colors.white, fontWeight: FontWeight.bold),
                   )),
               ListTile(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                   onTap: () {
                     context.router.push(BookingBasementRoute(id: data.id));
                   },
@@ -176,8 +179,7 @@ class BookingItem extends StatelessWidget {
                       ))
                     ],
                   ),
-                  trailing: Icon(Icons.keyboard_arrow_right,
-                      color: Colors.white, size: 30.0))
+                  trailing: Icon(Icons.keyboard_arrow_right, size: 30.0))
             ],
           )),
     );

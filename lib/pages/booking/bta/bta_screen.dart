@@ -21,22 +21,6 @@ class BtaScreen extends StatefulWidget {
 }
 
 class BtaScreenState extends State<BtaScreen> {
-  EasyRefreshController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = EasyRefreshController();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _controller.dispose();
-    _controller = null;
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BtaBloc, BtaState>(builder: (
@@ -80,17 +64,13 @@ class BtaScreenState extends State<BtaScreen> {
             },
           ),
           firstRefresh: currentState?.list?.length == 0 ?? 0,
-          controller: _controller,
-          enableControlFinishRefresh: true,
+          firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
             return RestClient().getUploads(
                 query: {'object_id': widget.id, 'type': 'booking'}).then((res) {
               btaBloc.add(RefreshBtaEvent(res));
             }).catchError((error) {
               btaBloc.add(RefreshBtaEvent(null));
-            }).whenComplete(() {
-              _controller?.resetLoadState();
-              _controller?.finishRefresh();
             });
           });
     });

@@ -19,22 +19,6 @@ class BookingScreen extends StatefulWidget {
 }
 
 class BookingScreenState extends State<BookingScreen> {
-  EasyRefreshController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = EasyRefreshController();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _controller.dispose();
-    _controller = null;
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookingBloc, BookingState>(builder: (
@@ -69,16 +53,12 @@ class BookingScreenState extends State<BookingScreen> {
             ),
           ),
           firstRefresh: currentState.data == null,
-          controller: _controller,
-          enableControlFinishRefresh: true,
+          firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
             return RestClient().getBooking(widget.id.toString()).then((res) {
               bookingsBloc.add(RefreshBookingEvent(res));
             }).catchError((error) {
               bookingsBloc.add(RefreshBookingEvent(null));
-            }).whenComplete(() {
-              _controller?.resetLoadState();
-              _controller?.finishRefresh();
             });
           });
     });
