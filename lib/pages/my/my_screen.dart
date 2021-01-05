@@ -6,6 +6,7 @@ import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
 import 'package:saadiyat/pages/app/index.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/router/router.gr.dart';
 import 'package:saadiyat/widgets/list_item.dart';
 
 class MyScreen extends StatefulWidget {
@@ -278,10 +279,7 @@ class MyScreenState extends State<MyScreen> {
                           BlocProvider.of<AppBloc>(context)
                               .add(UnAuthorization());
                           context.router.root.pop();
-                          // context.router.pushAndRemoveUntil(LoginRoute(),
-                          //     predicate: (RouteData<PageRouteInfo> route) {
-                          //   return true;
-                          // });
+                          context.router.root.replace(LoginRoute());
                         },
                       ),
                     )

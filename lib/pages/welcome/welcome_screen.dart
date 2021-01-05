@@ -25,7 +25,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     return BlocListener<WelcomeBloc, WelcomeState>(
       listener: (_, state) {
         if (state is InWelcomeState && state.routeInfo != null) {
-          context.router.replace(state.routeInfo);
+          context.router.root.replace(state.routeInfo);
         }
       },
       child: BlocBuilder<WelcomeBloc, WelcomeState>(builder: (context, state) {

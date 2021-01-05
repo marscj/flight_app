@@ -45,8 +45,9 @@ class LoadWelcomeEvent extends WelcomeEvent {
         if (errors?.response?.statusCode == 401) {
           yield InWelcomeState(1, BasementRoute());
         }
+      } else {
+        yield ErrorWelcomeState(1, 'Connection timed out!');
       }
-      yield ErrorWelcomeState(1, 'Connection timed out!');
     }
   }
 }

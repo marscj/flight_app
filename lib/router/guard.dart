@@ -17,10 +17,8 @@ class AuthGuard extends AutoRouteGuard {
     if (appState.user == null) {
       router.root.push(LoginRoute(onLoginResult: (success) {
         if (success) {
-          router.root.pushAndRemoveUntil(WelcomeRoute(),
-              predicate: (RouteData<PageRouteInfo> route) {
-            return true;
-          });
+          router.root.pop();
+          router.root.pushAll(pendingRoutes);
         }
       }));
       return false;

@@ -33,9 +33,7 @@ class LoginScreenState extends State<LoginScreen> {
                 if (widget?.onLoginResult != null) {
                   widget?.onLoginResult(true);
                 } else {
-                  var cc = context.router;
-                  print(cc.toString());
-                  context.router.pop();
+                  context.router.root.pop();
                   // context.router.root.replace(BasementRoute());
                 }
               },
