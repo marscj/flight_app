@@ -5,6 +5,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
+import 'package:saadiyat/widgets/list_item.dart';
 
 import 'bookings_bloc.dart';
 import 'bookings_event.dart';
@@ -132,56 +133,51 @@ class BookingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 8.0,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(14.0))),
-      child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
+    return InkWell(
+        onTap: () {
+          context.router.push(BookingDetailRoute(id: data.id));
+        },
+        child: Card(
+          elevation: 8.0,
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(14.0))),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  decoration: BoxDecoration(
-                      color: Colors.indigo,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(14.0))),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                  width: double.infinity,
-                  child: AutoSizeText(
-                    data.date,
-                    maxLines: 1,
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  )),
-              ListTile(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                  onTap: () {
-                    context.router.push(BookingDetailRoute(id: data.id));
-                  },
-                  title: AutoSizeText(
-                    data.title ?? '',
-                    maxLines: 2,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Row(
-                    children: <Widget>[
-                      Icon(Icons.linear_scale, color: Colors.black),
-                      Expanded(
-                          child: AutoSizeText(
-                        data.remark ?? '',
+          child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(14.0))),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      decoration: BoxDecoration(
+                          color: Colors.indigo,
+                          borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(14.0))),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 15.0),
+                      width: double.infinity,
+                      child: AutoSizeText(
+                        data.date,
                         maxLines: 1,
-                        style: Theme.of(context).textTheme.caption,
-                      ))
-                    ],
-                  ),
-                  trailing: Icon(Icons.keyboard_arrow_right, size: 30.0))
-            ],
-          )),
-    );
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      )),
+                  Container(
+                      width: double.infinity,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
+                      child: Column(children: [
+                        ListItem(
+                          title: 'Title:',
+                          describe: data?.title ?? '',
+                        ),
+                        ListItem(
+                          title: 'Remark:',
+                          describe: data?.remark ?? '',
+                        ),
+                      ]))
+                ],
+              )),
+        ));
   }
 }
