@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:saadiyat/pages/ticket_detail/index.dart';
+import 'package:saadiyat/pages/ticket_detail/ticket_screen.dart';
 
 class TicketDetailPage extends StatefulWidget {
   static const String routeName = '/ticketDetail';
@@ -20,7 +20,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
       appBar: AppBar(
         title: Text('TicketDetail'),
       ),
-      body: TicketDetailScreen(ticketDetailBloc: _ticketDetailBloc),
+      body: TicketScreen(),
     );
   }
 }
