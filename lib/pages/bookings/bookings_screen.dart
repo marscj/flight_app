@@ -135,7 +135,7 @@ class BookingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          context.router.root.push(BookingDetailRoute(id: data.id));
+          context.router.push(BookingDetailRoute(id: data.id));
         },
         child: Card(
           elevation: 8.0,

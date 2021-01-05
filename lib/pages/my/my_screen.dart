@@ -279,7 +279,7 @@ class MyScreenState extends State<MyScreen> {
                           BlocProvider.of<AppBloc>(context)
                               .add(UnAuthorization());
                           context.router.root.pop();
-                          context.router.root.replace(LoginRoute());
+                          context.router.replace(LoginRoute());
                         },
                       ),
                     )

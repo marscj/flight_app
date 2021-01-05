@@ -15,10 +15,10 @@ class AuthGuard extends AutoRouteGuard {
     // ignore: close_sinks
     AppState appState = BlocProvider.of<AppBloc>(context).state;
     if (appState.user == null) {
-      router.root.push(LoginRoute(onLoginResult: (success) {
+      router.push(LoginRoute(onLoginResult: (success) {
         if (success) {
-          router.root.pop();
-          router.root.pushAll(pendingRoutes);
+          router.pop();
+          router.replaceAll(pendingRoutes);
         }
       }));
       return false;

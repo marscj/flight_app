@@ -135,7 +135,7 @@ class TicketItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          context.router.root.push(TicketDetailRoute(id: data.id));
+          context.router.push(TicketDetailRoute(id: data.id));
         },
         child: Card(
           elevation: 8.0,
