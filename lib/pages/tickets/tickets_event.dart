@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:meta/meta.dart';
+import 'package:saadiyat/apis/client.dart';
 
 import 'tickets_bloc.dart';
 import 'tickets_state.dart';
@@ -11,29 +12,31 @@ abstract class TicketsEvent {
       {TicketsState currentState, TicketsBloc bloc});
 }
 
-class UnTicketsEvent extends TicketsEvent {
+class RefreshTicketsEvent extends TicketsEvent {
+  final TicketListExtra result;
+
+  RefreshTicketsEvent(this.result);
+
   @override
   Stream<TicketsState> applyAsync(
       {TicketsState currentState, TicketsBloc bloc}) async* {
-    yield UnTicketsState(0);
+    yield currentState.copyWith(
+        pageNo: 2,
+        totalCount: result?.data?.totalCount ?? 0,
+        list: result?.data?.data ?? []);
   }
 }
 
 class LoadTicketsEvent extends TicketsEvent {
-  @override
-  String toString() => 'LoadTicketsEvent';
+  final TicketListExtra result;
 
-  LoadTicketsEvent();
+  LoadTicketsEvent(this.result);
 
   @override
   Stream<TicketsState> applyAsync(
       {TicketsState currentState, TicketsBloc bloc}) async* {
-    try {
-      yield InTicketsState(0, 'Hello world');
-    } catch (_, stackTrace) {
-      developer.log('$_',
-          name: 'LoadTicketsEvent', error: _, stackTrace: stackTrace);
-      yield ErrorTicketsState(0, _?.toString());
-    }
+    yield currentState.copyWith(
+        list: currentState.list + (result?.data?.data ?? []),
+        pageNo: currentState.pageNo + 1);
   }
 }

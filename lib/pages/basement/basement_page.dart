@@ -26,8 +26,7 @@ class _BasementPageState extends State<BasementPage> {
       child: MultiBlocProvider(providers: [
         BlocProvider(create: (context) => HomeBloc()..add(LoadHomeEvent())),
         BlocProvider(create: (context) => BookingsBloc()),
-        BlocProvider(
-            create: (context) => TicketsBloc()..add(LoadTicketsEvent())),
+        BlocProvider(create: (context) => TicketsBloc()),
         BlocProvider(create: (context) => MyBloc()..add(LoadMyEvent()))
       ], child: BasementScreen()),
     );

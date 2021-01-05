@@ -2,10 +2,10 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:saadiyat/pages/booking_detail/bta_screen.dart';
-import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
 import 'package:saadiyat/pages/ticket_detail/ticket_screen.dart';
 
+import 'bta_screen.dart';
+import 'itinerary_screen.dart';
 import 'ticket_detail_bloc.dart';
 import 'ticket_detail_state.dart';
 
@@ -73,8 +73,8 @@ class _TicketDetailPageState extends State<TicketDetailPage>
                         child: Text('Itinerary'),
                       ),
                       Tab(
-                        icon: Icon(FontAwesomeIcons.file),
-                        child: Text('BTA'),
+                        icon: Icon(FontAwesomeIcons.fileInvoice),
+                        child: Text('Voucher'),
                       ),
                       // Tab(
                       //   icon: badge == 0

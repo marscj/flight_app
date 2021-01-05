@@ -14,7 +14,7 @@ class TicketsBloc extends Bloc<TicketsEvent, TicketsState> {
   factory TicketsBloc() {
     return _ticketsBlocSingleton;
   }
-  TicketsBloc._internal() : super(UnTicketsState(0));
+  TicketsBloc._internal() : super(TicketsState.initial());
 
   @override
   Future<void> close() async {

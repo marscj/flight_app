@@ -30,14 +30,15 @@ class ItineraryScreen extends StatelessWidget {
       return EasyRefresh(
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            children: currentState.data.itineraries.map((f) {
-              return Padding(
-                padding: const EdgeInsets.all(10),
-                child: ItineraryItem(
-                  data: f,
-                ),
-              );
-            }).toList(),
+            children: currentState?.data?.itineraries?.map((f) {
+                  return Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ItineraryItem(
+                      data: f,
+                    ),
+                  );
+                })?.toList() ??
+                [],
           ),
           emptyWidget: currentState?.data?.itineraries?.length == 0
               ? NoDataWidget()
