@@ -284,6 +284,101 @@ Map<String, dynamic> _$CommentListToJson(CommentList instance) =>
       'data': instance.data,
     };
 
+Ticket _$TicketFromJson(Map<String, dynamic> json) {
+  return Ticket()
+    ..id = json['id'] as int
+    ..serial_no = json['serial_no'] as String
+    ..air_line = json['air_line'] as String
+    ..air_info = json['air_info'] as String
+    ..air_class = json['air_class'] as String
+    ..fare = (json['fare'] as num)?.toDouble()
+    ..tax = (json['tax'] as num)?.toDouble()
+    ..total = (json['total'] as num)?.toDouble()
+    ..remark = json['remark'] as String
+    ..is_confirm = json['is_confirm'] as bool
+    ..is_cancel = json['is_cancel'] as bool
+    ..is_booking = json['is_booking'] as bool
+    ..is_complete = json['is_complete'] as bool
+    ..date = json['date'] as String
+    ..comments = (json['comments'] as List)
+        ?.map((e) =>
+            e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..uploads = (json['uploads'] as List)
+        ?.map((e) =>
+            e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..itineraries = (json['itineraries'] as List)
+        ?.map((e) =>
+            e == null ? null : Itinerary.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
+      'id': instance.id,
+      'serial_no': instance.serial_no,
+      'air_line': instance.air_line,
+      'air_info': instance.air_info,
+      'air_class': instance.air_class,
+      'fare': instance.fare,
+      'tax': instance.tax,
+      'total': instance.total,
+      'remark': instance.remark,
+      'is_confirm': instance.is_confirm,
+      'is_cancel': instance.is_cancel,
+      'is_booking': instance.is_booking,
+      'is_complete': instance.is_complete,
+      'date': instance.date,
+      'comments': instance.comments,
+      'uploads': instance.uploads,
+      'itineraries': instance.itineraries,
+    };
+
+TicketList _$TicketListFromJson(Map<String, dynamic> json) {
+  return TicketList()
+    ..totalCount = json['totalCount'] as int
+    ..pageNo = json['pageNo'] as int
+    ..data = (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : Ticket.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$TicketListToJson(TicketList instance) =>
+    <String, dynamic>{
+      'totalCount': instance.totalCount,
+      'pageNo': instance.pageNo,
+      'data': instance.data,
+    };
+
+TicketExtra _$TicketExtraFromJson(Map<String, dynamic> json) {
+  return TicketExtra()
+    ..data = json['data'] == null
+        ? null
+        : Ticket.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$TicketExtraToJson(TicketExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
+    };
+
+TicketListExtra _$TicketListExtraFromJson(Map<String, dynamic> json) {
+  return TicketListExtra()
+    ..data = json['data'] == null
+        ? null
+        : TicketList.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$TicketListExtraToJson(TicketListExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -428,6 +523,43 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = UploadList.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<BookingListExtra> getTickets({query}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(query ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/tickets/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BookingListExtra.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<BookingExtra> getTicket(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/tickets/$id/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BookingExtra.fromJson(_result.data);
     return value;
   }
 }

@@ -3,7 +3,7 @@ import 'package:saadiyat/pages/basement/basement_page.dart';
 import 'package:saadiyat/pages/booking_detail/index.dart';
 import 'package:saadiyat/pages/bookings/index.dart';
 import 'package:saadiyat/pages/login/login_page.dart';
-import 'package:saadiyat/pages/ticket/ticket_page.dart';
+import 'package:saadiyat/pages/ticket_detail/index.dart';
 import 'package:saadiyat/pages/tickets/tickets_page.dart';
 import 'package:saadiyat/pages/welcome/welcome_page.dart';
 import 'guard.dart';
@@ -23,7 +23,7 @@ import 'guard.dart';
     ),
     AutoRoute(
       path: TicketsPage.routeName + '/:id',
-      page: TicketPage,
+      page: TicketDetailPage,
       guards: [AuthGuard],
     ),
   ],

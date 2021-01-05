@@ -13,6 +13,7 @@ part 'client.g.dart';
 part 'uploads.dart';
 part 'itinerary.dart';
 part 'comment.dart';
+part 'ticket.dart';
 
 @RestApi(baseUrl: Constant.Host)
 abstract class RestClient {
@@ -70,4 +71,10 @@ abstract class RestClient {
 
   @GET('/uploads/')
   Future<UploadList> getUploads({@Queries() Map<String, dynamic> query});
+
+  @GET('/tickets/')
+  Future<BookingListExtra> getTickets({@Queries() Map<String, dynamic> query});
+
+  @GET('/tickets/{id}/')
+  Future<BookingExtra> getTicket(@Path("id") int id);
 }

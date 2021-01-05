@@ -11,7 +11,7 @@ import '../pages/welcome/welcome_page.dart' as _i4;
 import '../pages/login/login_page.dart' as _i5;
 import '../pages/basement/basement_page.dart' as _i6;
 import '../pages/booking_detail/index.dart' as _i7;
-import '../pages/ticket/ticket_page.dart' as _i8;
+import '../pages/ticket_detail/index.dart' as _i8;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter({@_i2.required this.authGuard}) : assert(authGuard != null);
@@ -39,10 +39,10 @@ class AppRouter extends _i1.RootStackRouter {
       return _i1.CupertinoPageX(
           entry: entry, child: _i7.BookingDetailPage(id: route.id));
     },
-    TicketRoute.name: (entry) {
-      var route = entry.routeData.as<TicketRoute>();
+    TicketDetailRoute.name: (entry) {
+      var route = entry.routeData.as<TicketDetailRoute>();
       return _i1.CupertinoPageX(
-          entry: entry, child: _i8.TicketPage(id: route.id));
+          entry: entry, child: _i8.TicketDetailPage(id: route.id));
     }
   };
 
@@ -61,9 +61,9 @@ class AppRouter extends _i1.RootStackRouter {
             path: 'bookings/:id',
             routeBuilder: (match) => BookingDetailRoute.fromMatch(match),
             guards: [authGuard]),
-        _i1.RouteConfig<TicketRoute>(TicketRoute.name,
+        _i1.RouteConfig<TicketDetailRoute>(TicketDetailRoute.name,
             path: 'tickets/:id',
-            routeBuilder: (match) => TicketRoute.fromMatch(match),
+            routeBuilder: (match) => TicketDetailRoute.fromMatch(match),
             guards: [authGuard])
       ];
 }
@@ -109,15 +109,15 @@ class BookingDetailRoute extends _i1.PageRouteInfo {
   static const String name = 'BookingDetailRoute';
 }
 
-class TicketRoute extends _i1.PageRouteInfo {
-  TicketRoute({this.id})
+class TicketDetailRoute extends _i1.PageRouteInfo {
+  TicketDetailRoute({this.id})
       : super(name, path: 'tickets/:id', params: {'id': id}, argProps: [id]);
 
-  TicketRoute.fromMatch(_i1.RouteMatch match)
+  TicketDetailRoute.fromMatch(_i1.RouteMatch match)
       : id = match.pathParams.getInt('id'),
         super.fromMatch(match);
 
   final int id;
 
-  static const String name = 'TicketRoute';
+  static const String name = 'TicketDetailRoute';
 }
