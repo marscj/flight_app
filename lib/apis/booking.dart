@@ -11,6 +11,7 @@ class Booking extends Equatable {
   String date;
   String author;
   List<Upload> uploads;
+  List<Itinerary> itineraries;
 
   static Booking fromJson(Map<String, dynamic> json) => _$BookingFromJson(json);
   Map<String, dynamic> toJson() => _$BookingToJson(this);

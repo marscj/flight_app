@@ -161,7 +161,7 @@ class BookingItem extends StatelessWidget {
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                   onTap: () {
-                    context.router.push(BookingBasementRoute(id: data.id));
+                    context.router.push(BookingDetailRoute(id: data.id));
                   },
                   title: AutoSizeText(
                     data.title ?? '',

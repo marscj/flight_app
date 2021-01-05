@@ -1,41 +1,35 @@
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:open_file/open_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:open_file/open_file.dart';
 import 'package:saadiyat/apis/client.dart';
 
-import 'bta_bloc.dart';
-import 'bta_event.dart';
-import 'bta_state.dart';
+import 'booking_detail_bloc.dart';
+import 'booking_detail_event.dart';
+import 'booking_detail_state.dart';
 
-class BtaScreen extends StatefulWidget {
-  const BtaScreen(this.id);
+class BtaScreen extends StatelessWidget {
+  const BtaScreen({Key key, this.id}) : super(key: key);
 
   final int id;
 
   @override
-  BtaScreenState createState() {
-    return BtaScreenState();
-  }
-}
-
-class BtaScreenState extends State<BtaScreen> {
-  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BtaBloc, BtaState>(builder: (
+    return BlocBuilder<BookingDetailBloc, BookingDetailState>(builder: (
       BuildContext context,
-      BtaState currentState,
+      BookingDetailState currentState,
     ) {
       // ignore: close_sinks
-      BtaBloc btaBloc = BlocProvider.of<BtaBloc>(context);
+      BookingDetailBloc bookingDetailBloc =
+          BlocProvider.of<BookingDetailBloc>(context);
       return EasyRefresh(
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                title: Text(currentState?.list[index]?.name ?? ''),
-                subtitle: Text(currentState?.list[index]?.date ?? ''),
+                title: Text(currentState?.data?.uploads[index]?.name ?? ''),
+                subtitle: Text(currentState?.data?.uploads[index]?.date ?? ''),
                 onTap: () {
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
@@ -43,7 +37,7 @@ class BtaScreenState extends State<BtaScreen> {
                     ),
                   );
                   DefaultCacheManager()
-                      .getSingleFile(currentState?.list[index]?.url)
+                      .getSingleFile(currentState?.data?.uploads[index]?.url)
                       .then((file) {
                     if (file != null) {
                       OpenFile.open(file.path);
@@ -58,19 +52,17 @@ class BtaScreenState extends State<BtaScreen> {
                 },
               );
             },
-            itemCount: currentState?.list?.length ?? 0,
+            itemCount: currentState?.data?.uploads?.length ?? 0,
             separatorBuilder: (BuildContext context, int index) {
               return Divider();
             },
           ),
-          firstRefresh: currentState?.list?.length == 0 ?? false,
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
-            await RestClient().getUploads(
-                query: {'object_id': widget.id, 'type': 'booking'}).then((res) {
-              btaBloc.add(RefreshBtaEvent(res));
+            await RestClient().getBooking(id).then((res) {
+              bookingDetailBloc.add(RefreshBookingDetailEvent(res));
             }).catchError((error) {
-              btaBloc.add(RefreshBtaEvent(null));
+              bookingDetailBloc.add(RefreshBookingDetailEvent(null));
             });
           });
     });

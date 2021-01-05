@@ -1,36 +1,35 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:open_file/open_file.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/pages/booking/itinerary/index.dart';
 import 'package:saadiyat/widgets/list_item.dart';
 
-class ItineraryScreen extends StatefulWidget {
-  const ItineraryScreen({Key key, @required this.id}) : super(key: key);
+import 'booking_detail_bloc.dart';
+import 'booking_detail_event.dart';
+import 'booking_detail_state.dart';
+
+class ItineraryScreen extends StatelessWidget {
+  const ItineraryScreen({Key key, this.id}) : super(key: key);
 
   final int id;
 
   @override
-  ItineraryScreenState createState() {
-    return ItineraryScreenState();
-  }
-}
-
-class ItineraryScreenState extends State<ItineraryScreen> {
-  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ItineraryBloc, ItineraryState>(builder: (
+    return BlocBuilder<BookingDetailBloc, BookingDetailState>(builder: (
       BuildContext context,
-      ItineraryState currentState,
+      BookingDetailState currentState,
     ) {
       // ignore: close_sinks
-      ItineraryBloc itineraryBloc = BlocProvider.of<ItineraryBloc>(context);
+      BookingDetailBloc bookingDetailBloc =
+          BlocProvider.of<BookingDetailBloc>(context);
       return EasyRefresh(
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            children: currentState.list.map((f) {
+            children: currentState.data.itineraries.map((f) {
               return Padding(
                 padding: const EdgeInsets.all(10),
                 child: ItineraryItem(
@@ -39,14 +38,12 @@ class ItineraryScreenState extends State<ItineraryScreen> {
               );
             }).toList(),
           ),
-          firstRefresh: currentState?.list?.length == 0 ?? 0,
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
-            await RestClient()
-                .getItinerarys(query: {'booking_id': widget.id}).then((res) {
-              itineraryBloc.add(RefreshItineraryEvent(res));
+            await RestClient().getBooking(id).then((res) {
+              bookingDetailBloc.add(RefreshBookingDetailEvent(res));
             }).catchError((error) {
-              itineraryBloc.add(RefreshItineraryEvent(null));
+              bookingDetailBloc.add(RefreshBookingDetailEvent(null));
             });
           });
     });

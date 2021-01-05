@@ -90,6 +90,10 @@ Booking _$BookingFromJson(Map<String, dynamic> json) {
     ..uploads = (json['uploads'] as List)
         ?.map((e) =>
             e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..itineraries = (json['itineraries'] as List)
+        ?.map((e) =>
+            e == null ? null : Itinerary.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
@@ -100,6 +104,7 @@ Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
       'date': instance.date,
       'author': instance.author,
       'uploads': instance.uploads,
+      'itineraries': instance.itineraries,
     };
 
 BookingList _$BookingListFromJson(Map<String, dynamic> json) {
