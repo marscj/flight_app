@@ -42,7 +42,7 @@ class ItineraryScreenState extends State<ItineraryScreen> {
           firstRefresh: currentState?.list?.length == 0 ?? 0,
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
-            return RestClient()
+            await RestClient()
                 .getItinerarys(query: {'booking_id': widget.id}).then((res) {
               itineraryBloc.add(RefreshItineraryEvent(res));
             }).catchError((error) {

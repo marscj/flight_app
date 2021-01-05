@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saadiyat/pages/booking/booking/index.dart';
 import 'package:saadiyat/pages/booking/bta/index.dart';
-import 'package:saadiyat/pages/booking/chat/index.dart';
 import 'package:saadiyat/pages/booking/itinerary/index.dart';
 
 class BookingBasementPage extends StatefulWidget {
@@ -20,21 +19,31 @@ class BookingBasementPage extends StatefulWidget {
 
 class _BookingBasementPageState extends State<BookingBasementPage>
     with SingleTickerProviderStateMixin {
+  PageController _pageController;
   TabController _tabController;
-
-  int badge = 10;
+  var currentPage = 0;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _pageController = PageController(initialPage: 0);
+    _tabController = TabController(vsync: this, length: 3);
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
+    _pageController.dispose();
     _tabController.dispose();
     super.dispose();
+  }
+
+  onPageChange(index, page) {
+    if (page) {
+      _pageController.jumpToPage(index);
+    } else {
+      _tabController.animateTo(index);
+    }
   }
 
   @override
@@ -51,6 +60,9 @@ class _BookingBasementPageState extends State<BookingBasementPage>
               bottom: TabBar(
                 controller: _tabController,
                 indicatorColor: Colors.white,
+                onTap: (index) {
+                  onPageChange(index, true);
+                },
                 tabs: [
                   Tab(
                     icon: Icon(FontAwesomeIcons.info),
@@ -83,13 +95,15 @@ class _BookingBasementPageState extends State<BookingBasementPage>
                 ],
               ),
             ),
-            body: TabBarView(
-              controller: _tabController,
+            body: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                onPageChange(index, false);
+              },
               children: [
                 BookingPage(widget.id),
                 ItineraryPage(widget.id),
                 BtaPage(widget.id),
-                // ChatPage(widget.id)
               ],
             )));
   }

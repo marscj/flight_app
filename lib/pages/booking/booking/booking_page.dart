@@ -13,8 +13,12 @@ class BookingPage extends StatefulWidget {
 }
 
 class _BookingPageState extends State<BookingPage> {
+  int index = 0;
   @override
   Widget build(BuildContext context) {
+    index++;
+    print(index);
+    print('booking page');
     return BookingScreen(id: widget.id);
   }
 }

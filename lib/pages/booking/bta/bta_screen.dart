@@ -63,10 +63,10 @@ class BtaScreenState extends State<BtaScreen> {
               return Divider();
             },
           ),
-          firstRefresh: currentState?.list?.length == 0 ?? 0,
+          firstRefresh: currentState?.list?.length == 0 ?? false,
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
-            return RestClient().getUploads(
+            await RestClient().getUploads(
                 query: {'object_id': widget.id, 'type': 'booking'}).then((res) {
               btaBloc.add(RefreshBtaEvent(res));
             }).catchError((error) {

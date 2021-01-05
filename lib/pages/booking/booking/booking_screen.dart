@@ -55,7 +55,7 @@ class BookingScreenState extends State<BookingScreen> {
           firstRefresh: currentState.data == null,
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
-            return RestClient().getBooking(widget.id.toString()).then((res) {
+            await RestClient().getBooking(widget.id.toString()).then((res) {
               bookingsBloc.add(RefreshBookingEvent(res));
             }).catchError((error) {
               bookingsBloc.add(RefreshBookingEvent(null));

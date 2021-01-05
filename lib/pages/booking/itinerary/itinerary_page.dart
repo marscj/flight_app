@@ -13,8 +13,12 @@ class ItineraryPage extends StatefulWidget {
 }
 
 class _ItineraryPageState extends State<ItineraryPage> {
+  int index = 0;
   @override
   Widget build(BuildContext context) {
+    index++;
+    print(index);
+    print('Itinerary page');
     return ItineraryScreen(
       id: widget.id,
     );
