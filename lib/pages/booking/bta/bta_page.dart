@@ -13,12 +13,8 @@ class BtaPage extends StatefulWidget {
 }
 
 class _BtaPageState extends State<BtaPage> {
-  int index = 0;
   @override
   Widget build(BuildContext context) {
-    index++;
-    print(index);
-    print('bta page');
     return BtaScreen(widget.id);
   }
 }
