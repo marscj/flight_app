@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_file/open_file.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/widgets/list_item.dart';
+import 'package:saadiyat/widgets/no_data.dart';
 
 import 'booking_detail_bloc.dart';
 import 'booking_detail_event.dart';
@@ -38,6 +39,9 @@ class ItineraryScreen extends StatelessWidget {
               );
             }).toList(),
           ),
+          emptyWidget: currentState?.data?.itineraries?.length == 0
+              ? NoDataWidget()
+              : null,
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
             await RestClient().getBooking(id).then((res) {

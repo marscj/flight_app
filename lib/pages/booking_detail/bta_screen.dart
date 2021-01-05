@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_file/open_file.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/widgets/no_data.dart';
 
 import 'booking_detail_bloc.dart';
 import 'booking_detail_event.dart';
@@ -57,6 +59,8 @@ class BtaScreen extends StatelessWidget {
               return Divider();
             },
           ),
+          emptyWidget:
+              currentState?.data?.uploads?.length == 0 ? NoDataWidget() : null,
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
             await RestClient().getBooking(id).then((res) {
