@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:saadiyat/router/router.gr.dart';
 
 import 'login_bloc.dart';
 import 'login_form_bloc.dart';
@@ -34,7 +33,10 @@ class LoginScreenState extends State<LoginScreen> {
                 if (widget?.onLoginResult != null) {
                   widget?.onLoginResult(true);
                 } else {
-                  context.router.replace(BasementRoute());
+                  var cc = context.router;
+                  print(cc.toString());
+                  context.router.pop();
+                  // context.router.root.replace(BasementRoute());
                 }
               },
               onSubmitting: (context, state) {},
