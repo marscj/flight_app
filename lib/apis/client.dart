@@ -73,8 +73,8 @@ abstract class RestClient {
   Future<UploadList> getUploads({@Queries() Map<String, dynamic> query});
 
   @GET('/tickets/')
-  Future<BookingListExtra> getTickets({@Queries() Map<String, dynamic> query});
+  Future<TicketListExtra> getTickets({@Queries() Map<String, dynamic> query});
 
   @GET('/tickets/{id}/')
-  Future<BookingExtra> getTicket(@Path("id") int id);
+  Future<TicketExtra> getTicket(@Path("id") int id);
 }

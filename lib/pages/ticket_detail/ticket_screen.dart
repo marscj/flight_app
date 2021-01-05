@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 
 class TicketScreen extends StatefulWidget {
-  const TicketScreen({
-    Key key,
-  }) : super(key: key);
+  const TicketScreen({Key key, this.id}) : super(key: key);
+
+  final int id;
 
   @override
   TickeScreenState createState() {

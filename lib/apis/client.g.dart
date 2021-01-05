@@ -527,7 +527,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<BookingListExtra> getTickets({query}) async {
+  Future<TicketListExtra> getTickets({query}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(query ?? <String, dynamic>{});
@@ -541,12 +541,12 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = BookingListExtra.fromJson(_result.data);
+    final value = TicketListExtra.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<BookingExtra> getTicket(id) async {
+  Future<TicketExtra> getTicket(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -559,7 +559,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = BookingExtra.fromJson(_result.data);
+    final value = TicketExtra.fromJson(_result.data);
     return value;
   }
 }
