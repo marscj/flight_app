@@ -17,7 +17,8 @@ class Booking extends Equatable {
   Map<String, dynamic> toJson() => _$BookingToJson(this);
 
   @override
-  List<Object> get props => [id, title, remark, date, author];
+  List<Object> get props =>
+      [id, title, remark, date, author, uploads, itineraries];
 }
 
 @JsonSerializable()

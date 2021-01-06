@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/basement/basement_screen.dart';
 import 'package:saadiyat/pages/basement/index.dart';
 import 'package:saadiyat/pages/bookings/index.dart';
-import 'package:saadiyat/pages/home/index.dart';
 import 'package:saadiyat/pages/tickets/index.dart';
 
 // import 'container_transition.dart';
