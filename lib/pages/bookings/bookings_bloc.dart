@@ -7,14 +7,7 @@ import 'bookings_event.dart';
 import 'bookings_state.dart';
 
 class BookingsBloc extends Bloc<BookingsEvent, BookingsState> {
-  // todo: check singleton for logic in project
-  // use GetIt for DI in projct
-  // ignore: close_sinks
-  static final BookingsBloc _bookingsBlocSingleton = BookingsBloc._internal();
-  factory BookingsBloc() {
-    return _bookingsBlocSingleton;
-  }
-  BookingsBloc._internal() : super(BookingsState.initial());
+  BookingsBloc() : super(BookingsState.initial());
 
   @override
   Future<void> close() async {

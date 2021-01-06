@@ -103,8 +103,9 @@ class MyScreenState extends State<MyScreen> {
                                 child: ClipOval(
                                   child: Container(
                                     color: Colors.white,
-                                    child: state?.user?.avatar['thumbnail'] !=
-                                            null
+                                    child: state?.user?.avatar != null &&
+                                            state?.user?.avatar['thumbnail'] !=
+                                                null
                                         ? CachedNetworkImage(
                                             fit: BoxFit.cover,
                                             imageUrl: state

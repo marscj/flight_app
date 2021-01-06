@@ -18,6 +18,6 @@ class RefreshBookingDetailEvent extends BookingDetailEvent {
   @override
   Stream<BookingDetailState> applyAsync(
       {BookingDetailState currentState, BookingDetailBloc bloc}) async* {
-    yield currentState.copyWith(data: result.data);
+    yield currentState.copyWith(data: result?.data);
   }
 }

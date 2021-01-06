@@ -43,7 +43,7 @@ class Authorization extends AppEvent {
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield InAppState(1, user);
+    yield InAppState(currentState.version + 1, user);
   }
 }
 
@@ -54,6 +54,6 @@ class UnAuthorization extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     await Store.instance.clearToken();
-    yield InAppState(1, null);
+    yield currentState.getNewVersion();
   }
 }
