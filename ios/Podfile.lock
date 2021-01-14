@@ -42,6 +42,11 @@ PODS:
   - image_picker (0.0.1):
     - Flutter
   - JCore (2.4.0)
+  - JMessage (3.9.1):
+    - JCore (< 3.0.0, >= 2.0.0)
+  - jmessage_flutter (0.0.1):
+    - Flutter
+    - JMessage
   - JPush (3.4.0):
     - JCore (< 3.0.0, >= 2.0.0)
   - jpush_flutter (0.0.2):
@@ -74,6 +79,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - jmessage_flutter (from `.symlinks/plugins/jmessage_flutter/ios`)
   - jpush_flutter (from `.symlinks/plugins/jpush_flutter/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -89,6 +95,7 @@ SPEC REPOS:
     - DKPhotoGallery
     - FMDB
     - JCore
+    - JMessage
     - JPush
     - PhoneNumberKit
     - SDWebImage
@@ -103,6 +110,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
+  jmessage_flutter:
+    :path: ".symlinks/plugins/jmessage_flutter/ios"
   jpush_flutter:
     :path: ".symlinks/plugins/jpush_flutter/ios"
   open_file:
@@ -129,6 +138,8 @@ SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   JCore: a29e4b0ee54e1301446dc02d8e1c350404108b34
+  JMessage: 43dfcd5348573b2f4f24357b12e9b19076322606
+  jmessage_flutter: eb7c42cb2444efae6aa14c2083dc84929ca3c80a
   JPush: defaa108c38806f6efdcfaf4c416854d25fca8e5
   jpush_flutter: 69133df35eaf9135e540549b154d992c44f8ee44
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
