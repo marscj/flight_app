@@ -131,7 +131,7 @@ class MyScreenState extends State<MyScreen> {
                       color: Colors.white,
                       padding: EdgeInsets.all(10.0),
                       child: Card(
-                          color: Theme.of(context).primaryColor,
+                          elevation: 8,
                           child: Container(
                               padding: EdgeInsets.all(10.0),
                               child: Row(
@@ -141,65 +141,56 @@ class MyScreenState extends State<MyScreen> {
                                     child: Column(
                                       children: <Widget>[
                                         ListItem(
-                                          icon: Icon(
-                                            FontAwesomeIcons.passport,
-                                            color: Colors.white,
-                                          ),
                                           title: 'Code',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe:
                                               state?.user?.passport_code ??
                                                   'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'Type',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe:
                                               state?.user?.possport_type ??
                                                   'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'First Name',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state?.user?.first_name ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'Nationality',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state?.user
                                                   ?.passport_nationality ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'Date of birth',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state
                                                   ?.user?.passport_date_birth ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'Date of issue',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state
                                                   ?.user?.passport_date_issue ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         )
                                       ],
@@ -209,60 +200,54 @@ class MyScreenState extends State<MyScreen> {
                                     child: Column(
                                       children: <Widget>[
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'No.',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state?.user?.passport_no ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'Issuing authority',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state?.user
                                                   ?.passport_issuing_authority ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'Last Name',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state?.user?.last_name ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'Sex',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state?.user?.passport_sex ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'Place of birth',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state?.user
                                                   ?.passport_place_birth ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         ),
                                         ListItem(
-                                          icon: EmptyIcon(),
                                           title: 'Date of expiry',
-                                          titleColor: Colors.white,
+                                          titleColor: Colors.grey,
                                           describe: state?.user
                                                   ?.passport_date_expiry ??
                                               'unknown',
-                                          describeColor: Colors.white,
+                                          describeColor: Colors.indigoAccent,
                                           onPressed: () {},
                                         )
                                       ],
@@ -273,6 +258,7 @@ class MyScreenState extends State<MyScreen> {
                     ),
                     Container(
                       padding: EdgeInsets.all(10.0),
+                      height: 80,
                       child: ElevatedButton.icon(
                         icon: Icon(Icons.logout),
                         label: Text('Sign Out'),

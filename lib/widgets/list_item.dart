@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// 列表项
 class ListItem extends StatefulWidget {
@@ -67,21 +68,20 @@ class _ListItemState extends State<ListItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     widget.title != null
-                        ? AutoSizeText(
-                            widget.title,
+                        ? AutoSizeText(widget.title,
                             maxLines: 1,
                             style: TextStyle(
                               color: widget.titleColor,
                               fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
+                            ))
                         : Container(),
                     widget.describe != null
                         ? AutoSizeText(
                             widget.describe,
-                            style: TextStyle(
-                                color: widget.describeColor, fontSize: 12.0),
+                            style: GoogleFonts.unna(
+                                color: widget.describeColor,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold),
                           )
                         : Container(),
                   ],
