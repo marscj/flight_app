@@ -59,7 +59,7 @@ class LoginFormBloc extends FormBloc<String, String> {
     RestClient()
         .login({'email': email.value, 'password': password.value}).then((res) {
       Store.instance.setToken(res.token);
-      return appBloc.add(Authorization(res.user));
+      // return appBloc.add(Authorization(res.user));
     }).then((res) {
       emitSuccess(canSubmitAgain: true);
     }).catchError((onError) {

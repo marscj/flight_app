@@ -16,6 +16,7 @@ abstract class AppEvent {
 class AppInitEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    yield currentState.copyWith(event: this);
     // 电源管理
     Wakelock.enable();
 
@@ -26,40 +27,34 @@ class AppInitEvent extends AppEvent {
 }
 
 class CheckVersionEvent extends AppEvent {
-  final AppBloc appBloc;
-
-  CheckVersionEvent(this.appBloc);
-
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    bloc.add(UserInfoEvent(appBloc));
+    yield currentState.copyWith(event: this);
+    bloc.add(UserInfoEvent());
     yield currentState;
   }
 }
 
 class UserInfoEvent extends AppEvent {
-  final AppBloc appBloc;
-
-  UserInfoEvent(this.appBloc);
-
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    try {
-      yield await RestClient().getInfo().then((res) {
-        return appBloc.add(Authorization(res));
-      }).then((res) {
-        return Future.delayed(Duration(seconds: 1)).then((res) {
-          return InAppState(1, BasementRoute());
-        });
-      });
-    } catch (errors) {
-      if (errors is DioError) {
-        if (errors?.response?.statusCode == 401) {
-          yield InAppState(1, BasementRoute());
-        }
-      } else {
-        yield ErrorAppState(1, 'Connection timed out!');
-      }
-    }
+    yield currentState.copyWith(event: this);
+    // try {
+    //   yield await RestClient().getInfo().then((res) {
+    //     return appBloc.add(Authorization(res));
+    //   }).then((res) {
+    //     return Future.delayed(Duration(seconds: 1)).then((res) {
+    //       return InAppState(1, BasementRoute());
+    //     });
+    //   });
+    // } catch (errors) {
+    //   if (errors is DioError) {
+    //     if (errors?.response?.statusCode == 401) {
+    //       yield InAppState(1, BasementRoute());
+    //     }
+    //   } else {
+    //     yield ErrorAppState(1, 'Connection timed out!');
+    //   }
+    // }
   }
 }

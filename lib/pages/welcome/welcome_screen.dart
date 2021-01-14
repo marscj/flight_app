@@ -1,10 +1,8 @@
 import 'package:loading_animations/loading_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saadiyat/pages/welcome/index.dart';
-import 'package:auto_route/auto_route.dart';
-
-import 'welcome_state.dart';
+import 'package:saadiyat/pages/app/app_bloc.dart';
+import 'package:saadiyat/pages/app/app_state.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({
@@ -22,35 +20,35 @@ class WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     // ignore: close_sinks
 
-    return BlocListener<WelcomeBloc, WelcomeState>(
+    return BlocListener<AppBloc, AppState>(
       listener: (_, state) {
-        if (state is InWelcomeState && state.routeInfo != null) {
-          context.router.replace(state.routeInfo);
-        }
+        // if (state is InAppState && state.routeInfo != null) {
+        //   context.router.replace(state.routeInfo);
+        // }
       },
-      child: BlocBuilder<WelcomeBloc, WelcomeState>(builder: (context, state) {
+      child: BlocBuilder<AppBloc, AppState>(builder: (context, state) {
         // ignore: close_sinks
-        WelcomeBloc welcomeBloc = BlocProvider.of<WelcomeBloc>(context);
+        // AppBloc AppBloc = BlocProvider.of<AppBloc>(context);
 
-        if (state is ErrorWelcomeState) {
-          return Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(state.errorMessage ?? 'Error'),
-              Padding(
-                padding: const EdgeInsets.only(top: 32.0),
-                child: RaisedButton(
-                  color: Colors.blue,
-                  child: Text('reload'),
-                  onPressed: () {
-                    welcomeBloc.add(LoadWelcomeEvent(context));
-                  },
-                ),
-              ),
-            ],
-          ));
-        }
+        // if (state is ErrorAppState) {
+        //   return Center(
+        //       child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: <Widget>[
+        //       Text(state.errorMessage ?? 'Error'),
+        //       Padding(
+        //         padding: const EdgeInsets.only(top: 32.0),
+        //         child: RaisedButton(
+        //           color: Colors.blue,
+        //           child: Text('reload'),
+        //           onPressed: () {
+        //             AppBloc.add(LoadWelcomeEvent(context));
+        //           },
+        //         ),
+        //       ),
+        //     ],
+        //   ));
+        // }
 
         return SafeArea(
           top: true,
