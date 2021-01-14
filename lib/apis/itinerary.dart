@@ -18,8 +18,6 @@ class Itinerary extends Equatable {
   bool is_lock;
   String remark;
   String date;
-  List<Upload> uploads;
-  List<Comment> comments;
 
   static Itinerary fromJson(Map<String, dynamic> json) =>
       _$ItineraryFromJson(json);

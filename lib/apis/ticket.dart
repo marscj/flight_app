@@ -19,10 +19,10 @@ class Ticket extends Equatable {
   bool is_booking;
   bool is_complete;
   String date;
+  Itinerary itinerary;
 
   List<Comment> comments;
   List<Upload> uploads;
-  List<Itinerary> itineraries;
 
   static Ticket fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
   Map<String, dynamic> toJson() => _$TicketToJson(this);
@@ -45,7 +45,7 @@ class Ticket extends Equatable {
         date,
         comments,
         uploads,
-        itineraries
+        itinerary
       ];
 }
 

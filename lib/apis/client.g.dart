@@ -206,15 +206,7 @@ Itinerary _$ItineraryFromJson(Map<String, dynamic> json) {
     ..hotel = json['hotel'] as String
     ..is_lock = json['is_lock'] as bool
     ..remark = json['remark'] as String
-    ..date = json['date'] as String
-    ..uploads = (json['uploads'] as List)
-        ?.map((e) =>
-            e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..comments = (json['comments'] as List)
-        ?.map((e) =>
-            e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
-        ?.toList();
+    ..date = json['date'] as String;
 }
 
 Map<String, dynamic> _$ItineraryToJson(Itinerary instance) => <String, dynamic>{
@@ -231,8 +223,6 @@ Map<String, dynamic> _$ItineraryToJson(Itinerary instance) => <String, dynamic>{
       'is_lock': instance.is_lock,
       'remark': instance.remark,
       'date': instance.date,
-      'uploads': instance.uploads,
-      'comments': instance.comments,
     };
 
 ItineraryList _$ItineraryListFromJson(Map<String, dynamic> json) {
@@ -300,6 +290,9 @@ Ticket _$TicketFromJson(Map<String, dynamic> json) {
     ..is_booking = json['is_booking'] as bool
     ..is_complete = json['is_complete'] as bool
     ..date = json['date'] as String
+    ..itinerary = json['itinerary'] == null
+        ? null
+        : Itinerary.fromJson(json['itinerary'] as Map<String, dynamic>)
     ..comments = (json['comments'] as List)
         ?.map((e) =>
             e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
@@ -307,10 +300,6 @@ Ticket _$TicketFromJson(Map<String, dynamic> json) {
     ..uploads = (json['uploads'] as List)
         ?.map((e) =>
             e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
-        ?.toList()
-    ..itineraries = (json['itineraries'] as List)
-        ?.map((e) =>
-            e == null ? null : Itinerary.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
@@ -329,9 +318,9 @@ Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
       'is_booking': instance.is_booking,
       'is_complete': instance.is_complete,
       'date': instance.date,
+      'itinerary': instance.itinerary,
       'comments': instance.comments,
       'uploads': instance.uploads,
-      'itineraries': instance.itineraries,
     };
 
 TicketList _$TicketListFromJson(Map<String, dynamic> json) {
