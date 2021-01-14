@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
+import 'package:saadiyat/pages/app/index.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({
@@ -23,6 +24,11 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     return BlocListener<AppBloc, AppState>(
       listener: (_, state) {
         appBloc.add(state.event);
+        var event = state.event;
+        if (event is ErrorEvent) {
+          Scaffold.of(_)
+              .showSnackBar(SnackBar(content: Text(event.errorMessage)));
+        }
       },
       child: BlocBuilder<AppBloc, AppState>(builder: (context, state) {
         // ignore: close_sinks

@@ -29,7 +29,20 @@ class AppInitEvent extends AppEvent {
 class CheckVersionEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield currentState.copyWith(event: UserInfoEvent());
+    try {
+      yield await RestClient().checkVersion({}).then((res) {
+        if (res.result) {
+          return currentState.copyWith(event: UserInfoEvent());
+        }
+        return currentState;
+      });
+    } on DioError catch (_, stackTrace) {
+      developer.log('$_',
+          name: 'CheckVersionEvent', error: _, stackTrace: stackTrace);
+
+      yield currentState.copyWith(
+          event: ErrorEvent('Network connection failed!'));
+    }
   }
 }
 
@@ -61,6 +74,18 @@ class UserInfoEvent extends AppEvent {
 class JMessageInitEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    yield currentState;
+  }
+}
+
+class ErrorEvent extends AppEvent {
+  final String errorMessage;
+
+  ErrorEvent(this.errorMessage);
+
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    // TODO: implement applyAsync
     yield currentState;
   }
 }
