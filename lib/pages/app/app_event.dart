@@ -58,3 +58,11 @@ class UserInfoEvent extends AppEvent {
     // }
   }
 }
+
+class JMessageInitEvent extends AppEvent {
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) {
+    // TODO: implement applyAsync
+    throw UnimplementedError();
+  }
+}

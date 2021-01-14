@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saadiyat/pages/welcome/index.dart';
 
 import 'welcome_screen.dart';
 
@@ -13,6 +12,6 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
-    return WelcomeScreen();
+    return Scaffold(body: WelcomeScreen());
   }
 }
