@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info/package_info.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
 import 'package:meta/meta.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock/wakelock.dart';
 
 @immutable
@@ -30,9 +33,22 @@ class CheckVersionEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     try {
-      yield await RestClient().checkVersion({}).then((res) {
+      print('caonima');
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      print(packageInfo);
+      yield await RestClient().checkVersion({
+        'version': packageInfo.version,
+        'code': packageInfo.buildNumber,
+        'type': Platform.isAndroid ? 'Android' : 'Ios'
+      }).then((res) {
         if (res.result) {
           return currentState.copyWith(event: UserInfoEvent());
+        } else {
+          canLaunch(res.url).then((f) {
+            if (f) {
+              launch(res.url);
+            }
+          });
         }
         return currentState;
       });
