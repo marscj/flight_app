@@ -23,11 +23,14 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
     return BlocListener<AppBloc, AppState>(
       listener: (_, state) {
-        appBloc.add(state.event);
         var event = state.event;
-        if (event is ErrorEvent) {
-          Scaffold.of(_)
-              .showSnackBar(SnackBar(content: Text(event.errorMessage)));
+
+        if (event != null) {
+          appBloc.add(event);
+          if (event is ErrorEvent) {
+            Scaffold.of(_)
+                .showSnackBar(SnackBar(content: Text(event.errorMessage)));
+          }
         }
       },
       child: BlocBuilder<AppBloc, AppState>(builder: (context, state) {
