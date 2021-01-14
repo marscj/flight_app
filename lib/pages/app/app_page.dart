@@ -7,12 +7,12 @@ import 'package:saadiyat/router/router.gr.dart';
 import 'app_bloc.dart';
 import 'app_state.dart';
 
-class App extends StatefulWidget {
+class AppPage extends StatefulWidget {
   @override
-  _AppState createState() => _AppState();
+  _AppPageState createState() => _AppPageState();
 }
 
-class _AppState extends State<App> {
+class _AppPageState extends State<AppPage> {
   @override
   Widget build(BuildContext context) {
     final _appRouter = AppRouter(authGuard: AuthGuard(context));

@@ -16,22 +16,27 @@ abstract class WelcomeEvent {
       {WelcomeState currentState, WelcomeBloc bloc});
 }
 
-class LoadWelcomeEvent extends WelcomeEvent {
-  final BuildContext context;
+class CheckVersionEvent extends WelcomeEvent {
+  final AppBloc appBloc;
 
-  @override
-  String toString() => 'LoadWelcomeEvent';
-
-  LoadWelcomeEvent(this.context);
+  CheckVersionEvent(this.appBloc);
 
   @override
   Stream<WelcomeState> applyAsync(
       {WelcomeState currentState, WelcomeBloc bloc}) async* {
-    // ignore: close_sinks
-    AppBloc appBloc = BlocProvider.of<AppBloc>(context);
+    bloc.add(UserInfoEvent(appBloc));
+    yield currentState;
+  }
+}
 
-    yield InWelcomeState(1, null);
+class UserInfoEvent extends WelcomeEvent {
+  final AppBloc appBloc;
 
+  UserInfoEvent(this.appBloc);
+
+  @override
+  Stream<WelcomeState> applyAsync(
+      {WelcomeState currentState, WelcomeBloc bloc}) async* {
     try {
       yield await RestClient().getInfo().then((res) {
         return appBloc.add(Authorization(res));

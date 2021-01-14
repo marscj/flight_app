@@ -1,29 +1,21 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 
-import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/store/store.dart';
+import 'package:saadiyat/pages/app/index.dart';
+import 'package:meta/meta.dart';
 import 'package:wakelock/wakelock.dart';
-
-import 'app_bloc.dart';
-import 'app_state.dart';
 
 @immutable
 abstract class AppEvent {
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc});
 }
 
-class UnAppEvent extends AppEvent {
-  final BuildContext context;
-
-  UnAppEvent(this.context);
-
+class AppInitEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield UnAppState(0);
-
     // 电源管理
     Wakelock.enable();
 
@@ -33,27 +25,41 @@ class UnAppEvent extends AppEvent {
   }
 }
 
-class Authorization extends AppEvent {
-  final User user;
+class CheckVersionEvent extends AppEvent {
+  final AppBloc appBloc;
 
-  @override
-  String toString() => 'LoadAppEvent';
-
-  Authorization(this.user);
+  CheckVersionEvent(this.appBloc);
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield InAppState(currentState.version + 1, user);
+    bloc.add(UserInfoEvent(appBloc));
+    yield currentState;
   }
 }
 
-class UnAuthorization extends AppEvent {
-  @override
-  String toString() => 'LoadAppEvent';
+class UserInfoEvent extends AppEvent {
+  final AppBloc appBloc;
+
+  UserInfoEvent(this.appBloc);
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    await Store.instance.clearToken();
-    yield currentState.getNewVersion();
+    try {
+      yield await RestClient().getInfo().then((res) {
+        return appBloc.add(Authorization(res));
+      }).then((res) {
+        return Future.delayed(Duration(seconds: 1)).then((res) {
+          return InAppState(1, BasementRoute());
+        });
+      });
+    } catch (errors) {
+      if (errors is DioError) {
+        if (errors?.response?.statusCode == 401) {
+          yield InAppState(1, BasementRoute());
+        }
+      } else {
+        yield ErrorAppState(1, 'Connection timed out!');
+      }
+    }
   }
 }

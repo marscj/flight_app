@@ -6,5 +6,5 @@ import 'package:saadiyat/pages/app/app_page.dart';
 
 void main() {
   runApp(BlocProvider(
-      create: (context) => AppBloc()..add(UnAppEvent(context)), child: App()));
+      create: (context) => AppBloc()..add(AppInitEvent()), child: AppPage()));
 }
