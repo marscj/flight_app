@@ -19,12 +19,10 @@ class WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     // ignore: close_sinks
-
+    AppBloc appBloc = BlocProvider.of<AppBloc>(context);
     return BlocListener<AppBloc, AppState>(
       listener: (_, state) {
-        // if (state is InAppState && state.routeInfo != null) {
-        //   context.router.replace(state.routeInfo);
-        // }
+        appBloc.add(state.event);
       },
       child: BlocBuilder<AppBloc, AppState>(builder: (context, state) {
         // ignore: close_sinks

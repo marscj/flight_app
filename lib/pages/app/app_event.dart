@@ -16,29 +16,28 @@ abstract class AppEvent {
 class AppInitEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield currentState.copyWith(event: this);
     // 电源管理
-    Wakelock.enable();
-
+    await Wakelock.enable();
     // 强制竖屏
-    SystemChrome.setPreferredOrientations(
+    await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+    yield currentState.copyWith(event: CheckVersionEvent());
   }
 }
 
 class CheckVersionEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield currentState.copyWith(event: this);
-    bloc.add(UserInfoEvent());
-    yield currentState;
+    yield currentState.copyWith(event: UserInfoEvent());
   }
 }
 
 class UserInfoEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield currentState.copyWith(event: this);
+    yield currentState.copyWith(event: JMessageInitEvent());
+
     // try {
     //   yield await RestClient().getInfo().then((res) {
     //     return appBloc.add(Authorization(res));
@@ -61,8 +60,7 @@ class UserInfoEvent extends AppEvent {
 
 class JMessageInitEvent extends AppEvent {
   @override
-  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) {
-    // TODO: implement applyAsync
-    throw UnimplementedError();
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    yield currentState;
   }
 }

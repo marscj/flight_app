@@ -14,6 +14,7 @@ part 'uploads.dart';
 part 'itinerary.dart';
 part 'comment.dart';
 part 'ticket.dart';
+part 'version.dart';
 
 @RestApi(baseUrl: Constant.Host)
 abstract class RestClient {
@@ -77,4 +78,7 @@ abstract class RestClient {
 
   @GET('/tickets/{id}/')
   Future<TicketExtra> getTicket(@Path("id") int id);
+
+  @POST('/app/version/')
+  Future<Version> checkVersion(@Body() Map<String, dynamic> playload);
 }

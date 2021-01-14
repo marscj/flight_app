@@ -368,6 +368,17 @@ Map<String, dynamic> _$TicketListExtraToJson(TicketListExtra instance) =>
       'extra': instance.extra,
     };
 
+Version _$VersionFromJson(Map<String, dynamic> json) {
+  return Version()
+    ..result = json['result'] as bool
+    ..url = json['url'] as String;
+}
+
+Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
+      'result': instance.result,
+      'url': instance.url,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -549,6 +560,26 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = TicketExtra.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<Version> checkVersion(playload) async {
+    ArgumentError.checkNotNull(playload, 'playload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/app/version/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Version.fromJson(_result.data);
     return value;
   }
 }
