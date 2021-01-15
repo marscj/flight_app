@@ -29,17 +29,12 @@ abstract class AppEvent {
 class AppInitEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    // 键值对数据库
-    await Hive.initFlutter();
-
     // 电源管理
     await Wakelock.enable();
 
     // 强制竖屏
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
-    Store.instance.getAuth();
 
     yield currentState.copyWith(user: null, event: CheckVersionEvent());
   }
@@ -81,6 +76,7 @@ class UserInfoEvent extends AppEvent {
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     try {
       yield await RestClient().getInfo().then((res) {
+        bloc.add(JMessageLoginEvent());
         return currentState.copyWith(
             user: res, event: PushRouteEvent(BasementRoute()));
       });
@@ -122,6 +118,7 @@ class AppLoginEvent extends AppEvent {
     await Store.instance.setToken(token);
     await Store.instance
         .setAuth({'username': user.email, 'password': password});
+    bloc.add(JMessageLoginEvent());
     yield currentState.copyWith(
         user: user, event: PushRouteEvent(BasementRoute()));
   }
@@ -136,7 +133,8 @@ class AppLogoutEvent extends AppEvent {
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     await Store.instance.clearToken();
     await Store.instance.clearAuth();
-    context.router.replace(LoginRoute());
+    context.router.popAndPush(LoginRoute());
+    bloc.add(JMessageLogoutEvent());
     yield currentState.copyWith(user: null);
   }
 }
@@ -153,7 +151,29 @@ class ErrorEvent extends AppEvent {
   }
 }
 
-class JMessageInitEvent extends AppEvent {
+class JMessageLoginEvent extends AppEvent {
   @override
-  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {}
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    var auth = await Store.instance.getAuth();
+
+    if (auth != null) {
+      try {
+        await JMessage.login(
+            username: auth['username'], password: auth['password']);
+      } on PlatformException catch (_) {
+        print(_.toString());
+      }
+    }
+  }
+}
+
+class JMessageLogoutEvent extends AppEvent {
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    try {
+      await JMessage.logout();
+    } on PlatformException catch (_) {
+      print(_.toString());
+    }
+  }
 }
