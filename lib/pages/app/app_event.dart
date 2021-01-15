@@ -154,7 +154,6 @@ class ErrorEvent extends AppEvent {
 class JMessageLoginEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    print('999');
     var auth = await Store.instance.getAuth();
 
     if (auth != null) {
@@ -164,7 +163,6 @@ class JMessageLoginEvent extends AppEvent {
         print(_.toString());
       }
     }
-    print('10101010');
   }
 }
 

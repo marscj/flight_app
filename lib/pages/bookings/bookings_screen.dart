@@ -45,7 +45,6 @@ class BookingsScreenState extends State<BookingsScreen> {
       BuildContext context,
       BookingsState currentState,
     ) {
-      print(100 - kToolbarHeight);
       // ignore: close_sinks
       BookingsBloc bookingsBloc = BlocProvider.of<BookingsBloc>(context);
       return Scaffold(

@@ -85,10 +85,12 @@ class ItineraryItem extends StatelessWidget {
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       )),
-                      Switch(
-                        onChanged: null,
-                        value: data.is_lock,
-                      )
+                      Expanded(
+                          child: Container(
+                        alignment: Alignment.centerRight,
+                        child: Text('${data.is_lock ? 'Locked' : ''}',
+                            style: TextStyle(color: Colors.white)),
+                      ))
                     ],
                   )),
               Container(
@@ -97,55 +99,53 @@ class ItineraryItem extends StatelessWidget {
                       EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
                   child: Column(
                     children: [
-                      ListItem(
-                        icon: Icon(FontAwesomeIcons.ticketAlt),
-                        title: 'Name:',
-                        describe: data?.name ?? '',
+                      ListTile(
+                          title: Text('Name:'),
+                          subtitle: Text(data?.name ?? '')),
+                      Divider(),
+                      ListTile(
+                        title: Text('Passprot:'),
+                        subtitle: Text(data?.passport_no ?? ''),
                       ),
-                      ListItem(
-                        icon: EmptyIcon(),
-                        title: 'Passprot:',
-                        describe: data?.passport_no ?? '',
+                      Divider(),
+                      ListTile(
+                        title: Text('Email:'),
+                        subtitle: Text(data?.email ?? ''),
                       ),
-                      ListItem(
-                        icon: EmptyIcon(),
-                        title: 'Email:',
-                        describe: data?.email ?? '',
+                      Divider(),
+                      ListTile(
+                        title: Text('Exit:'),
+                        subtitle: Text(data?.exit ?? ''),
                       ),
-                      ListItem(
-                        icon: EmptyIcon(),
-                        title: 'Exit:',
-                        describe: data?.exit ?? '',
+                      Divider(),
+                      ListTile(
+                        title: Text('Entry:'),
+                        subtitle: Text(data?.entry ?? ''),
                       ),
-                      ListItem(
-                        icon: EmptyIcon(),
-                        title: 'Entry:',
-                        describe: data?.entry ?? '',
+                      Divider(),
+                      ListTile(
+                        title: Text('Ticket1:'),
+                        subtitle: Text(data?.ticket1 ?? ''),
                       ),
-                      ListItem(
-                        icon: EmptyIcon(),
-                        title: 'Ticket1:',
-                        describe: data?.ticket1 ?? '',
+                      Divider(),
+                      ListTile(
+                        title: Text('Ticket2:'),
+                        subtitle: Text(data?.ticket2 ?? ''),
                       ),
-                      ListItem(
-                        icon: EmptyIcon(),
-                        title: 'Ticket2:',
-                        describe: data?.ticket2 ?? '',
+                      Divider(),
+                      ListTile(
+                        title: Text('Hotel:'),
+                        subtitle: Text(data?.hotel ?? ''),
                       ),
-                      ListItem(
-                        icon: EmptyIcon(),
-                        title: 'Hotel:',
-                        describe: data?.hotel ?? '',
+                      Divider(),
+                      ListTile(
+                        title: Text('Remark:'),
+                        subtitle: Text(data?.remark ?? ''),
                       ),
-                      ListItem(
-                        icon: EmptyIcon(),
-                        title: 'Remark:',
-                        describe: data?.remark ?? '',
-                      ),
-                      ListItem(
-                        icon: EmptyIcon(),
-                        title: 'Create Date:',
-                        describe: data?.date ?? '',
+                      Divider(),
+                      ListTile(
+                        title: Text('Create Date:'),
+                        subtitle: Text(data?.date ?? ''),
                       ),
                     ],
                   )),

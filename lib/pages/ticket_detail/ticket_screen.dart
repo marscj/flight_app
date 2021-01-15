@@ -15,28 +15,74 @@ class TicketScreen extends StatelessWidget {
       BuildContext context,
       TicketDetailState currentState,
     ) {
-      // ignore: close_sinks
+      // ignore_for_file: close_sinks
+      // bool is_confirm;
+      // bool is_cancel;
+      // bool is_booking;
+      // bool is_complete;
       TicketDetailBloc bookingDetailBloc =
           BlocProvider.of<TicketDetailBloc>(context);
       return EasyRefresh(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            child: Column(
+            child: Card(
+                child: Column(
               children: [
                 ListTile(
-                  contentPadding: EdgeInsets.zero,
+                  dense: true,
                   title: Text('SerialNo.:'),
                   subtitle: Text(currentState?.data?.serial_no ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text('SerialNo.:'),
-                  subtitle: Text(currentState?.data?.serial_no ?? ''),
+                  dense: true,
+                  title: Text('Air Line:'),
+                  subtitle: Text(currentState?.data?.air_line ?? ''),
                 ),
                 Divider(),
+                ListTile(
+                  dense: true,
+                  title: Text('Air Class:'),
+                  subtitle: Text(currentState?.data?.air_class ?? ''),
+                ),
+                Divider(),
+                ListTile(
+                  dense: true,
+                  title: Text('Air Information:'),
+                  subtitle: Text(currentState?.data?.air_info ?? ''),
+                ),
+                Divider(),
+                ListTile(
+                  dense: true,
+                  title: Text('Fare:'),
+                  subtitle: Text(currentState?.data?.fare ?? ''),
+                ),
+                Divider(),
+                ListTile(
+                  dense: true,
+                  title: Text('Tax:'),
+                  subtitle: Text(currentState?.data?.tax ?? ''),
+                ),
+                Divider(),
+                ListTile(
+                  dense: true,
+                  title: Text('Total:'),
+                  subtitle: Text(currentState?.data?.total ?? ''),
+                ),
+                Divider(),
+                ListTile(
+                  dense: true,
+                  title: Text('Remark:'),
+                  subtitle: Text(currentState?.data?.remark ?? ''),
+                ),
+                Divider(),
+                ListTile(
+                  dense: true,
+                  title: Text('Create Date:'),
+                  subtitle: Text(currentState?.data?.date ?? ''),
+                ),
               ],
-            ),
+            )),
           ),
           firstRefresh: true,
           firstRefreshWidget: LinearProgressIndicator(),

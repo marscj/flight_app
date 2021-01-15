@@ -24,27 +24,25 @@ class BookingScreen extends StatelessWidget {
       return EasyRefresh(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            child: Column(
+            child: Card(
+                child: Column(
               children: [
                 ListTile(
-                  contentPadding: EdgeInsets.zero,
                   title: Text('Create Date:'),
                   subtitle: Text(currentState?.data?.date ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  contentPadding: EdgeInsets.zero,
                   title: Text('Title:'),
                   subtitle: Text(currentState?.data?.title ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  contentPadding: EdgeInsets.zero,
                   title: Text('Remark:'),
                   subtitle: Text(currentState?.data?.remark ?? ''),
                 ),
               ],
-            ),
+            )),
           ),
           firstRefresh: currentState.data == null,
           firstRefreshWidget: LinearProgressIndicator(),
