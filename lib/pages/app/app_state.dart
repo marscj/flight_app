@@ -16,10 +16,7 @@ class AppState extends Equatable {
 
   AppState copyWith({User user, AppEvent event, PageRouteInfo route}) {
     return AppState(
-        version: this.version + 1,
-        user: user ?? this.user,
-        event: event,
-        route: route);
+        version: this.version + 1, user: user, event: event, route: route);
   }
 
   @override

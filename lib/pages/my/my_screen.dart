@@ -263,10 +263,8 @@ class MyScreenState extends State<MyScreen> {
                         icon: Icon(Icons.logout),
                         label: Text('Sign Out'),
                         onPressed: () {
-                          // BlocProvider.of<AppBloc>(context)
-                          //     .add(UnAuthorization());
-                          context.router.root.pop();
-                          context.router.replace(LoginRoute());
+                          BlocProvider.of<AppBloc>(context)
+                              .add(LogoutEvent(context));
                         },
                       ),
                     )

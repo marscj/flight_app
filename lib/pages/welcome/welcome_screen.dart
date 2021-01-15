@@ -32,7 +32,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
             Scaffold.of(_)
                 .showSnackBar(SnackBar(content: Text(event.errorMessage)));
           } else if (event is PushRouteEvent) {
-            _.router.replace(event.pageRouteInfo);
+            _.router.push(event.pageRouteInfo);
           }
         }
       },

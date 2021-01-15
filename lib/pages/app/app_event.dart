@@ -4,14 +4,17 @@ import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
 import 'package:meta/meta.dart';
 import 'package:saadiyat/router/router.gr.dart';
+import 'package:saadiyat/store/store.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:auto_route/auto_route.dart';
 
 @immutable
 abstract class AppEvent {
@@ -27,7 +30,7 @@ class AppInitEvent extends AppEvent {
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    yield currentState.copyWith(event: CheckVersionEvent());
+    yield currentState.copyWith(user: null, event: CheckVersionEvent());
   }
 }
 
@@ -99,6 +102,19 @@ class PushRouteEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     yield currentState;
+  }
+}
+
+class LogoutEvent extends AppEvent {
+  final BuildContext context;
+
+  LogoutEvent(this.context);
+
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    await Store.instance.clearToken();
+    context.router.removeUntilRoot();
+    yield currentState.copyWith(user: null, event: CheckVersionEvent());
   }
 }
 
