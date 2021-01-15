@@ -10,14 +10,12 @@ abstract class LoginEvent {
 
 class LoadLoginEvent extends LoginEvent {
   final bool loading;
-  @override
-  String toString() => 'LoadLoginEvent';
 
   LoadLoginEvent(this.loading);
 
   @override
   Stream<LoginState> applyAsync(
       {LoginState currentState, LoginBloc bloc}) async* {
-    yield InLoginState(0, loading);
+    yield LoginState(loading);
   }
 }
