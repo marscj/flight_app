@@ -20,7 +20,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     AppEvent event,
   ) async* {
     try {
-      print(state);
       yield* event.applyAsync(currentState: state, bloc: this);
     } catch (_, stackTrace) {
       developer.log('$_', name: 'AppBloc', error: _, stackTrace: stackTrace);

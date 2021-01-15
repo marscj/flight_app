@@ -29,7 +29,8 @@ class WelcomeScreenState extends State<WelcomeScreen> {
           Scaffold.of(_)
               .showSnackBar(SnackBar(content: Text(state.event.errorMessage)));
         } else if (state.event is PushRouteEvent) {
-          _.router.popAndPush(state.event.pageRouteInfo);
+          _.router.removeUntilRoot();
+          _.router.replace(state.event.pageRouteInfo);
         }
       },
       child: SafeArea(

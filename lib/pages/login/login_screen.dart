@@ -37,7 +37,8 @@ class LoginScreenState extends State<LoginScreen> {
                 if (widget?.onLoginResult != null) {
                   widget?.onLoginResult(true);
                 } else {
-                  context.router.popAndPush(BasementRoute());
+                  context.router.removeUntilRoot();
+                  context.router.replace(BasementRoute());
                 }
               },
               onSubmitting: (context, state) {},
@@ -116,7 +117,8 @@ class LoginScreenState extends State<LoginScreen> {
               Scaffold.of(_).showSnackBar(
                   SnackBar(content: Text(state.event.errorMessage)));
             } else if (state.event is PushRouteEvent) {
-              _.router.popAndPush(state.event.pageRouteInfo);
+              _.router.removeUntilRoot();
+              _.router.replace(state.event.pageRouteInfo);
             }
           },
           child: Stack(
