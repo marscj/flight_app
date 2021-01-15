@@ -11,7 +11,7 @@ import 'package:saadiyat/constants.dart';
 import 'app_bloc.dart';
 import 'app_state.dart';
 
-MethodChannel channel = MethodChannel('JMessage_flutter');
+MethodChannel channel = MethodChannel('jmessage_flutter');
 JmessageFlutter JMessage =
     new JmessageFlutter.private(channel, const LocalPlatform());
 
