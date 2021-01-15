@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
 import 'package:meta/meta.dart';
+import 'package:saadiyat/router/router.gr.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -33,9 +35,7 @@ class CheckVersionEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     try {
-      print('caonima');
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      print(packageInfo);
       yield await RestClient().checkVersion({
         'version': packageInfo.version,
         'code': packageInfo.buildNumber,
@@ -65,29 +65,37 @@ class CheckVersionEvent extends AppEvent {
 class UserInfoEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield currentState.copyWith(event: JMessageInitEvent());
+    try {
+      yield await RestClient().getInfo().then((res) {
+        return currentState.copyWith(
+            user: res, event: PushRouteEvent(BasementRoute()));
+      });
+    } on DioError catch (_, stackTrace) {
+      developer.log('$_',
+          name: 'CheckVersionEvent', error: _, stackTrace: stackTrace);
 
-    // try {
-    //   yield await RestClient().getInfo().then((res) {
-    //     return appBloc.add(Authorization(res));
-    //   }).then((res) {
-    //     return Future.delayed(Duration(seconds: 1)).then((res) {
-    //       return InAppState(1, BasementRoute());
-    //     });
-    //   });
-    // } catch (errors) {
-    //   if (errors is DioError) {
-    //     if (errors?.response?.statusCode == 401) {
-    //       yield InAppState(1, BasementRoute());
-    //     }
-    //   } else {
-    //     yield ErrorAppState(1, 'Connection timed out!');
-    //   }
-    // }
+      if (_?.response?.statusCode == 401) {
+        yield currentState.copyWith(event: PushRouteEvent(BasementRoute()));
+      } else {
+        yield currentState.copyWith(
+            event: ErrorEvent('Network connection failed!'));
+      }
+    }
   }
 }
 
 class JMessageInitEvent extends AppEvent {
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    yield currentState;
+  }
+}
+
+class PushRouteEvent extends AppEvent {
+  final PageRouteInfo pageRouteInfo;
+
+  PushRouteEvent(this.pageRouteInfo);
+
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     yield currentState;
