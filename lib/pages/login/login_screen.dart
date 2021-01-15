@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/pages/app/app_bloc.dart';
+import 'package:saadiyat/pages/app/app_event.dart';
+import 'package:saadiyat/pages/app/app_state.dart';
 import 'package:saadiyat/router/router.gr.dart';
 
 import 'login_bloc.dart';
@@ -107,40 +110,46 @@ class LoginScreenState extends State<LoginScreen> {
       BuildContext context,
       LoginState currentState,
     ) {
-      if (currentState is InLoginState) {
-        return Stack(
-          children: [
-            SizedBox.expand(
-              child: Image.asset(
-                'assets/bg.png',
-                fit: BoxFit.cover,
+      return BlocListener<AppBloc, AppState>(
+          listener: (_, state) {
+            if (state.event is ErrorEvent) {
+              Scaffold.of(_).showSnackBar(
+                  SnackBar(content: Text(state.event.errorMessage)));
+            } else if (state.event is PushRouteEvent) {
+              _.router.replace(state.event.pageRouteInfo);
+            }
+          },
+          child: Stack(
+            children: [
+              SizedBox.expand(
+                child: Image.asset(
+                  'assets/bg.png',
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            ListView(
-              padding: const EdgeInsets.all(32),
-              children: [
-                SizedBox.fromSize(
-                  size: Size.fromHeight(MediaQuery.of(context).size.height / 4),
-                  child: Image.asset('assets/logo.png', fit: BoxFit.fitHeight),
-                ),
-                Center(
-                  child: Text(
-                    'SAADIYAT WAY',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+              ListView(
+                padding: const EdgeInsets.all(32),
+                children: [
+                  SizedBox.fromSize(
+                    size:
+                        Size.fromHeight(MediaQuery.of(context).size.height / 4),
+                    child:
+                        Image.asset('assets/logo.png', fit: BoxFit.fitHeight),
                   ),
-                ),
-                SizedBox(
-                  height: 32,
-                ),
-                Form(key: _formKey, child: buildForm(currentState)),
-              ],
-            )
-          ],
-        );
-      }
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+                  Center(
+                    child: Text(
+                      'SAADIYAT WAY',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 32,
+                  ),
+                  Form(key: _formKey, child: buildForm(currentState)),
+                ],
+              )
+            ],
+          ));
     });
   }
 }
