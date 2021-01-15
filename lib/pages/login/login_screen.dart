@@ -124,7 +124,7 @@ class LoginScreenState extends State<LoginScreen> {
               SizedBox.expand(
                 child: Image.asset(
                   'assets/bg.png',
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.fill,
                 ),
               ),
               ListView(
