@@ -114,6 +114,7 @@ class _AppPageState extends State<AppPage> {
     });
 
     JMessage.addLoginStateChangedListener((JMLoginStateChangedType type) {
+      // ignore: unnecessary_brace_in_string_interps
       print('listener receive event -  login state change: ${type}');
     });
 

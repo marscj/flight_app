@@ -5,7 +5,6 @@ import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
 import 'package:saadiyat/pages/app/app_event.dart';
 import 'package:saadiyat/widgets/list_item.dart';
-import 'package:auto_route/auto_route.dart';
 
 class MyScreen extends StatefulWidget {
   const MyScreen({

@@ -64,6 +64,8 @@ dependencies:
   open_file: ^3.0.3 
   flutter_cache_manager: ^2.1.0
   package_info: ^0.4.3+2
+  hive: ^1.4.4+1
+  hive_flutter: ^0.3.1
   #bloc
   rxdart: ^0.24.0 
   equatable: ^1.2.5
@@ -91,6 +93,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   
+  hive_generator: ^0.8.2
   # flutter pub run build_runner build
   build_runner: ^1.10.11
   retrofit_generator: ^1.4.1
@@ -98,6 +101,7 @@ dev_dependencies:
   auto_route_generator: ^1.0.0-beta.5
   json_serializable: ^3.5.1
   flutter_launcher_icons: "^0.8.0"
+  
 
 #flutter pub run flutter_launcher_icons:main
 flutter_icons:

@@ -6,6 +6,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
@@ -27,11 +29,17 @@ abstract class AppEvent {
 class AppInitEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    // 键值对数据库
+    await Hive.initFlutter();
+
     // 电源管理
     await Wakelock.enable();
+
     // 强制竖屏
     await SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+    Store.instance.getAuth();
 
     yield currentState.copyWith(user: null, event: CheckVersionEvent());
   }
@@ -102,16 +110,20 @@ class PushRouteEvent extends AppEvent {
 }
 
 class AppLoginEvent extends AppEvent {
-  final TokenUser tokenUser;
+  final User user;
+  final String token;
+  final String password;
 
-  AppLoginEvent(this.tokenUser);
+  AppLoginEvent(this.user, this.token, this.password);
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     // TODO: implement applyAsync
-    await Store.instance.setToken(tokenUser.token);
+    await Store.instance.setToken(token);
+    await Store.instance
+        .setAuth({'username': user.email, 'password': password});
     yield currentState.copyWith(
-        user: tokenUser.user, event: PushRouteEvent(BasementRoute()));
+        user: user, event: PushRouteEvent(BasementRoute()));
   }
 }
 
@@ -123,6 +135,7 @@ class AppLogoutEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     await Store.instance.clearToken();
+    await Store.instance.clearAuth();
     context.router.replace(LoginRoute());
     yield currentState.copyWith(user: null);
   }

@@ -57,7 +57,7 @@ class LoginFormBloc extends FormBloc<String, String> {
     loginBloc.add(LoadLoginEvent(true));
     RestClient()
         .login({'email': email.value, 'password': password.value}).then((res) {
-      appBloc.add(AppLoginEvent(res));
+      appBloc.add(AppLoginEvent(res.user, res.token, password.value));
       emitSuccess(canSubmitAgain: true);
     }).catchError((onError) {
       emitFailure();
