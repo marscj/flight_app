@@ -131,7 +131,7 @@ class AppLogoutEvent extends AppEvent {
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     await Store.instance.clearToken();
     context.router.replace(LoginRoute());
-    yield currentState.copyWith(user: null, event: CheckVersionEvent());
+    yield currentState.copyWith(user: null);
   }
 }
 
