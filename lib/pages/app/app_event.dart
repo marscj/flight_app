@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'dart:io';
+import 'dart:io' as IO;
 
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
@@ -45,7 +45,7 @@ class CheckVersionEvent extends AppEvent {
       yield await RestClient().checkVersion({
         'version': packageInfo.version,
         'code': packageInfo.buildNumber,
-        'type': Platform.isAndroid ? 'Android' : 'Ios'
+        'type': IO.Platform.isAndroid ? 'Android' : 'Ios'
       }).then((res) {
         if (res.result) {
           return currentState.copyWith(event: UserInfoEvent());
@@ -87,13 +87,6 @@ class UserInfoEvent extends AppEvent {
             event: ErrorEvent('Network connection failed!'));
       }
     }
-  }
-}
-
-class JMessageInitEvent extends AppEvent {
-  @override
-  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    yield currentState;
   }
 }
 
@@ -145,4 +138,9 @@ class ErrorEvent extends AppEvent {
     // TODO: implement applyAsync
     yield currentState;
   }
+}
+
+class JMessageInitEvent extends AppEvent {
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {}
 }

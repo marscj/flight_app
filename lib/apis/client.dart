@@ -3,9 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:saadiyat/constants.dart';
 import 'package:saadiyat/store/store.dart';
-
-import '../constanc.dart';
 
 part 'user.dart';
 part 'booking.dart';

@@ -5,5 +5,6 @@ class Constant {
 
   static const String Host = ServerHost;
 
-  static const ApiKey = 'AIzaSyDVkaBmZrvpSkIlUhyQnCyl0hFXvLyVzIk';
+  static const String ApiKey = 'AIzaSyDVkaBmZrvpSkIlUhyQnCyl0hFXvLyVzIk';
+  static const String JPUSHKEY = '001486b3ce6d38e6c013530f';
 }

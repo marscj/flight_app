@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jmessage_flutter/jmessage_flutter.dart';
 import 'package:saadiyat/router/guard.dart';
 import 'package:saadiyat/router/router.gr.dart';
-import 'package:auto_route/auto_route.dart';
+import 'package:platform/platform.dart';
+import 'package:saadiyat/constants.dart';
 
 import 'app_bloc.dart';
 import 'app_state.dart';
-import 'app_event.dart';
+
+MethodChannel channel = MethodChannel('JMessage_flutter');
+JmessageFlutter JMessage =
+    new JmessageFlutter.private(channel, const LocalPlatform());
 
 class AppPage extends StatefulWidget {
   @override
@@ -15,6 +21,17 @@ class AppPage extends StatefulWidget {
 }
 
 class _AppPageState extends State<AppPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    JMessage..setDebugMode(enable: true);
+    JMessage.init(isOpenMessageRoaming: true, appkey: Constant.JPUSHKEY);
+    JMessage.applyPushAuthority(
+        new JMNotificationSettingsIOS(sound: true, alert: true, badge: true));
+    addListener();
+  }
+
   @override
   Widget build(BuildContext context) {
     final _appRouter = AppRouter(authGuard: AuthGuard(context));
@@ -68,6 +85,74 @@ class _AppPageState extends State<AppPage> {
           // splashColor: Colors.blueAccent
         ),
       );
+    });
+  }
+
+  void addListener() async {
+    print('add listener receive ReceiveMessage');
+
+    JMessage.addReceiveMessageListener((msg) {
+      //+
+      print('listener receive event - message ： ${msg.toJson()}');
+    });
+
+    JMessage.addClickMessageNotificationListener((msg) {
+      print(
+          'listener receive event - click message notification ： ${msg.toJson()}');
+    });
+
+    JMessage.addSyncOfflineMessageListener((conversation, msgs) {
+      print('listener receive event - sync office message ');
+    });
+
+    JMessage.addSyncRoamingMessageListener((conversation) {
+      print('listener receive event - sync roaming message');
+    });
+
+    JMessage.addLoginStateChangedListener((JMLoginStateChangedType type) {
+      print('listener receive event -  login state change: ${type}');
+    });
+
+    JMessage.addContactNotifyListener((JMContactNotifyEvent event) {
+      print('listener receive event - contact notify ${event.toJson()}');
+    });
+
+    JMessage.addMessageRetractListener((msg) {
+      print('listener receive event - message retract event');
+      print("${msg.toString()}");
+    });
+
+    // JMessage.addReceiveChatRoomMessageListener(chatRoomMsgListenerID,
+    //     (messageList) {
+    //   print('listener receive event - chat room message ');
+    // });
+
+    JMessage.addReceiveTransCommandListener((JMReceiveTransCommandEvent event) {
+      print('listener receive event - trans command');
+    });
+
+    JMessage.addReceiveApplyJoinGroupApprovalListener(
+        (JMReceiveApplyJoinGroupApprovalEvent event) {
+      print("listener receive event - apply join group approval");
+    });
+
+    JMessage.addReceiveGroupAdminRejectListener(
+        (JMReceiveGroupAdminRejectEvent event) {
+      print('listener receive event - group admin rejected');
+    });
+
+    JMessage.addReceiveGroupAdminApprovalListener(
+        (JMReceiveGroupAdminApprovalEvent event) {
+      print('listener receive event - group admin approval');
+    });
+
+    JMessage.addReceiveMessageReceiptStatusChangelistener(
+        (JMConversationInfo conversation, List<String> serverMessageIdList) {
+      print("listener receive event - message receipt status change");
+
+      //for (var serverMsgId in serverMessageIdList) {
+      //  JMessage.getMessageByServerMessageId(type: conversation.target, serverMessageId: serverMsgId);
+      //}
     });
   }
 }
