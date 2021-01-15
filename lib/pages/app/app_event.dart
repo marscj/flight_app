@@ -14,10 +14,13 @@ import 'package:saadiyat/router/router.gr.dart';
 import 'package:saadiyat/store/store.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock/wakelock.dart';
-import 'package:auto_route/auto_route.dart';
 
 @immutable
 abstract class AppEvent {
+  PageRouteInfo get pageRouteInfo => null;
+
+  String get errorMessage => null;
+
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc});
 }
 
@@ -106,15 +109,18 @@ class PushRouteEvent extends AppEvent {
 }
 
 class LogoutEvent extends AppEvent {
-  final BuildContext context;
-
-  LogoutEvent(this.context);
-
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     await Store.instance.clearToken();
-    context.router.removeUntilRoot();
-    yield currentState.copyWith(user: null, event: CheckVersionEvent());
+    yield currentState.copyWith(user: null, event: RemoveUntilRoot());
+  }
+}
+
+class RemoveUntilRoot extends AppEvent {
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    // TODO: implement applyAsync
+    yield currentState;
   }
 }
 
