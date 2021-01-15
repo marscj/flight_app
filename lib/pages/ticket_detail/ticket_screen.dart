@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/pages/home/index.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 
 class TicketScreen extends StatelessWidget {
@@ -22,12 +23,43 @@ class TicketScreen extends StatelessWidget {
       // bool is_complete;
       TicketDetailBloc bookingDetailBloc =
           BlocProvider.of<TicketDetailBloc>(context);
+      final colorScheme = Theme.of(context).colorScheme;
       return EasyRefresh(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             child: Card(
                 child: Column(
               children: [
+                currentState?.data?.is_confirm == null
+                    ? MaterialBanner(
+                        backgroundColor: Colors.orangeAccent,
+                        content: ListTile(
+                          title: Text(
+                            'Please confirm your ticket information',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        leading: CircleAvatar(
+                          child: Icon(Icons.notifications_active),
+                        ),
+                        actions: [
+                          TextButton(
+                            child: Text(
+                              'Confirm',
+                              style: TextStyle(color: colorScheme.primary),
+                            ),
+                            onPressed: () {},
+                          ),
+                          TextButton(
+                            child: Text(
+                              'Refuse',
+                              style: TextStyle(color: colorScheme.primary),
+                            ),
+                            onPressed: () {},
+                          )
+                        ],
+                      )
+                    : Container(),
                 ListTile(
                   dense: true,
                   title: Text('SerialNo.:'),
@@ -55,19 +87,19 @@ class TicketScreen extends StatelessWidget {
                 ListTile(
                   dense: true,
                   title: Text('Fare:'),
-                  subtitle: Text(currentState?.data?.fare ?? ''),
+                  subtitle: Text('${currentState?.data?.fare ?? ''}'),
                 ),
                 Divider(),
                 ListTile(
                   dense: true,
                   title: Text('Tax:'),
-                  subtitle: Text(currentState?.data?.tax ?? ''),
+                  subtitle: Text('${currentState?.data?.tax ?? ''}'),
                 ),
                 Divider(),
                 ListTile(
                   dense: true,
                   title: Text('Total:'),
-                  subtitle: Text(currentState?.data?.total ?? ''),
+                  subtitle: Text('${currentState?.data?.total ?? ''}'),
                 ),
                 Divider(),
                 ListTile(
