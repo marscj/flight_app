@@ -1,5 +1,4 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hive/hive.dart';
 
 class Store<T> {
   static Store get instance => Store._();
@@ -36,21 +35,21 @@ class Store<T> {
     });
   }
 
-  Future<dynamic> getAuth() async {
-    return Hive.openBox('auth').then((box) {
-      return box.get('auth');
+  Future<List<String>> getAuth() async {
+    return SharedPreferences.getInstance().then((sp) {
+      return sp.getStringList('auth');
     });
   }
 
   Future<void> setAuth(auth) async {
-    return Hive.openBox('auth').then((box) {
-      return box.put('auth', auth);
+    return SharedPreferences.getInstance().then((sp) {
+      return sp.setStringList('auth', auth);
     });
   }
 
   Future<void> clearAuth() async {
-    return Hive.openBox('auth').then((box) {
-      return box.delete('auth');
+    return SharedPreferences.getInstance().then((sp) {
+      return sp.remove('auth');
     });
   }
 }

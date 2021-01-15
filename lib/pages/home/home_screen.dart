@@ -127,28 +127,34 @@ class HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          NavTitle(
-                            leading: Icon(Icons.phone),
-                            title: AutoSizeText(
-                              '+971 4252 5198',
-                              style: GoogleFonts.unna(fontSize: 16),
+                          Expanded(
+                            child: NavTitle(
+                              leading: Icon(Icons.phone),
+                              title: AutoSizeText(
+                                '+971 4252 5198',
+                                style: GoogleFonts.unna(fontSize: 16),
+                              ),
                             ),
                           ),
-                          NavTitle(
-                            leading: Icon(Icons.email),
-                            title: AutoSizeText(
-                              'ticket@saadiyatway.com',
-                              style: GoogleFonts.unna(fontSize: 16),
+                          Expanded(
+                            child: NavTitle(
+                              leading: Icon(Icons.email),
+                              title: AutoSizeText(
+                                'ticket@saadiyatway.com',
+                                style: GoogleFonts.unna(fontSize: 16),
+                              ),
                             ),
                           ),
-                          NavTitle(
-                            leading: Icon(Icons.local_activity),
-                            title: AutoSizeText(
-                              'Office 1310  Opal Tower, Business Bay, Dubai U.A.E',
-                              maxLines: 2,
-                              style: GoogleFonts.unna(fontSize: 16),
+                          Expanded(
+                            child: NavTitle(
+                              leading: Icon(Icons.local_activity),
+                              title: AutoSizeText(
+                                'Office 1310  Opal Tower, Business Bay, Dubai U.A.E',
+                                maxLines: 2,
+                                style: GoogleFonts.unna(fontSize: 16),
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ))),
             ))

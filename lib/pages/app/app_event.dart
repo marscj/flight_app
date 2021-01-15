@@ -6,8 +6,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
@@ -116,8 +114,7 @@ class AppLoginEvent extends AppEvent {
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     // TODO: implement applyAsync
     await Store.instance.setToken(token);
-    await Store.instance
-        .setAuth({'username': user.email, 'password': password});
+    await Store.instance.setAuth([user.email, password]);
     bloc.add(JMessageLoginEvent());
     yield currentState.copyWith(
         user: user, event: PushRouteEvent(BasementRoute()));
@@ -158,8 +155,7 @@ class JMessageLoginEvent extends AppEvent {
 
     if (auth != null) {
       try {
-        await JMessage.login(
-            username: auth['username'], password: auth['password']);
+        await JMessage.login(username: auth[0], password: auth[1]);
       } on PlatformException catch (_) {
         print(_.toString());
       }
