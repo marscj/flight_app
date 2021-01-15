@@ -4,7 +4,7 @@ import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_event.dart';
 import 'package:saadiyat/pages/app/app_page.dart';
 
-Future<void> main() async {
+main() {
   runApp(BlocProvider(
       create: (context) => AppBloc()..add(AppInitEvent()), child: AppPage()));
 }

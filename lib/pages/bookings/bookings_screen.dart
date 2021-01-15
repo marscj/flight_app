@@ -45,6 +45,7 @@ class BookingsScreenState extends State<BookingsScreen> {
       BuildContext context,
       BookingsState currentState,
     ) {
+      print(100 - kToolbarHeight);
       // ignore: close_sinks
       BookingsBloc bookingsBloc = BlocProvider.of<BookingsBloc>(context);
       return Scaffold(
@@ -64,7 +65,11 @@ class BookingsScreenState extends State<BookingsScreen> {
                           fit: BoxFit.cover,
                         ),
                         title: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Image.asset('assets/logo-title.png',
+                                height: (100 - kToolbarHeight) / 2),
                             Expanded(
                               child: Text(
                                 'Booking',
