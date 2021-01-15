@@ -27,39 +27,29 @@ abstract class AppEvent {
 class AppInitEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    print('1111');
     // 电源管理
-    await Wakelock.enable();
-    print('1111 - 11111');
+    Wakelock.enable();
 
     // 强制竖屏
-    await SystemChrome.setPreferredOrientations(
+    SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    var packageInfo = await PackageInfo.fromPlatform();
-
-    print('1111 - 22222');
-
-    yield currentState.copyWith(
-        packageInfo: packageInfo, user: null, event: CheckVersionEvent());
-    print('2222');
+    yield await PackageInfo.fromPlatform().then((info) {
+      return currentState.copyWith(
+          packageInfo: info, user: null, event: CheckVersionEvent());
+    });
   }
 }
 
 class CheckVersionEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    print('3333');
     try {
-      print('3333 -1111');
-
-      print('3333 -2222');
       yield await RestClient().checkVersion({
         'version': currentState.packageInfo.version,
         'code': currentState.packageInfo.buildNumber,
         'type': IO.Platform.isAndroid ? 'Android' : 'Ios'
       }).then((res) {
-        print('3333 -33333');
         if (res.result) {
           return currentState.copyWith(event: UserInfoEvent());
         } else {
@@ -72,21 +62,18 @@ class CheckVersionEvent extends AppEvent {
         return currentState;
       });
     } on DioError catch (_, stackTrace) {
-      print('3333 -44444');
       developer.log('$_',
           name: 'CheckVersionEvent', error: _, stackTrace: stackTrace);
 
       yield currentState.copyWith(
           event: ErrorEvent('Network connection failed!'));
     }
-    print('4444');
   }
 }
 
 class UserInfoEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    print('5555');
     try {
       yield await RestClient().getInfo().then((res) {
         bloc.add(JMessageLoginEvent());
@@ -104,7 +91,6 @@ class UserInfoEvent extends AppEvent {
             event: ErrorEvent('Network connection failed!'));
       }
     }
-    print('6666');
   }
 }
 
@@ -115,9 +101,7 @@ class PushRouteEvent extends AppEvent {
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    print('777');
     yield currentState;
-    print('888');
   }
 }
 

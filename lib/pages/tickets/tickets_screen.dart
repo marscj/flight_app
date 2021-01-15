@@ -59,12 +59,22 @@ class TicketsScreenState extends State<TicketsScreen> {
                     elevation: 8,
                     flexibleSpace: FlexibleSpaceBar(
                         centerTitle: false,
+                        titlePadding: EdgeInsetsDirectional.only(
+                          start: 36.0,
+                          bottom: 16.0,
+                        ),
                         background: Image.asset(
                           'assets/header.png',
                           fit: BoxFit.cover,
                         ),
                         title: Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
                           children: [
+                            Image.asset('assets/logo-title.png',
+                                height: (100 - kToolbarHeight) / 2),
+                            SizedBox(
+                              width: 8,
+                            ),
                             Expanded(
                               child: Text(
                                 'Ticket',

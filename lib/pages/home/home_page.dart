@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
               elevation: 0,
               backgroundColor: Colors.transparent,
               brightness: Brightness.dark,
+              centerTitle: true,
               title: Image.asset(
                 'assets/logo-title.png',
                 fit: BoxFit.contain,

@@ -128,6 +128,7 @@ class HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
+                            flex: 0,
                             child: NavTitle(
                               leading: Icon(Icons.phone),
                               title: AutoSizeText(
@@ -137,6 +138,7 @@ class HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Expanded(
+                            flex: 0,
                             child: NavTitle(
                               leading: Icon(Icons.email),
                               title: AutoSizeText(
@@ -146,6 +148,7 @@ class HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Expanded(
+                            flex: 0,
                             child: NavTitle(
                               leading: Icon(Icons.local_activity),
                               title: AutoSizeText(
