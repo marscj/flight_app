@@ -108,10 +108,10 @@ class PushRouteEvent extends AppEvent {
   }
 }
 
-class LoginEvent extends AppEvent {
+class AppLoginEvent extends AppEvent {
   final TokenUser tokenUser;
 
-  LoginEvent(this.tokenUser);
+  AppLoginEvent(this.tokenUser);
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
@@ -122,10 +122,10 @@ class LoginEvent extends AppEvent {
   }
 }
 
-class LogoutEvent extends AppEvent {
+class AppLogoutEvent extends AppEvent {
   final BuildContext context;
 
-  LogoutEvent(this.context);
+  AppLogoutEvent(this.context);
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {

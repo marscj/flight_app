@@ -262,7 +262,7 @@ class MyScreenState extends State<MyScreen> {
                         label: Text('Sign Out'),
                         onPressed: () {
                           BlocProvider.of<AppBloc>(context)
-                              .add(LogoutEvent(context));
+                              .add(AppLogoutEvent(context));
                         },
                       ),
                     )
