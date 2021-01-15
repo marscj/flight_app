@@ -33,12 +33,6 @@ class _AppPageState extends State<AppPage> {
                 if (state.event != null) {
                   appBloc.add(state.event);
                 }
-                if (state.event is ErrorEvent) {
-                  Scaffold.of(_).showSnackBar(
-                      SnackBar(content: Text(state.event.errorMessage)));
-                } else if (state.event is PushRouteEvent) {
-                  _.router.push(state.event.pageRouteInfo);
-                }
               },
               child: router);
         },

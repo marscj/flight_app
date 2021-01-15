@@ -23,18 +23,13 @@ class WelcomeScreen extends StatefulWidget {
 class WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-    // ignore: close_sinks
-    AppBloc appBloc = BlocProvider.of<AppBloc>(context);
     return BlocListener<AppBloc, AppState>(
       listener: (_, state) {
-        var event = state.event;
-        if (event != null) {
-          if (event is ErrorEvent) {
-            Scaffold.of(_)
-                .showSnackBar(SnackBar(content: Text(event.errorMessage)));
-          } else if (event is PushRouteEvent) {
-            _.router.push(event.pageRouteInfo);
-          }
+        if (state.event is ErrorEvent) {
+          Scaffold.of(_)
+              .showSnackBar(SnackBar(content: Text(state.event.errorMessage)));
+        } else if (state.event is PushRouteEvent) {
+          _.router.push(state.event.pageRouteInfo);
         }
       },
       child: SafeArea(

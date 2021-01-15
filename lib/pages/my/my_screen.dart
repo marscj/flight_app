@@ -1,13 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
-import 'package:saadiyat/pages/app/index.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:saadiyat/router/router.gr.dart';
+import 'package:saadiyat/pages/app/app_event.dart';
 import 'package:saadiyat/widgets/list_item.dart';
+import 'package:auto_route/auto_route.dart';
 
 class MyScreen extends StatefulWidget {
   const MyScreen({
@@ -263,7 +261,8 @@ class MyScreenState extends State<MyScreen> {
                         icon: Icon(Icons.logout),
                         label: Text('Sign Out'),
                         onPressed: () {
-                          BlocProvider.of<AppBloc>(context).add(LogoutEvent());
+                          BlocProvider.of<AppBloc>(context)
+                              .add(LogoutEvent(context));
                         },
                       ),
                     )

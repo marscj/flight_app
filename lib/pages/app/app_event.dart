@@ -108,19 +108,30 @@ class PushRouteEvent extends AppEvent {
   }
 }
 
-class LogoutEvent extends AppEvent {
-  @override
-  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    await Store.instance.clearToken();
-    yield currentState.copyWith(user: null, event: RemoveUntilRoot());
-  }
-}
+class LoginEvent extends AppEvent {
+  final TokenUser tokenUser;
 
-class RemoveUntilRoot extends AppEvent {
+  LoginEvent(this.tokenUser);
+
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     // TODO: implement applyAsync
-    yield currentState;
+    await Store.instance.setToken(tokenUser.token);
+    yield currentState.copyWith(
+        user: tokenUser.user, event: PushRouteEvent(BasementRoute()));
+  }
+}
+
+class LogoutEvent extends AppEvent {
+  final BuildContext context;
+
+  LogoutEvent(this.context);
+
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    await Store.instance.clearToken();
+    context.router.removeUntilRoot();
+    yield currentState.copyWith(user: null, event: CheckVersionEvent());
   }
 }
 
