@@ -11,7 +11,11 @@ import 'package:saadiyat/constants.dart';
 import 'app_bloc.dart';
 import 'app_state.dart';
 
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 MethodChannel channel = MethodChannel('jmessage_flutter');
+
 JmessageFlutter JMessage =
     new JmessageFlutter.private(channel, const LocalPlatform());
 
@@ -25,7 +29,7 @@ class _AppPageState extends State<AppPage> {
   void initState() {
     super.initState();
 
-    JMessage..setDebugMode(enable: true);
+    // JMessage..setDebugMode(enable: true);
     JMessage.init(isOpenMessageRoaming: true, appkey: Constant.JPUSHKEY);
     JMessage.applyPushAuthority(
         new JMNotificationSettingsIOS(sound: true, alert: true, badge: true));
