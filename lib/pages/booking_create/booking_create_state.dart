@@ -11,8 +11,8 @@ class BookingCreateState extends Equatable {
   factory BookingCreateState.initial() =>
       BookingCreateState(version: 0, step: 0);
 
-  BookingCreateState copyWith({int version, int step}) => BookingCreateState(
-      version: version + 1 ?? this.version, step: step ?? this.step);
+  BookingCreateState copyWith({int version, int step}) =>
+      BookingCreateState(version: this.version + 1, step: step ?? this.step);
 
   @override
   List<Object> get props => ([version, step]);

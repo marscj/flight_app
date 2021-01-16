@@ -18,3 +18,25 @@ class StepContinueEvent extends BookingCreateEvent {
     yield currentState.copyWith(step: currentState.step + 1);
   }
 }
+
+class StepCancelEvent extends BookingCreateEvent {
+  @override
+  Stream<BookingCreateState> applyAsync(
+      {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
+    // TODO: implement applyAsync
+    yield currentState.copyWith(step: currentState.step - 1);
+  }
+}
+
+class StepTappedEvent extends BookingCreateEvent {
+  final int step;
+
+  StepTappedEvent(this.step);
+
+  @override
+  Stream<BookingCreateState> applyAsync(
+      {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
+    // TODO: implement applyAsync
+    yield currentState.copyWith(step: step);
+  }
+}

@@ -38,7 +38,9 @@ class AppInitEvent extends AppEvent {
     //   return currentState.copyWith(
     //       packageInfo: info, user: null, event: CheckVersionEvent());
     // });
+    print('1111-----');
     yield currentState.copyWith(user: null, event: CheckVersionEvent());
+    print('22222-----');
   }
 }
 
@@ -46,11 +48,13 @@ class CheckVersionEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     try {
+      print('33333-----');
       yield await RestClient().checkVersion({
         'version': currentState?.packageInfo?.version ?? '1.0.0',
         'code': currentState?.packageInfo?.buildNumber ?? '1',
         'type': IO.Platform.isAndroid ? 'Android' : 'Ios'
       }).then((res) {
+        print('4444-----');
         if (res.result) {
           return currentState.copyWith(event: UserInfoEvent());
         } else {
@@ -69,6 +73,7 @@ class CheckVersionEvent extends AppEvent {
       yield currentState.copyWith(
           event: ErrorEvent('Network connection failed!'));
     }
+    print('5555-----');
   }
 }
 

@@ -386,7 +386,7 @@ Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://192.168.50.84:8000/api/';
+    baseUrl ??= 'http://192.168.1.248:8000/api/';
   }
 
   final Dio _dio;
