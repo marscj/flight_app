@@ -9,3 +9,12 @@ abstract class BookingCreateEvent {
   Stream<BookingCreateState> applyAsync(
       {BookingCreateState currentState, BookingCreateBloc bloc});
 }
+
+class StepContinueEvent extends BookingCreateEvent {
+  @override
+  Stream<BookingCreateState> applyAsync(
+      {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
+    // TODO: implement applyAsync
+    yield currentState.copyWith(step: currentState.step + 1);
+  }
+}

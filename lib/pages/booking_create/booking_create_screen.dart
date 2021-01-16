@@ -24,6 +24,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
         appBar: AppBar(title: Text('Add Booking')),
         body: Stepper(
           currentStep: currentState.step,
+          onStepContinue: () {},
           controlsBuilder: (BuildContext context,
               {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
             return Row(

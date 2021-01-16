@@ -12,7 +12,7 @@ class BookingCreateState extends Equatable {
       BookingCreateState(version: 0, step: 0);
 
   BookingCreateState copyWith({int version, int step}) => BookingCreateState(
-      version: version ?? this.version, step: step ?? this.step);
+      version: version + 1 ?? this.version, step: step ?? this.step);
 
   @override
   List<Object> get props => ([version, step]);
