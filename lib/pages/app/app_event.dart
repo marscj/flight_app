@@ -34,10 +34,11 @@ class AppInitEvent extends AppEvent {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    yield await PackageInfo.fromPlatform().then((info) {
-      return currentState.copyWith(
-          packageInfo: info, user: null, event: CheckVersionEvent());
-    });
+    // yield await PackageInfo.fromPlatform().then((info) {
+    //   return currentState.copyWith(
+    //       packageInfo: info, user: null, event: CheckVersionEvent());
+    // });
+    yield currentState.copyWith(user: null, event: CheckVersionEvent());
   }
 }
 
@@ -46,8 +47,8 @@ class CheckVersionEvent extends AppEvent {
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     try {
       yield await RestClient().checkVersion({
-        'version': currentState.packageInfo.version,
-        'code': currentState.packageInfo.buildNumber,
+        'version': currentState?.packageInfo?.version ?? '1.0.0',
+        'code': currentState?.packageInfo?.buildNumber ?? '1',
         'type': IO.Platform.isAndroid ? 'Android' : 'Ios'
       }).then((res) {
         if (res.result) {
