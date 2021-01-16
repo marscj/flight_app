@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/pages/home/index.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 
 class TicketScreen extends StatelessWidget {

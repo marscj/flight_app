@@ -2,9 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/widgets/list_item.dart';
 import 'package:saadiyat/widgets/no_data.dart';
 
 import 'ticket_detail_bloc.dart';
