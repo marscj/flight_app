@@ -12,6 +12,7 @@ import '../pages/login/login_page.dart' as _i5;
 import '../pages/basement/basement_page.dart' as _i6;
 import '../pages/booking_detail/index.dart' as _i7;
 import '../pages/ticket_detail/index.dart' as _i8;
+import '../pages/booking_detail/booking_create.dart' as _i9;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter({@_i2.required this.authGuard}) : assert(authGuard != null);
@@ -43,6 +44,9 @@ class AppRouter extends _i1.RootStackRouter {
       var route = entry.routeData.as<TicketDetailRoute>();
       return _i1.CupertinoPageX(
           entry: entry, child: _i8.TicketDetailPage(id: route.id));
+    },
+    BookingCreateRoute.name: (entry) {
+      return _i1.CupertinoPageX(entry: entry, child: _i9.BookingCreatePage());
     }
   };
 
@@ -64,6 +68,10 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig<TicketDetailRoute>(TicketDetailRoute.name,
             path: 'tickets/:id',
             routeBuilder: (match) => TicketDetailRoute.fromMatch(match),
+            guards: [authGuard]),
+        _i1.RouteConfig<BookingCreateRoute>(BookingCreateRoute.name,
+            path: '/booking/add',
+            routeBuilder: (_) => const BookingCreateRoute(),
             guards: [authGuard])
       ];
 }
@@ -120,4 +128,10 @@ class TicketDetailRoute extends _i1.PageRouteInfo {
   final int id;
 
   static const String name = 'TicketDetailRoute';
+}
+
+class BookingCreateRoute extends _i1.PageRouteInfo {
+  const BookingCreateRoute() : super(name, path: '/booking/add');
+
+  static const String name = 'BookingCreateRoute';
 }

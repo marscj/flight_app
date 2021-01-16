@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -68,7 +69,9 @@ class HomeScreenState extends State<HomeScreen> {
               child: InkWell(
                   splashColor: colorScheme.onSurface.withOpacity(0.12),
                   highlightColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: () {
+                    context.router.push(BookingCreateRoute());
+                  },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 20),
