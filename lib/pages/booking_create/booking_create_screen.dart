@@ -2,9 +2,12 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
+import 'package:saadiyat/router/router.gr.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/booking_create/index.dart';
+import 'package:auto_route/auto_route.dart';
 
 import 'booking_form_bloc.dart';
 
@@ -28,7 +31,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    VoidCallback nextButton(BookingCreateState state) {
+    VoidCallback nextButtonCall(BookingCreateState state) {
       // ignore: close_sinks
       BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
       switch (state.step) {
@@ -124,14 +127,17 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                         child: pages[currentState.step],
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: nextButton(currentState),
-                        child: const Text('NEXT'),
-                      ),
-                    ),
+                    currentState.step < 2
+                        ? Container(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: nextButtonCall(currentState),
+                              child: const Text('NEXT'),
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
               ),
@@ -141,12 +147,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
   }
 }
 
-class AddBookingScreen extends StatefulWidget {
-  @override
-  State<AddBookingScreen> createState() => AddBookingScreenState();
-}
-
-class AddBookingScreenState extends State<AddBookingScreen> {
+class AddBookingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BookingFormBloc>(
@@ -202,7 +203,9 @@ class AddBookingScreenState extends State<AddBookingScreen> {
                         border: OutlineInputBorder())),
                 SizedBox(height: 24),
                 ElevatedButton.icon(
-                  icon: Icon(Icons.add),
+                  icon: state.booking == null
+                      ? Icon(Icons.add)
+                      : Icon(Icons.change_history),
                   label: state.booking == null ? Text('ADD') : Text('SUBMIT'),
                   onPressed: () {
                     formBloc.submit();
@@ -218,15 +221,29 @@ class AddBookingScreenState extends State<AddBookingScreen> {
 class AddItineraryListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
+    return BlocBuilder<BookingCreateBloc, BookingCreateState>(
+        builder: (context, state) {
       return ListView(
+        padding: const EdgeInsets.all(15),
         children: [
           Text(
             'Add Itinerary Informations',
             style: Theme.of(context).textTheme.headline6,
             textAlign: TextAlign.center,
           ),
+          ListBody(
+              children: state.itineraries.map((f) {
+            return ItineraryItem(
+              data: f,
+            );
+          }).toList()),
+          ElevatedButton.icon(
+            icon: Icon(Icons.add),
+            label: Text('Add a itinerary'),
+            onPressed: () {
+              context.router.push(ItineraryCreateRoute(state: state));
+            },
+          )
         ],
       );
     });

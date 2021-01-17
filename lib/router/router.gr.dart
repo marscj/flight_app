@@ -13,6 +13,8 @@ import '../pages/basement/basement_page.dart' as _i6;
 import '../pages/booking_detail/index.dart' as _i7;
 import '../pages/ticket_detail/index.dart' as _i8;
 import '../pages/booking_create/booking_create_page.dart' as _i9;
+import '../pages/booking_create/Itinerary_create.dart' as _i10;
+import '../pages/booking_create/index.dart' as _i11;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter({@_i2.required this.authGuard}) : assert(authGuard != null);
@@ -47,6 +49,13 @@ class AppRouter extends _i1.RootStackRouter {
     },
     BookingCreateRoute.name: (entry) {
       return _i1.CupertinoPageX(entry: entry, child: _i9.BookingCreatePage());
+    },
+    ItineraryCreateRoute.name: (entry) {
+      var route = entry.routeData.as<ItineraryCreateRoute>();
+      return _i1.CupertinoPageX(
+          entry: entry,
+          child: _i10.ItineraryCreatePage(key: route.key, state: route.state),
+          fullscreenDialog: true);
     }
   };
 
@@ -72,6 +81,10 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig<BookingCreateRoute>(BookingCreateRoute.name,
             path: '/bookingCreate',
             routeBuilder: (_) => const BookingCreateRoute(),
+            guards: [authGuard]),
+        _i1.RouteConfig<ItineraryCreateRoute>(ItineraryCreateRoute.name,
+            path: '/itineraryCreate',
+            routeBuilder: (match) => ItineraryCreateRoute.fromMatch(match),
             guards: [authGuard])
       ];
 }
@@ -134,4 +147,20 @@ class BookingCreateRoute extends _i1.PageRouteInfo {
   const BookingCreateRoute() : super(name, path: '/bookingCreate');
 
   static const String name = 'BookingCreateRoute';
+}
+
+class ItineraryCreateRoute extends _i1.PageRouteInfo {
+  ItineraryCreateRoute({this.key, this.state})
+      : super(name, path: '/itineraryCreate', argProps: [key, state]);
+
+  ItineraryCreateRoute.fromMatch(_i1.RouteMatch match)
+      : key = null,
+        state = null,
+        super.fromMatch(match);
+
+  final _i2.Key key;
+
+  final _i11.BookingCreateState state;
+
+  static const String name = 'ItineraryCreateRoute';
 }

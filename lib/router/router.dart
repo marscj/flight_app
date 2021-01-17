@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/pages/basement/basement_page.dart';
+import 'package:saadiyat/pages/booking_create/Itinerary_create.dart';
 import 'package:saadiyat/pages/booking_create/booking_create_page.dart';
 import 'package:saadiyat/pages/booking_detail/index.dart';
 import 'package:saadiyat/pages/bookings/index.dart';
@@ -30,6 +31,12 @@ import 'guard.dart';
     AutoRoute(
       path: BookingCreatePage.routeName,
       page: BookingCreatePage,
+      guards: [AuthGuard],
+    ),
+    AutoRoute(
+      path: ItineraryCreatePage.routeName,
+      page: ItineraryCreatePage,
+      fullscreenDialog: true,
       guards: [AuthGuard],
     ),
   ],
