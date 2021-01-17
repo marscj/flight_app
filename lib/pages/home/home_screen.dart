@@ -26,7 +26,6 @@ class HomeScreenState extends State<HomeScreen> {
 
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-      final double maxHeight = constraints.maxHeight;
       return Column(
         children: [
           BannerView((index, reson) {

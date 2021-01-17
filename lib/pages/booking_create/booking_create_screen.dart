@@ -1,8 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/booking_create/index.dart';
+
+import 'booking_form_bloc.dart';
 
 class BookingCreateScreen extends StatefulWidget {
   const BookingCreateScreen({
@@ -126,9 +129,58 @@ class AddBookingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: child,
-    );
+    return BlocProvider<BookingFormBloc>(
+        create: (context) => BookingFormBloc(context),
+        child: FormBlocListener<BookingFormBloc, String, String>(
+          onFailure: (context, state) {},
+          onSuccess: (context, state) {},
+          onSubmitting: (context, state) {},
+          child: Builder(
+            builder: (BuildContext context) {
+              // ignore: close_sinks
+              BookingFormBloc formBloc =
+                  BlocProvider.of<BookingFormBloc>(context);
+              return Form(
+                  child: ListView(
+                children: [
+                  Text(
+                    'Add Itinerary Informations',
+                    style: Theme.of(context).textTheme.headline6,
+                    textAlign: TextAlign.center,
+                  ),
+                  TextFieldBlocBuilder(
+                      textFieldBloc: formBloc.title,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'Title',
+                          errorMaxLines: 6,
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                          prefixIcon: const Icon(Icons.email))),
+                  TextFieldBlocBuilder(
+                      textFieldBloc: formBloc.remark,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: 'Remark',
+                          errorMaxLines: 6,
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                          prefixIcon: const Icon(Icons.email))),
+                  ElevatedButton(
+                    child: Text('Create'),
+                    onPressed: () {
+                      formBloc.submit();
+                    },
+                  )
+                ],
+              ));
+            },
+          ),
+        ));
   }
 }
 
