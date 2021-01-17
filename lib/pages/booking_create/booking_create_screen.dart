@@ -65,21 +65,21 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                   return false;
                 }
               }
-              return true;
-              // return showDialog(
-              //     context: context,
-              //     builder: (context) => AlertDialog(
-              //             title: Text('Are you sure you want to quit?'),
-              //             actions: <Widget>[
-              //               RaisedButton(
-              //                   child: Text('Cancel'),
-              //                   onPressed: () =>
-              //                       Navigator.of(context).pop(false)),
-              //               RaisedButton(
-              //                   child: Text('Quit'),
-              //                   onPressed: () =>
-              //                       Navigator.of(context).pop(true)),
-              //             ]));
+
+              return showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                          title: Text('Are you sure you want to quit?'),
+                          actions: <Widget>[
+                            RaisedButton(
+                                child: Text('Cancel'),
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false)),
+                            RaisedButton(
+                                child: Text('Quit'),
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true)),
+                          ]));
             },
             child: Scaffold(
               resizeToAvoidBottomInset: false,
