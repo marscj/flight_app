@@ -27,8 +27,8 @@ class BookingFormBloc extends FormBloc<String, String> {
   }
 
   void addValidators() {
-    // title.addValidators(
-    //     [RequiredValidator(errorText: 'This field is required!')]);
+    title.addValidators(
+        [RequiredValidator(errorText: 'This field is required!')]);
   }
 
   @override

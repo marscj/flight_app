@@ -136,6 +136,7 @@ class AddBookingScreen extends StatelessWidget {
               // ignore: close_sinks
               BookingFormBloc formBloc =
                   BlocProvider.of<BookingFormBloc>(context);
+
               return Form(
                   child: ListView(
                 padding: const EdgeInsets.all(15),
