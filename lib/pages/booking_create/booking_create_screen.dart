@@ -21,13 +21,37 @@ class BookingCreateScreen extends StatefulWidget {
 
 class BookingCreateScreenState extends State<BookingCreateScreen> {
   final List<Widget> pages = [
-    AddBookingPage(),
+    AddBookingScreen(),
     AddItineraryListPage(),
     AddBtaPage()
   ];
 
   @override
   Widget build(BuildContext context) {
+    VoidCallback nextButton(BookingCreateState state) {
+      // ignore: close_sinks
+      BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
+      switch (state.step) {
+        case 0:
+          if (state.booking != null) {
+            return () {
+              bloc.add(StepContinueEvent());
+            };
+          }
+          return null;
+        case 1:
+          if (state.itineraries.length > 0) {
+            return () {
+              bloc.add(StepContinueEvent());
+            };
+          }
+          return null;
+        case 2:
+          return null;
+      }
+      return null;
+    }
+
     return BlocBuilder<BookingCreateBloc, BookingCreateState>(
       builder: (context, currentState) {
         return WillPopScope(
@@ -80,7 +104,15 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                         },
                         child: pages[currentState.step],
                       ),
-                    )
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: nextButton(currentState),
+                        child: const Text('NEXT'),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -90,20 +122,12 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
   }
 }
 
-class AddBookingPage extends StatelessWidget {
+class AddBookingScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    BookingCreateState state =
-        BlocProvider.of<BookingCreateBloc>(context).state;
-    return AddBookingScreen(state: state);
-  }
+  State<AddBookingScreen> createState() => AddBookingScreenState();
 }
 
-class AddBookingScreen extends StatelessWidget {
-  final BookingCreateState state;
-
-  const AddBookingScreen({Key key, this.state}) : super(key: key);
-
+class AddBookingScreenState extends State<AddBookingScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BookingFormBloc>(
@@ -118,57 +142,56 @@ class AddBookingScreen extends StatelessWidget {
           onSubmitting: (context, state) {
             EasyLoading.show();
           },
-          child: Builder(
-            builder: (BuildContext context) {
-              // ignore: close_sinks
-              BookingFormBloc formBloc =
-                  BlocProvider.of<BookingFormBloc>(context);
+          child: BlocBuilder<BookingCreateBloc, BookingCreateState>(
+              builder: (context, state) {
+            // ignore: close_sinks
+            BookingFormBloc formBloc =
+                BlocProvider.of<BookingFormBloc>(context);
 
-              return Form(
-                  child: ListView(
-                padding: const EdgeInsets.all(15),
-                children: [
-                  Text(
-                    'Add Booking Informations',
-                    style: Theme.of(context).textTheme.headline6,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFieldBlocBuilder(
-                      textFieldBloc: formBloc.title
-                        ..updateInitialValue(state?.booking?.title),
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          isDense: true,
-                          hintText: '*Title',
-                          errorMaxLines: 6,
-                          border: OutlineInputBorder())),
-                  TextFieldBlocBuilder(
-                      textFieldBloc: formBloc.remark
-                        ..updateInitialValue(state?.booking?.remark),
-                      textInputAction: TextInputAction.done,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 10,
-                      decoration: InputDecoration(
-                          isDense: true,
-                          hintText: 'Remark',
-                          errorMaxLines: 6,
-                          border: OutlineInputBorder())),
-                  ElevatedButton.icon(
-                    icon: Icon(Icons.add),
-                    label:
-                        state?.booking != null ? Text('ADD') : Text('Submit'),
-                    onPressed: () {
-                      formBloc.submit();
-                    },
-                  )
-                ],
-              ));
-            },
-          ),
+            return Form(
+                child: ListView(
+              padding: const EdgeInsets.all(15),
+              children: [
+                Text(
+                  'Add Booking Informations',
+                  style: Theme.of(context).textTheme.headline6,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFieldBlocBuilder(
+                    textFieldBloc: formBloc.title
+                      ..updateInitialValue(state?.booking?.title),
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        isDense: true,
+                        hintText: '*Title',
+                        errorMaxLines: 6,
+                        border: OutlineInputBorder())),
+                TextFieldBlocBuilder(
+                    textFieldBloc: formBloc.remark
+                      ..updateInitialValue(state?.booking?.remark),
+                    textInputAction: TextInputAction.done,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 10,
+                    decoration: InputDecoration(
+                        isDense: true,
+                        hintText: 'Remark',
+                        errorMaxLines: 6,
+                        border: OutlineInputBorder())),
+                SizedBox(height: 24),
+                ElevatedButton.icon(
+                  icon: Icon(Icons.add),
+                  label: state.booking == null ? Text('ADD') : Text('SUBMIT'),
+                  onPressed: () {
+                    formBloc.submit();
+                  },
+                )
+              ],
+            ));
+          }),
         ));
   }
 }
