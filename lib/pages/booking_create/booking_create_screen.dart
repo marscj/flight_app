@@ -56,11 +56,30 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
       builder: (context, currentState) {
         return WillPopScope(
             onWillPop: () async {
-              if (currentState.step > 0) {
-                context.bloc<BookingCreateBloc>().add(StepCancelEvent());
+              if (EasyLoading.isShow) {
+                EasyLoading.dismiss();
                 return false;
+              } else {
+                if (currentState.step > 0) {
+                  context.bloc<BookingCreateBloc>().add(StepCancelEvent());
+                  return false;
+                }
               }
               return true;
+              // return showDialog(
+              //     context: context,
+              //     builder: (context) => AlertDialog(
+              //             title: Text('Are you sure you want to quit?'),
+              //             actions: <Widget>[
+              //               RaisedButton(
+              //                   child: Text('Cancel'),
+              //                   onPressed: () =>
+              //                       Navigator.of(context).pop(false)),
+              //               RaisedButton(
+              //                   child: Text('Quit'),
+              //                   onPressed: () =>
+              //                       Navigator.of(context).pop(true)),
+              //             ]));
             },
             child: Scaffold(
               resizeToAvoidBottomInset: false,

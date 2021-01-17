@@ -400,7 +400,7 @@ Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://ubangservice.com/api/';
+    baseUrl ??= 'http://127.0.0.1:8000/api/';
   }
 
   final Dio _dio;
@@ -602,13 +602,15 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<Upload> upload({playload}) async {
+  Future<Upload> upload(photo) async {
+    ArgumentError.checkNotNull(photo, 'photo');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    _data.addAll(playload ?? <String, dynamic>{});
-    _data.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    _data.files.add(MapEntry(
+        'photo',
+        MultipartFile.fromFileSync(photo.path,
+            filename: photo.path.split(Platform.pathSeparator).last)));
     final _result = await _dio.request<Map<String, dynamic>>('/uploads/',
         queryParameters: queryParameters,
         options: RequestOptions(

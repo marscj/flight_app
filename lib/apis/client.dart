@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 import 'package:equatable/equatable.dart';
@@ -83,7 +85,7 @@ abstract class RestClient {
   Future<UploadList> getUploads({@Queries() Map<String, dynamic> query});
 
   @POST('/uploads/')
-  Future<Upload> upload({@Body() Map<String, dynamic> playload});
+  Future<Upload> upload(@Part() File photo);
 
   @GET('/tickets/')
   Future<TicketListExtra> getTickets({@Queries() Map<String, dynamic> query});
