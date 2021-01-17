@@ -22,75 +22,82 @@ class _ItineraryCreatePageState extends State<ItineraryCreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Add a itinerary'),
-        ),
-        body: BlocProvider<ItineraryFormBloc>(
-            create: (context) => ItineraryFormBloc(context),
-            child: FormBlocListener<ItineraryFormBloc, String, String>(
-              onFailure: (context, state) {
-                EasyLoading.showError('Failed!');
-              },
-              onSuccess: (context, state) {
-                EasyLoading.showSuccess('Success!');
-              },
-              onSubmitting: (context, state) {
-                EasyLoading.show();
-              },
-              child: Builder(
-                builder: (context) {
-                  final formBloc = BlocProvider.of<ItineraryFormBloc>(context);
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+            child: BlocProvider<ItineraryFormBloc>(
+                create: (context) => ItineraryFormBloc(context),
+                child: FormBlocListener<ItineraryFormBloc, String, String>(
+                  onFailure: (context, state) {
+                    EasyLoading.showError('Failed!');
+                  },
+                  onSuccess: (context, state) {
+                    EasyLoading.showSuccess('Success!');
+                  },
+                  onSubmitting: (context, state) {
+                    EasyLoading.show();
+                  },
+                  child: Builder(
+                    builder: (context) {
+                      final formBloc =
+                          BlocProvider.of<ItineraryFormBloc>(context);
 
-                  return Form(
-                      child: ListView(
-                    padding: const EdgeInsets.all(15),
-                    children: [
-                      Text(
-                        'Add Booking Informations',
-                        style: Theme.of(context).textTheme.headline6,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFieldBlocBuilder(
-                          textFieldBloc: formBloc.title
-                            ..updateInitialValue(widget.state?.booking?.title),
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              isDense: true,
-                              hintText: '*Title',
-                              errorMaxLines: 6,
-                              border: OutlineInputBorder())),
-                      TextFieldBlocBuilder(
-                          textFieldBloc: formBloc.remark
-                            ..updateInitialValue(widget.state?.booking?.remark),
-                          textInputAction: TextInputAction.done,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 10,
-                          decoration: InputDecoration(
-                              isDense: true,
-                              hintText: 'Remark',
-                              errorMaxLines: 6,
-                              border: OutlineInputBorder())),
-                      SizedBox(height: 24),
-                      ElevatedButton.icon(
-                        icon: widget.state.booking == null
-                            ? Icon(Icons.add)
-                            : Icon(Icons.change_history),
-                        label: widget.state.booking == null
-                            ? Text('ADD')
-                            : Text('SUBMIT'),
-                        onPressed: () {
-                          formBloc.submit();
-                        },
-                      )
-                    ],
-                  ));
-                },
-              ),
-            )));
+                      return Form(
+                          child: ListView(
+                        padding: const EdgeInsets.all(15),
+                        children: [
+                          Container(
+                            child: BackButton(),
+                            alignment: Alignment.centerLeft,
+                            height: 60,
+                          ),
+                          Text(
+                            'Add Booking Informations',
+                            style: Theme.of(context).textTheme.headline6,
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFieldBlocBuilder(
+                              textFieldBloc: formBloc.title
+                                ..updateInitialValue(
+                                    widget.state?.booking?.title),
+                              textInputAction: TextInputAction.next,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                  isDense: true,
+                                  hintText: '*Title',
+                                  errorMaxLines: 6,
+                                  border: OutlineInputBorder())),
+                          TextFieldBlocBuilder(
+                              textFieldBloc: formBloc.remark
+                                ..updateInitialValue(
+                                    widget.state?.booking?.remark),
+                              textInputAction: TextInputAction.done,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 10,
+                              decoration: InputDecoration(
+                                  isDense: true,
+                                  hintText: 'Remark',
+                                  errorMaxLines: 6,
+                                  border: OutlineInputBorder())),
+                          SizedBox(height: 24),
+                          ElevatedButton.icon(
+                            icon: widget.state.booking == null
+                                ? Icon(Icons.add)
+                                : Icon(Icons.change_history),
+                            label: widget.state.booking == null
+                                ? Text('ADD')
+                                : Text('SUBMIT'),
+                            onPressed: () {
+                              formBloc.submit();
+                            },
+                          )
+                        ],
+                      ));
+                    },
+                  ),
+                ))));
   }
 }
 

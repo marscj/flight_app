@@ -50,10 +50,6 @@ class BookingFormBloc extends FormBloc<String, String> {
 
     BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
 
-    if (!kReleaseMode) {
-      await Future.delayed(Duration(seconds: 2));
-    }
-
     if (bloc.state.booking == null) {
       RestClient().createBooking(
           {'title': title.value, 'remark': remark.value}).then((res) {
