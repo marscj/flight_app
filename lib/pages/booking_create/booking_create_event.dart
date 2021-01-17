@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 
+import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking_create/index.dart';
 import 'package:meta/meta.dart';
 
@@ -38,5 +39,18 @@ class StepTappedEvent extends BookingCreateEvent {
       {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
     // TODO: implement applyAsync
     yield currentState.copyWith(step: step);
+  }
+}
+
+class UpdateBookingEvent extends BookingCreateEvent {
+  final Booking booking;
+
+  UpdateBookingEvent(this.booking);
+
+  @override
+  Stream<BookingCreateState> applyAsync(
+      {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
+    // TODO: implement applyAsync
+    yield currentState.copyWith(booking: booking, step: currentState.step + 1);
   }
 }

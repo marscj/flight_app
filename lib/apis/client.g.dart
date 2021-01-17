@@ -225,6 +225,20 @@ Map<String, dynamic> _$ItineraryToJson(Itinerary instance) => <String, dynamic>{
       'date': instance.date,
     };
 
+ItineraryExtra _$ItineraryExtraFromJson(Map<String, dynamic> json) {
+  return ItineraryExtra()
+    ..data = json['data'] == null
+        ? null
+        : Itinerary.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$ItineraryExtraToJson(ItineraryExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
+    };
+
 ItineraryList _$ItineraryListFromJson(Map<String, dynamic> json) {
   return ItineraryList()
     ..data = (json['data'] as List)
@@ -471,6 +485,26 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<BookingExtra> createBooking(playload) async {
+    ArgumentError.checkNotNull(playload, 'playload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/bookings/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BookingExtra.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<BookingExtra> getBooking(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
@@ -508,6 +542,26 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<ItineraryExtra> createItinerry(playload) async {
+    ArgumentError.checkNotNull(playload, 'playload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/itineraries/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ItineraryExtra.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<UploadList> getUploads({query}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -523,6 +577,26 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = UploadList.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<Upload> upload({playload}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/uploads/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Upload.fromJson(_result.data);
     return value;
   }
 

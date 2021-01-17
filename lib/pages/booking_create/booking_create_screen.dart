@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/booking_create/index.dart';
 
@@ -15,200 +16,154 @@ class BookingCreateScreen extends StatefulWidget {
 }
 
 class BookingCreateScreenState extends State<BookingCreateScreen> {
-  int step = 0;
+  final List<Widget> pages = [
+    AddBookingPage(),
+    AddItineraryListPage(),
+    AddBtaPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('Shared axis')),
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: PageTransitionSwitcher(
-                duration: const Duration(milliseconds: 300),
-                transitionBuilder: (
-                  Widget child,
-                  Animation<double> animation,
-                  Animation<double> secondaryAnimation,
-                ) {
-                  return SharedAxisTransition(
-                    child: child,
-                    animation: animation,
-                    secondaryAnimation: secondaryAnimation,
-                    transitionType: SharedAxisTransitionType.horizontal,
-                  );
-                },
-                child: IndexedStack(
-                  index: step,
-                  children: [_CoursePage(), _SignInPage()],
+    return BlocBuilder<BookingCreateBloc, BookingCreateState>(
+      builder: (context, currentState) {
+        return WillPopScope(
+            onWillPop: () async {
+              if (currentState.step > 0) {
+                context.bloc<BookingCreateBloc>().add(StepCancelEvent());
+                return false;
+              }
+              return true;
+            },
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              body: SafeArea(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      child: BackButton(),
+                      alignment: Alignment.centerLeft,
+                      height: 80,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 10, top: 0, bottom: 30),
+                      alignment: Alignment.center,
+                      child: StepProgressIndicator(
+                        totalSteps: 3,
+                        currentStep: currentState.step + 1,
+                        customColor: (index) => index == currentState.step
+                            ? Colors.indigo
+                            : Colors.grey,
+                        size: 2,
+                      ),
+                    ),
+                    Expanded(
+                      child: PageTransitionSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        reverse: currentState.step == 0,
+                        transitionBuilder: (
+                          Widget child,
+                          Animation<double> animation,
+                          Animation<double> secondaryAnimation,
+                        ) {
+                          return SharedAxisTransition(
+                            child: child,
+                            animation: animation,
+                            secondaryAnimation: secondaryAnimation,
+                            transitionType: SharedAxisTransitionType.horizontal,
+                          );
+                        },
+                        child: pages[currentState.step],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(),
+                          ElevatedButton(
+                            onPressed: () {
+                              context
+                                  .bloc<BookingCreateBloc>()
+                                  .add(StepContinueEvent());
+                            },
+                            child: Text('Next'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        step = 0;
-                      });
-                    },
-                    child: const Text('BACK'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        step = 1;
-                      });
-                    },
-                    child: const Text('NEXT'),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _CoursePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        const Padding(padding: EdgeInsets.symmetric(vertical: 8.0)),
-        Text(
-          'Streamling your courses',
-          style: Theme.of(context).textTheme.headline5,
-          textAlign: TextAlign.center,
-        ),
-        const Padding(padding: EdgeInsets.symmetric(vertical: 5.0)),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Text(
-            'Bundled categories appear as groups in your feed. '
-            'You can always change this later.',
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.grey,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        const _CourseSwitch(course: 'Arts & Crafts'),
-        const _CourseSwitch(course: 'Business'),
-        const _CourseSwitch(course: 'Illustration'),
-        const _CourseSwitch(course: 'Design'),
-        const _CourseSwitch(course: 'Culinary'),
-      ],
-    );
-  }
-}
-
-class _CourseSwitch extends StatefulWidget {
-  const _CourseSwitch({
-    this.course,
-  });
-
-  final String course;
-
-  @override
-  _CourseSwitchState createState() => _CourseSwitchState();
-}
-
-class _CourseSwitchState extends State<_CourseSwitch> {
-  bool _value = true;
-
-  @override
-  Widget build(BuildContext context) {
-    final String subtitle = _value ? 'Bundled' : 'Shown Individually';
-    return SwitchListTile(
-      title: Text(widget.course),
-      subtitle: Text(subtitle),
-      value: _value,
-      onChanged: (bool newValue) {
-        setState(() {
-          _value = newValue;
-        });
+            ));
       },
     );
   }
 }
 
-class _SignInPage extends StatelessWidget {
+class AddBookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final double maxHeight = constraints.maxHeight;
-        return Column(
-          children: <Widget>[
-            Padding(padding: EdgeInsets.symmetric(vertical: maxHeight / 20)),
-            Image.asset(
-              'assets/logo.png',
-              width: 80,
-            ),
-            Padding(padding: EdgeInsets.symmetric(vertical: maxHeight / 50)),
-            Text(
-              'Hi David Park',
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            Padding(padding: EdgeInsets.symmetric(vertical: maxHeight / 50)),
-            const Text(
-              'Sign in with your account',
-              style: TextStyle(
-                fontSize: 12.0,
-                color: Colors.grey,
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.only(
-                    top: 40.0,
-                    left: 15.0,
-                    right: 15.0,
-                    bottom: 10.0,
-                  ),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(
-                        Icons.visibility,
-                        size: 20,
-                        color: Colors.black54,
-                      ),
-                      isDense: true,
-                      labelText: 'Email or phone number',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text('FORGOT EMAIL?'),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text('CREATE ACCOUNT'),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        );
-      },
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return ListView(
+        children: [
+          Text(
+            'Add Booking Informations',
+            style: Theme.of(context).textTheme.headline6,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      );
+    });
+  }
+}
+
+class AddBookingScreen extends StatelessWidget {
+  const AddBookingScreen({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: child,
     );
+  }
+}
+
+class AddItineraryListPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return ListView(
+        children: [
+          Text(
+            'Add Itinerary Informations',
+            style: Theme.of(context).textTheme.headline6,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      );
+    });
+  }
+}
+
+class AddBtaPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      return ListView(
+        children: [
+          Text(
+            'Upload BTA Files',
+            style: Theme.of(context).textTheme.headline6,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      );
+    });
   }
 }
