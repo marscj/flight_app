@@ -69,6 +69,10 @@ abstract class RestClient {
   @GET('/bookings/{id}/')
   Future<BookingExtra> getBooking(@Path("id") int id);
 
+  @PATCH('/bookings/{id}/')
+  Future<BookingExtra> updateBooking(
+      @Path("id") int id, @Body() Map<String, dynamic> playload);
+
   @GET('/itineraries/')
   Future<ItineraryList> getItinerarys({@Queries() Map<String, dynamic> query});
 

@@ -523,6 +523,27 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<BookingExtra> updateBooking(id, playload) async {
+    ArgumentError.checkNotNull(id, 'id');
+    ArgumentError.checkNotNull(playload, 'playload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/bookings/$id/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PATCH',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BookingExtra.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<ItineraryList> getItinerarys({query}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

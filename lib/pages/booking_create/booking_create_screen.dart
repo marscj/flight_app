@@ -80,24 +80,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                         },
                         child: pages[currentState.step],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(),
-                          ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .bloc<BookingCreateBloc>()
-                                  .add(StepContinueEvent());
-                            },
-                            child: Text('Next'),
-                          ),
-                        ],
-                      ),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -110,12 +93,16 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
 class AddBookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return AddBookingScreen();
+    BookingCreateState state =
+        BlocProvider.of<BookingCreateBloc>(context).state;
+    return AddBookingScreen(state: state);
   }
 }
 
 class AddBookingScreen extends StatelessWidget {
-  const AddBookingScreen({Key key}) : super(key: key);
+  final BookingCreateState state;
+
+  const AddBookingScreen({Key key, this.state}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +137,8 @@ class AddBookingScreen extends StatelessWidget {
                     height: 20,
                   ),
                   TextFieldBlocBuilder(
-                      textFieldBloc: formBloc.title,
+                      textFieldBloc: formBloc.title
+                        ..updateInitialValue(state?.booking?.title),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
@@ -159,7 +147,8 @@ class AddBookingScreen extends StatelessWidget {
                           errorMaxLines: 6,
                           border: OutlineInputBorder())),
                   TextFieldBlocBuilder(
-                      textFieldBloc: formBloc.remark,
+                      textFieldBloc: formBloc.remark
+                        ..updateInitialValue(state?.booking?.remark),
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.multiline,
                       maxLines: 10,
@@ -170,7 +159,8 @@ class AddBookingScreen extends StatelessWidget {
                           border: OutlineInputBorder())),
                   ElevatedButton.icon(
                     icon: Icon(Icons.add),
-                    label: Text('ADD'),
+                    label:
+                        state?.booking != null ? Text('ADD') : Text('Submit'),
                     onPressed: () {
                       formBloc.submit();
                     },

@@ -54,13 +54,24 @@ class BookingFormBloc extends FormBloc<String, String> {
       await Future.delayed(Duration(seconds: 5));
     }
 
-    RestClient().createBooking(
-        {'title': title.value, 'remark': remark.value}).then((res) {
-      bloc.add(UpdateBookingEvent(res.data));
-      emitSuccess(canSubmitAgain: true);
-    }).catchError((error) {
-      emitFailure();
-      addErrors(error?.response?.data);
-    }).whenComplete(() {});
+    if (bloc.state.booking == null) {
+      RestClient().createBooking(
+          {'title': title.value, 'remark': remark.value}).then((res) {
+        bloc.add(UpdateBookingEvent(res.data));
+        emitSuccess(canSubmitAgain: true);
+      }).catchError((error) {
+        emitFailure();
+        addErrors(error?.response?.data);
+      }).whenComplete(() {});
+    } else {
+      RestClient().updateBooking(bloc.state.booking.id,
+          {'title': title.value, 'remark': remark.value}).then((res) {
+        bloc.add(UpdateBookingEvent(res.data));
+        emitSuccess(canSubmitAgain: true);
+      }).catchError((error) {
+        emitFailure();
+        addErrors(error?.response?.data);
+      }).whenComplete(() {});
+    }
   }
 }
