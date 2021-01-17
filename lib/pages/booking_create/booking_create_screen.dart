@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,12 +46,12 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                     Container(
                       child: BackButton(),
                       alignment: Alignment.centerLeft,
-                      height: 80,
+                      height: 60,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width / 2,
                       padding: const EdgeInsets.only(
-                          left: 10, right: 10, top: 0, bottom: 30),
+                          left: 10, right: 10, top: 0, bottom: 10),
                       alignment: Alignment.center,
                       child: StepProgressIndicator(
                         totalSteps: 3,
@@ -109,18 +110,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
 class AddBookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return ListView(
-        children: [
-          Text(
-            'Add Booking Informations',
-            style: Theme.of(context).textTheme.headline6,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      );
-    });
+    return AddBookingScreen();
   }
 }
 
@@ -132,9 +122,15 @@ class AddBookingScreen extends StatelessWidget {
     return BlocProvider<BookingFormBloc>(
         create: (context) => BookingFormBloc(context),
         child: FormBlocListener<BookingFormBloc, String, String>(
-          onFailure: (context, state) {},
-          onSuccess: (context, state) {},
-          onSubmitting: (context, state) {},
+          onFailure: (context, state) {
+            EasyLoading.showError('Failed!');
+          },
+          onSuccess: (context, state) {
+            EasyLoading.showSuccess('Success!');
+          },
+          onSubmitting: (context, state) {
+            EasyLoading.show();
+          },
           child: Builder(
             builder: (BuildContext context) {
               // ignore: close_sinks
@@ -142,36 +138,38 @@ class AddBookingScreen extends StatelessWidget {
                   BlocProvider.of<BookingFormBloc>(context);
               return Form(
                   child: ListView(
+                padding: const EdgeInsets.all(15),
                 children: [
                   Text(
-                    'Add Itinerary Informations',
+                    'Add Booking Informations',
                     style: Theme.of(context).textTheme.headline6,
                     textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   TextFieldBlocBuilder(
                       textFieldBloc: formBloc.title,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          hintText: 'Title',
+                          isDense: true,
+                          hintText: '*Title',
                           errorMaxLines: 6,
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: InputBorder.none,
-                          prefixIcon: const Icon(Icons.email))),
+                          border: OutlineInputBorder())),
                   TextFieldBlocBuilder(
                       textFieldBloc: formBloc.remark,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 10,
                       decoration: InputDecoration(
+                          isDense: true,
                           hintText: 'Remark',
                           errorMaxLines: 6,
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: InputBorder.none,
-                          prefixIcon: const Icon(Icons.email))),
-                  ElevatedButton(
-                    child: Text('Create'),
+                          border: OutlineInputBorder())),
+                  ElevatedButton.icon(
+                    icon: Icon(Icons.add),
+                    label: Text('ADD'),
                     onPressed: () {
                       formBloc.submit();
                     },

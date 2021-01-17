@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -26,8 +27,8 @@ class BookingFormBloc extends FormBloc<String, String> {
   }
 
   void addValidators() {
-    title.addValidators(
-        [RequiredValidator(errorText: 'This field is required!')]);
+    // title.addValidators(
+    //     [RequiredValidator(errorText: 'This field is required!')]);
   }
 
   @override
@@ -44,10 +45,14 @@ class BookingFormBloc extends FormBloc<String, String> {
   }
 
   @override
-  void onSubmitting() {
+  void onSubmitting() async {
     // ignore_for_file: close_sinks
 
     BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
+
+    if (!kReleaseMode) {
+      await Future.delayed(Duration(seconds: 5));
+    }
 
     RestClient().createBooking(
         {'title': title.value, 'remark': remark.value}).then((res) {

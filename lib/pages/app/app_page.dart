@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jmessage_flutter/jmessage_flutter.dart';
 import 'package:saadiyat/router/guard.dart';
@@ -55,7 +56,7 @@ class _AppPageState extends State<AppPage> {
                   appBloc.add(state.event);
                 }
               },
-              child: router);
+              child: FlutterEasyLoading(child: router));
         },
         theme: ThemeData(
           primarySwatch: Colors.indigo,
