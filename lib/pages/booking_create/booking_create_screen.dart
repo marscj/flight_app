@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
 import 'package:saadiyat/router/router.gr.dart';
+import 'package:saadiyat/widgets/list_item.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/booking_create/index.dart';
@@ -61,7 +62,13 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
   }
 
   List<Widget> buildBackButton() {
-    return [BackButton(), BackButton(), BackButton()];
+    return [
+      Container(
+        height: 0,
+      ),
+      BackButton(),
+      BackButton()
+    ];
   }
 
   List<Widget> buildForwardButton(BookingCreateState state) {
