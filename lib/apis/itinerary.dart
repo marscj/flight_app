@@ -17,6 +17,7 @@ class Itinerary extends Equatable {
   String hotel;
   bool is_lock;
   String remark;
+  int booking_id;
   String date;
 
   static Itinerary fromJson(Map<String, dynamic> json) =>
@@ -37,6 +38,7 @@ class Itinerary extends Equatable {
         hotel,
         is_lock,
         remark,
+        booking_id,
         date,
       ];
 }

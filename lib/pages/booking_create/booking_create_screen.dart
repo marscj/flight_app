@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:saadiyat/widgets/list_item.dart';
@@ -30,12 +31,14 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
     AddBtaPage()
   ];
 
-  PageRouteInfo addItineraryRouteInfo() {
-    return ItineraryEditRoute(onResult: (data) {});
+  PageRouteInfo addItineraryRouteInfo(BookingCreateState state) {
+    return ItineraryEditRoute(booking: state.booking, onResult: (data) {});
   }
 
-  PageRouteInfo editItineraryRouteInfo() {
-    return ItineraryEditRoute(onResult: (data) {});
+  PageRouteInfo editItineraryRouteInfo(
+      BookingCreateState state, Itinerary data) {
+    return ItineraryEditRoute(
+        booking: state.booking, data: data, onResult: (data) {});
   }
 
   List<Widget> floatingActionButton(BookingCreateState state) {
@@ -50,7 +53,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
       ),
       FloatingActionButton(
         onPressed: () {
-          context.router.push(addItineraryRouteInfo());
+          context.router.push(addItineraryRouteInfo(state));
         },
         child: Icon(Icons.add),
       ),
@@ -105,7 +108,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
     return BlocListener<BookingCreateBloc, BookingCreateState>(
       listener: (context, state) {
         if (state.action == 'booking_created') {
-          context.router.push(addItineraryRouteInfo());
+          context.router.push(addItineraryRouteInfo(state));
         }
       },
       child: BlocBuilder<BookingCreateBloc, BookingCreateState>(

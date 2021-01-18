@@ -206,6 +206,7 @@ Itinerary _$ItineraryFromJson(Map<String, dynamic> json) {
     ..hotel = json['hotel'] as String
     ..is_lock = json['is_lock'] as bool
     ..remark = json['remark'] as String
+    ..booking_id = json['booking_id'] as int
     ..date = json['date'] as String;
 }
 
@@ -222,6 +223,7 @@ Map<String, dynamic> _$ItineraryToJson(Itinerary instance) => <String, dynamic>{
       'hotel': instance.hotel,
       'is_lock': instance.is_lock,
       'remark': instance.remark,
+      'booking_id': instance.booking_id,
       'date': instance.date,
     };
 
@@ -574,6 +576,28 @@ class _RestClient implements RestClient {
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ItineraryExtra.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<ItineraryExtra> updateItinerary(id, playload) async {
+    ArgumentError.checkNotNull(id, 'id');
+    ArgumentError.checkNotNull(playload, 'playload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/itineraries/$id/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PATCH',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),

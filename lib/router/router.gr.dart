@@ -55,7 +55,10 @@ class AppRouter extends _i1.RootStackRouter {
       return _i1.CupertinoPageX(
           entry: entry,
           child: _i10.ItineraryEditPage(
-              key: route.key, data: route.data, onResult: route.onResult),
+              key: route.key,
+              booking: route.booking,
+              data: route.data,
+              onResult: route.onResult),
           fullscreenDialog: true);
     }
   };
@@ -151,18 +154,22 @@ class BookingCreateRoute extends _i1.PageRouteInfo {
 }
 
 class ItineraryEditRoute extends _i1.PageRouteInfo {
-  ItineraryEditRoute({this.key, this.data, this.onResult})
-      : super(name, path: '/itineraryEdit', argProps: [key, data, onResult]);
+  ItineraryEditRoute({this.key, this.booking, this.data, this.onResult})
+      : super(name,
+            path: '/itineraryEdit', argProps: [key, booking, data, onResult]);
 
   ItineraryEditRoute.fromMatch(_i1.RouteMatch match)
       : key = null,
+        booking = null,
         data = null,
         onResult = null,
         super.fromMatch(match);
 
   final _i2.Key key;
 
-  final _i11.Booking data;
+  final _i11.Booking booking;
+
+  final _i11.Itinerary data;
 
   final void Function(_i11.Booking) onResult;
 

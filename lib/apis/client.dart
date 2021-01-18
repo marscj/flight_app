@@ -81,6 +81,10 @@ abstract class RestClient {
   @POST('/itineraries/')
   Future<ItineraryExtra> createItinerry(@Body() Map<String, dynamic> playload);
 
+  @PATCH('/itineraries/{id}/')
+  Future<ItineraryExtra> updateItinerary(
+      @Path("id") int id, @Body() Map<String, dynamic> playload);
+
   @GET('/uploads/')
   Future<UploadList> getUploads({@Queries() Map<String, dynamic> query});
 

@@ -6,13 +6,29 @@ import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking_create/index.dart';
 
 class ItineraryFormBloc extends FormBloc<String, String> {
-  final TextFieldBloc title = TextFieldBloc();
+  final TextFieldBloc emial = TextFieldBloc();
+  final TextFieldBloc name = TextFieldBloc();
+  final TextFieldBloc passport_no = TextFieldBloc();
+  final TextFieldBloc exit = TextFieldBloc();
+  final TextFieldBloc entry = TextFieldBloc();
+  final TextFieldBloc ticket1 = TextFieldBloc();
+  final TextFieldBloc ticket2 = TextFieldBloc();
   final TextFieldBloc remark = TextFieldBloc();
 
   final BuildContext context;
+  final Itinerary data;
 
-  ItineraryFormBloc(this.context) {
-    addFieldBlocs(fieldBlocs: [title, remark]);
+  ItineraryFormBloc(this.context, this.data) {
+    addFieldBlocs(fieldBlocs: [
+      emial,
+      name,
+      passport_no,
+      exit,
+      entry,
+      ticket1,
+      ticket2,
+      remark
+    ]);
     addValidators();
   }
 
@@ -21,13 +37,23 @@ class ItineraryFormBloc extends FormBloc<String, String> {
       return;
     }
 
-    title.addFieldError(errors['email']);
+    emial.addFieldError(errors['email']);
+    name.addFieldError(errors['name']);
+    passport_no.addFieldError(errors['passport_no']);
+    exit.addFieldError(errors['exit']);
+    entry.addFieldError(errors['entry']);
+    ticket1.addFieldError(errors['ticket1']);
+    ticket2.addFieldError(errors['ticket2']);
     remark.addFieldError(
-        errors['password'] ?? errors['non_field_errors'] ?? errors['detail']);
+        errors['remark'] ?? errors['non_field_errors'] ?? errors['detail']);
   }
 
   void addValidators() {
-    title.addValidators(
+    emial.addValidators(
+        [RequiredValidator(errorText: 'This field is required!')]);
+    exit.addValidators(
+        [RequiredValidator(errorText: 'This field is required!')]);
+    entry.addValidators(
         [RequiredValidator(errorText: 'This field is required!')]);
   }
 
@@ -37,34 +63,42 @@ class ItineraryFormBloc extends FormBloc<String, String> {
   }
 
   @override
-  Future<void> close() {
-    // TODO: implement close
-    title.close();
-    remark.close();
-    return super.close();
-  }
-
-  @override
   void onSubmitting() async {
     // ignore_for_file: close_sinks
 
     BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
 
-    if (!kReleaseMode) {
-      await Future.delayed(Duration(seconds: 2));
-    }
-
     if (bloc.state.booking == null) {
-      RestClient().createBooking(
-          {'title': title.value, 'remark': remark.value}).then((res) {
+      RestClient().createItinerry({
+        'serial_no': '',
+        'email': emial.value,
+        'name': name.value,
+        'passport_no': passport_no.value,
+        'exit': exit.value,
+        'entry': entry.value,
+        'ticket1': ticket1.value,
+        'ticket2': ticket2.value,
+        'remark': remark.value,
+        'booking_id': bloc.state.booking.id
+      }).then((res) {
         emitSuccess(canSubmitAgain: true);
       }).catchError((error) {
         emitFailure();
         addErrors(error?.response?.data);
       }).whenComplete(() {});
     } else {
-      RestClient().updateBooking(bloc.state.booking.id,
-          {'title': title.value, 'remark': remark.value}).then((res) {
+      RestClient().updateItinerary(data.id, {
+        'serial_no': '',
+        'email': emial.value,
+        'name': name.value,
+        'passport_no': passport_no.value,
+        'exit': exit.value,
+        'entry': entry.value,
+        'ticket1': ticket1.value,
+        'ticket2': ticket2.value,
+        'remark': remark.value,
+        'booking_id': bloc.state.booking.id
+      }).then((res) {
         emitSuccess(canSubmitAgain: true);
       }).catchError((error) {
         emitFailure();
