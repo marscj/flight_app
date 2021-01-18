@@ -272,18 +272,41 @@ class AddBookingScreen extends StatelessWidget {
 }
 
 class AddItineraryListPage extends StatelessWidget {
+  PageRouteInfo itineraryRouteInfo(context, BookingCreateState state,
+      {Itinerary data}) {
+    // ignore: close_sinks
+    BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
+    return ItineraryEditRoute(
+        booking: state.booking,
+        data: data,
+        onResult: (res) {
+          if (res) {
+            bloc.add(RefreshItineraryEvent());
+          }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookingCreateBloc, BookingCreateState>(
         builder: (_, state) {
       return ListView(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.only(
+            left: 15, right: 15, top: 15, bottom: kToolbarHeight + 10),
         children: [
           ListBody(
               children: state.itineraries.map((f) {
-            return ItineraryItem(
-              data: f,
-            );
+            return GestureDetector(
+                onTap: () {
+                  context.router
+                      .push(itineraryRouteInfo(context, state, data: f));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: ItineraryItem(
+                    data: f,
+                  ),
+                ));
           }).toList()),
         ],
       );
@@ -297,7 +320,8 @@ class AddBtaPage extends StatelessWidget {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return ListView(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.only(
+            left: 15, right: 15, top: 15, bottom: kToolbarHeight + 10),
         children: [],
       );
     });

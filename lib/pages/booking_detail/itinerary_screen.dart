@@ -78,7 +78,9 @@ class ItineraryItem extends StatelessWidget {
                     children: [
                       Expanded(
                           child: AutoSizeText(
-                        data.serial_no ?? '',
+                        data.serial_no == 'unknow'
+                            ? 'under reviewing'
+                            : data.serial_no ?? '',
                         maxLines: 1,
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),

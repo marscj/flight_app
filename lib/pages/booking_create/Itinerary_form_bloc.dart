@@ -86,7 +86,7 @@ class ItineraryFormBloc extends FormBloc<String, String> {
       }).whenComplete(() {});
     } else {
       RestClient().updateItinerary(data.id, {
-        'serial_no': '',
+        'serial_no': 'unknow',
         'email': emial.value,
         'name': name.value,
         'passport_no': passport_no.value,
