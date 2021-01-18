@@ -108,7 +108,11 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
           onPressed: () {
             bloc.add(StepContinueEvent());
           }),
-      IconButton(icon: Icon(Icons.done_all), onPressed: () {})
+      IconButton(
+          icon: Icon(Icons.done_all),
+          onPressed: () {
+            context.router.replace(BookingDetailRoute(id: state.booking.id));
+          })
     ];
   }
 
@@ -352,20 +356,26 @@ class AddBtaPage extends StatelessWidget {
       },
       child: BlocBuilder<BookingCreateBloc, BookingCreateState>(
           builder: (_, state) {
-        return ListView(
+        return ListView.separated(
           padding: const EdgeInsets.only(
               left: 15, right: 15, top: 15, bottom: kToolbarHeight + 10),
-          children: state.uploads.map((f) {
+          itemCount: state?.uploads?.length ?? 0,
+          separatorBuilder: (BuildContext context, int index) {
+            return Divider();
+          },
+          itemBuilder: (context, index) {
             return ListTile(
-              title: Text(f?.name ?? ''),
-              subtitle: Text(f?.date ?? ''),
+              title: Text(state?.uploads[index]?.name ?? ''),
+              subtitle: Text(state?.uploads[index]?.date ?? ''),
               onTap: () {
                 Scaffold.of(context).showSnackBar(
                   SnackBar(
                     content: Text('loading file...'),
                   ),
                 );
-                DefaultCacheManager().getSingleFile(f?.url).then((file) {
+                DefaultCacheManager()
+                    .getSingleFile(state?.uploads[index]?.url)
+                    .then((file) {
                   if (file != null) {
                     OpenFile.open(file.path);
                   }
@@ -378,7 +388,7 @@ class AddBtaPage extends StatelessWidget {
                 });
               },
             );
-          }).toList(),
+          },
         );
       }),
     );
