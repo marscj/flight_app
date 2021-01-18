@@ -249,7 +249,7 @@ class AddBookingScreen extends StatelessWidget {
 
           return BlocListener<BookingCreateBloc, BookingCreateState>(
               listener: (context, state) {
-                if (state.action == 'booking_create') {
+                if (state.action == 'booking_submit') {
                   formBloc.submit();
                 }
               },

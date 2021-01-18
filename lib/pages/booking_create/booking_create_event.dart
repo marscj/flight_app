@@ -48,7 +48,7 @@ class SubmitBookingEvent extends BookingCreateEvent {
   @override
   Stream<BookingCreateState> applyAsync(
       {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
-    yield currentState.copyWith(action: 'booking_create');
+    yield currentState.copyWith(action: 'booking_submit');
   }
 }
 
