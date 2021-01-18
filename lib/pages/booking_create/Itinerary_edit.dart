@@ -19,10 +19,10 @@ class ItineraryEditPage extends StatefulWidget {
   ItineraryEditPage({Key key, this.data, this.onResult}) : super(key: key);
 
   @override
-  _ItineraryCreatePageState createState() => _ItineraryCreatePageState();
+  _ItineraryEditPageState createState() => _ItineraryEditPageState();
 }
 
-class _ItineraryCreatePageState extends State<ItineraryEditPage> {
+class _ItineraryEditPageState extends State<ItineraryEditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
