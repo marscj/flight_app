@@ -221,8 +221,11 @@ class AddBookingScreen extends StatelessWidget {
 class AddItineraryListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookingCreateBloc, BookingCreateState>(
-        builder: (context, state) {
+    return BlocListener<BookingCreateBloc, BookingCreateState>(listener:
+        (context, state) {
+      if (state.action == 'booking_create') {}
+    }, child:
+        BlocBuilder<BookingCreateBloc, BookingCreateState>(builder: (_, state) {
       return ListView(
         padding: const EdgeInsets.all(15),
         children: [
@@ -246,7 +249,7 @@ class AddItineraryListPage extends StatelessWidget {
           )
         ],
       );
-    });
+    }));
   }
 }
 
