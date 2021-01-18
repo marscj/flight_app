@@ -22,6 +22,7 @@ class _PassportPageState extends State<PassportPage> {
             title: Text('Passprot'),
           ),
           body: SingleChildScrollView(
+            padding: const EdgeInsets.all(15),
             child: Column(
               children: [
                 ListTile(

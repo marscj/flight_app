@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/app/index.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 class ProfilePage extends StatefulWidget {
   static const String routeName = 'profile';
@@ -59,7 +61,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 50,
                 ),
                 ElevatedButton(
-                    child: Text('Change Password'), onPressed: () {}),
+                    child: Text('Change Password'),
+                    onPressed: () {
+                      context.router.push(ChangePasswordRoute());
+                    }),
               ],
             ),
           ),
