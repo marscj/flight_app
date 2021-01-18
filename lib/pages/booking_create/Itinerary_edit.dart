@@ -15,7 +15,10 @@ class ItineraryEditPage extends StatefulWidget {
 
   final Itinerary data;
 
-  ItineraryEditPage({Key key, this.booking, this.data}) : super(key: key);
+  final Function(bool b) onResult;
+
+  ItineraryEditPage({Key key, this.booking, this.data, this.onResult})
+      : super(key: key);
 
   @override
   _ItineraryEditPageState createState() => _ItineraryEditPageState();
@@ -46,6 +49,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                     onSuccess: (context, state) {
                       EasyLoading.showSuccess('Success!');
                       Navigator.of(context).pop(true);
+                      widget.onResult(true);
                     },
                     onSubmitting: (context, state) {
                       EasyLoading.show();

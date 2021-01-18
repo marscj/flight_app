@@ -47,7 +47,11 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
       ),
       FloatingActionButton(
         onPressed: () {
-          context.router.push(itineraryRouteInfo(state)).then((val) {
+          context.router
+              .push(itineraryRouteInfo(
+            state,
+          ))
+              .then((val) {
             bloc.add(RefreshItineraryEvent());
           });
         },
