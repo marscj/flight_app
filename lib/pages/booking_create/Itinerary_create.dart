@@ -38,6 +38,7 @@ class _ItineraryCreatePageState extends State<ItineraryCreatePage> {
                   },
                   child: Builder(
                     builder: (context) {
+                      // ignore: close_sinks
                       final formBloc =
                           BlocProvider.of<ItineraryFormBloc>(context);
 

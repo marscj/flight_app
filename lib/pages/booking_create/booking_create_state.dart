@@ -7,6 +7,8 @@ class BookingCreateState extends Equatable {
 
   final int step;
 
+  final String action;
+
   final Booking booking;
 
   final List<Itinerary> itineraries;
@@ -14,20 +16,32 @@ class BookingCreateState extends Equatable {
   final List<Upload> uploads;
 
   BookingCreateState(
-      {this.version, this.step, this.booking, this.itineraries, this.uploads});
+      {this.version,
+      this.step,
+      this.action,
+      this.booking,
+      this.itineraries,
+      this.uploads});
 
   factory BookingCreateState.initial() => BookingCreateState(
-      version: 0, step: 0, booking: null, itineraries: [], uploads: []);
+      version: 0,
+      step: 0,
+      action: null,
+      booking: null,
+      itineraries: [],
+      uploads: []);
 
   BookingCreateState copyWith(
           {int version,
           int step,
+          String action,
           Booking booking,
           List<Itinerary> itineraries,
           List<Upload> uploads}) =>
       BookingCreateState(
           version: this.version + 1,
           step: step ?? this.step,
+          action: action ?? this.action,
           booking: booking ?? this.booking,
           itineraries: itineraries ?? this.itineraries,
           uploads: uploads ?? this.uploads);

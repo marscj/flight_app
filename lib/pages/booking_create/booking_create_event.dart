@@ -42,14 +42,16 @@ class StepTappedEvent extends BookingCreateEvent {
 }
 
 class UpdateBookingEvent extends BookingCreateEvent {
+  final String action;
   final Booking booking;
 
-  UpdateBookingEvent(this.booking);
+  UpdateBookingEvent({this.action, this.booking});
 
   @override
   Stream<BookingCreateState> applyAsync(
       {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
     // TODO: implement applyAsync
-    yield currentState.copyWith(booking: booking, step: currentState.step + 1);
+    yield currentState.copyWith(
+        action: action, booking: booking, step: currentState.step + 1);
   }
 }

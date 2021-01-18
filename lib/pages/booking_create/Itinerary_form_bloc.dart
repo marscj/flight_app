@@ -57,7 +57,6 @@ class ItineraryFormBloc extends FormBloc<String, String> {
     if (bloc.state.booking == null) {
       RestClient().createBooking(
           {'title': title.value, 'remark': remark.value}).then((res) {
-        bloc.add(UpdateBookingEvent(res.data));
         emitSuccess(canSubmitAgain: true);
       }).catchError((error) {
         emitFailure();
@@ -66,7 +65,6 @@ class ItineraryFormBloc extends FormBloc<String, String> {
     } else {
       RestClient().updateBooking(bloc.state.booking.id,
           {'title': title.value, 'remark': remark.value}).then((res) {
-        bloc.add(UpdateBookingEvent(res.data));
         emitSuccess(canSubmitAgain: true);
       }).catchError((error) {
         emitFailure();
