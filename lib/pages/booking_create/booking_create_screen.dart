@@ -140,6 +140,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                             ]));
               },
               child: Scaffold(
+                resizeToAvoidBottomPadding: false,
                 appBar: AppBar(
                   leading: currentState.step == 0 ? BackButton() : Container(),
                   title: buildTitle[currentState.step],
@@ -169,25 +170,22 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                 body: SafeArea(
                   child: Stack(
                     children: <Widget>[
-                      Expanded(
-                        child: PageTransitionSwitcher(
-                          duration: const Duration(milliseconds: 300),
-                          reverse: currentState.step == 0,
-                          transitionBuilder: (
-                            Widget child,
-                            Animation<double> animation,
-                            Animation<double> secondaryAnimation,
-                          ) {
-                            return SharedAxisTransition(
-                              child: child,
-                              animation: animation,
-                              secondaryAnimation: secondaryAnimation,
-                              transitionType:
-                                  SharedAxisTransitionType.horizontal,
-                            );
-                          },
-                          child: pages[currentState.step],
-                        ),
+                      PageTransitionSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        reverse: currentState.step == 0,
+                        transitionBuilder: (
+                          Widget child,
+                          Animation<double> animation,
+                          Animation<double> secondaryAnimation,
+                        ) {
+                          return SharedAxisTransition(
+                            child: child,
+                            animation: animation,
+                            secondaryAnimation: secondaryAnimation,
+                            transitionType: SharedAxisTransitionType.horizontal,
+                          );
+                        },
+                        child: pages[currentState.step],
                       ),
                       Positioned(
                         bottom: kToolbarHeight,
@@ -241,7 +239,7 @@ class AddBookingScreen extends StatelessWidget {
                 children: [
                   TextFieldBlocBuilder(
                       textFieldBloc: formBloc.title
-                        ..updateInitialValue(state?.booking?.title),
+                        ..updateInitialValue(state?.booking?.title ?? ''),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
@@ -251,7 +249,7 @@ class AddBookingScreen extends StatelessWidget {
                           border: OutlineInputBorder())),
                   TextFieldBlocBuilder(
                       textFieldBloc: formBloc.remark
-                        ..updateInitialValue(state?.booking?.remark),
+                        ..updateInitialValue(state?.booking?.remark ?? ''),
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.multiline,
                       maxLines: 10,

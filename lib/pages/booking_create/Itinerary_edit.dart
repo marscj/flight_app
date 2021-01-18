@@ -45,7 +45,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                     },
                     onSuccess: (context, state) {
                       EasyLoading.showSuccess('Success!');
-                      context.navigator.pop(true);
+                      Navigator.of(context).pop(true);
                     },
                     onSubmitting: (context, state) {
                       EasyLoading.show();
@@ -65,42 +65,52 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                               bottom: kToolbarHeight),
                           children: [
                             TextFieldBlocBuilder(
+                                readOnly: true,
                                 textFieldBloc: formBloc.emial
                                   ..updateInitialValue(widget?.data?.email ??
-                                      appState?.user?.email),
+                                      appState?.user?.email ??
+                                      ''),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
+                                    enabled: false,
                                     isDense: true,
                                     labelText: '* Email',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
+                                readOnly: true,
                                 textFieldBloc: formBloc.name
                                   ..updateInitialValue(widget?.data?.name ??
-                                      appState?.user?.name),
+                                      appState?.user?.name ??
+                                      ''),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
+                                    enabled: false,
                                     isDense: true,
                                     labelText: 'Name',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
+                                readOnly: true,
                                 textFieldBloc: formBloc.passport_no
                                   ..updateInitialValue(
                                       widget?.data?.passport_no ??
-                                          appState?.user?.passport_no),
+                                          appState?.user?.passport_no ??
+                                          ''),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
+                                    enabled: false,
                                     isDense: true,
                                     labelText: 'Passport No.',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.exit
-                                  ..updateInitialValue(widget?.data?.exit),
+                                  ..updateInitialValue(
+                                      widget?.data?.exit ?? ''),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
@@ -110,7 +120,8 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.entry
-                                  ..updateInitialValue(widget?.data?.entry),
+                                  ..updateInitialValue(
+                                      widget?.data?.entry ?? ''),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
@@ -120,7 +131,8 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.ticket1
-                                  ..updateInitialValue(widget?.data?.ticket1),
+                                  ..updateInitialValue(
+                                      widget?.data?.ticket1 ?? ''),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
@@ -130,7 +142,8 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.ticket2
-                                  ..updateInitialValue(widget?.data?.ticket2),
+                                  ..updateInitialValue(
+                                      widget?.data?.ticket2 ?? ''),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
@@ -140,14 +153,15 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.remark
-                                  ..updateInitialValue(widget?.data?.remark),
+                                  ..updateInitialValue(
+                                      widget?.data?.remark ?? ''),
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 10,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     labelText: 'Remark',
-                                    errorMaxLines: 6,
+                                    errorMaxLines: 3,
                                     border: OutlineInputBorder())),
                             SizedBox(height: 24),
                             ElevatedButton.icon(
