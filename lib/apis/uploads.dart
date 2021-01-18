@@ -35,6 +35,19 @@ class Upload extends Equatable {
 }
 
 @JsonSerializable()
+class UploadExtra extends Equatable {
+  Upload data;
+  Map<String, dynamic> extra;
+
+  static UploadExtra fromJson(Map<String, dynamic> json) =>
+      _$UploadExtraFromJson(json);
+  Map<String, dynamic> toJson() => _$UploadExtraToJson(this);
+
+  @override
+  List<Object> get props => [data, extra];
+}
+
+@JsonSerializable()
 class UploadList extends Equatable {
   List<Upload> data;
 

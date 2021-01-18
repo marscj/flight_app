@@ -179,6 +179,20 @@ Map<String, dynamic> _$UploadToJson(Upload instance) => <String, dynamic>{
       'object_id': instance.object_id,
     };
 
+UploadExtra _$UploadExtraFromJson(Map<String, dynamic> json) {
+  return UploadExtra()
+    ..data = json['data'] == null
+        ? null
+        : Upload.fromJson(json['data'] as Map<String, dynamic>)
+    ..extra = json['extra'] as Map<String, dynamic>;
+}
+
+Map<String, dynamic> _$UploadExtraToJson(UploadExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
+      'extra': instance.extra,
+    };
+
 UploadList _$UploadListFromJson(Map<String, dynamic> json) {
   return UploadList()
     ..data = (json['data'] as List)
@@ -626,15 +640,23 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<Upload> upload(photo) async {
-    ArgumentError.checkNotNull(photo, 'photo');
+  Future<UploadExtra> upload(file, object_id, content_type) async {
+    ArgumentError.checkNotNull(file, 'file');
+    ArgumentError.checkNotNull(object_id, 'object_id');
+    ArgumentError.checkNotNull(content_type, 'content_type');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = FormData();
     _data.files.add(MapEntry(
-        'photo',
-        MultipartFile.fromFileSync(photo.path,
-            filename: photo.path.split(Platform.pathSeparator).last)));
+        'file',
+        MultipartFile.fromFileSync(file.path,
+            filename: file.path.split(Platform.pathSeparator).last)));
+    if (object_id != null) {
+      _data.fields.add(MapEntry('object_id', object_id.toString()));
+    }
+    if (content_type != null) {
+      _data.fields.add(MapEntry('content_type', content_type));
+    }
     final _result = await _dio.request<Map<String, dynamic>>('/uploads/',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -643,7 +665,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = Upload.fromJson(_result.data);
+    final value = UploadExtra.fromJson(_result.data);
     return value;
   }
 

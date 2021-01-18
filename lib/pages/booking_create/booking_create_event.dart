@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking_create/index.dart';
@@ -77,5 +78,18 @@ class RefreshItineraryEvent extends BookingCreateEvent {
     }).catchError((error) {
       return currentState.copyWith(action: 'refreshed_itinerary');
     });
+  }
+}
+
+class UploadEvent extends BookingCreateEvent {
+  final File file;
+  final Booking booking;
+
+  UploadEvent(this.file, this.booking);
+
+  @override
+  Stream<BookingCreateState> applyAsync(
+      {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
+    // yield await RestClient().upload()
   }
 }

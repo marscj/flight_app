@@ -89,7 +89,8 @@ abstract class RestClient {
   Future<UploadList> getUploads({@Queries() Map<String, dynamic> query});
 
   @POST('/uploads/')
-  Future<Upload> upload(@Part() File photo);
+  Future<UploadExtra> upload(
+      @Part() File file, @Part() int object_id, @Part() String content_type);
 
   @GET('/tickets/')
   Future<TicketListExtra> getTickets({@Queries() Map<String, dynamic> query});
