@@ -68,7 +68,7 @@ class ItineraryFormBloc extends FormBloc<String, String> {
 
     if (data == null) {
       RestClient().createItinerry({
-        'serial_no': '',
+        'serial_no': 'unknow',
         'email': emial.value,
         'name': name.value,
         'passport_no': passport_no.value,

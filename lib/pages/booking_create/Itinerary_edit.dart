@@ -14,7 +14,7 @@ class ItineraryEditPage extends StatefulWidget {
 
   final Itinerary data;
 
-  final void Function(Itinerary data) onResult;
+  final void Function() onResult;
 
   ItineraryEditPage({Key key, this.booking, this.data, this.onResult})
       : super(key: key);
@@ -48,7 +48,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                     },
                     onSuccess: (context, state) {
                       EasyLoading.showSuccess('Success!');
-                      widget.onResult(null);
+                      widget.onResult();
                     },
                     onSubmitting: (context, state) {
                       EasyLoading.show();
@@ -70,7 +70,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     isDense: true,
-                                    hintText: '* Email',
+                                    labelText: '* Email',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
@@ -80,7 +80,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     isDense: true,
-                                    hintText: 'Name',
+                                    labelText: 'Name',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
@@ -91,7 +91,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     isDense: true,
-                                    hintText: 'Passport No.',
+                                    labelText: 'Passport No.',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
@@ -101,7 +101,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     isDense: true,
-                                    hintText: '* Exit',
+                                    labelText: '* Exit',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
@@ -111,7 +111,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     isDense: true,
-                                    hintText: '* Entry',
+                                    labelText: '* Entry',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
@@ -121,7 +121,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     isDense: true,
-                                    hintText: 'Ticket 1',
+                                    labelText: 'Ticket 1',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
@@ -131,18 +131,18 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     isDense: true,
-                                    hintText: 'Ticket 2',
+                                    labelText: 'Ticket 2',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.remark
-                                  ..updateInitialValue(widget?.booking?.remark),
+                                  ..updateInitialValue(widget?.data?.remark),
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 10,
                                 decoration: InputDecoration(
                                     isDense: true,
-                                    hintText: 'Remark',
+                                    labelText: 'Remark',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
                             SizedBox(height: 24),

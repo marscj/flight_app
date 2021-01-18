@@ -65,3 +65,17 @@ class UpdateBookingEvent extends BookingCreateEvent {
         action: action, booking: booking, step: currentState.step + 1);
   }
 }
+
+class RefreshItineraryEvent extends BookingCreateEvent {
+  @override
+  Stream<BookingCreateState> applyAsync(
+      {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
+    yield await RestClient().getItinerarys(
+        query: {'booking_id': currentState.booking.id}).then((res) {
+      return currentState.copyWith(
+          itineraries: res.data, action: 'refreshed_itinerary');
+    }).catchError((error) {
+      return currentState.copyWith(action: 'refreshed_itinerary');
+    });
+  }
+}
