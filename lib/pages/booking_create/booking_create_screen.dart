@@ -31,26 +31,8 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
     AddBtaPage()
   ];
 
-  PageRouteInfo addItineraryRouteInfo(BookingCreateState state) {
-    // ignore: close_sinks
-    BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
-
-    return ItineraryEditRoute(
-        booking: state.booking,
-        onResult: () {
-          bloc.add(RefreshItineraryEvent());
-        });
-  }
-
-  PageRouteInfo editItineraryRouteInfo(BookingCreateState state, Itinerary data) {
-    // ignore: close_sinks
-    BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
-    return ItineraryEditRoute(
-        booking: state.booking,
-        data: data,
-        onResult: () {
-          bloc.add(RefreshItineraryEvent());
-        });
+  PageRouteInfo itineraryRouteInfo(BookingCreateState state, {Itinerary data}) {
+    return ItineraryEditRoute(booking: state.booking, data: data);
   }
 
   List<Widget> floatingActionButton(BookingCreateState state) {
@@ -65,7 +47,9 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
       ),
       FloatingActionButton(
         onPressed: () {
-          context.router.push(addItineraryRouteInfo(state));
+          context.router.push(itineraryRouteInfo(state)).then((val) {
+            bloc.add(RefreshItineraryEvent());
+          });
         },
         child: Icon(Icons.add),
       ),
@@ -120,7 +104,10 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
     return BlocListener<BookingCreateBloc, BookingCreateState>(
       listener: (context, state) {
         if (state.action == 'booking_created') {
-          context.router.push(addItineraryRouteInfo(state));
+          context.router.push(itineraryRouteInfo(state)).then((val) {
+            BlocProvider.of<BookingCreateBloc>(context)
+                .add(RefreshItineraryEvent());
+          });
         }
       },
       child: BlocBuilder<BookingCreateBloc, BookingCreateState>(

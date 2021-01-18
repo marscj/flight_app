@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
+import 'package:auto_route/auto_route.dart';
 
 import 'Itinerary_form_bloc.dart';
 
@@ -14,10 +15,7 @@ class ItineraryEditPage extends StatefulWidget {
 
   final Itinerary data;
 
-  final void Function() onResult;
-
-  ItineraryEditPage({Key key, this.booking, this.data, this.onResult})
-      : super(key: key);
+  ItineraryEditPage({Key key, this.booking, this.data}) : super(key: key);
 
   @override
   _ItineraryEditPageState createState() => _ItineraryEditPageState();
@@ -48,7 +46,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                     },
                     onSuccess: (context, state) {
                       EasyLoading.showSuccess('Success!');
-                      widget.onResult();
+                      context.navigator.pop(true);
                     },
                     onSubmitting: (context, state) {
                       EasyLoading.show();
@@ -61,7 +59,11 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
 
                         return Form(
                             child: ListView(
-                          padding: const EdgeInsets.all(15),
+                          padding: const EdgeInsets.only(
+                              left: 15,
+                              right: 15,
+                              top: 15,
+                              bottom: kToolbarHeight),
                           children: [
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.emial
