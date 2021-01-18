@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:animations/animations.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -7,7 +10,6 @@ import 'package:open_file/open_file.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
 import 'package:saadiyat/router/router.gr.dart';
-import 'package:saadiyat/widgets/list_item.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/booking_create/index.dart';
@@ -65,7 +67,13 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
         child: Icon(Icons.add),
       ),
       FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          FilePicker.platform.pickFiles().then((result) {
+            if (result != null)
+              bloc.add(
+                  UploadEvent(File(result.files.single.path), state.booking));
+          });
+        },
         child: Icon(Icons.file_upload),
       ),
     ];
@@ -319,36 +327,60 @@ class AddItineraryListPage extends StatelessWidget {
 class AddBtaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookingCreateBloc, BookingCreateState>(
-        builder: (_, state) {
-      return ListView(
-        padding: const EdgeInsets.only(
-            left: 15, right: 15, top: 15, bottom: kToolbarHeight + 10),
-        children: state.uploads.map((f) {
-          return ListTile(
-            title: Text(f?.name ?? ''),
-            subtitle: Text(f?.date ?? ''),
-            onTap: () {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('loading file...'),
-                ),
-              );
-              DefaultCacheManager().getSingleFile(f?.url).then((file) {
-                if (file != null) {
-                  OpenFile.open(file.path);
-                }
-              }).catchError((error) {
+    return BlocListener<BookingCreateBloc, BookingCreateState>(
+      listener: (_, state) {
+        // ignore: close_sinks
+        BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
+        if (state.action == 'upload_start') {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('uploading file...'),
+          ));
+          bloc.add(RefreshBtaEvent(state.booking));
+        }
+
+        if (state.action == 'upload_finish') {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('upload complete'),
+          ));
+        }
+
+        if (state.action == 'upload_failed') {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('upload failed'),
+          ));
+        }
+      },
+      child: BlocBuilder<BookingCreateBloc, BookingCreateState>(
+          builder: (_, state) {
+        return ListView(
+          padding: const EdgeInsets.only(
+              left: 15, right: 15, top: 15, bottom: kToolbarHeight + 10),
+          children: state.uploads.map((f) {
+            return ListTile(
+              title: Text(f?.name ?? ''),
+              subtitle: Text(f?.date ?? ''),
+              onTap: () {
                 Scaffold.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('download failed!'),
+                    content: Text('loading file...'),
                   ),
                 );
-              });
-            },
-          );
-        }).toList(),
-      );
-    });
+                DefaultCacheManager().getSingleFile(f?.url).then((file) {
+                  if (file != null) {
+                    OpenFile.open(file.path);
+                  }
+                }).catchError((error) {
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('download failed!'),
+                    ),
+                  );
+                });
+              },
+            );
+          }).toList(),
+        );
+      }),
+    );
   }
 }

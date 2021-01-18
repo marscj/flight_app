@@ -90,6 +90,27 @@ class UploadEvent extends BookingCreateEvent {
   @override
   Stream<BookingCreateState> applyAsync(
       {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
-    // yield await RestClient().upload()
+    yield currentState.copyWith(action: 'upload_start');
+
+    yield await RestClient().upload(file, booking.id, 'booking').then((res) {
+      return currentState.copyWith(action: 'upload_finish');
+    }).catchError((res) {
+      return currentState.copyWith(action: 'upload_failed');
+    });
+  }
+}
+
+class RefreshBtaEvent extends BookingCreateEvent {
+  final Booking booking;
+
+  RefreshBtaEvent(this.booking);
+
+  @override
+  Stream<BookingCreateState> applyAsync(
+      {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
+    yield await RestClient().getUploads(
+        query: {'object_id': booking.id, 'type': 'booking'}).then((res) {
+      return currentState.copyWith(action: 'refresh_bta', uploads: res.data);
+    });
   }
 }
