@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -23,6 +24,11 @@ class _ItineraryCreatePageState extends State<ItineraryCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          elevation: 0,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        ),
         body: SafeArea(
             child: BlocProvider<ItineraryFormBloc>(
                 create: (context) => ItineraryFormBloc(context),
@@ -46,11 +52,6 @@ class _ItineraryCreatePageState extends State<ItineraryCreatePage> {
                           child: ListView(
                         padding: const EdgeInsets.all(15),
                         children: [
-                          Container(
-                            child: BackButton(),
-                            alignment: Alignment.centerLeft,
-                            height: 60,
-                          ),
                           Text(
                             'Add Booking Informations',
                             style: Theme.of(context).textTheme.headline6,

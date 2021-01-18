@@ -54,7 +54,7 @@ class BookingFormBloc extends FormBloc<String, String> {
       RestClient().createBooking(
           {'title': title.value, 'remark': remark.value}).then((res) {
         bloc.add(
-            UpdateBookingEvent(action: 'booking_create', booking: res.data));
+            UpdateBookingEvent(action: 'booking_created', booking: res.data));
         emitSuccess(canSubmitAgain: true);
       }).catchError((error) {
         emitFailure();
@@ -64,7 +64,7 @@ class BookingFormBloc extends FormBloc<String, String> {
       RestClient().updateBooking(bloc.state.booking.id,
           {'title': title.value, 'remark': remark.value}).then((res) {
         bloc.add(
-            UpdateBookingEvent(action: 'booking_update', booking: res.data));
+            UpdateBookingEvent(action: 'booking_updated', booking: res.data));
         emitSuccess(canSubmitAgain: true);
       }).catchError((error) {
         emitFailure();

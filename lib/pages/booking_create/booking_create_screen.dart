@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -29,120 +30,149 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
     AddBtaPage()
   ];
 
+  VoidCallback nextButtonCall(BookingCreateState state) {
+    // ignore: close_sinks
+    BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
+    switch (state.step) {
+      case 0:
+        if (state.booking != null) {
+          return () {
+            bloc.add(StepContinueEvent());
+          };
+        }
+        return null;
+      case 1:
+        if (state.itineraries.length > 0) {
+          return () {
+            bloc.add(StepContinueEvent());
+          };
+        }
+        return null;
+      case 2:
+        return null;
+    }
+    return null;
+  }
+
+  List<Widget> floatingActionButton(BookingCreateState state) {
+    BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
+    return [
+      FloatingActionButton(
+        onPressed: () {
+          bloc.add(SubmitBookingEvent());
+        },
+        child: state.booking == null ? Icon(Icons.add) : Icon(Icons.update),
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    VoidCallback nextButtonCall(BookingCreateState state) {
-      // ignore: close_sinks
-      BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
-      switch (state.step) {
-        case 0:
-          if (state.booking != null) {
-            return () {
-              bloc.add(StepContinueEvent());
-            };
-          }
-          return null;
-        case 1:
-          if (state.itineraries.length > 0) {
-            return () {
-              bloc.add(StepContinueEvent());
-            };
-          }
-          return null;
-        case 2:
-          return null;
-      }
-      return null;
-    }
-
-    return BlocBuilder<BookingCreateBloc, BookingCreateState>(
-      builder: (context, currentState) {
-        return WillPopScope(
-            onWillPop: () async {
-              if (EasyLoading.isShow) {
-                EasyLoading.dismiss();
-                return false;
-              } else {
-                if (currentState.step > 0) {
-                  context.bloc<BookingCreateBloc>().add(StepCancelEvent());
-                  return false;
-                }
-              }
-
-              return showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                          title: Text('Are you sure you want to quit?'),
-                          actions: <Widget>[
-                            RaisedButton(
-                                child: Text('Cancel'),
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false)),
-                            RaisedButton(
-                                child: Text('Quit'),
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true)),
-                          ]));
-            },
-            child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: SafeArea(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: BackButton(),
-                      alignment: Alignment.centerLeft,
-                      height: 60,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, top: 0, bottom: 10),
-                      alignment: Alignment.center,
-                      child: StepProgressIndicator(
-                        totalSteps: 3,
-                        currentStep: currentState.step + 1,
-                        customColor: (index) => index == currentState.step
-                            ? Colors.indigo
-                            : Colors.grey,
-                        size: 2,
-                      ),
-                    ),
-                    Expanded(
-                      child: PageTransitionSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        reverse: currentState.step == 0,
-                        transitionBuilder: (
-                          Widget child,
-                          Animation<double> animation,
-                          Animation<double> secondaryAnimation,
-                        ) {
-                          return SharedAxisTransition(
-                            child: child,
-                            animation: animation,
-                            secondaryAnimation: secondaryAnimation,
-                            transitionType: SharedAxisTransitionType.horizontal,
-                          );
-                        },
-                        child: pages[currentState.step],
-                      ),
-                    ),
-                    currentState.step < 2
-                        ? Container(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: nextButtonCall(currentState),
-                              child: const Text('NEXT'),
-                            ),
-                          )
-                        : Container(),
-                  ],
-                ),
-              ),
-            ));
+    return BlocListener<BookingCreateBloc, BookingCreateState>(
+      listener: (context, state) {
+        if (state.action == 'booking_created') {
+          context.router.push(ItineraryCreateRoute(state: state));
+        }
       },
+      child: BlocBuilder<BookingCreateBloc, BookingCreateState>(
+        builder: (context, currentState) {
+          return WillPopScope(
+              onWillPop: () async {
+                if (EasyLoading.isShow) {
+                  EasyLoading.dismiss();
+                  return false;
+                } else {
+                  if (currentState.step > 0) {
+                    context.bloc<BookingCreateBloc>().add(StepCancelEvent());
+                    return false;
+                  }
+                }
+
+                return showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                            title: Text('Are you sure you want to quit?'),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                  child: Text('Cancel'),
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false)),
+                              ElevatedButton(
+                                  child: Text('Quit'),
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true)),
+                            ]));
+              },
+              child: Scaffold(
+                resizeToAvoidBottomInset: false,
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {},
+                  child: Icon(Icons.update),
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                bottomNavigationBar: BottomAppBar(
+                  color: Theme.of(context).primaryColor,
+                  shape: CircularNotchedRectangle(),
+                  child: IconTheme(
+                    data: IconThemeData(
+                        color: Theme.of(context).colorScheme.onPrimary),
+                    child: Row(
+                      children: [
+                        BackButton(),
+                        Spacer(),
+                        currentState.step < 2
+                            ? IconButton(
+                                icon: Icon(Icons.arrow_forward),
+                                onPressed: nextButtonCall(currentState),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  ),
+                ),
+                body: SafeArea(
+                  child: Stack(
+                    children: <Widget>[
+                      Expanded(
+                        child: PageTransitionSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          reverse: currentState.step == 0,
+                          transitionBuilder: (
+                            Widget child,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation,
+                          ) {
+                            return SharedAxisTransition(
+                              child: child,
+                              animation: animation,
+                              secondaryAnimation: secondaryAnimation,
+                              transitionType:
+                                  SharedAxisTransitionType.horizontal,
+                            );
+                          },
+                          child: pages[currentState.step],
+                        ),
+                      ),
+                      Positioned(
+                        bottom: kToolbarHeight,
+                        left: MediaQuery.of(context).size.width / 4,
+                        right: MediaQuery.of(context).size.width / 4,
+                        child: StepProgressIndicator(
+                          totalSteps: 3,
+                          currentStep: currentState.step + 1,
+                          customColor: (index) => index == currentState.step
+                              ? Colors.indigo
+                              : Colors.grey,
+                          size: 2,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ));
+        },
+      ),
     );
   }
 }
@@ -153,22 +183,24 @@ class AddBookingScreen extends StatelessWidget {
     return BlocProvider<BookingFormBloc>(
         create: (context) => BookingFormBloc(context),
         child: FormBlocListener<BookingFormBloc, String, String>(
-          onFailure: (context, state) {
-            EasyLoading.showError('Failed!');
-          },
-          onSuccess: (context, state) {
-            EasyLoading.showSuccess('Success!');
-          },
-          onSubmitting: (context, state) {
-            EasyLoading.show();
-          },
-          child: BlocBuilder<BookingCreateBloc, BookingCreateState>(
-              builder: (context, state) {
-            // ignore: close_sinks
-            BookingFormBloc formBloc =
-                BlocProvider.of<BookingFormBloc>(context);
+            onFailure: (context, state) {
+          EasyLoading.showError('Failed!');
+        }, onSuccess: (context, state) {
+          EasyLoading.showSuccess('Success!');
+        }, onSubmitting: (context, state) {
+          EasyLoading.show();
+        }, child: BlocBuilder<BookingCreateBloc, BookingCreateState>(
+                builder: (context, state) {
+          // ignore: close_sinks
+          BookingFormBloc formBloc = BlocProvider.of<BookingFormBloc>(context);
 
-            return Form(
+          return BlocListener<BookingCreateBloc, BookingCreateState>(
+            listener: (context, state) {
+              if (state.action == 'booking_create') {
+                formBloc.submit();
+              }
+            },
+            child: Form(
                 child: ListView(
               padding: const EdgeInsets.all(15),
               children: [
@@ -202,35 +234,23 @@ class AddBookingScreen extends StatelessWidget {
                         errorMaxLines: 6,
                         border: OutlineInputBorder())),
                 SizedBox(height: 24),
-                ElevatedButton.icon(
-                  icon: state.booking == null
-                      ? Icon(Icons.add)
-                      : Icon(Icons.change_history),
-                  label: state.booking == null ? Text('ADD') : Text('SUBMIT'),
-                  onPressed: () {
-                    formBloc.submit();
-                  },
-                )
               ],
-            ));
-          }),
-        ));
+            )),
+          );
+        })));
   }
 }
 
 class AddItineraryListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BookingCreateBloc, BookingCreateState>(listener:
-        (context, state) {
-      if (state.action == 'booking_create') {}
-    }, child:
-        BlocBuilder<BookingCreateBloc, BookingCreateState>(builder: (_, state) {
+    return BlocBuilder<BookingCreateBloc, BookingCreateState>(
+        builder: (_, state) {
       return ListView(
         padding: const EdgeInsets.all(15),
         children: [
           Text(
-            'Add Itinerary Informations',
+            'Itinerary List',
             style: Theme.of(context).textTheme.headline6,
             textAlign: TextAlign.center,
           ),
@@ -249,7 +269,7 @@ class AddItineraryListPage extends StatelessWidget {
           )
         ],
       );
-    }));
+    });
   }
 }
 
