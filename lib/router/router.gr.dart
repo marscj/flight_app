@@ -14,7 +14,10 @@ import '../pages/booking_detail/index.dart' as _i7;
 import '../pages/ticket_detail/index.dart' as _i8;
 import '../pages/booking_create/booking_create_page.dart' as _i9;
 import '../pages/booking_create/Itinerary_edit.dart' as _i10;
-import '../apis/client.dart' as _i11;
+import '../pages/my/profile.dart' as _i11;
+import '../pages/my/passport.dart' as _i12;
+import '../pages/my/change_password.dart' as _i13;
+import '../apis/client.dart' as _i14;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter({@_i2.required this.authGuard}) : assert(authGuard != null);
@@ -60,6 +63,21 @@ class AppRouter extends _i1.RootStackRouter {
               data: route.data,
               onResult: route.onResult),
           fullscreenDialog: true);
+    },
+    ProfileRoute.name: (entry) {
+      var route = entry.routeData.as<ProfileRoute>();
+      return _i1.CupertinoPageX(
+          entry: entry, child: _i11.ProfilePage(key: route.key));
+    },
+    PassportRoute.name: (entry) {
+      var route = entry.routeData.as<PassportRoute>();
+      return _i1.CupertinoPageX(
+          entry: entry, child: _i12.PassportPage(key: route.key));
+    },
+    ChangePasswordRoute.name: (entry) {
+      var route = entry.routeData.as<ChangePasswordRoute>();
+      return _i1.CupertinoPageX(
+          entry: entry, child: _i13.ChangePasswordPage(key: route.key));
     }
   };
 
@@ -89,6 +107,18 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig<ItineraryEditRoute>(ItineraryEditRoute.name,
             path: '/itineraryEdit',
             routeBuilder: (match) => ItineraryEditRoute.fromMatch(match),
+            guards: [authGuard]),
+        _i1.RouteConfig<ProfileRoute>(ProfileRoute.name,
+            path: 'profile',
+            routeBuilder: (match) => ProfileRoute.fromMatch(match),
+            guards: [authGuard]),
+        _i1.RouteConfig<PassportRoute>(PassportRoute.name,
+            path: 'passport',
+            routeBuilder: (match) => PassportRoute.fromMatch(match),
+            guards: [authGuard]),
+        _i1.RouteConfig<ChangePasswordRoute>(ChangePasswordRoute.name,
+            path: 'change_password',
+            routeBuilder: (match) => ChangePasswordRoute.fromMatch(match),
             guards: [authGuard])
       ];
 }
@@ -167,11 +197,48 @@ class ItineraryEditRoute extends _i1.PageRouteInfo {
 
   final _i2.Key key;
 
-  final _i11.Booking booking;
+  final _i14.Booking booking;
 
-  final _i11.Itinerary data;
+  final _i14.Itinerary data;
 
   final dynamic Function(bool) onResult;
 
   static const String name = 'ItineraryEditRoute';
+}
+
+class ProfileRoute extends _i1.PageRouteInfo {
+  ProfileRoute({this.key}) : super(name, path: 'profile', argProps: [key]);
+
+  ProfileRoute.fromMatch(_i1.RouteMatch match)
+      : key = null,
+        super.fromMatch(match);
+
+  final _i2.Key key;
+
+  static const String name = 'ProfileRoute';
+}
+
+class PassportRoute extends _i1.PageRouteInfo {
+  PassportRoute({this.key}) : super(name, path: 'passport', argProps: [key]);
+
+  PassportRoute.fromMatch(_i1.RouteMatch match)
+      : key = null,
+        super.fromMatch(match);
+
+  final _i2.Key key;
+
+  static const String name = 'PassportRoute';
+}
+
+class ChangePasswordRoute extends _i1.PageRouteInfo {
+  ChangePasswordRoute({this.key})
+      : super(name, path: 'change_password', argProps: [key]);
+
+  ChangePasswordRoute.fromMatch(_i1.RouteMatch match)
+      : key = null,
+        super.fromMatch(match);
+
+  final _i2.Key key;
+
+  static const String name = 'ChangePasswordRoute';
 }

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
 import 'package:saadiyat/pages/app/app_event.dart';
@@ -122,140 +123,67 @@ class MyScreenState extends State<MyScreen> {
                         ),
                       ],
                     ),
-                    // 内容
-                    Container(
-                      width: double.infinity,
-                      color: Colors.white,
-                      padding: EdgeInsets.all(10.0),
-                      child: Card(
-                          elevation: 8,
-                          child: Container(
-                              padding: EdgeInsets.all(10.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: <Widget>[
-                                        ListItem(
-                                          title: 'Code',
-                                          titleColor: Colors.grey,
-                                          describe:
-                                              state?.user?.passport_code ??
-                                                  'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'Type',
-                                          titleColor: Colors.grey,
-                                          describe:
-                                              state?.user?.possport_type ??
-                                                  'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'First Name',
-                                          titleColor: Colors.grey,
-                                          describe: state?.user?.first_name ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'Nationality',
-                                          titleColor: Colors.grey,
-                                          describe: state?.user
-                                                  ?.passport_nationality ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'Date of birth',
-                                          titleColor: Colors.grey,
-                                          describe: state
-                                                  ?.user?.passport_date_birth ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'Date of issue',
-                                          titleColor: Colors.grey,
-                                          describe: state
-                                                  ?.user?.passport_date_issue ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: <Widget>[
-                                        ListItem(
-                                          title: 'No.',
-                                          titleColor: Colors.grey,
-                                          describe: state?.user?.passport_no ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'Issuing authority',
-                                          titleColor: Colors.grey,
-                                          describe: state?.user
-                                                  ?.passport_issuing_authority ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'Last Name',
-                                          titleColor: Colors.grey,
-                                          describe: state?.user?.last_name ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'Sex',
-                                          titleColor: Colors.grey,
-                                          describe: state?.user?.passport_sex ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'Place of birth',
-                                          titleColor: Colors.grey,
-                                          describe: state?.user
-                                                  ?.passport_place_birth ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        ),
-                                        ListItem(
-                                          title: 'Date of expiry',
-                                          titleColor: Colors.grey,
-                                          describe: state?.user
-                                                  ?.passport_date_expiry ??
-                                              'unknown',
-                                          describeColor: Colors.indigoAccent,
-                                          onPressed: () {},
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ))),
-                    ),
+                    GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                            width: double.infinity,
+                            color: Colors.white,
+                            padding: EdgeInsets.all(10.0),
+                            child: Card(
+                                elevation: 8,
+                                color: Colors.indigo,
+                                child: Container(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                              child: Column(children: <Widget>[
+                                            ListItem(
+                                                icon: Icon(Icons.account_box,
+                                                    color: Colors.white),
+                                                title: 'Account',
+                                                titleColor: Colors.white,
+                                                rightWidget: Icon(
+                                                    Icons.navigate_next,
+                                                    color: Colors.white))
+                                          ]))
+                                        ]))))),
+                    GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                            width: double.infinity,
+                            color: Colors.white,
+                            padding: EdgeInsets.all(10.0),
+                            child: Card(
+                                elevation: 8,
+                                color: Colors.indigo,
+                                child: Container(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                              child: Column(children: <Widget>[
+                                            ListItem(
+                                                icon: Icon(
+                                                  FontAwesomeIcons.passport,
+                                                  color: Colors.white,
+                                                ),
+                                                title: 'Passport',
+                                                titleColor: Colors.white,
+                                                rightWidget: Icon(
+                                                  Icons.navigate_next,
+                                                  color: Colors.white,
+                                                ))
+                                          ]))
+                                        ]))))),
+
                     Container(
                       padding: EdgeInsets.all(10.0),
-                      height: 80,
+                      height: 60,
                       child: ElevatedButton.icon(
                         icon: Icon(Icons.logout),
                         label: Text('Sign Out'),

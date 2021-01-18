@@ -5,6 +5,9 @@ import 'package:saadiyat/pages/booking_create/booking_create_page.dart';
 import 'package:saadiyat/pages/booking_detail/index.dart';
 import 'package:saadiyat/pages/bookings/index.dart';
 import 'package:saadiyat/pages/login/login_page.dart';
+import 'package:saadiyat/pages/my/change_password.dart';
+import 'package:saadiyat/pages/my/passport.dart';
+import 'package:saadiyat/pages/my/profile.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 import 'package:saadiyat/pages/tickets/tickets_page.dart';
 import 'package:saadiyat/pages/welcome/welcome_page.dart';
@@ -37,6 +40,21 @@ import 'guard.dart';
       path: ItineraryEditPage.routeName,
       page: ItineraryEditPage,
       fullscreenDialog: true,
+      guards: [AuthGuard],
+    ),
+    AutoRoute(
+      path: ProfilePage.routeName,
+      page: ProfilePage,
+      guards: [AuthGuard],
+    ),
+    AutoRoute(
+      path: PassportPage.routeName,
+      page: PassportPage,
+      guards: [AuthGuard],
+    ),
+    AutoRoute(
+      path: ChangePasswordPage.routeName,
+      page: ChangePasswordPage,
       guards: [AuthGuard],
     ),
   ],
