@@ -15,10 +15,10 @@ class ItineraryFormBloc extends FormBloc<String, String> {
   final TextFieldBloc ticket2 = TextFieldBloc();
   final TextFieldBloc remark = TextFieldBloc();
 
-  final BuildContext context;
+  final Booking booking;
   final Itinerary data;
 
-  ItineraryFormBloc(this.context, this.data) {
+  ItineraryFormBloc(this.booking, this.data) {
     addFieldBlocs(fieldBlocs: [
       emial,
       name,
@@ -66,9 +66,7 @@ class ItineraryFormBloc extends FormBloc<String, String> {
   void onSubmitting() async {
     // ignore_for_file: close_sinks
 
-    BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
-
-    if (bloc.state.booking == null) {
+    if (data == null) {
       RestClient().createItinerry({
         'serial_no': '',
         'email': emial.value,
@@ -79,7 +77,7 @@ class ItineraryFormBloc extends FormBloc<String, String> {
         'ticket1': ticket1.value,
         'ticket2': ticket2.value,
         'remark': remark.value,
-        'booking_id': bloc.state.booking.id
+        'booking_id': booking.id
       }).then((res) {
         emitSuccess(canSubmitAgain: true);
       }).catchError((error) {
@@ -97,7 +95,7 @@ class ItineraryFormBloc extends FormBloc<String, String> {
         'ticket1': ticket1.value,
         'ticket2': ticket2.value,
         'remark': remark.value,
-        'booking_id': bloc.state.booking.id
+        'booking_id': booking.id
       }).then((res) {
         emitSuccess(canSubmitAgain: true);
       }).catchError((error) {
