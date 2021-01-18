@@ -14,7 +14,7 @@ import '../pages/booking_detail/index.dart' as _i7;
 import '../pages/ticket_detail/index.dart' as _i8;
 import '../pages/booking_create/booking_create_page.dart' as _i9;
 import '../pages/booking_create/Itinerary_create.dart' as _i10;
-import '../pages/booking_create/index.dart' as _i11;
+import '../apis/client.dart' as _i11;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter({@_i2.required this.authGuard}) : assert(authGuard != null);
@@ -50,11 +50,12 @@ class AppRouter extends _i1.RootStackRouter {
     BookingCreateRoute.name: (entry) {
       return _i1.CupertinoPageX(entry: entry, child: _i9.BookingCreatePage());
     },
-    ItineraryCreateRoute.name: (entry) {
-      var route = entry.routeData.as<ItineraryCreateRoute>();
+    ItineraryEditRoute.name: (entry) {
+      var route = entry.routeData.as<ItineraryEditRoute>();
       return _i1.CupertinoPageX(
           entry: entry,
-          child: _i10.ItineraryCreatePage(key: route.key, state: route.state),
+          child: _i10.ItineraryEditPage(
+              key: route.key, data: route.data, onResult: route.onResult),
           fullscreenDialog: true);
     }
   };
@@ -82,9 +83,9 @@ class AppRouter extends _i1.RootStackRouter {
             path: '/bookingCreate',
             routeBuilder: (_) => const BookingCreateRoute(),
             guards: [authGuard]),
-        _i1.RouteConfig<ItineraryCreateRoute>(ItineraryCreateRoute.name,
-            path: '/itineraryCreate',
-            routeBuilder: (match) => ItineraryCreateRoute.fromMatch(match),
+        _i1.RouteConfig<ItineraryEditRoute>(ItineraryEditRoute.name,
+            path: '/itineraryEdit',
+            routeBuilder: (match) => ItineraryEditRoute.fromMatch(match),
             guards: [authGuard])
       ];
 }
@@ -149,18 +150,21 @@ class BookingCreateRoute extends _i1.PageRouteInfo {
   static const String name = 'BookingCreateRoute';
 }
 
-class ItineraryCreateRoute extends _i1.PageRouteInfo {
-  ItineraryCreateRoute({this.key, this.state})
-      : super(name, path: '/itineraryCreate', argProps: [key, state]);
+class ItineraryEditRoute extends _i1.PageRouteInfo {
+  ItineraryEditRoute({this.key, this.data, this.onResult})
+      : super(name, path: '/itineraryEdit', argProps: [key, data, onResult]);
 
-  ItineraryCreateRoute.fromMatch(_i1.RouteMatch match)
+  ItineraryEditRoute.fromMatch(_i1.RouteMatch match)
       : key = null,
-        state = null,
+        data = null,
+        onResult = null,
         super.fromMatch(match);
 
   final _i2.Key key;
 
-  final _i11.BookingCreateState state;
+  final _i11.Booking data;
 
-  static const String name = 'ItineraryCreateRoute';
+  final void Function(_i11.Booking, bool) onResult;
+
+  static const String name = 'ItineraryEditRoute';
 }

@@ -30,31 +30,12 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
     AddBtaPage()
   ];
 
-  VoidCallback nextButtonCall(BookingCreateState state) {
-    // ignore: close_sinks
-    BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
-    switch (state.step) {
-      case 0:
-        if (state.booking != null) {
-          return () {
-            bloc.add(StepContinueEvent());
-          };
-        }
-        return null;
-      case 1:
-        if (state.itineraries.length > 0) {
-          return () {
-            bloc.add(StepContinueEvent());
-          };
-        }
-        return null;
-      case 2:
-        return null;
-    }
-    return null;
+  PageRouteInfo itineraryRouteInfo() {
+    return ItineraryEditRoute(onResult: (data, create) {});
   }
 
   List<Widget> floatingActionButton(BookingCreateState state) {
+    // ignore: close_sinks
     BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
     return [
       FloatingActionButton(
@@ -63,6 +44,39 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
         },
         child: state.booking == null ? Icon(Icons.add) : Icon(Icons.update),
       ),
+      FloatingActionButton(
+        onPressed: () {
+          context.router.push(itineraryRouteInfo());
+        },
+        child: Icon(Icons.add),
+      ),
+      FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.file_upload),
+      ),
+    ];
+  }
+
+  List<Widget> buildForwardButton(BookingCreateState state) {
+    // ignore: close_sinks
+    BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
+    return [
+      IconButton(
+        icon: Icon(Icons.arrow_forward),
+        onPressed: state.booking != null
+            ? () {
+                bloc.add(StepContinueEvent());
+              }
+            : null,
+      ),
+      IconButton(
+          icon: state.itineraries.length == 0
+              ? Icon(Icons.skip_next)
+              : Icon(Icons.arrow_forward),
+          onPressed: () {
+            bloc.add(StepContinueEvent());
+          }),
+      IconButton(icon: Icon(Icons.done_all), onPressed: () {})
     ];
   }
 
@@ -71,7 +85,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
     return BlocListener<BookingCreateBloc, BookingCreateState>(
       listener: (context, state) {
         if (state.action == 'booking_created') {
-          context.router.push(ItineraryCreateRoute(state: state));
+          context.router.push(itineraryRouteInfo());
         }
       },
       child: BlocBuilder<BookingCreateBloc, BookingCreateState>(
@@ -105,10 +119,8 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
               },
               child: Scaffold(
                 resizeToAvoidBottomInset: false,
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {},
-                  child: Icon(Icons.update),
-                ),
+                floatingActionButton:
+                    floatingActionButton(currentState)[currentState.step],
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.centerDocked,
                 bottomNavigationBar: BottomAppBar(
@@ -121,12 +133,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                       children: [
                         BackButton(),
                         Spacer(),
-                        currentState.step < 2
-                            ? IconButton(
-                                icon: Icon(Icons.arrow_forward),
-                                onPressed: nextButtonCall(currentState),
-                              )
-                            : Container(),
+                        buildForwardButton(currentState)[currentState.step],
                       ],
                     ),
                   ),
@@ -260,13 +267,6 @@ class AddItineraryListPage extends StatelessWidget {
               data: f,
             );
           }).toList()),
-          ElevatedButton.icon(
-            icon: Icon(Icons.add),
-            label: Text('Add a itinerary'),
-            onPressed: () {
-              context.router.push(ItineraryCreateRoute(state: state));
-            },
-          )
         ],
       );
     });

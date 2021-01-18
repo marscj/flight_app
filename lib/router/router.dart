@@ -34,8 +34,8 @@ import 'guard.dart';
       guards: [AuthGuard],
     ),
     AutoRoute(
-      path: ItineraryCreatePage.routeName,
-      page: ItineraryCreatePage,
+      path: ItineraryEditPage.routeName,
+      page: ItineraryEditPage,
       fullscreenDialog: true,
       guards: [AuthGuard],
     ),
