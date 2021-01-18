@@ -26,7 +26,6 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(builder: (_, appState) {
       return Scaffold(
-          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Text(
               'Add Itinerary Informations',
@@ -67,7 +66,8 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                           children: [
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.emial
-                                  ..updateInitialValue(widget?.data?.email),
+                                  ..updateInitialValue(widget?.data?.email ??
+                                      appState?.user?.email),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
@@ -77,7 +77,8 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.name
-                                  ..updateInitialValue(widget?.data?.name),
+                                  ..updateInitialValue(widget?.data?.name ??
+                                      appState?.user?.name),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
@@ -88,7 +89,8 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.passport_no
                                   ..updateInitialValue(
-                                      widget?.data?.passport_no),
+                                      widget?.data?.passport_no ??
+                                          appState?.user?.passport_no),
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(

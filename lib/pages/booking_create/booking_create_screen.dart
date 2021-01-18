@@ -140,7 +140,6 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                             ]));
               },
               child: Scaffold(
-                resizeToAvoidBottomInset: false,
                 appBar: AppBar(
                   leading: currentState.step == 0 ? BackButton() : Container(),
                   title: buildTitle[currentState.step],
