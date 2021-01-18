@@ -1,7 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:open_file/open_file.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
 import 'package:saadiyat/router/router.gr.dart';
@@ -317,12 +319,35 @@ class AddItineraryListPage extends StatelessWidget {
 class AddBtaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
+    return BlocBuilder<BookingCreateBloc, BookingCreateState>(
+        builder: (_, state) {
       return ListView(
         padding: const EdgeInsets.only(
             left: 15, right: 15, top: 15, bottom: kToolbarHeight + 10),
-        children: [],
+        children: state.uploads.map((f) {
+          return ListTile(
+            title: Text(f?.name ?? ''),
+            subtitle: Text(f?.date ?? ''),
+            onTap: () {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('loading file...'),
+                ),
+              );
+              DefaultCacheManager().getSingleFile(f?.url).then((file) {
+                if (file != null) {
+                  OpenFile.open(file.path);
+                }
+              }).catchError((error) {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('download failed!'),
+                  ),
+                );
+              });
+            },
+          );
+        }).toList(),
       );
     });
   }
