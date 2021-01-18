@@ -31,7 +31,9 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
       return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Add Itinerary Informations',
+              widget.data == null
+                  ? 'Add Itinerary Informations'
+                  : 'Edit Itinerary Informations',
               style: TextStyle(color: Colors.black),
             ),
             iconTheme: IconThemeData(color: Colors.black),
