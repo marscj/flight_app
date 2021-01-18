@@ -14,7 +14,7 @@ class ItineraryEditPage extends StatefulWidget {
 
   final Booking data;
 
-  final void Function(Booking data, bool create) onResult;
+  final void Function(Booking data) onResult;
 
   ItineraryEditPage({Key key, this.data, this.onResult}) : super(key: key);
 
@@ -28,6 +28,10 @@ class _ItineraryCreatePageState extends State<ItineraryEditPage> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          title: Text(
+            'Itinerary Informations',
+            style: TextStyle(color: Colors.black),
+          ),
           iconTheme: IconThemeData(color: Colors.black),
           elevation: 0,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -55,14 +59,6 @@ class _ItineraryCreatePageState extends State<ItineraryEditPage> {
                           child: ListView(
                         padding: const EdgeInsets.all(15),
                         children: [
-                          Text(
-                            'Add Booking Informations',
-                            style: Theme.of(context).textTheme.headline6,
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
                           TextFieldBlocBuilder(
                               textFieldBloc: formBloc.title
                                 ..updateInitialValue(widget?.data?.title),

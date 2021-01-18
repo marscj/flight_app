@@ -221,7 +221,9 @@ class BannerView extends StatelessWidget {
     return CarouselSlider(
       options: CarouselOptions(
           autoPlay: true,
-          aspectRatio: MediaQuery.of(context).size.height /
+          aspectRatio: (MediaQuery.of(context).size.height +
+                  kToolbarHeight +
+                  MediaQuery.of(context).padding.top) /
               MediaQuery.of(context).size.width,
           enlargeCenterPage: true,
           enlargeStrategy: CenterPageEnlargeStrategy.height,

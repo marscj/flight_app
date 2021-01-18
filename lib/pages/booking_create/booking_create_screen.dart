@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -30,8 +29,12 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
     AddBtaPage()
   ];
 
-  PageRouteInfo itineraryRouteInfo() {
-    return ItineraryEditRoute(onResult: (data, create) {});
+  PageRouteInfo addItineraryRouteInfo() {
+    return ItineraryEditRoute(onResult: (data) {});
+  }
+
+  PageRouteInfo editItineraryRouteInfo() {
+    return ItineraryEditRoute(onResult: (data) {});
   }
 
   List<Widget> floatingActionButton(BookingCreateState state) {
@@ -46,7 +49,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
       ),
       FloatingActionButton(
         onPressed: () {
-          context.router.push(itineraryRouteInfo());
+          context.router.push(addItineraryRouteInfo());
         },
         child: Icon(Icons.add),
       ),
@@ -55,6 +58,10 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
         child: Icon(Icons.file_upload),
       ),
     ];
+  }
+
+  List<Widget> buildBackButton() {
+    return [BackButton(), BackButton(), BackButton()];
   }
 
   List<Widget> buildForwardButton(BookingCreateState state) {
@@ -80,12 +87,18 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
     ];
   }
 
+  List<Widget> buildTitle = [
+    Text('Add Booking Informations', style: TextStyle(color: Colors.black)),
+    Text('Itinerary List', style: TextStyle(color: Colors.black)),
+    Text('BTA List', style: TextStyle(color: Colors.black))
+  ];
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<BookingCreateBloc, BookingCreateState>(
       listener: (context, state) {
         if (state.action == 'booking_created') {
-          context.router.push(itineraryRouteInfo());
+          context.router.push(addItineraryRouteInfo());
         }
       },
       child: BlocBuilder<BookingCreateBloc, BookingCreateState>(
@@ -119,6 +132,13 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
               },
               child: Scaffold(
                 resizeToAvoidBottomInset: false,
+                appBar: AppBar(
+                  leading: currentState.step == 0 ? BackButton() : Container(),
+                  title: buildTitle[currentState.step],
+                  iconTheme: IconThemeData(color: Colors.black),
+                  elevation: 0,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                ),
                 floatingActionButton:
                     floatingActionButton(currentState)[currentState.step],
                 floatingActionButtonLocation:
@@ -131,7 +151,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                         color: Theme.of(context).colorScheme.onPrimary),
                     child: Row(
                       children: [
-                        BackButton(),
+                        buildBackButton()[currentState.step],
                         Spacer(),
                         buildForwardButton(currentState)[currentState.step],
                       ],
@@ -202,48 +222,39 @@ class AddBookingScreen extends StatelessWidget {
           BookingFormBloc formBloc = BlocProvider.of<BookingFormBloc>(context);
 
           return BlocListener<BookingCreateBloc, BookingCreateState>(
-            listener: (context, state) {
-              if (state.action == 'booking_create') {
-                formBloc.submit();
-              }
-            },
-            child: Form(
-                child: ListView(
-              padding: const EdgeInsets.all(15),
-              children: [
-                Text(
-                  'Add Booking Informations',
-                  style: Theme.of(context).textTheme.headline6,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFieldBlocBuilder(
-                    textFieldBloc: formBloc.title
-                      ..updateInitialValue(state?.booking?.title),
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        isDense: true,
-                        hintText: '*Title',
-                        errorMaxLines: 6,
-                        border: OutlineInputBorder())),
-                TextFieldBlocBuilder(
-                    textFieldBloc: formBloc.remark
-                      ..updateInitialValue(state?.booking?.remark),
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                        isDense: true,
-                        hintText: 'Remark',
-                        errorMaxLines: 6,
-                        border: OutlineInputBorder())),
-                SizedBox(height: 24),
-              ],
-            )),
-          );
+              listener: (context, state) {
+                if (state.action == 'booking_create') {
+                  formBloc.submit();
+                }
+              },
+              child: Form(
+                  child: ListView(
+                padding: const EdgeInsets.all(15),
+                children: [
+                  TextFieldBlocBuilder(
+                      textFieldBloc: formBloc.title
+                        ..updateInitialValue(state?.booking?.title),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          isDense: true,
+                          hintText: '*Title',
+                          errorMaxLines: 6,
+                          border: OutlineInputBorder())),
+                  TextFieldBlocBuilder(
+                      textFieldBloc: formBloc.remark
+                        ..updateInitialValue(state?.booking?.remark),
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 10,
+                      decoration: InputDecoration(
+                          isDense: true,
+                          hintText: 'Remark',
+                          errorMaxLines: 6,
+                          border: OutlineInputBorder())),
+                  SizedBox(height: 24),
+                ],
+              )));
         })));
   }
 }
@@ -256,11 +267,6 @@ class AddItineraryListPage extends StatelessWidget {
       return ListView(
         padding: const EdgeInsets.all(15),
         children: [
-          Text(
-            'Itinerary List',
-            style: Theme.of(context).textTheme.headline6,
-            textAlign: TextAlign.center,
-          ),
           ListBody(
               children: state.itineraries.map((f) {
             return ItineraryItem(
@@ -279,13 +285,8 @@ class AddBtaPage extends StatelessWidget {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return ListView(
-        children: [
-          Text(
-            'Upload BTA Files',
-            style: Theme.of(context).textTheme.headline6,
-            textAlign: TextAlign.center,
-          ),
-        ],
+        padding: const EdgeInsets.all(15),
+        children: [],
       );
     });
   }

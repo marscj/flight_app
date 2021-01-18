@@ -164,7 +164,7 @@ class ItineraryEditRoute extends _i1.PageRouteInfo {
 
   final _i11.Booking data;
 
-  final void Function(_i11.Booking, bool) onResult;
+  final void Function(_i11.Booking) onResult;
 
   static const String name = 'ItineraryEditRoute';
 }
