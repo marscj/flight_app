@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/pages/basement/basement_page.dart';
-import 'package:saadiyat/pages/booking_create/Itinerary_create.dart';
+import 'package:saadiyat/pages/booking_create/Itinerary_edit.dart';
 import 'package:saadiyat/pages/booking_create/booking_create_page.dart';
 import 'package:saadiyat/pages/booking_detail/index.dart';
 import 'package:saadiyat/pages/bookings/index.dart';

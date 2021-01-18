@@ -13,7 +13,7 @@ import '../pages/basement/basement_page.dart' as _i6;
 import '../pages/booking_detail/index.dart' as _i7;
 import '../pages/ticket_detail/index.dart' as _i8;
 import '../pages/booking_create/booking_create_page.dart' as _i9;
-import '../pages/booking_create/Itinerary_create.dart' as _i10;
+import '../pages/booking_create/Itinerary_edit.dart' as _i10;
 import '../apis/client.dart' as _i11;
 
 class AppRouter extends _i1.RootStackRouter {

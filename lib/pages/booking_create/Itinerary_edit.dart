@@ -29,7 +29,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(
-            'Itinerary Informations',
+            'Add Itinerary Informations',
             style: TextStyle(color: Colors.black),
           ),
           iconTheme: IconThemeData(color: Colors.black),
