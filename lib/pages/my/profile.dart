@@ -22,34 +22,39 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text('Account'),
           ),
           body: SingleChildScrollView(
+            padding: const EdgeInsets.all(15),
             child: Column(
               children: [
                 ListTile(
                   title: Text('Avatar'),
-                  trailing: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl: state?.user?.avatar['thumbnail'],
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) =>
-                          Image.asset('assets/user.png')),
+                  trailing: state?.user?.avatar != null &&
+                          state?.user?.avatar['thumbnail'] != null
+                      ? CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: state?.user?.avatar['thumbnail'] ?? '',
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Image.asset('assets/user.png'))
+                      : Image.asset('assets/user.png'),
                   onTap: () {},
                 ),
                 Divider(),
                 ListTile(
                   title: Text('Email'),
-                  subtitle: Text(state.user.email),
+                  subtitle: Text(state?.user?.email ?? ''),
                 ),
                 Divider(),
                 ListTile(
                   title: Text('Name'),
-                  subtitle: Text(state.user.name),
+                  subtitle: Text(state?.user?.name ?? ''),
                 ),
                 Divider(),
                 ListTile(
                   title: Text('Department'),
-                  subtitle: Text(state.user.department),
+                  subtitle: Text(state?.user?.department ?? ''),
                 ),
+                Divider(),
                 SizedBox(
                   height: 50,
                 ),
