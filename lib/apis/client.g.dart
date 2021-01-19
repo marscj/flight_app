@@ -471,6 +471,28 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<User> updateInfo(avatar) async {
+    ArgumentError.checkNotNull(avatar, 'avatar');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = FormData();
+    _data.files.add(MapEntry(
+        'avatar',
+        MultipartFile.fromFileSync(avatar.path,
+            filename: avatar.path.split(Platform.pathSeparator).last)));
+    final _result = await _dio.request<Map<String, dynamic>>('/auth/info/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PATCH',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = User.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<ChangePasswordResult> changePassword(playload) async {
     ArgumentError.checkNotNull(playload, 'playload');
     const _extra = <String, dynamic>{};

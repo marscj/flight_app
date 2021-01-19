@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:io' as IO;
+import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
@@ -143,11 +144,26 @@ class AppChangePasswordEvent extends AppEvent {
   final String password;
 
   AppChangePasswordEvent(this.password);
-  
+
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     await Store.instance.setAuth([currentState.user.email, password]);
     yield currentState;
+  }
+}
+
+class AppChangeAvatarEvent extends AppEvent {
+  final File avatar;
+
+  AppChangeAvatarEvent(this.avatar);
+
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    yield await RestClient().updateInfo(avatar).then((user) {
+      return currentState.copyWith(user: user);
+    }).catchError((res) {
+      return currentState.copyWith(event: ErrorEvent('Upload failed!'));
+    });
   }
 }
 

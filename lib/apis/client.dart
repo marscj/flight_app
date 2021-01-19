@@ -60,6 +60,9 @@ abstract class RestClient {
   @GET('/auth/info/')
   Future<User> getInfo();
 
+  @PATCH('/auth/info/')
+  Future<User> updateInfo(@Part() File avatar);
+
   @POST('/auth/password/change/')
   Future<ChangePasswordResult> changePassword(
       @Body() Map<String, dynamic> playload);
