@@ -17,6 +17,8 @@ part 'comment.dart';
 part 'ticket.dart';
 part 'version.dart';
 
+// ignore_for_file: non_constant_identifier_names
+
 @RestApi(baseUrl: Constant.Host)
 abstract class RestClient {
   factory RestClient() => _RestClient(Dio(BaseOptions(

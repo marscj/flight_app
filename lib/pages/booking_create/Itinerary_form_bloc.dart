@@ -1,10 +1,8 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/pages/booking_create/index.dart';
 
+// ignore_for_file: non_constant_identifier_names
 class ItineraryFormBloc extends FormBloc<String, String> {
   final TextFieldBloc emial = TextFieldBloc();
   final TextFieldBloc name = TextFieldBloc();
