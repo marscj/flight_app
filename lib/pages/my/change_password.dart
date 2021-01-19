@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
@@ -26,54 +27,55 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             ChangePasswordFormBloc formBloc =
                 BlocProvider.of<ChangePasswordFormBloc>(context);
             return FormBlocListener<ChangePasswordFormBloc, String, String>(
-                onFailure: (context, state) {},
-                onSuccess: (context, state) {},
-                onSubmitting: (context, state) {},
-                child: BlocBuilder<AppBloc, AppState>(
-                  builder: (_, state) {
-                    return Scaffold(
-                      appBar: AppBar(
-                        title: Text('Change Password'),
-                      ),
-                      body: SingleChildScrollView(
-                        padding: const EdgeInsets.all(15),
-                        child: Column(
-                          children: [
-                            TextFieldBlocBuilder(
-                                textFieldBloc: formBloc.new_password1,
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: InputDecoration(
-                                    labelText: 'New Password1',
-                                    errorMaxLines: 6,
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    border: InputBorder.none,
-                                    prefixIcon: const Icon(Icons.lock))),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            TextFieldBlocBuilder(
-                              textFieldBloc: formBloc.new_password2,
-                              textInputAction: TextInputAction.done,
-                              suffixButton: SuffixButton.obscureText,
-                              decoration: InputDecoration(
-                                  labelText: 'New Password2',
-                                  errorMaxLines: 6,
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  border: InputBorder.none,
-                                  prefixIcon: const Icon(Icons.lock)),
-                              onSubmitted: (value) {
-                                formBloc.submit();
-                              },
-                            ),
-                          ],
+                onFailure: (context, state) {
+              EasyLoading.showError('Failed!');
+            }, onSuccess: (context, state) {
+              EasyLoading.showSuccess('Success!');
+            }, onSubmitting: (context, state) {
+              EasyLoading.show();
+            }, child: BlocBuilder<AppBloc, AppState>(
+              builder: (_, state) {
+                return Scaffold(
+                  appBar: AppBar(
+                    title: Text('Change Password'),
+                  ),
+                  body: SingleChildScrollView(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        TextFieldBlocBuilder(
+                            textFieldBloc: formBloc.new_password1,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                                labelText: 'New Password1',
+                                errorMaxLines: 6,
+                                border: UnderlineInputBorder())),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                    );
-                  },
-                ));
+                        TextFieldBlocBuilder(
+                            textFieldBloc: formBloc.new_password2,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                                labelText: 'New Password2',
+                                errorMaxLines: 6,
+                                border: UnderlineInputBorder())),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        ElevatedButton(
+                            child: Text('Submit'),
+                            onPressed: () {
+                              formBloc.submit();
+                            }),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ));
           },
         ));
   }

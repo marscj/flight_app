@@ -4,10 +4,9 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_event.dart';
-import 'package:saadiyat/pages/login/index.dart';
-import 'package:saadiyat/store/store.dart';
 
 class ChangePasswordFormBloc extends FormBloc<String, String> {
+  // ignore_for_file: non_constant_identifier_names
   final TextFieldBloc new_password1 = TextFieldBloc();
   final TextFieldBloc new_password2 = TextFieldBloc();
 
@@ -44,9 +43,7 @@ class ChangePasswordFormBloc extends FormBloc<String, String> {
   @override
   void onSubmitting() {
     // ignore_for_file: close_sinks
-    LoginBloc loginBloc = BlocProvider.of<LoginBloc>(context);
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
-    loginBloc.add(LoadLoginEvent(true));
 
     RestClient().changePassword({
       'new_password1': new_password1.value,
