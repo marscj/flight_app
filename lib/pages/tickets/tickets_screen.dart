@@ -160,7 +160,7 @@ class TicketItem extends StatelessWidget {
                 children: [
                   Container(
                       decoration: BoxDecoration(
-                          color: Colors.indigo,
+                          color: Colors.orange,
                           borderRadius: BorderRadius.vertical(
                               top: Radius.circular(14.0))),
                       padding: EdgeInsets.symmetric(
