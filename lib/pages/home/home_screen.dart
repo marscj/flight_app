@@ -241,7 +241,7 @@ class BannerView extends StatelessWidget {
           child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
               child: Image.asset(item,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   width: MediaQuery.of(context).size.width * 0.8)),
         );
       }).toList(),
