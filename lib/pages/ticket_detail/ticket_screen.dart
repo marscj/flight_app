@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
@@ -20,7 +21,7 @@ class TicketScreen extends StatelessWidget {
       // bool is_cancel;
       // bool is_booking;
       // bool is_complete;
-      TicketDetailBloc bookingDetailBloc =
+      TicketDetailBloc ticketDetailBloc =
           BlocProvider.of<TicketDetailBloc>(context);
       final colorScheme = Theme.of(context).colorScheme;
       return EasyRefresh(
@@ -47,14 +48,20 @@ class TicketScreen extends StatelessWidget {
                               'Confirm',
                               style: TextStyle(color: colorScheme.primary),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              ticketDetailBloc.add(
+                                  UpdateTicketEvent(currentState.data, true));
+                            },
                           ),
                           TextButton(
                             child: Text(
                               'Refuse',
                               style: TextStyle(color: colorScheme.primary),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              ticketDetailBloc.add(
+                                  UpdateTicketEvent(currentState.data, false));
+                            },
                           )
                         ],
                       )
@@ -119,9 +126,9 @@ class TicketScreen extends StatelessWidget {
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
             await RestClient().getTicket(id).then((res) {
-              bookingDetailBloc.add(RefreshTicketDetailEvent(res));
+              ticketDetailBloc.add(RefreshTicketDetailEvent(res));
             }).catchError((error) {
-              bookingDetailBloc.add(RefreshTicketDetailEvent(null));
+              ticketDetailBloc.add(RefreshTicketDetailEvent(null));
             });
           });
     });

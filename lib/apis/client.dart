@@ -107,6 +107,10 @@ abstract class RestClient {
   @GET('/tickets/{id}/')
   Future<TicketExtra> getTicket(@Path("id") int id);
 
+  @PATCH('/tickets/{id}/')
+  Future<TicketExtra> updateTicket(
+      @Path("id") int id, @Body() Map<String, dynamic> playload);
+
   @POST('/app/version/')
   Future<Version> checkVersion(@Body() Map<String, dynamic> playload);
 }

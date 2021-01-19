@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 import 'package:meta/meta.dart';
@@ -19,5 +20,27 @@ class RefreshTicketDetailEvent extends TicketDetailEvent {
   Stream<TicketDetailState> applyAsync(
       {TicketDetailState currentState, TicketDetailBloc bloc}) async* {
     yield currentState.copyWith(data: result.data);
+  }
+}
+
+class UpdateTicketEvent extends TicketDetailEvent {
+  final Ticket ticket;
+  final bool is_confirm;
+
+  UpdateTicketEvent(this.ticket, this.is_confirm);
+
+  @override
+  Stream<TicketDetailState> applyAsync(
+      {TicketDetailState currentState, TicketDetailBloc bloc}) async* {
+    // TODO: implement applyAsync
+    EasyLoading.show();
+    yield await RestClient()
+        .updateTicket(ticket.id, {'is_confirm': is_confirm}).then((res) {
+      EasyLoading.showSuccess('Success');
+      return currentState.copyWith(data: res.data);
+    }).catchError((onError) {
+      EasyLoading.showError('Failed');
+      return currentState;
+    });
   }
 }
