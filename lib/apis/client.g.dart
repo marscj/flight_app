@@ -760,6 +760,27 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<TicketExtra> updateTicket(id, playload) async {
+    ArgumentError.checkNotNull(id, 'id');
+    ArgumentError.checkNotNull(playload, 'playload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/tickets/$id/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PATCH',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = TicketExtra.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<Version> checkVersion(playload) async {
     ArgumentError.checkNotNull(playload, 'playload');
     const _extra = <String, dynamic>{};
