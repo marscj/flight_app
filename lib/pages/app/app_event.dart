@@ -139,6 +139,18 @@ class AppLogoutEvent extends AppEvent {
   }
 }
 
+class AppChangePasswordEvent extends AppEvent {
+  final String password;
+
+  AppChangePasswordEvent(this.password);
+  
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    await Store.instance.setAuth([currentState.user.email, password]);
+    yield currentState;
+  }
+}
+
 class ErrorEvent extends AppEvent {
   final String errorMessage;
 

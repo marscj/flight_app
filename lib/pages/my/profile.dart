@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 50,
                 ),
                 ElevatedButton(
-                    child: Text('Change Password:'),
+                    child: Text('Change Password'),
                     onPressed: () {
                       context.router.push(ChangePasswordRoute());
                     }),

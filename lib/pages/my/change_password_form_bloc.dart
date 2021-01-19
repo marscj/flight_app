@@ -5,15 +5,16 @@ import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_event.dart';
 import 'package:saadiyat/pages/login/index.dart';
+import 'package:saadiyat/store/store.dart';
 
 class ChangePasswordFormBloc extends FormBloc<String, String> {
-  final TextFieldBloc email = TextFieldBloc();
-  final TextFieldBloc password = TextFieldBloc();
+  final TextFieldBloc new_password1 = TextFieldBloc();
+  final TextFieldBloc new_password2 = TextFieldBloc();
 
   final BuildContext context;
 
   ChangePasswordFormBloc(this.context) {
-    addFieldBlocs(fieldBlocs: [email, password]);
+    addFieldBlocs(fieldBlocs: [new_password1, new_password2]);
     addValidators();
   }
 
@@ -22,15 +23,16 @@ class ChangePasswordFormBloc extends FormBloc<String, String> {
       return;
     }
 
-    email.addFieldError(errors['email']);
-    password.addFieldError(
-        errors['password'] ?? errors['non_field_errors'] ?? errors['detail']);
+    new_password1.addFieldError(errors['new_password1']);
+    new_password2.addFieldError(errors['new_password2'] ??
+        errors['non_field_errors'] ??
+        errors['detail']);
   }
 
   void addValidators() {
-    email.addValidators(
+    new_password1.addValidators(
         [RequiredValidator(errorText: 'This field is required!')]);
-    password.addValidators(
+    new_password2.addValidators(
         [RequiredValidator(errorText: 'This field is required!')]);
   }
 
@@ -40,29 +42,21 @@ class ChangePasswordFormBloc extends FormBloc<String, String> {
   }
 
   @override
-  Future<void> close() {
-    // TODO: implement close
-    email.close();
-    password.close();
-    return super.close();
-  }
-
-  @override
   void onSubmitting() {
     // ignore_for_file: close_sinks
     LoginBloc loginBloc = BlocProvider.of<LoginBloc>(context);
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
     loginBloc.add(LoadLoginEvent(true));
 
-    RestClient()
-        .login({'email': email.value, 'password': password.value}).then((res) {
-      appBloc.add(AppLoginEvent(res.user, res.token, password.value));
+    RestClient().changePassword({
+      'new_password1': new_password1.value,
+      'new_password2': new_password2.value
+    }).then((res) {
+      appBloc.add(AppChangePasswordEvent(new_password1.value));
       emitSuccess(canSubmitAgain: true);
     }).catchError((onError) {
       emitFailure();
       addErrors(onError?.response?.data);
-    }).whenComplete(() {
-      loginBloc.add(LoadLoginEvent(false));
     });
   }
 }
