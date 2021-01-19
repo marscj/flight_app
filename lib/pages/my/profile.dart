@@ -28,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               children: [
                 ListTile(
-                  title: Text('Avatar'),
+                  title: Text('Avatar:'),
                   trailing: state?.user?.avatar != null &&
                           state?.user?.avatar['thumbnail'] != null
                       ? CachedNetworkImage(
@@ -43,17 +43,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Email'),
+                  title: Text('Email:'),
                   subtitle: Text(state?.user?.email ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Name'),
+                  title: Text('Name:'),
                   subtitle: Text(state?.user?.name ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Department'),
+                  title: Text('Department:'),
                   subtitle: Text(state?.user?.department ?? ''),
                 ),
                 Divider(),
@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 50,
                 ),
                 ElevatedButton(
-                    child: Text('Change Password'),
+                    child: Text('Change Password:'),
                     onPressed: () {
                       context.router.push(ChangePasswordRoute());
                     }),

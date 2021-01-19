@@ -79,3 +79,15 @@ class TokenUser extends Equatable {
   @override
   List<Object> get props => [token, user.id];
 }
+
+@JsonSerializable()
+class ChangePasswordResult extends Equatable {
+  String detail;
+
+  static ChangePasswordResult fromJson(Map<String, dynamic> json) =>
+      _$ChangePasswordResultFromJson(json);
+  Map<String, dynamic> toJson() => _$ChangePasswordResultToJson(this);
+
+  @override
+  List<Object> get props => [detail];
+}

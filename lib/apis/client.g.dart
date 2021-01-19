@@ -80,6 +80,16 @@ Map<String, dynamic> _$TokenUserToJson(TokenUser instance) => <String, dynamic>{
       'user': instance.user,
     };
 
+ChangePasswordResult _$ChangePasswordResultFromJson(Map<String, dynamic> json) {
+  return ChangePasswordResult()..detail = json['detail'] as String;
+}
+
+Map<String, dynamic> _$ChangePasswordResultToJson(
+        ChangePasswordResult instance) =>
+    <String, dynamic>{
+      'detail': instance.detail,
+    };
+
 Booking _$BookingFromJson(Map<String, dynamic> json) {
   return Booking()
     ..id = json['id'] as int
@@ -457,6 +467,27 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = User.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<ChangePasswordResult> changePassword(playload) async {
+    ArgumentError.checkNotNull(playload, 'playload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/auth/password/change/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ChangePasswordResult.fromJson(_result.data);
     return value;
   }
 

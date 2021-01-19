@@ -26,62 +26,62 @@ class _PassportPageState extends State<PassportPage> {
             child: Column(
               children: [
                 ListTile(
-                  title: Text('Code'),
+                  title: Text('Code:'),
                   subtitle: Text(state?.user?.passport_code ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Type'),
+                  title: Text('Type:'),
                   subtitle: Text(state?.user?.possport_type ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('No.'),
+                  title: Text('No.:'),
                   subtitle: Text(state?.user?.passport_no ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('First Name'),
+                  title: Text('First Name:'),
                   subtitle: Text(state?.user?.first_name ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Last Name'),
+                  title: Text('Last Name:'),
                   subtitle: Text(state?.user?.last_name ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Sex'),
+                  title: Text('Sex:'),
                   subtitle: Text(state?.user?.passport_sex ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Date of birth'),
+                  title: Text('Date of birth:'),
                   subtitle: Text(state?.user?.passport_date_birth ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Place of birth'),
+                  title: Text('Place of birth:'),
                   subtitle: Text(state?.user?.passport_place_birth ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Nationality'),
+                  title: Text('Nationality:'),
                   subtitle: Text(state?.user?.passport_nationality ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Issuing authority'),
+                  title: Text('Issuing authority:'),
                   subtitle: Text(state?.user?.passport_issuing_authority ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Date of issue'),
+                  title: Text('Date of issue:'),
                   subtitle: Text(state?.user?.passport_date_issue ?? ''),
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('Date of expiry'),
+                  title: Text('Date of expiry:'),
                   subtitle: Text(state?.user?.passport_date_expiry ?? ''),
                 ),
               ],
