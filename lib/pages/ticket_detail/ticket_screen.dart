@@ -29,7 +29,7 @@ class TicketScreen extends StatelessWidget {
                 currentState?.data != null &&
                         currentState?.data?.is_confirm == null
                     ? MaterialBanner(
-                        backgroundColor: Colors.orangeAccent,
+                        backgroundColor: Colors.red,
                         content: ListTile(
                           title: Text(
                             'Please confirm your ticket information',

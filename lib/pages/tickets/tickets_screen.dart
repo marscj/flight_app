@@ -88,7 +88,7 @@ class TicketsScreenState extends State<TicketsScreen> {
                       return Padding(
                         padding: const EdgeInsets.all(10),
                         child: TicketItem(
-                          data: currentState?.list[index],
+                          data: currentState?.list[index].last,
                         ),
                       );
                     }, childCount: currentState?.list?.length ?? 0),

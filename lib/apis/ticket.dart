@@ -26,6 +26,8 @@ class Ticket extends Equatable {
   List<Comment> comments;
   List<Upload> uploads;
 
+  Ticket get last => children.length > 0 ? children[children.length - 1] : this;
+
   static Ticket fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);
   Map<String, dynamic> toJson() => _$TicketToJson(this);
 
