@@ -34,7 +34,6 @@ class _TicketDetailPageState extends State<TicketDetailPage>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _pageController.dispose();
     _tabController.dispose();
     super.dispose();

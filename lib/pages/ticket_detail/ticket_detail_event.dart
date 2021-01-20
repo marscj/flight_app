@@ -5,6 +5,8 @@ import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 import 'package:meta/meta.dart';
 
+// ignore_for_file: non_constant_identifier_names
+
 @immutable
 abstract class TicketDetailEvent {
   Stream<TicketDetailState> applyAsync(
@@ -32,7 +34,6 @@ class UpdateTicketEvent extends TicketDetailEvent {
   @override
   Stream<TicketDetailState> applyAsync(
       {TicketDetailState currentState, TicketDetailBloc bloc}) async* {
-    // TODO: implement applyAsync
     EasyLoading.show();
     yield await RestClient()
         .updateTicket(ticket.id, {'is_confirm': is_confirm}).then((res) {

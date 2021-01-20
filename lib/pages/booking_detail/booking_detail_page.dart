@@ -33,7 +33,6 @@ class _BookingDetailPageState extends State<BookingDetailPage>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _pageController.dispose();
     _tabController.dispose();
     super.dispose();

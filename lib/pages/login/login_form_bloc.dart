@@ -43,7 +43,6 @@ class LoginFormBloc extends FormBloc<String, String> {
 
   @override
   Future<void> close() {
-    // TODO: implement close
     email.close();
     password.close();
     return super.close();

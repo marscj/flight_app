@@ -33,7 +33,6 @@ class TicketsScreenState extends State<TicketsScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     _controller = null;
     super.dispose();
