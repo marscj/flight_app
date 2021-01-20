@@ -18,6 +18,7 @@ class Itinerary extends Equatable {
   bool is_lock;
   String remark;
   int booking_id;
+  Ticket ticket;
   String date;
 
   static Itinerary fromJson(Map<String, dynamic> json) =>
@@ -39,8 +40,11 @@ class Itinerary extends Equatable {
         is_lock,
         remark,
         booking_id,
+        ticket,
         date,
       ];
+
+  Color get color => ticket != null ? ticket.color : Colors.blue;
 }
 
 @JsonSerializable()

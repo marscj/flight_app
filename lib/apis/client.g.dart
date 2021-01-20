@@ -231,6 +231,9 @@ Itinerary _$ItineraryFromJson(Map<String, dynamic> json) {
     ..is_lock = json['is_lock'] as bool
     ..remark = json['remark'] as String
     ..booking_id = json['booking_id'] as int
+    ..ticket = json['ticket'] == null
+        ? null
+        : Ticket.fromJson(json['ticket'] as Map<String, dynamic>)
     ..date = json['date'] as String;
 }
 
@@ -248,6 +251,7 @@ Map<String, dynamic> _$ItineraryToJson(Itinerary instance) => <String, dynamic>{
       'is_lock': instance.is_lock,
       'remark': instance.remark,
       'booking_id': instance.booking_id,
+      'ticket': instance.ticket,
       'date': instance.date,
     };
 
