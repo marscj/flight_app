@@ -47,6 +47,14 @@ class Ticket extends Equatable {
         uploads,
         itinerary
       ];
+
+  Color get color => !is_confirm
+      ? Colors.red
+      : is_cancel
+          ? Colors.grey
+          : is_complete
+              ? Colors.green
+              : Colors.orange;
 }
 
 @JsonSerializable()
