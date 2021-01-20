@@ -20,6 +20,8 @@ class Ticket extends Equatable {
   bool is_complete;
   String date;
   Itinerary itinerary;
+  int parent;
+  List<Ticket> children;
 
   List<Comment> comments;
   List<Upload> uploads;
@@ -45,7 +47,9 @@ class Ticket extends Equatable {
         date,
         comments,
         uploads,
-        itinerary
+        itinerary,
+        children,
+        parent
       ];
 
   Color get color => is_confirm == null

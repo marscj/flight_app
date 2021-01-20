@@ -72,7 +72,7 @@ class ItineraryItem extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                   width: double.infinity,
-                  color: data.color,
+                  color: Colors.orange,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

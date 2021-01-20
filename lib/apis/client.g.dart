@@ -231,9 +231,6 @@ Itinerary _$ItineraryFromJson(Map<String, dynamic> json) {
     ..is_lock = json['is_lock'] as bool
     ..remark = json['remark'] as String
     ..booking_id = json['booking_id'] as int
-    ..ticket = json['ticket'] == null
-        ? null
-        : Ticket.fromJson(json['ticket'] as Map<String, dynamic>)
     ..date = json['date'] as String;
 }
 
@@ -251,7 +248,6 @@ Map<String, dynamic> _$ItineraryToJson(Itinerary instance) => <String, dynamic>{
       'is_lock': instance.is_lock,
       'remark': instance.remark,
       'booking_id': instance.booking_id,
-      'ticket': instance.ticket,
       'date': instance.date,
     };
 
@@ -337,6 +333,11 @@ Ticket _$TicketFromJson(Map<String, dynamic> json) {
     ..itinerary = json['itinerary'] == null
         ? null
         : Itinerary.fromJson(json['itinerary'] as Map<String, dynamic>)
+    ..parent = json['parent'] as int
+    ..children = (json['children'] as List)
+        ?.map((e) =>
+            e == null ? null : Ticket.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..comments = (json['comments'] as List)
         ?.map((e) =>
             e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
@@ -363,6 +364,8 @@ Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
       'is_complete': instance.is_complete,
       'date': instance.date,
       'itinerary': instance.itinerary,
+      'parent': instance.parent,
+      'children': instance.children,
       'comments': instance.comments,
       'uploads': instance.uploads,
     };
@@ -430,7 +433,7 @@ Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://192.168.50.84:8000/api/';
+    baseUrl ??= 'http://127.0.0.1:8000/api/';
   }
 
   final Dio _dio;
