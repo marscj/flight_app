@@ -15,7 +15,6 @@ class StepContinueEvent extends BookingCreateEvent {
   @override
   Stream<BookingCreateState> applyAsync(
       {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
-    // TODO: implement applyAsync
     yield currentState.copyWith(
         step: currentState.step + 1, action: 'step_continue');
   }
@@ -25,7 +24,6 @@ class StepCancelEvent extends BookingCreateEvent {
   @override
   Stream<BookingCreateState> applyAsync(
       {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
-    // TODO: implement applyAsync
     yield currentState.copyWith(
         step: currentState.step - 1, action: 'step_cancel');
   }
@@ -39,7 +37,6 @@ class StepTappedEvent extends BookingCreateEvent {
   @override
   Stream<BookingCreateState> applyAsync(
       {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
-    // TODO: implement applyAsync
     yield currentState.copyWith(step: step, action: 'step_tapped');
   }
 }
@@ -61,7 +58,6 @@ class UpdateBookingEvent extends BookingCreateEvent {
   @override
   Stream<BookingCreateState> applyAsync(
       {BookingCreateState currentState, BookingCreateBloc bloc}) async* {
-    // TODO: implement applyAsync
     yield currentState.copyWith(
         action: action, booking: booking, step: currentState.step + 1);
   }

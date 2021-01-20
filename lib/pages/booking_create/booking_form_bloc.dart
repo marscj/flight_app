@@ -37,7 +37,6 @@ class BookingFormBloc extends FormBloc<String, String> {
 
   @override
   Future<void> close() {
-    // TODO: implement close
     title.close();
     remark.close();
     return super.close();

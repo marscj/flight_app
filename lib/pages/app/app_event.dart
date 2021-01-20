@@ -115,7 +115,6 @@ class AppLoginEvent extends AppEvent {
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    // TODO: implement applyAsync
     await Store.instance.setToken(token);
     await Store.instance.setAuth([user.email, password]);
     bloc.add(JMessageLoginEvent());
@@ -174,7 +173,6 @@ class ErrorEvent extends AppEvent {
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    // TODO: implement applyAsync
     yield currentState;
   }
 }
