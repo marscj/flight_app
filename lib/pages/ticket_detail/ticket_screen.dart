@@ -26,7 +26,8 @@ class TicketScreen extends StatelessWidget {
             child: Card(
                 child: Column(
               children: [
-                currentState?.data?.is_confirm == null
+                currentState?.data != null &&
+                        currentState?.data?.is_confirm == null
                     ? MaterialBanner(
                         backgroundColor: Colors.orangeAccent,
                         content: ListTile(
