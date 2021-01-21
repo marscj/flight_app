@@ -17,7 +17,8 @@ import '../pages/booking_create/Itinerary_edit.dart' as _i10;
 import '../pages/my/profile.dart' as _i11;
 import '../pages/my/passport.dart' as _i12;
 import '../pages/my/change_password.dart' as _i13;
-import '../apis/client.dart' as _i14;
+import '../pages/support/index.dart' as _i14;
+import '../apis/client.dart' as _i15;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter({@_i2.required this.authGuard}) : assert(authGuard != null);
@@ -78,6 +79,12 @@ class AppRouter extends _i1.RootStackRouter {
       var route = entry.routeData.as<ChangePasswordRoute>();
       return _i1.CupertinoPageX(
           entry: entry, child: _i13.ChangePasswordPage(key: route.key));
+    },
+    SupportRoute.name: (entry) {
+      var route = entry.routeData.as<SupportRoute>();
+      return _i1.CupertinoPageX(
+          entry: entry,
+          child: _i14.SupportPage(key: route.key, data: route.data));
     }
   };
 
@@ -119,6 +126,10 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig<ChangePasswordRoute>(ChangePasswordRoute.name,
             path: 'change_password',
             routeBuilder: (match) => ChangePasswordRoute.fromMatch(match),
+            guards: [authGuard]),
+        _i1.RouteConfig<SupportRoute>(SupportRoute.name,
+            path: '/support',
+            routeBuilder: (match) => SupportRoute.fromMatch(match),
             guards: [authGuard])
       ];
 }
@@ -197,9 +208,9 @@ class ItineraryEditRoute extends _i1.PageRouteInfo {
 
   final _i2.Key key;
 
-  final _i14.Booking booking;
+  final _i15.Booking booking;
 
-  final _i14.Itinerary data;
+  final _i15.Itinerary data;
 
   final dynamic Function(bool) onResult;
 
@@ -241,4 +252,20 @@ class ChangePasswordRoute extends _i1.PageRouteInfo {
   final _i2.Key key;
 
   static const String name = 'ChangePasswordRoute';
+}
+
+class SupportRoute extends _i1.PageRouteInfo {
+  SupportRoute({this.key, @_i2.required this.data})
+      : super(name, path: '/support', argProps: [key, data]);
+
+  SupportRoute.fromMatch(_i1.RouteMatch match)
+      : key = null,
+        data = null,
+        super.fromMatch(match);
+
+  final _i2.Key key;
+
+  final _i15.Ticket data;
+
+  static const String name = 'SupportRoute';
 }

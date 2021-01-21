@@ -8,6 +8,7 @@ import 'package:saadiyat/pages/login/login_page.dart';
 import 'package:saadiyat/pages/my/change_password.dart';
 import 'package:saadiyat/pages/my/passport.dart';
 import 'package:saadiyat/pages/my/profile.dart';
+import 'package:saadiyat/pages/support/index.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 import 'package:saadiyat/pages/tickets/tickets_page.dart';
 import 'package:saadiyat/pages/welcome/welcome_page.dart';
@@ -55,6 +56,11 @@ import 'guard.dart';
     AutoRoute(
       path: ChangePasswordPage.routeName,
       page: ChangePasswordPage,
+      guards: [AuthGuard],
+    ),
+    AutoRoute(
+      path: SupportPage.routeName,
+      page: SupportPage,
       guards: [AuthGuard],
     ),
   ],

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saadiyat/pages/ticket_detail/ticket_screen.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 import 'bta_screen.dart';
 import 'itinerary_screen.dart';
@@ -59,7 +61,9 @@ class _TicketDetailPageState extends State<TicketDetailPage>
                   actions: [
                     IconButton(
                       icon: Icon(Icons.support_agent),
-                      onPressed: () {},
+                      onPressed: () {
+                        context.router.push(SupportRoute(data: state.data));
+                      },
                     )
                   ],
                   bottom: TabBar(
