@@ -12,7 +12,7 @@ class Comment extends Equatable {
   int object_id;
   String content_type;
   User user;
-  List<Comment> child;
+  List<Comment> children;
 
   static Comment fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);
   Map<String, dynamic> toJson() => _$CommentToJson(this);
@@ -27,6 +27,18 @@ class Comment extends Equatable {
         object_id,
         user,
       ];
+}
+
+@JsonSerializable()
+class CommentExtra extends Equatable {
+  Comment data;
+
+  static CommentExtra fromJson(Map<String, dynamic> json) =>
+      _$CommentExtraFromJson(json);
+  Map<String, dynamic> toJson() => _$CommentExtraToJson(this);
+
+  @override
+  List<Object> get props => [data];
 }
 
 @JsonSerializable()

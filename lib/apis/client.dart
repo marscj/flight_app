@@ -121,5 +121,5 @@ abstract class RestClient {
   Future<CommentList> getComments({@Queries() Map<String, dynamic> query});
 
   @POST('/comments/')
-  Future<CommentList> createComments(@Body() Map<String, dynamic> playload);
+  Future<CommentExtra> createComments(@Body() Map<String, dynamic> playload);
 }

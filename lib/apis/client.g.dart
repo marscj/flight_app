@@ -299,7 +299,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
     ..user = json['user'] == null
         ? null
         : User.fromJson(json['user'] as Map<String, dynamic>)
-    ..child = (json['child'] as List)
+    ..children = (json['children'] as List)
         ?.map((e) =>
             e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
         ?.toList();
@@ -313,7 +313,19 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'object_id': instance.object_id,
       'content_type': instance.content_type,
       'user': instance.user,
-      'child': instance.child,
+      'children': instance.children,
+    };
+
+CommentExtra _$CommentExtraFromJson(Map<String, dynamic> json) {
+  return CommentExtra()
+    ..data = json['data'] == null
+        ? null
+        : Comment.fromJson(json['data'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$CommentExtraToJson(CommentExtra instance) =>
+    <String, dynamic>{
+      'data': instance.data,
     };
 
 CommentList _$CommentListFromJson(Map<String, dynamic> json) {
@@ -449,7 +461,6 @@ Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
 Message _$MessageFromJson(Map<String, dynamic> json) {
   return Message()
     ..id = json['id'] as int
-    ..json = json['json'] as Map<String, dynamic>
     ..date = json['date'] as String
     ..read = json['read'] as bool
     ..object_id = json['object_id'] as int
@@ -461,7 +472,6 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'id': instance.id,
-      'json': instance.json,
       'date': instance.date,
       'read': instance.read,
       'object_id': instance.object_id,
@@ -883,7 +893,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<CommentList> createComments(playload) async {
+  Future<CommentExtra> createComments(playload) async {
     ArgumentError.checkNotNull(playload, 'playload');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -898,7 +908,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = CommentList.fromJson(_result.data);
+    final value = CommentExtra.fromJson(_result.data);
     return value;
   }
 }

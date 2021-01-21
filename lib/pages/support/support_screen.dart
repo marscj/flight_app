@@ -62,9 +62,10 @@ class SupportScreenState extends State<SupportScreen> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(32)),
                                 image: DecorationImage(
-                                    image: state.list[i].user
-                                                ?.avatar['thumbnail'] !=
-                                            null
+                                    image: state.list[i].user.avatar != null &&
+                                            state.list[i].user
+                                                    .avatar['thumbnail'] !=
+                                                null
                                         ? NetworkImage(state
                                             .list[i].user?.avatar['thumbnail'])
                                         : ExactAssetImage('assets/user.png')),
@@ -103,7 +104,7 @@ class SupportScreenState extends State<SupportScreen> {
                         Container(
                             padding: const EdgeInsets.only(left: 16),
                             child: ListBody(
-                              children: state.list[i].child.map((e) {
+                              children: state.list[i].children.map((e) {
                                 return ListTile(
                                     isThreeLine: true,
                                     dense: true,
@@ -115,9 +116,13 @@ class SupportScreenState extends State<SupportScreen> {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(32)),
                                           image: DecorationImage(
-                                              image: state.list[i].user?.avatar[
-                                                          'thumbnail'] !=
-                                                      null
+                                              image: state.list[i].user
+                                                              .avatar !=
+                                                          null &&
+                                                      state.list[i].user
+                                                                  ?.avatar[
+                                                              'thumbnail'] !=
+                                                          null
                                                   ? NetworkImage(state
                                                       .list[i]
                                                       .user
@@ -187,9 +192,11 @@ class _SupportPostPageState extends State<SupportPostPage> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(32)),
                                     image: DecorationImage(
-                                        image: widget.reply.user
-                                                    ?.avatar['thumbnail'] !=
-                                                null
+                                        image: widget.reply.user.avatar !=
+                                                    null &&
+                                                widget.reply.user
+                                                        ?.avatar['thumbnail'] !=
+                                                    null
                                             ? NetworkImage(widget.reply.user
                                                 ?.avatar['thumbnail'])
                                             : ExactAssetImage(
