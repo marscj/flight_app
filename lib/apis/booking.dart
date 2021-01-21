@@ -12,13 +12,15 @@ class Booking extends Equatable {
   String author;
   List<Upload> uploads;
   List<Itinerary> itineraries;
+  List<Comment> comments;
+  List<Message> messages;
 
   static Booking fromJson(Map<String, dynamic> json) => _$BookingFromJson(json);
   Map<String, dynamic> toJson() => _$BookingToJson(this);
 
   @override
   List<Object> get props =>
-      [id, title, remark, date, author, uploads, itineraries];
+      [id, title, remark, date, author, uploads, itineraries, comments];
 }
 
 @JsonSerializable()

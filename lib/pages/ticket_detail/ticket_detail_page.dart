@@ -56,6 +56,12 @@ class _TicketDetailPageState extends State<TicketDetailPage>
             return Scaffold(
                 appBar: AppBar(
                   title: Text('Ticket Detail'),
+                  actions: [
+                    IconButton(
+                      icon: Icon(Icons.support_agent),
+                      onPressed: () {},
+                    )
+                  ],
                   bottom: TabBar(
                     controller: _tabController,
                     indicatorColor: Colors.white,

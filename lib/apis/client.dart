@@ -17,6 +17,7 @@ part 'itinerary.dart';
 part 'comment.dart';
 part 'ticket.dart';
 part 'version.dart';
+part 'message.dart';
 
 // ignore_for_file: non_constant_identifier_names
 

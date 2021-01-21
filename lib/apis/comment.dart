@@ -6,13 +6,13 @@ part of 'client.dart';
 @JsonSerializable()
 class Comment extends Equatable {
   int id;
-  String comment;
-  int rating;
+  String content;
   bool read;
-  String content_type;
   int author_id;
   String date;
   int object_id;
+  String content_type;
+  List<Comment> child;
 
   static Comment fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);
   Map<String, dynamic> toJson() => _$CommentToJson(this);
@@ -20,8 +20,7 @@ class Comment extends Equatable {
   @override
   List<Object> get props => [
         id,
-        comment,
-        rating,
+        content,
         read,
         content_type,
         author_id,

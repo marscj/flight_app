@@ -104,6 +104,10 @@ Booking _$BookingFromJson(Map<String, dynamic> json) {
     ..itineraries = (json['itineraries'] as List)
         ?.map((e) =>
             e == null ? null : Itinerary.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..comments = (json['comments'] as List)
+        ?.map((e) =>
+            e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
@@ -115,6 +119,7 @@ Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
       'author': instance.author,
       'uploads': instance.uploads,
       'itineraries': instance.itineraries,
+      'comments': instance.comments,
     };
 
 BookingList _$BookingListFromJson(Map<String, dynamic> json) {
@@ -281,24 +286,27 @@ Map<String, dynamic> _$ItineraryListToJson(ItineraryList instance) =>
 Comment _$CommentFromJson(Map<String, dynamic> json) {
   return Comment()
     ..id = json['id'] as int
-    ..comment = json['comment'] as String
-    ..rating = json['rating'] as int
+    ..content = json['content'] as String
     ..read = json['read'] as bool
-    ..content_type = json['content_type'] as String
     ..author_id = json['author_id'] as int
     ..date = json['date'] as String
-    ..object_id = json['object_id'] as int;
+    ..object_id = json['object_id'] as int
+    ..content_type = json['content_type'] as String
+    ..child = (json['child'] as List)
+        ?.map((e) =>
+            e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'id': instance.id,
-      'comment': instance.comment,
-      'rating': instance.rating,
+      'content': instance.content,
       'read': instance.read,
-      'content_type': instance.content_type,
       'author_id': instance.author_id,
       'date': instance.date,
       'object_id': instance.object_id,
+      'content_type': instance.content_type,
+      'child': instance.child,
     };
 
 CommentList _$CommentListFromJson(Map<String, dynamic> json) {
@@ -342,6 +350,10 @@ Ticket _$TicketFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
         ?.toList()
+    ..messages = (json['messages'] as List)
+        ?.map((e) =>
+            e == null ? null : Message.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..uploads = (json['uploads'] as List)
         ?.map((e) =>
             e == null ? null : Upload.fromJson(e as Map<String, dynamic>))
@@ -367,6 +379,7 @@ Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
       'parent': instance.parent,
       'children': instance.children,
       'comments': instance.comments,
+      'messages': instance.messages,
       'uploads': instance.uploads,
     };
 
@@ -424,6 +437,42 @@ Version _$VersionFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
       'result': instance.result,
       'url': instance.url,
+    };
+
+Message _$MessageFromJson(Map<String, dynamic> json) {
+  return Message()
+    ..id = json['id'] as int
+    ..json = json['json'] as Map<String, dynamic>
+    ..date = json['date'] as String
+    ..read = json['read'] as bool
+    ..object_id = json['object_id'] as int
+    ..content_type = json['content_type'] as String
+    ..user = json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>);
+}
+
+Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
+      'id': instance.id,
+      'json': instance.json,
+      'date': instance.date,
+      'read': instance.read,
+      'object_id': instance.object_id,
+      'content_type': instance.content_type,
+      'user': instance.user,
+    };
+
+MessageList _$MessageListFromJson(Map<String, dynamic> json) {
+  return MessageList()
+    ..data = (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : Message.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$MessageListToJson(MessageList instance) =>
+    <String, dynamic>{
+      'data': instance.data,
     };
 
 // **************************************************************************

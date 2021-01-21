@@ -22,8 +22,8 @@ class Ticket extends Equatable {
   Itinerary itinerary;
   int parent;
   List<Ticket> children;
-
   List<Comment> comments;
+  List<Message> messages;
   List<Upload> uploads;
 
   Ticket get last => children.length > 0 ? children[children.length - 1] : this;
