@@ -18,5 +18,7 @@ class RefreshSupportDetailEvent extends SupportEvent {
 
   @override
   Stream<SupportState> applyAsync(
-      {SupportState currentState, SupportBloc bloc}) async* {}
+      {SupportState currentState, SupportBloc bloc}) async* {
+    yield currentState.copyWith(list: list);
+  }
 }

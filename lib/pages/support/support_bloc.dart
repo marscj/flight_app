@@ -7,9 +7,9 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:saadiyat/pages/support/index.dart';
 
+// ignore_for_file: non_constant_identifier_names
+
 class SupportBloc extends Bloc<SupportEvent, SupportState> {
-  // todo: check singleton for logic in project
-  // use GetIt for DI in projct
   SupportBloc() : super(SupportState.initial());
 
   @override
@@ -28,15 +28,13 @@ class SupportBloc extends Bloc<SupportEvent, SupportState> {
 
 class CommentFormBloc extends FormBloc<String, String> {
   TextFieldBloc comment = TextFieldBloc();
-  InputFieldBloc<double, Object> rating =
-      InputFieldBloc<double, Object>(initialValue: 3.0);
 
   final int object_id;
   final String content_type;
   final BuildContext context;
 
   CommentFormBloc(this.context, this.object_id, this.content_type) {
-    addFieldBlocs(fieldBlocs: [comment, rating]);
+    addFieldBlocs(fieldBlocs: [comment]);
     addValidators();
   }
 

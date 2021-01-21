@@ -29,13 +29,12 @@ class SupportScreenState extends State<SupportScreen> {
             firstRefresh: true,
             firstRefreshWidget: LinearProgressIndicator(),
             onRefresh: () async {
-              await RestClient()
-                  .getComments(query: {
-                    'content_type': 'ticket',
-                    'object_id': widget.data.id
-                  })
-                  .then((res) {})
-                  .catchError((error) {});
+              await RestClient().getComments(query: {
+                'content_type': 'ticket',
+                'object_id': widget.data.id
+              }).then((res) {
+                bloc.add(RefreshSupportDetailEvent(res.data));
+              }).catchError((error) {});
             },
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 8),
