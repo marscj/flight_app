@@ -115,4 +115,7 @@ abstract class RestClient {
 
   @POST('/app/version/')
   Future<Version> checkVersion(@Body() Map<String, dynamic> playload);
+
+  @GET('/comments/')
+  Future<CommentList> getComments({@Queries() Map<String, dynamic> query});
 }

@@ -108,6 +108,10 @@ Booking _$BookingFromJson(Map<String, dynamic> json) {
     ..comments = (json['comments'] as List)
         ?.map((e) =>
             e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..messages = (json['messages'] as List)
+        ?.map((e) =>
+            e == null ? null : Message.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
@@ -120,6 +124,7 @@ Map<String, dynamic> _$BookingToJson(Booking instance) => <String, dynamic>{
       'uploads': instance.uploads,
       'itineraries': instance.itineraries,
       'comments': instance.comments,
+      'messages': instance.messages,
     };
 
 BookingList _$BookingListFromJson(Map<String, dynamic> json) {
@@ -292,6 +297,9 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
     ..date = json['date'] as String
     ..object_id = json['object_id'] as int
     ..content_type = json['content_type'] as String
+    ..user = json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>)
     ..child = (json['child'] as List)
         ?.map((e) =>
             e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
@@ -306,6 +314,7 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'date': instance.date,
       'object_id': instance.object_id,
       'content_type': instance.content_type,
+      'user': instance.user,
       'child': instance.child,
     };
 
@@ -853,6 +862,25 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = Version.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<CommentList> getComments({query}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(query ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/comments/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = CommentList.fromJson(_result.data);
     return value;
   }
 }

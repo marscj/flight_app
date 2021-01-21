@@ -12,6 +12,7 @@ class Comment extends Equatable {
   String date;
   int object_id;
   String content_type;
+  User user;
   List<Comment> child;
 
   static Comment fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);
@@ -26,6 +27,7 @@ class Comment extends Equatable {
         author_id,
         date,
         object_id,
+        user,
       ];
 }
 

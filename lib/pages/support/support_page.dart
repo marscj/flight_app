@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/support/index.dart';
 
 class SupportPage extends StatefulWidget {
@@ -11,11 +12,7 @@ class SupportPage extends StatefulWidget {
 class _SupportPageState extends State<SupportPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Support'),
-      ),
-      body: SupportScreen(),
-    );
+    return BlocProvider<SupportBloc>(
+        create: (context) => SupportBloc(), child: SupportScreen());
   }
 }
