@@ -133,11 +133,11 @@ class AppLogoutEvent extends AppEvent {
     await Store.instance.clearToken();
     await Store.instance.clearAuth();
     // context.router.popAndPush(LoginRoute());
-    yield currentState.copyWith(user: null);
+
     context.router.removeUntilRoot();
-    context.router.replace(WelcomeRoute());
+    context.router.replace(LoginRoute());
     bloc.add(JMessageLogoutEvent());
-    bloc.add(CheckVersionEvent());
+    yield currentState.copyWith(user: null);
   }
 }
 
