@@ -30,8 +30,7 @@ class TicketScreen extends StatelessWidget {
                 child: Column(
               children: [
                 (currentState?.data != null &&
-                            currentState?.data?.is_confirm == null) ||
-                        true
+                        currentState?.data?.is_confirm == null)
                     ? MaterialBanner(
                         backgroundColor: Colors.orange,
                         content: ListTile(
@@ -77,7 +76,7 @@ class TicketScreen extends StatelessWidget {
                   dense: true,
                   title: Text('Confirm:'),
                   subtitle: Text(currentState?.data?.is_confirm == null
-                      ? 'unconfirmed'
+                      ? 'Unconfirmed'
                       : currentState.data.is_confirm
                           ? 'Confirmed'
                           : 'Refusal'),

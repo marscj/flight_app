@@ -63,6 +63,16 @@ class Ticket extends Equatable {
               : is_complete
                   ? Colors.green
                   : Colors.orange;
+
+  String get status_text => is_confirm == null
+      ? 'Unconfirmed'
+      : !is_confirm
+          ? 'Refusal'
+          : is_cancel
+              ? 'Canceled'
+              : is_complete
+                  ? 'Completed'
+                  : 'Confirmed';
 }
 
 @JsonSerializable()
