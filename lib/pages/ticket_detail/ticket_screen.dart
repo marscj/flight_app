@@ -75,11 +75,7 @@ class TicketScreen extends StatelessWidget {
                 ListTile(
                   dense: true,
                   title: Text('Confirm:'),
-                  subtitle: Text(currentState?.data?.is_confirm == null
-                      ? 'Unconfirmed'
-                      : currentState.data.is_confirm
-                          ? 'Confirmed'
-                          : 'Refusal'),
+                  subtitle: Text(currentState?.data?.status_text ?? ''),
                 ),
                 Divider(),
                 ListTile(
@@ -129,6 +125,19 @@ class TicketScreen extends StatelessWidget {
                   title: Text('Create Date:'),
                   subtitle: Text(currentState?.data?.date ?? ''),
                 ),
+                Divider(),
+                SizedBox(height: 20),
+                currentState?.data != null &&
+                        currentState?.data?.is_confirm == null &&
+                        !currentState.data.is_confirm
+                    ? ElevatedButton(
+                        child: Text('Change/Cancel'),
+                        onPressed: () {
+                          showConfrimModal(
+                              context, ticketDetailBloc, currentState.data);
+                        },
+                      )
+                    : Container()
               ],
             )),
           ),

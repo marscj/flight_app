@@ -167,11 +167,24 @@ class TicketItem extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 15.0),
                       width: double.infinity,
-                      child: AutoSizeText(
-                        data?.serial_no ?? '',
-                        maxLines: 1,
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AutoSizeText(
+                            data?.serial_no ?? '',
+                            maxLines: 1,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          AutoSizeText(
+                            data?.status_text ?? '',
+                            maxLines: 1,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       )),
                   Container(
                       width: double.infinity,
