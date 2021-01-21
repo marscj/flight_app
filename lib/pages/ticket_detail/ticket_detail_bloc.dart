@@ -37,8 +37,9 @@ class ConfrimFormBloc extends FormBloc<String, String> {
 
   final TicketDetailBloc bloc;
   final Ticket data;
+  final bool confirm;
 
-  ConfrimFormBloc(this.bloc, this.data) {
+  ConfrimFormBloc(this.bloc, this.data, this.confirm) {
     addFieldBlocs(fieldBlocs: [reason]);
     addValidators();
   }
@@ -59,14 +60,29 @@ class ConfrimFormBloc extends FormBloc<String, String> {
   @override
   void onSubmitting() {
     EasyLoading.show();
-    RestClient().confirmTicket(
-        data.id, {'confirm': false, 'reason': reason.value}).then((res) {
-      bloc.add(RefreshTicketDetailEvent(res));
-      emitSuccess(canSubmitAgain: true);
-      EasyLoading.showSuccess('Success');
-    }).catchError((error) {
-      emitFailure();
-      EasyLoading.showError('Failed');
-    });
+
+    if (confirm) {
+      RestClient().confirmTicket(
+          data.id, {'confirm': false, 'reason': reason.value}).then((res) {
+        bloc.add(RefreshTicketDetailEvent(res));
+        emitSuccess(canSubmitAgain: true);
+        EasyLoading.showSuccess('Success');
+      }).catchError((error) {
+        emitFailure();
+        EasyLoading.showError('Failed');
+      });
+    } else {
+      RestClient().createComments({
+        'object_id': data.id,
+        'content_type': 'ticket',
+        'content': reason.value
+      }).then((value) {
+        emitSuccess(canSubmitAgain: true);
+        EasyLoading.showSuccess('Success');
+      }).catchError((error) {
+        emitFailure();
+        EasyLoading.showError('Failed');
+      });
+    }
   }
 }

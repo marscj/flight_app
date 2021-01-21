@@ -59,8 +59,8 @@ class TicketScreen extends StatelessWidget {
                               style: TextStyle(color: colorScheme.primary),
                             ),
                             onPressed: () {
-                              showConfrimModal(
-                                  context, ticketDetailBloc, currentState.data);
+                              showConfrimModal(context, ticketDetailBloc,
+                                  currentState.data, true);
                             },
                           )
                         ],
@@ -137,7 +137,7 @@ class TicketScreen extends StatelessWidget {
                                 child: Text('Change/Cancel'),
                                 onPressed: () {
                                   showConfrimModal(context, ticketDetailBloc,
-                                      currentState.data);
+                                      currentState.data, false);
                                 },
                               ))
                         ],
@@ -162,8 +162,10 @@ class TicketScreen extends StatelessWidget {
 class ConfrimPostPage extends StatefulWidget {
   final TicketDetailBloc bloc;
   final Ticket data;
+  final bool confirm;
 
-  const ConfrimPostPage({Key key, this.bloc, this.data}) : super(key: key);
+  const ConfrimPostPage({Key key, this.bloc, this.data, this.confirm})
+      : super(key: key);
 
   @override
   _ConfrimPostPageState createState() => _ConfrimPostPageState();
@@ -173,7 +175,8 @@ class _ConfrimPostPageState extends State<ConfrimPostPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ConfrimFormBloc>(
-        create: (_) => ConfrimFormBloc(widget.bloc, widget.data),
+        create: (_) =>
+            ConfrimFormBloc(widget.bloc, widget.data, widget.confirm),
         child: Builder(
           builder: (context) {
             ConfrimFormBloc formBloc =
@@ -213,11 +216,11 @@ class _ConfrimPostPageState extends State<ConfrimPostPage> {
   }
 }
 
-Future<T> showConfrimModal<T>(
-    BuildContext context, TicketDetailBloc bloc, Ticket data) async {
+Future<T> showConfrimModal<T>(BuildContext context, TicketDetailBloc bloc,
+    Ticket data, bool confirm) async {
   return showModalBottomSheet<T>(
       context: context,
       builder: (BuildContext context) {
-        return ConfrimPostPage(bloc: bloc, data: data);
+        return ConfrimPostPage(bloc: bloc, data: data, confirm: confirm);
       });
 }
