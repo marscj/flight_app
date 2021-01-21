@@ -499,7 +499,7 @@ Map<String, dynamic> _$MessageListToJson(MessageList instance) =>
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://192.168.1.248:8000/api/';
+    baseUrl ??= 'http://thesaadiyat.com/api/';
   }
 
   final Dio _dio;
