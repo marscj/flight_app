@@ -7,6 +7,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info/package_info.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
@@ -132,10 +133,11 @@ class AppLogoutEvent extends AppEvent {
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     await Store.instance.clearToken();
     await Store.instance.clearAuth();
-    // context.router.removeUntilRoot();
-    // context.router.replace(LoginRoute());
-    context.router.popAndPush(LoginRoute());
+    context.router.removeUntilRoot();
+    context.router.replace(WelcomeRoute());
+    // context.router.popAndPush(LoginRoute());
     bloc.add(JMessageLogoutEvent());
+    bloc.add(CheckVersionEvent());
     yield currentState.copyWith(user: null);
   }
 }

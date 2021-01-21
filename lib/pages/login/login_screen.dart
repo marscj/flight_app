@@ -34,12 +34,12 @@ class LoginScreenState extends State<LoginScreen> {
             return FormBlocListener<LoginFormBloc, String, String>(
               onFailure: (context, state) {},
               onSuccess: (context, state) {
-                if (widget?.onLoginResult != null) {
-                  widget?.onLoginResult(true);
-                } else {
-                  context.router.removeUntilRoot();
-                  context.router.replace(BasementRoute());
-                }
+                // if (widget?.onLoginResult != null) {
+                //   widget?.onLoginResult(true);
+                // } else {
+                //   context.router.removeUntilRoot();
+                //   context.router.replace(BasementRoute());
+                // }
               },
               onSubmitting: (context, state) {},
               child: ListBody(

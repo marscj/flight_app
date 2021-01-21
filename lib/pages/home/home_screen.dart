@@ -54,7 +54,7 @@ class HomeScreenState extends State<HomeScreen> {
                 'Apply For Booking',
                 style: TextStyle(fontSize: 16),
               )),
-          Flexible(
+          Expanded(
             flex: 2,
             child: Container(
                 margin:
@@ -75,17 +75,18 @@ class HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       context.router.push(BookingCreateRoute());
                     },
-                    child: Container(
+                    child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 20),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          Expanded(
+                              child: Text(
                             'Bookings Now Open',
                             style: GoogleFonts.unna(fontSize: 18),
-                          ),
+                          )),
                           Material(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
@@ -97,7 +98,7 @@ class HomeScreenState extends State<HomeScreen> {
                               child: Text('Get Started',
                                   style: TextStyle(color: Colors.white)),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ))),
@@ -108,7 +109,7 @@ class HomeScreenState extends State<HomeScreen> {
                 'About Us',
                 style: TextStyle(fontSize: 16),
               )),
-          Flexible(
+          Expanded(
               flex: 3,
               child: Container(
                 margin:

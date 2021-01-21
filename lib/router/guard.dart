@@ -17,7 +17,9 @@ class AuthGuard extends AutoRouteGuard {
     if (appState.user == null) {
       router.push(LoginRoute(onLoginResult: (success) {
         if (success) {
-          router.pop();
+          // router.pop();
+          // router.replaceAll(pendingRoutes);
+          router.removeUntilRoot();
           router.replaceAll(pendingRoutes);
         }
       }));
