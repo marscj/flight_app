@@ -61,6 +61,8 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                         final formBloc =
                             BlocProvider.of<ItineraryFormBloc>(context);
 
+                        DateTime dateTime = DateTime.now();
+
                         return Form(
                             child: ListView(
                           padding: const EdgeInsets.only(
@@ -112,28 +114,36 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                     labelText: 'Passport No.',
                                     errorMaxLines: 6,
                                     border: OutlineInputBorder())),
-                            TextFieldBlocBuilder(
-                                textFieldBloc: formBloc.exit
-                                  ..updateInitialValue(
-                                      widget?.data?.exit ?? ''),
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                    isDense: true,
-                                    labelText: '* Exit',
-                                    errorMaxLines: 6,
-                                    border: OutlineInputBorder())),
-                            TextFieldBlocBuilder(
-                                textFieldBloc: formBloc.entry
-                                  ..updateInitialValue(
-                                      widget?.data?.entry ?? ''),
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                    isDense: true,
-                                    labelText: '* Entry',
-                                    errorMaxLines: 6,
-                                    border: OutlineInputBorder())),
+                            DateTimeFieldBlocBuilder(
+                              dateTimeFieldBloc: formBloc.exit,
+                              canSelectTime: false,
+                              showClearIcon: false,
+                              format: DateFormat('yyyy-MM-dd'),
+                              initialDate: dateTime,
+                              firstDate: DateTime(
+                                  dateTime.year, dateTime.month, dateTime.day),
+                              lastDate: DateTime(dateTime.year, dateTime.month,
+                                  dateTime.day + 30),
+                              decoration: InputDecoration(
+                                  labelText: 'Exit',
+                                  prefixIcon: Icon(Icons.calendar_today),
+                                  border: OutlineInputBorder()),
+                            ),
+                            DateTimeFieldBlocBuilder(
+                              dateTimeFieldBloc: formBloc.entry,
+                              canSelectTime: false,
+                              showClearIcon: false,
+                              format: DateFormat('yyyy-MM-dd'),
+                              initialDate: dateTime,
+                              firstDate: DateTime(
+                                  dateTime.year, dateTime.month, dateTime.day),
+                              lastDate: DateTime(dateTime.year, dateTime.month,
+                                  dateTime.day + 30),
+                              decoration: InputDecoration(
+                                  labelText: 'Entry',
+                                  prefixIcon: Icon(Icons.calendar_today),
+                                  border: OutlineInputBorder()),
+                            ),
                             TextFieldBlocBuilder(
                                 textFieldBloc: formBloc.ticket1
                                   ..updateInitialValue(

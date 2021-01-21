@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:saadiyat/apis/client.dart';
@@ -7,8 +8,10 @@ class ItineraryFormBloc extends FormBloc<String, String> {
   final TextFieldBloc emial = TextFieldBloc();
   final TextFieldBloc name = TextFieldBloc();
   final TextFieldBloc passport_no = TextFieldBloc();
-  final TextFieldBloc exit = TextFieldBloc();
-  final TextFieldBloc entry = TextFieldBloc();
+  final InputFieldBloc<DateTime, Object> exit =
+      InputFieldBloc<DateTime, Object>();
+  final InputFieldBloc<DateTime, Object> entry =
+      InputFieldBloc<DateTime, Object>();
   final TextFieldBloc ticket1 = TextFieldBloc();
   final TextFieldBloc ticket2 = TextFieldBloc();
   final TextFieldBloc remark = TextFieldBloc();
@@ -50,9 +53,9 @@ class ItineraryFormBloc extends FormBloc<String, String> {
     emial.addValidators(
         [RequiredValidator(errorText: 'This field is required!')]);
     exit.addValidators(
-        [RequiredValidator(errorText: 'This field is required!')]);
+        [RequiredDateTimeValidator(errorText: 'This field is required!')]);
     entry.addValidators(
-        [RequiredValidator(errorText: 'This field is required!')]);
+        [RequiredDateTimeValidator(errorText: 'This field is required!')]);
   }
 
   @override
@@ -70,8 +73,8 @@ class ItineraryFormBloc extends FormBloc<String, String> {
         'email': emial.value,
         'name': name.value,
         'passport_no': passport_no.value,
-        'exit': exit.value,
-        'entry': entry.value,
+        'exit': DateFormat('yyyy-MM-dd').format(exit.value),
+        'entry': DateFormat('yyyy-MM-dd').format(entry.value),
         'ticket1': ticket1.value,
         'ticket2': ticket2.value,
         'remark': remark.value,
@@ -101,5 +104,23 @@ class ItineraryFormBloc extends FormBloc<String, String> {
         addErrors(error?.response?.data);
       }).whenComplete(() {});
     }
+  }
+}
+
+class RequiredDateTimeValidator extends FieldValidator<DateTime> {
+  RequiredDateTimeValidator({@required String errorText}) : super(errorText);
+
+  @override
+  // ignore: override_on_non_overriding_member
+  bool get ignoreEmptyValues => false;
+
+  @override
+  bool isValid(DateTime value) {
+    return value != null;
+  }
+
+  @override
+  String call(DateTime value) {
+    return isValid(value) ? null : errorText;
   }
 }
