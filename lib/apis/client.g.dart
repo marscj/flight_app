@@ -883,4 +883,24 @@ class _RestClient implements RestClient {
     final value = CommentList.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<CommentList> createComments(playload) async {
+    ArgumentError.checkNotNull(playload, 'playload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(playload ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/comments/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = CommentList.fromJson(_result.data);
+    return value;
+  }
 }

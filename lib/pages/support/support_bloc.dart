@@ -3,8 +3,10 @@ import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/support/index.dart';
 
 // ignore_for_file: non_constant_identifier_names
@@ -27,19 +29,19 @@ class SupportBloc extends Bloc<SupportEvent, SupportState> {
 }
 
 class CommentFormBloc extends FormBloc<String, String> {
-  TextFieldBloc comment = TextFieldBloc();
+  TextFieldBloc content = TextFieldBloc();
 
   final int object_id;
   final String content_type;
   final BuildContext context;
 
   CommentFormBloc(this.context, this.object_id, this.content_type) {
-    addFieldBlocs(fieldBlocs: [comment]);
+    addFieldBlocs(fieldBlocs: [content]);
     addValidators();
   }
 
   void addValidators() {
-    comment.addValidators(
+    content.addValidators(
         [RequiredValidator(errorText: 'This field is required!')]);
   }
 
@@ -48,21 +50,22 @@ class CommentFormBloc extends FormBloc<String, String> {
       return;
     }
 
-    comment.addFieldError(errors['comment'] ?? errors['non_field_errors']);
+    content.addFieldError(errors['content'] ?? errors['non_field_errors']);
   }
 
   @override
   void onSubmitting() {
-    // RestService.instance.postComment({
-    //   'object_id': object_id,
-    //   'content_type': content_type,
-    //   'comment': comment.value,
-    //   'rating': rating.value.toInt()
-    // }).then((value) {
-    //   emitSuccess(canSubmitAgain: true);
-    // }).catchError((onError) {
-    //   emitFailure();
-    //   addErrors(onError?.response?.data);
-    // });
+    EasyLoading.show();
+    RestClient().createComments({
+      'object_id': object_id,
+      'content_type': content_type,
+      'content': content.value
+    }).then((value) {
+      emitSuccess(canSubmitAgain: true);
+      EasyLoading.showSuccess('Success');
+    }).catchError((error) {
+      emitFailure();
+      EasyLoading.showError('Failed');
+    });
   }
 }

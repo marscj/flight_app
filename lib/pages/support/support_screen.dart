@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
@@ -6,6 +7,8 @@ import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/support/index.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/widgets/ifnone_widget.dart';
+
+// ignore_for_file: close_sinks
 
 class SupportScreen extends StatefulWidget {
   const SupportScreen({Key key, @required this.data}) : super(key: key);
@@ -25,100 +28,113 @@ class SupportScreenState extends State<SupportScreen> {
       builder: (context, state) {
         SupportBloc bloc = BlocProvider.of<SupportBloc>(context);
 
-        return EasyRefresh(
-            firstRefresh: true,
-            firstRefreshWidget: LinearProgressIndicator(),
-            onRefresh: () async {
-              await RestClient().getComments(query: {
-                'content_type': 'ticket',
-                'object_id': widget.data.id
-              }).then((res) {
-                bloc.add(RefreshSupportDetailEvent(res.data));
-              }).catchError((error) {});
-            },
-            child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              separatorBuilder: (context, index) => Divider(),
-              itemBuilder: (c, i) => Container(
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Container(
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(32)),
-                            image: DecorationImage(
-                                image: state.list[i].user
-                                            ?.avatar['thumbnail'] !=
-                                        null
-                                    ? NetworkImage(
-                                        state.list[i].user?.avatar['thumbnail'])
-                                    : ExactAssetImage('assets/user.png')),
-                          )),
-                      title: RichText(
-                        text: TextSpan(
-                          style: DefaultTextStyle.of(context).style,
-                          children: <TextSpan>[
-                            TextSpan(
-                                style: DefaultTextStyle.of(context)
-                                    .style
-                                    .copyWith(fontSize: 18),
-                                text: state.list[i].content),
-                            TextSpan(text: '\n'),
-                            TextSpan(
-                                style: DefaultTextStyle.of(context)
-                                    .style
-                                    .copyWith(color: Colors.grey[600]),
-                                text:
-                                    '${state.list[i].user.name}  ${state.list[i].date}'),
-                          ],
+        return Scaffold(
+            appBar: AppBar(title: Text('Support Center')),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                showCommentModal(context, widget.data.id, 'ticket');
+              },
+            ),
+            body: EasyRefresh(
+                firstRefresh: true,
+                firstRefreshWidget: LinearProgressIndicator(),
+                onRefresh: () async {
+                  await RestClient().getComments(query: {
+                    'content_type': 'ticket',
+                    'object_id': widget.data.id
+                  }).then((res) {
+                    bloc.add(RefreshSupportDetailEvent(res.data));
+                  }).catchError((error) {});
+                },
+                child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  separatorBuilder: (context, index) => Divider(),
+                  itemBuilder: (c, i) => Container(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Container(
+                              width: 32,
+                              height: 32,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                image: DecorationImage(
+                                    image: state.list[i].user
+                                                ?.avatar['thumbnail'] !=
+                                            null
+                                        ? NetworkImage(state
+                                            .list[i].user?.avatar['thumbnail'])
+                                        : ExactAssetImage('assets/user.png')),
+                              )),
+                          title: RichText(
+                            text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: <TextSpan>[
+                                TextSpan(
+                                    style: DefaultTextStyle.of(context)
+                                        .style
+                                        .copyWith(fontSize: 18),
+                                    text: state.list[i].content),
+                                TextSpan(text: '\n'),
+                                TextSpan(
+                                    style: DefaultTextStyle.of(context)
+                                        .style
+                                        .copyWith(color: Colors.grey[600]),
+                                    text:
+                                        '${state.list[i].user.name}  ${state.list[i].date}'),
+                              ],
+                            ),
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(Icons.reply),
+                            onPressed: () {
+                              showCommentModal(
+                                      context, state.list[i].id, 'comment',
+                                      reply: state.list[i])
+                                  .then((value) {
+                                if (value != null && value) {}
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.reply),
-                        onPressed: () {
-                          showCommentModal(context, state.list[i].id, 'comment',
-                                  reply: state.list[i])
-                              .then((value) {
-                            if (value != null && value) {}
-                          });
-                        },
-                      ),
+                        Container(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: ListBody(
+                              children: state.list[i].child.map((e) {
+                                return ListTile(
+                                    isThreeLine: true,
+                                    dense: true,
+                                    leading: Container(
+                                        width: 32,
+                                        height: 32,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(32)),
+                                          image: DecorationImage(
+                                              image: state.list[i].user?.avatar[
+                                                          'thumbnail'] !=
+                                                      null
+                                                  ? NetworkImage(state
+                                                      .list[i]
+                                                      .user
+                                                      ?.avatar['thumbnail'])
+                                                  : ExactAssetImage(
+                                                      'assets/images/user.png')),
+                                        )),
+                                    title: Text('${e.content}'),
+                                    subtitle:
+                                        Text('${e.user.name}  ${e.date}'));
+                              }).toList(),
+                            ))
+                      ],
                     ),
-                    Container(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: ListBody(
-                          children: state.list[i].child.map((e) {
-                            return ListTile(
-                                isThreeLine: true,
-                                dense: true,
-                                leading: Container(
-                                    width: 32,
-                                    height: 32,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(32)),
-                                      image: DecorationImage(
-                                          image: state.list[i].user
-                                                      ?.avatar['thumbnail'] !=
-                                                  null
-                                              ? NetworkImage(state.list[i].user
-                                                  ?.avatar['thumbnail'])
-                                              : ExactAssetImage(
-                                                  'assets/images/user.png')),
-                                    )),
-                                title: Text('${e.content}'),
-                                subtitle: Text('${e.user.name}  ${e.date}'));
-                          }).toList(),
-                        ))
-                  ],
-                ),
-              ),
-              itemCount: state.list.length,
-            ));
+                  ),
+                  itemCount: state.list.length,
+                )));
       },
     );
   }
@@ -195,11 +211,12 @@ class _SupportPostPageState extends State<SupportPostPage> {
                     ),
                     SizedBox(height: 10),
                     TextFieldBlocBuilder(
-                      textFieldBloc: formBloc.comment,
+                      textFieldBloc: formBloc.content,
+                      textInputAction: TextInputAction.send,
                       maxLines: 3,
                       maxLength: 256,
                       decoration: InputDecoration(
-                          labelText: 'Comment', border: OutlineInputBorder()),
+                          labelText: 'Content', border: OutlineInputBorder()),
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
