@@ -5,6 +5,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 // ignore_for_file: close_sinks
 
@@ -167,7 +168,7 @@ class _ConfrimPostPageState extends State<ConfrimPostPage> {
             return FormBlocListener<ConfrimFormBloc, String, String>(
               onSubmitting: (context, state) {},
               onSuccess: (context, state) {
-                context.router.pop();
+                context.router.popAndPush(SupportRoute(data: widget.data));
               },
               onFailure: (context, state) {},
               child: Scaffold(
