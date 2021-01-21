@@ -23,7 +23,8 @@ class _PassportPageState extends State<PassportPage> {
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(15),
-            child: Column(
+            child: Card(
+                child: Column(
               children: [
                 ListTile(
                   title: Text('Code:'),
@@ -85,7 +86,7 @@ class _PassportPageState extends State<PassportPage> {
                   subtitle: Text(state?.user?.passport_date_expiry ?? ''),
                 ),
               ],
-            ),
+            )),
           ),
         );
       },

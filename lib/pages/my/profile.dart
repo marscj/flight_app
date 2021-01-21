@@ -31,7 +31,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(15),
-            child: Column(
+            child: Card(
+                child: Column(
               children: [
                 ListTile(
                   title: Text('Avatar:'),
@@ -171,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Divider(),
                 SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 ElevatedButton(
                     child: Text('Change Password'),
@@ -179,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       context.router.push(ChangePasswordRoute());
                     }),
               ],
-            ),
+            )),
           ),
         );
       },

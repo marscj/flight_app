@@ -125,17 +125,22 @@ class TicketScreen extends StatelessWidget {
                   title: Text('Create Date:'),
                   subtitle: Text(currentState?.data?.date ?? ''),
                 ),
-                Divider(),
-                SizedBox(height: 20),
                 currentState?.data != null &&
-                        currentState?.data?.is_confirm == null &&
-                        !currentState.data.is_confirm
-                    ? ElevatedButton(
-                        child: Text('Change/Cancel'),
-                        onPressed: () {
-                          showConfrimModal(
-                              context, ticketDetailBloc, currentState.data);
-                        },
+                        currentState?.data?.is_confirm != null &&
+                        currentState.data.is_confirm
+                    ? ListBody(
+                        children: [
+                          Divider(),
+                          Container(
+                              padding: const EdgeInsets.all(15),
+                              child: ElevatedButton(
+                                child: Text('Change/Cancel'),
+                                onPressed: () {
+                                  showConfrimModal(context, ticketDetailBloc,
+                                      currentState.data);
+                                },
+                              ))
+                        ],
                       )
                     : Container()
               ],
