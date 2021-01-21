@@ -219,7 +219,7 @@ class _SupportPostPageState extends State<SupportPostPage> {
                     SizedBox(height: 10),
                     TextFieldBlocBuilder(
                       textFieldBloc: formBloc.content,
-                      textInputAction: TextInputAction.send,
+                      textInputAction: TextInputAction.done,
                       maxLines: 3,
                       maxLength: 256,
                       decoration: InputDecoration(

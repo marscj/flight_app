@@ -114,6 +114,9 @@ abstract class RestClient {
   Future<TicketExtra> updateTicket(
       @Path("id") int id, @Body() Map<String, dynamic> playload);
 
+  @POST('/tickets/{id}/confirm/')
+  Future<Ticket> confirmTicket(@Body() Map<String, dynamic> playload);
+
   @POST('/app/version/')
   Future<Version> checkVersion(@Body() Map<String, dynamic> playload);
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
+import 'package:auto_route/auto_route.dart';
 
 // ignore_for_file: close_sinks
 
@@ -26,8 +28,9 @@ class TicketScreen extends StatelessWidget {
             child: Card(
                 child: Column(
               children: [
-                currentState?.data != null &&
-                        currentState?.data?.is_confirm == null
+                (currentState?.data != null &&
+                            currentState?.data?.is_confirm == null) ||
+                        true
                     ? MaterialBanner(
                         backgroundColor: Colors.red,
                         content: ListTile(
@@ -56,8 +59,7 @@ class TicketScreen extends StatelessWidget {
                               style: TextStyle(color: colorScheme.primary),
                             ),
                             onPressed: () {
-                              ticketDetailBloc.add(
-                                  UpdateTicketEvent(currentState.data, false));
+                              showConfrimModal(context, currentState.data);
                             },
                           )
                         ],
@@ -130,4 +132,65 @@ class TicketScreen extends StatelessWidget {
           });
     });
   }
+}
+
+class ConfrimPostPage extends StatefulWidget {
+  final Ticket data;
+
+  const ConfrimPostPage({Key key, this.data}) : super(key: key);
+
+  @override
+  _ConfrimPostPageState createState() => _ConfrimPostPageState();
+}
+
+class _ConfrimPostPageState extends State<ConfrimPostPage> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<ConfrimFormBloc>(
+        create: (_) => ConfrimFormBloc(context),
+        child: Builder(
+          builder: (context) {
+            ConfrimFormBloc formBloc =
+                BlocProvider.of<ConfrimFormBloc>(context);
+            return FormBlocListener<ConfrimFormBloc, String, String>(
+              onSubmitting: (context, state) {},
+              onSuccess: (context, state) {
+                context.router.pop();
+              },
+              onFailure: (context, state) {},
+              child: Scaffold(
+                body: ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  children: [
+                    SizedBox(height: 10),
+                    TextFieldBlocBuilder(
+                      textFieldBloc: formBloc.reason,
+                      textInputAction: TextInputAction.done,
+                      maxLines: 3,
+                      maxLength: 256,
+                      decoration: InputDecoration(
+                          labelText: 'Reason', border: OutlineInputBorder()),
+                    ),
+                    SizedBox(height: 10),
+                    ElevatedButton(
+                      child: Text('Submit'),
+                      onPressed: () {
+                        formBloc.submit();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ));
+  }
+}
+
+Future<T> showConfrimModal<T>(BuildContext context, Ticket data) async {
+  return showModalBottomSheet<T>(
+      context: context,
+      builder: (BuildContext context) {
+        return ConfrimPostPage(data: data);
+      });
 }

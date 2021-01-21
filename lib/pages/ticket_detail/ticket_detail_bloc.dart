@@ -2,6 +2,11 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 
 class TicketDetailBloc extends Bloc<TicketDetailEvent, TicketDetailState> {
@@ -24,5 +29,42 @@ class TicketDetailBloc extends Bloc<TicketDetailEvent, TicketDetailState> {
           name: 'TicketDetailBloc', error: _, stackTrace: stackTrace);
       yield state;
     }
+  }
+}
+
+class ConfrimFormBloc extends FormBloc<String, String> {
+  TextFieldBloc reason = TextFieldBloc();
+
+  final BuildContext context;
+
+  ConfrimFormBloc(this.context) {
+    addFieldBlocs(fieldBlocs: [reason]);
+    addValidators();
+  }
+
+  void addValidators() {
+    reason.addValidators(
+        [RequiredValidator(errorText: 'This field is required!')]);
+  }
+
+  void addErrors(Map<String, dynamic> errors) {
+    if (errors == null) {
+      return;
+    }
+
+    reason.addFieldError(errors['reason'] ?? errors['non_field_errors']);
+  }
+
+  @override
+  void onSubmitting() {
+    EasyLoading.show();
+    RestClient()
+        .confirmTicket({'confim': false, 'reason': reason.value}).then((res) {
+      emitSuccess(canSubmitAgain: true);
+      EasyLoading.showSuccess('Success');
+    }).catchError(() {
+      emitFailure();
+      EasyLoading.showError('Failed');
+    });
   }
 }
