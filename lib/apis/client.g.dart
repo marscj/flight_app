@@ -854,7 +854,8 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<Ticket> confirmTicket(playload) async {
+  Future<TicketExtra> confirmTicket(id, playload) async {
+    ArgumentError.checkNotNull(id, 'id');
     ArgumentError.checkNotNull(playload, 'playload');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -862,7 +863,7 @@ class _RestClient implements RestClient {
     _data.addAll(playload ?? <String, dynamic>{});
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/tickets/{id}/confirm/',
+        '/tickets/$id/confirm/',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -870,7 +871,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = Ticket.fromJson(_result.data);
+    final value = TicketExtra.fromJson(_result.data);
     return value;
   }
 

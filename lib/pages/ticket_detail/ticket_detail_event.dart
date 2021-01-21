@@ -26,20 +26,20 @@ class RefreshTicketDetailEvent extends TicketDetailEvent {
 }
 
 class UpdateTicketEvent extends TicketDetailEvent {
-  final Ticket ticket;
-  final bool is_confirm;
+  final Ticket data;
 
-  UpdateTicketEvent(this.ticket, this.is_confirm);
+  UpdateTicketEvent(this.data);
 
   @override
   Stream<TicketDetailState> applyAsync(
       {TicketDetailState currentState, TicketDetailBloc bloc}) async* {
     EasyLoading.show();
+
     yield await RestClient()
-        .updateTicket(ticket.id, {'is_confirm': is_confirm}).then((res) {
+        .confirmTicket(data.id, {'confim': true}).then((res) {
       EasyLoading.showSuccess('Success');
       return currentState.copyWith(data: res.data);
-    }).catchError((onError) {
+    }).catchError(() {
       EasyLoading.showError('Failed');
       return currentState;
     });

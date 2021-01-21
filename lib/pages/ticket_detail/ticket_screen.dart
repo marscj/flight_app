@@ -32,10 +32,10 @@ class TicketScreen extends StatelessWidget {
                             currentState?.data?.is_confirm == null) ||
                         true
                     ? MaterialBanner(
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.orange,
                         content: ListTile(
                           title: Text(
-                            'Please confirm your ticket information',
+                            'Please confirm your ticket information!',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -49,8 +49,8 @@ class TicketScreen extends StatelessWidget {
                               style: TextStyle(color: colorScheme.primary),
                             ),
                             onPressed: () {
-                              ticketDetailBloc.add(
-                                  UpdateTicketEvent(currentState.data, true));
+                              ticketDetailBloc
+                                  .add(UpdateTicketEvent(currentState.data));
                             },
                           ),
                           TextButton(
@@ -147,7 +147,7 @@ class _ConfrimPostPageState extends State<ConfrimPostPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ConfrimFormBloc>(
-        create: (_) => ConfrimFormBloc(context),
+        create: (_) => ConfrimFormBloc(context, widget.data),
         child: Builder(
           builder: (context) {
             ConfrimFormBloc formBloc =
