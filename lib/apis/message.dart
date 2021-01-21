@@ -6,7 +6,7 @@ part of 'client.dart';
 @JsonSerializable()
 class Message extends Equatable {
   int id;
-  Map<String, dynamic> json;
+  // dynamic json;
   String date;
   bool read;
   int object_id;

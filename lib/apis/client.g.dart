@@ -451,7 +451,7 @@ Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
 Message _$MessageFromJson(Map<String, dynamic> json) {
   return Message()
     ..id = json['id'] as int
-    ..json = json['json'] as Map<String, dynamic>
+    ..json = json['json']
     ..date = json['date'] as String
     ..read = json['read'] as bool
     ..object_id = json['object_id'] as int
