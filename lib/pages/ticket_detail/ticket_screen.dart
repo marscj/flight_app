@@ -59,7 +59,8 @@ class TicketScreen extends StatelessWidget {
                               style: TextStyle(color: colorScheme.primary),
                             ),
                             onPressed: () {
-                              showConfrimModal(context, currentState.data);
+                              showConfrimModal(
+                                  context, ticketDetailBloc, currentState.data);
                             },
                           )
                         ],
@@ -69,6 +70,16 @@ class TicketScreen extends StatelessWidget {
                   dense: true,
                   title: Text('SerialNo.:'),
                   subtitle: Text(currentState?.data?.serial_no ?? ''),
+                ),
+                Divider(),
+                ListTile(
+                  dense: true,
+                  title: Text('Confirm:'),
+                  subtitle: Text(currentState?.data?.is_confirm == null
+                      ? 'unconfirmed'
+                      : currentState.data.is_confirm
+                          ? 'Confirmed'
+                          : 'Refusal'),
                 ),
                 Divider(),
                 ListTile(
@@ -135,9 +146,10 @@ class TicketScreen extends StatelessWidget {
 }
 
 class ConfrimPostPage extends StatefulWidget {
+  final TicketDetailBloc bloc;
   final Ticket data;
 
-  const ConfrimPostPage({Key key, this.data}) : super(key: key);
+  const ConfrimPostPage({Key key, this.bloc, this.data}) : super(key: key);
 
   @override
   _ConfrimPostPageState createState() => _ConfrimPostPageState();
@@ -147,7 +159,7 @@ class _ConfrimPostPageState extends State<ConfrimPostPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ConfrimFormBloc>(
-        create: (_) => ConfrimFormBloc(context, widget.data),
+        create: (_) => ConfrimFormBloc(widget.bloc, widget.data),
         child: Builder(
           builder: (context) {
             ConfrimFormBloc formBloc =
@@ -187,10 +199,11 @@ class _ConfrimPostPageState extends State<ConfrimPostPage> {
   }
 }
 
-Future<T> showConfrimModal<T>(BuildContext context, Ticket data) async {
+Future<T> showConfrimModal<T>(
+    BuildContext context, TicketDetailBloc bloc, Ticket data) async {
   return showModalBottomSheet<T>(
       context: context,
       builder: (BuildContext context) {
-        return ConfrimPostPage(data: data);
+        return ConfrimPostPage(bloc: bloc, data: data);
       });
 }

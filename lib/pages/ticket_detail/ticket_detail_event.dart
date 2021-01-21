@@ -36,10 +36,10 @@ class UpdateTicketEvent extends TicketDetailEvent {
     EasyLoading.show();
 
     yield await RestClient()
-        .confirmTicket(data.id, {'confim': true}).then((res) {
+        .confirmTicket(data.id, {'confirm': true}).then((res) {
       EasyLoading.showSuccess('Success');
       return currentState.copyWith(data: res.data);
-    }).catchError(() {
+    }).catchError((error) {
       EasyLoading.showError('Failed');
       return currentState;
     });

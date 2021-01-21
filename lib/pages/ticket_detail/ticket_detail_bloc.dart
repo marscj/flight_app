@@ -35,10 +35,10 @@ class TicketDetailBloc extends Bloc<TicketDetailEvent, TicketDetailState> {
 class ConfrimFormBloc extends FormBloc<String, String> {
   TextFieldBloc reason = TextFieldBloc();
 
-  final BuildContext context;
+  final TicketDetailBloc bloc;
   final Ticket data;
 
-  ConfrimFormBloc(this.context, this.data) {
+  ConfrimFormBloc(this.bloc, this.data) {
     addFieldBlocs(fieldBlocs: [reason]);
     addValidators();
   }
@@ -58,17 +58,13 @@ class ConfrimFormBloc extends FormBloc<String, String> {
 
   @override
   void onSubmitting() {
-    // ignore: close_sinks
-    TicketDetailBloc bloc = BlocProvider.of<TicketDetailBloc>(context);
-
     EasyLoading.show();
-
     RestClient().confirmTicket(
-        data.id, {'confim': false, 'reason': reason.value}).then((res) {
+        data.id, {'confirm': false, 'reason': reason.value}).then((res) {
       bloc.add(RefreshTicketDetailEvent(res));
       emitSuccess(canSubmitAgain: true);
       EasyLoading.showSuccess('Success');
-    }).catchError(() {
+    }).catchError((error) {
       emitFailure();
       EasyLoading.showError('Failed');
     });
