@@ -125,7 +125,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                               lastDate: DateTime(dateTime.year, dateTime.month,
                                   dateTime.day + 30),
                               decoration: InputDecoration(
-                                  labelText: 'Exit',
+                                  labelText: '* Exit',
                                   prefixIcon: Icon(Icons.calendar_today),
                                   border: OutlineInputBorder()),
                             ),
@@ -138,9 +138,9 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                               firstDate: DateTime(
                                   dateTime.year, dateTime.month, dateTime.day),
                               lastDate: DateTime(dateTime.year, dateTime.month,
-                                  dateTime.day + 30),
+                                  dateTime.day + 365),
                               decoration: InputDecoration(
-                                  labelText: 'Entry',
+                                  labelText: '* Entry',
                                   prefixIcon: Icon(Icons.calendar_today),
                                   border: OutlineInputBorder()),
                             ),
