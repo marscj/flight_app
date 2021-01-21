@@ -132,8 +132,9 @@ class AppLogoutEvent extends AppEvent {
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     await Store.instance.clearToken();
     await Store.instance.clearAuth();
-    context.router.removeUntilRoot();
-    context.router.replace(LoginRoute());
+    // context.router.removeUntilRoot();
+    // context.router.replace(LoginRoute());
+    context.router.popAndPush(LoginRoute());
     bloc.add(JMessageLogoutEvent());
     yield currentState.copyWith(user: null);
   }
