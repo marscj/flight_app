@@ -6,7 +6,7 @@ part of 'client.dart';
 @JsonSerializable()
 class Message extends Equatable {
   int id;
-  // dynamic json;
+  Map<String, dynamic> json;
   String date;
   bool read;
   int object_id;
@@ -17,8 +17,7 @@ class Message extends Equatable {
   Map<String, dynamic> toJson() => _$MessageToJson(this);
 
   @override
-  List<Object> get props =>
-      [id, json, read, content_type, date, object_id, user];
+  List<Object> get props => [id, read, content_type, date, object_id, user];
 }
 
 @JsonSerializable()

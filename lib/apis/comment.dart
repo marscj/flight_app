@@ -8,7 +8,6 @@ class Comment extends Equatable {
   int id;
   String content;
   bool read;
-  int author_id;
   String date;
   int object_id;
   String content_type;
@@ -24,7 +23,6 @@ class Comment extends Equatable {
         content,
         read,
         content_type,
-        author_id,
         date,
         object_id,
         user,

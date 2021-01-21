@@ -293,7 +293,6 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
     ..id = json['id'] as int
     ..content = json['content'] as String
     ..read = json['read'] as bool
-    ..author_id = json['author_id'] as int
     ..date = json['date'] as String
     ..object_id = json['object_id'] as int
     ..content_type = json['content_type'] as String
@@ -310,7 +309,6 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'id': instance.id,
       'content': instance.content,
       'read': instance.read,
-      'author_id': instance.author_id,
       'date': instance.date,
       'object_id': instance.object_id,
       'content_type': instance.content_type,
@@ -451,7 +449,7 @@ Map<String, dynamic> _$VersionToJson(Version instance) => <String, dynamic>{
 Message _$MessageFromJson(Map<String, dynamic> json) {
   return Message()
     ..id = json['id'] as int
-    ..json = json['json']
+    ..json = json['json'] as Map<String, dynamic>
     ..date = json['date'] as String
     ..read = json['read'] as bool
     ..object_id = json['object_id'] as int

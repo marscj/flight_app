@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/pages/tickets/tickets_event.dart';
@@ -77,6 +78,7 @@ class TicketsScreenState extends State<TicketsScreen> {
                             Expanded(
                               child: Text(
                                 'Ticket',
+                                style: GoogleFonts.lobster(),
                               ),
                             ),
                           ],
