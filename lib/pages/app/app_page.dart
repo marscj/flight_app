@@ -46,6 +46,7 @@ class _AppPageState extends State<AppPage> {
         title: 'Saadiyat',
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),
+        debugShowCheckedModeBanner: false,
         builder: (context, router) {
           // ignore: close_sinks
           final AppBloc appBloc = BlocProvider.of<AppBloc>(context);
