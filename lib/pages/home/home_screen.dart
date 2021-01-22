@@ -222,7 +222,7 @@ class BannerView extends StatelessWidget {
     return CarouselSlider(
       options: CarouselOptions(
           autoPlay: true,
-          aspectRatio: 3.0,
+          aspectRatio: 2.8,
           enlargeCenterPage: true,
           enlargeStrategy: CenterPageEnlargeStrategy.height,
           onPageChanged: onPageChanged),
