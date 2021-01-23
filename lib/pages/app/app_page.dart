@@ -10,6 +10,7 @@ import 'package:platform/platform.dart';
 import 'package:saadiyat/constants.dart';
 
 import 'app_bloc.dart';
+import 'app_event.dart';
 import 'app_state.dart';
 
 // ignore_for_file: non_constant_identifier_names
@@ -35,11 +36,21 @@ class _AppPageState extends State<AppPage> {
     JMessage.applyPushAuthority(
         new JMNotificationSettingsIOS(sound: true, alert: true, badge: true));
     addListener();
+
+    // ignore: close_sinks
+    AppBloc appBloc = BlocProvider.of<AppBloc>(context);
+    appBloc.add(AppInitEvent());
   }
 
   @override
   Widget build(BuildContext context) {
     final _appRouter = AppRouter(authGuard: AuthGuard(context));
+
+    // 强制竖屏
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
 
     return BlocBuilder<AppBloc, AppState>(builder: (context, state) {
       return MaterialApp.router(

@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'dart:io' as IO;
+
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:package_info/package_info.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
 import 'package:meta/meta.dart';
@@ -15,6 +15,8 @@ import 'package:saadiyat/router/router.gr.dart';
 import 'package:saadiyat/store/store.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock/wakelock.dart';
+
+import '../../constants.dart';
 
 @immutable
 abstract class AppEvent {
@@ -35,10 +37,11 @@ class AppInitEvent extends AppEvent {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    yield await PackageInfo.fromPlatform().then((info) {
-      return currentState.copyWith(
-          packageInfo: info, user: null, event: CheckVersionEvent());
-    });
+    yield currentState.copyWith(
+        version: Constant.APP_VERSION,
+        code: Constant.APP_CODE,
+        user: null,
+        event: CheckVersionEvent());
   }
 }
 
@@ -46,11 +49,13 @@ class CheckVersionEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     try {
+      EasyLoading.showToast('##33333');
       yield await RestClient().checkVersion({
-        'version': currentState?.packageInfo?.version ?? '1.0.0',
-        'code': currentState?.packageInfo?.buildNumber ?? '1',
-        'type': IO.Platform.isAndroid ? 'Android' : 'Ios'
+        'version': currentState?.version ?? '1.0.0',
+        'code': currentState?.code ?? '1',
+        'type': Platform.isAndroid ? 'Android' : 'Ios'
       }).then((res) {
+        EasyLoading.showToast('##444444');
         if (res.result) {
           return currentState.copyWith(event: UserInfoEvent());
         } else {

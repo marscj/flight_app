@@ -1,30 +1,33 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
-import 'package:package_info/package_info.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
 
 class AppState extends Equatable {
-  final int version;
-  final PackageInfo packageInfo;
+  final String version;
+  final String code;
   final User user;
   final AppEvent event;
   final PageRouteInfo route;
 
-  AppState({this.version, this.packageInfo, this.user, this.event, this.route});
+  AppState({this.version, this.code, this.user, this.event, this.route});
 
   factory AppState.initial() => AppState(
-      version: 0,
-      packageInfo: null,
+      version: '1.0.0',
+      code: '1',
       user: null,
       event: AppInitEvent(),
       route: null);
 
   AppState copyWith(
-      {PackageInfo packageInfo, user, AppEvent event, PageRouteInfo route}) {
+      {String version,
+      String code,
+      user,
+      AppEvent event,
+      PageRouteInfo route}) {
     return AppState(
-        version: this.version + 1,
-        packageInfo: packageInfo ?? this.packageInfo,
+        version: version ?? this.version,
+        code: code ?? this.code,
         user: user,
         event: event,
         route: route);
