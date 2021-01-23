@@ -14,14 +14,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Material(
       child: Stack(
-        fit: StackFit.expand,
+        fit: StackFit.loose,
         children: [
-          Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            alignment: Alignment.topLeft,
-            child: Image.asset(
-              'assets/header.png',
-              fit: BoxFit.cover,
+          AspectRatio(
+            aspectRatio: 2.8,
+            child: Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              alignment: Alignment.topLeft,
+              child: Image.asset(
+                'assets/header.png',
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
             ),
           ),
           Scaffold(
