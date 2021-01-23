@@ -187,9 +187,11 @@ class MyScreenState extends State<MyScreen> {
                                           ]))
                                         ]))))),
 
-                    SizedBox(height: 20),
+                    SizedBox(height: 40),
                     Container(
                         padding: const EdgeInsets.all(15),
+                        width: MediaQuery.of(context).size.width / 2,
+                        height: 80,
                         child: ElevatedButton.icon(
                           icon: Icon(Icons.logout),
                           label: Text('Sign Out'),
