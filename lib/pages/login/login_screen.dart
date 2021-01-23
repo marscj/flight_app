@@ -5,7 +5,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_event.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
-import 'package:saadiyat/router/router.gr.dart';
 
 import 'login_bloc.dart';
 import 'login_form_bloc.dart';
