@@ -34,7 +34,7 @@ class MyScreenState extends State<MyScreen> {
                   Expanded(
                     flex: 1,
                     child: Container(
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.white,
                     ),
                   ),
                   Expanded(
@@ -187,18 +187,17 @@ class MyScreenState extends State<MyScreen> {
                                           ]))
                                         ]))))),
 
+                    SizedBox(height: 20),
                     Container(
-                      padding: EdgeInsets.all(10.0),
-                      height: 60,
-                      child: ElevatedButton.icon(
-                        icon: Icon(Icons.logout),
-                        label: Text('Sign Out'),
-                        onPressed: () {
-                          BlocProvider.of<AppBloc>(context)
-                              .add(AppLogoutEvent(context));
-                        },
-                      ),
-                    )
+                        padding: const EdgeInsets.all(15),
+                        child: ElevatedButton.icon(
+                          icon: Icon(Icons.logout),
+                          label: Text('Sign Out'),
+                          onPressed: () {
+                            BlocProvider.of<AppBloc>(context)
+                                .add(AppLogoutEvent(context));
+                          },
+                        ))
                   ]),
                 ),
               ],

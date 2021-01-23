@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.topLeft,
             child: Image.asset(
               'assets/header.png',
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.cover,
             ),
           ),
           Scaffold(
