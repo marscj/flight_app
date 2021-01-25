@@ -91,13 +91,13 @@ class AppRouter extends _i1.RootStackRouter {
   @override
   List<_i1.RouteConfig> get routes => [
         _i1.RouteConfig<WelcomeRoute>(WelcomeRoute.name,
-            path: '/', routeBuilder: (_) => const WelcomeRoute()),
+            path: '/', routeBuilder: (match) => WelcomeRoute.fromMatch(match)),
         _i1.RouteConfig<LoginRoute>(LoginRoute.name,
             path: '/login',
             routeBuilder: (match) => LoginRoute.fromMatch(match)),
         _i1.RouteConfig<BasementRoute>(BasementRoute.name,
             path: '/',
-            routeBuilder: (_) => const BasementRoute(),
+            routeBuilder: (match) => BasementRoute.fromMatch(match),
             guards: [authGuard]),
         _i1.RouteConfig<BookingDetailRoute>(BookingDetailRoute.name,
             path: 'bookings/:id',
@@ -109,7 +109,7 @@ class AppRouter extends _i1.RootStackRouter {
             guards: [authGuard]),
         _i1.RouteConfig<BookingCreateRoute>(BookingCreateRoute.name,
             path: '/bookingCreate',
-            routeBuilder: (_) => const BookingCreateRoute(),
+            routeBuilder: (match) => BookingCreateRoute.fromMatch(match),
             guards: [authGuard]),
         _i1.RouteConfig<ItineraryEditRoute>(ItineraryEditRoute.name,
             path: '/itineraryEdit',
@@ -137,12 +137,13 @@ class AppRouter extends _i1.RootStackRouter {
 class WelcomeRoute extends _i1.PageRouteInfo {
   const WelcomeRoute() : super(name, path: '/');
 
+  WelcomeRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+
   static const String name = 'WelcomeRoute';
 }
 
 class LoginRoute extends _i1.PageRouteInfo {
-  LoginRoute({this.key, this.onLoginResult})
-      : super(name, path: '/login', argProps: [key, onLoginResult]);
+  LoginRoute({this.key, this.onLoginResult}) : super(name, path: '/login');
 
   LoginRoute.fromMatch(_i1.RouteMatch match)
       : key = null,
@@ -159,12 +160,14 @@ class LoginRoute extends _i1.PageRouteInfo {
 class BasementRoute extends _i1.PageRouteInfo {
   const BasementRoute() : super(name, path: '/');
 
+  BasementRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+
   static const String name = 'BasementRoute';
 }
 
 class BookingDetailRoute extends _i1.PageRouteInfo {
   BookingDetailRoute({this.id})
-      : super(name, path: 'bookings/:id', params: {'id': id}, argProps: [id]);
+      : super(name, path: 'bookings/:id', params: {'id': id});
 
   BookingDetailRoute.fromMatch(_i1.RouteMatch match)
       : id = match.pathParams.getInt('id'),
@@ -177,7 +180,7 @@ class BookingDetailRoute extends _i1.PageRouteInfo {
 
 class TicketDetailRoute extends _i1.PageRouteInfo {
   TicketDetailRoute({this.id})
-      : super(name, path: 'tickets/:id', params: {'id': id}, argProps: [id]);
+      : super(name, path: 'tickets/:id', params: {'id': id});
 
   TicketDetailRoute.fromMatch(_i1.RouteMatch match)
       : id = match.pathParams.getInt('id'),
@@ -191,13 +194,14 @@ class TicketDetailRoute extends _i1.PageRouteInfo {
 class BookingCreateRoute extends _i1.PageRouteInfo {
   const BookingCreateRoute() : super(name, path: '/bookingCreate');
 
+  BookingCreateRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+
   static const String name = 'BookingCreateRoute';
 }
 
 class ItineraryEditRoute extends _i1.PageRouteInfo {
   ItineraryEditRoute({this.key, this.booking, this.data, this.onResult})
-      : super(name,
-            path: '/itineraryEdit', argProps: [key, booking, data, onResult]);
+      : super(name, path: '/itineraryEdit');
 
   ItineraryEditRoute.fromMatch(_i1.RouteMatch match)
       : key = null,
@@ -218,7 +222,7 @@ class ItineraryEditRoute extends _i1.PageRouteInfo {
 }
 
 class ProfileRoute extends _i1.PageRouteInfo {
-  ProfileRoute({this.key}) : super(name, path: 'profile', argProps: [key]);
+  ProfileRoute({this.key}) : super(name, path: 'profile');
 
   ProfileRoute.fromMatch(_i1.RouteMatch match)
       : key = null,
@@ -230,7 +234,7 @@ class ProfileRoute extends _i1.PageRouteInfo {
 }
 
 class PassportRoute extends _i1.PageRouteInfo {
-  PassportRoute({this.key}) : super(name, path: 'passport', argProps: [key]);
+  PassportRoute({this.key}) : super(name, path: 'passport');
 
   PassportRoute.fromMatch(_i1.RouteMatch match)
       : key = null,
@@ -242,8 +246,7 @@ class PassportRoute extends _i1.PageRouteInfo {
 }
 
 class ChangePasswordRoute extends _i1.PageRouteInfo {
-  ChangePasswordRoute({this.key})
-      : super(name, path: 'change_password', argProps: [key]);
+  ChangePasswordRoute({this.key}) : super(name, path: 'change_password');
 
   ChangePasswordRoute.fromMatch(_i1.RouteMatch match)
       : key = null,
@@ -256,7 +259,7 @@ class ChangePasswordRoute extends _i1.PageRouteInfo {
 
 class SupportRoute extends _i1.PageRouteInfo {
   SupportRoute({this.key, @_i2.required this.data})
-      : super(name, path: '/support', argProps: [key, data]);
+      : super(name, path: '/support');
 
   SupportRoute.fromMatch(_i1.RouteMatch match)
       : key = null,
