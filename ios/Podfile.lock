@@ -57,8 +57,6 @@ PODS:
     - JPush
   - open_file (0.0.1):
     - Flutter
-  - package_info (0.0.1):
-    - Flutter
   - path_provider (0.0.1):
     - Flutter
   - phone_number (0.6.2):
@@ -89,7 +87,6 @@ DEPENDENCIES:
   - jmessage_flutter (from `.symlinks/plugins/jmessage_flutter/ios`)
   - jpush_flutter (from `.symlinks/plugins/jpush_flutter/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
-  - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - phone_number (from `.symlinks/plugins/phone_number/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
@@ -127,8 +124,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/jpush_flutter/ios"
   open_file:
     :path: ".symlinks/plugins/open_file/ios"
-  package_info:
-    :path: ".symlinks/plugins/package_info/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   phone_number:
@@ -157,7 +152,6 @@ SPEC CHECKSUMS:
   JPush: defaa108c38806f6efdcfaf4c416854d25fca8e5
   jpush_flutter: 69133df35eaf9135e540549b154d992c44f8ee44
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
-  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   phone_number: b545f5b7d9711bec0f020c7df43ae5a82119f4ad
   PhoneNumberKit: df411d46177d1492da84e10b6c093846dd861452
