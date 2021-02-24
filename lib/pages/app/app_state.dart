@@ -13,11 +13,7 @@ class AppState extends Equatable {
   AppState({this.version, this.code, this.user, this.event, this.route});
 
   factory AppState.initial() => AppState(
-      version: '1.0.0',
-      code: '1',
-      user: null,
-      event: AppInitEvent(),
-      route: null);
+      version: '1.0.0', code: '1', user: null, event: null, route: null);
 
   AppState copyWith(
       {String version,
@@ -34,5 +30,5 @@ class AppState extends Equatable {
   }
 
   @override
-  List<Object> get props => ([version, user, event]);
+  List<Object> get props => ([version, code, user, event, route]);
 }

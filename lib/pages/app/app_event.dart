@@ -29,17 +29,19 @@ class AppInitEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     // 电源管理
-    Wakelock.enable();
+    // Wakelock.enable();
 
-    // 强制竖屏
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    // // 强制竖屏
+    // SystemChrome.setPreferredOrientations(
+    //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    yield currentState.copyWith(
-        version: Constant.APP_VERSION,
-        code: Constant.APP_CODE,
-        user: null,
-        event: CheckVersionEvent());
+    // yield currentState.copyWith(
+    //     version: Constant.APP_VERSION,
+    //     code: Constant.APP_CODE,
+    //     user: null,
+    //     event: CheckVersionEvent());
+
+    yield currentState.copyWith(event: UserInfoEvent());
   }
 }
 
@@ -187,7 +189,7 @@ class JMessageLoginEvent extends AppEvent {
 
     if (auth != null) {
       try {
-        await JMessage.login(username: auth[0], password: auth[1]);
+        // await JMessage.login(username: auth[0], password: auth[1]);
       } on PlatformException catch (_) {
         print(_.toString());
       }
@@ -199,7 +201,7 @@ class JMessageLogoutEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     try {
-      await JMessage.logout();
+      // await JMessage.logout();
     } on PlatformException catch (_) {
       print(_.toString());
     }

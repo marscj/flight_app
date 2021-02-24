@@ -12,46 +12,20 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Stack(
-        fit: StackFit.loose,
-        children: [
-          AspectRatio(
-            aspectRatio: 2.8,
-            child: Container(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              alignment: Alignment.topLeft,
-              child: Image.asset(
-                'assets/header.png',
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
-            ),
-          ),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              brightness: Brightness.dark,
-              centerTitle: true,
-              title: Image.asset(
-                'assets/logo-title.png',
-                fit: BoxFit.contain,
-                height: kToolbarHeight - 8,
-              ),
-              actions: [
-                // IconButton(
-                //   icon: Icon(Icons.notifications),
-                //   color: Colors.white,
-                //   onPressed: () {},
-                // )
-              ],
-            ),
-            body: HomeScreen(),
-          )
-        ],
+    return Scaffold(
+      primary: false,
+      body: Stack(
+        children: [_BackGroundView(), HomeScreen()],
       ),
     );
+  }
+}
+
+class _BackGroundView extends StatelessWidget {
+  const _BackGroundView({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset('assets/header.jpg', fit: BoxFit.cover);
   }
 }
