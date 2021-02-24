@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -67,7 +68,13 @@ class ContentView extends StatelessWidget {
             child: Stack(
               children: [
                 Column(
-                  children: [NoticeView(space)],
+                  children: [
+                    NoticeView(space),
+                    SizedBox(
+                      height: radius,
+                    ),
+                    Expanded(child: MenuView())
+                  ],
                 ),
                 Positioned(
                     top: space + radius / 2,
@@ -84,14 +91,87 @@ class ContentView extends StatelessWidget {
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(12.0),
                             bottomRight: Radius.circular(12.0)),
-                        child: Image.asset(
-                          'assets/apply.png',
-                          colorBlendMode: BlendMode.colorBurn,
-                        )))
+                        child: Transform(
+                            alignment: Alignment.center,
+                            transform: Matrix4.rotationY(math.pi),
+                            child: Image.asset(
+                              'assets/apply.png',
+                              colorBlendMode: BlendMode.colorBurn,
+                            ))))
               ],
             ),
           ),
         ));
+  }
+}
+
+class MenuView extends StatelessWidget {
+  const MenuView({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final ratio = ((constraints.maxWidth - 2) / 2) /
+            ((constraints.maxHeight - 4) / 2);
+        return GridView.count(
+            primary: false,
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            mainAxisSpacing: 2,
+            crossAxisSpacing: 2,
+            childAspectRatio: ratio,
+            children: [
+              {
+                'icon': 'assets/Booking.png',
+                'text': 'Reservation',
+                'ontap': () {
+                  context.router.push(BookingsRoute());
+                }
+              },
+              {
+                'icon': 'assets/Tickets.png',
+                'text': 'Tickets',
+                'ontap': () {
+                  context.router.push(TicketsRoute());
+                }
+              },
+              {
+                'icon': 'assets/my.png',
+                'text': 'About Us',
+                'ontap': () {
+                  context.router.push(ProfileRoute());
+                }
+              },
+              {
+                'icon': 'assets/my.png',
+                'text': 'Settings',
+                'ontap': () {
+                  context.router.push(ProfileRoute());
+                }
+              },
+            ].map((f) {
+              return InkWell(
+                  onTap: f['ontap'],
+                  child: Card(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(14.0))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            f['icon'],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(f['text'])
+                        ],
+                      )));
+            }).toList());
+      },
+    );
   }
 }
 
@@ -126,22 +206,36 @@ class NoticeView extends StatelessWidget {
                   Expanded(
                       child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Stack(
+                      fit: StackFit.expand,
                       children: [
-                        Text.rich(
-                          TextSpan(
-                              text: 'Hi: ',
-                              children: [TextSpan(text: state.user.name)]),
-                          style: TextStyle(fontSize: 16),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text.rich(
+                              TextSpan(
+                                  text: 'Hi: ',
+                                  children: [TextSpan(text: state.user.name)]),
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'You have an ticket confirmed',
+                              style: Theme.of(context).textTheme.caption,
+                            )
+                          ],
                         ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          'You have an ticket confirmed',
-                          style: Theme.of(context).textTheme.caption,
+                        Positioned(
+                          top: 5,
+                          right: 0,
+                          child: Image.asset(
+                            'assets/message.png',
+                            width: 24,
+                            height: 24,
+                          ),
                         )
                       ],
                     ),

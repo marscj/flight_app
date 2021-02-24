@@ -4,6 +4,7 @@ import 'package:saadiyat/pages/booking_create/Itinerary_edit.dart';
 import 'package:saadiyat/pages/booking_create/booking_create_page.dart';
 import 'package:saadiyat/pages/booking_detail/index.dart';
 import 'package:saadiyat/pages/bookings/index.dart';
+import 'package:saadiyat/pages/home/home_screen.dart';
 import 'package:saadiyat/pages/login/login_page.dart';
 import 'package:saadiyat/pages/my/change_password.dart';
 import 'package:saadiyat/pages/my/passport.dart';
@@ -23,8 +24,18 @@ import 'guard.dart';
     AutoRoute(
         path: BasementPage.routeName, page: BasementPage, guards: [AuthGuard]),
     AutoRoute(
+      path: BookingsPage.routeName,
+      page: BookingsPage,
+      guards: [AuthGuard],
+    ),
+    AutoRoute(
       path: BookingsPage.routeName + '/:id',
       page: BookingDetailPage,
+      guards: [AuthGuard],
+    ),
+    AutoRoute(
+      path: TicketsPage.routeName,
+      page: TicketsPage,
       guards: [AuthGuard],
     ),
     AutoRoute(
