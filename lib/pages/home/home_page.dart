@@ -12,10 +12,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      primary: false,
-      body: Stack(
-        children: [_BackGroundView(), HomeScreen()],
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        primary: false,
+        body: Stack(
+          children: [
+            _BackGroundView(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: HomeScreen(),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -139,6 +139,14 @@ flutter:
     - assets/1.0x/apply.png
     - assets/1.5x/apply.png
 
+    - assets/message.png
+    - assets/1.0x/message.png
+    - assets/1.5x/message.png
+
+    - assets/apply.jpg
+    - assets/1.0x/apply.jpg
+    - assets/1.5x/apply.jpg
+
     - assets/about.png
     - assets/1.0x/about.png
     - assets/1.5x/about.png
