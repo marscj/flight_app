@@ -11,16 +11,16 @@ import '../pages/welcome/welcome_page.dart' as _i4;
 import '../pages/login/login_page.dart' as _i5;
 import '../pages/basement/basement_page.dart' as _i6;
 import '../pages/bookings/index.dart' as _i7;
-import '../pages/booking_detail/index.dart' as _i8;
-import '../pages/tickets/tickets_page.dart' as _i9;
-import '../pages/ticket_detail/index.dart' as _i10;
-import '../pages/booking_create/booking_create_page.dart' as _i11;
-import '../pages/booking_create/Itinerary_edit.dart' as _i12;
-import '../pages/my/profile.dart' as _i13;
-import '../pages/my/passport.dart' as _i14;
-import '../pages/my/change_password.dart' as _i15;
-import '../pages/support/index.dart' as _i16;
-import '../pages/home/home_screen.dart' as _i17;
+import '../pages/my/index.dart' as _i8;
+import '../pages/booking_detail/index.dart' as _i9;
+import '../pages/tickets/tickets_page.dart' as _i10;
+import '../pages/ticket_detail/index.dart' as _i11;
+import '../pages/booking_create/booking_create_page.dart' as _i12;
+import '../pages/booking_create/Itinerary_edit.dart' as _i13;
+import '../pages/my/profile.dart' as _i14;
+import '../pages/my/passport.dart' as _i15;
+import '../pages/my/change_password.dart' as _i16;
+import '../pages/support/index.dart' as _i17;
 import '../apis/client.dart' as _i18;
 
 class AppRouter extends _i1.RootStackRouter {
@@ -47,27 +47,30 @@ class AppRouter extends _i1.RootStackRouter {
     BookingsRoute.name: (entry) {
       return _i1.CupertinoPageX(entry: entry, child: _i7.BookingsPage());
     },
+    MyRoute.name: (entry) {
+      return _i1.CupertinoPageX(entry: entry, child: _i8.MyPage());
+    },
     BookingDetailRoute.name: (entry) {
       var route = entry.routeData.as<BookingDetailRoute>();
       return _i1.CupertinoPageX(
-          entry: entry, child: _i8.BookingDetailPage(id: route.id));
+          entry: entry, child: _i9.BookingDetailPage(id: route.id));
     },
     TicketsRoute.name: (entry) {
-      return _i1.CupertinoPageX(entry: entry, child: _i9.TicketsPage());
+      return _i1.CupertinoPageX(entry: entry, child: _i10.TicketsPage());
     },
     TicketDetailRoute.name: (entry) {
       var route = entry.routeData.as<TicketDetailRoute>();
       return _i1.CupertinoPageX(
-          entry: entry, child: _i10.TicketDetailPage(id: route.id));
+          entry: entry, child: _i11.TicketDetailPage(id: route.id));
     },
     BookingCreateRoute.name: (entry) {
-      return _i1.CupertinoPageX(entry: entry, child: _i11.BookingCreatePage());
+      return _i1.CupertinoPageX(entry: entry, child: _i12.BookingCreatePage());
     },
     ItineraryEditRoute.name: (entry) {
       var route = entry.routeData.as<ItineraryEditRoute>();
       return _i1.CupertinoPageX(
           entry: entry,
-          child: _i12.ItineraryEditPage(
+          child: _i13.ItineraryEditPage(
               key: route.key,
               booking: route.booking,
               data: route.data,
@@ -77,24 +80,24 @@ class AppRouter extends _i1.RootStackRouter {
     ProfileRoute.name: (entry) {
       var route = entry.routeData.as<ProfileRoute>();
       return _i1.CupertinoPageX(
-          entry: entry, child: _i13.ProfilePage(key: route.key));
+          entry: entry, child: _i14.ProfilePage(key: route.key));
     },
     PassportRoute.name: (entry) {
       var route = entry.routeData.as<PassportRoute>();
       return _i1.CupertinoPageX(
-          entry: entry, child: _i14.PassportPage(key: route.key));
+          entry: entry, child: _i15.PassportPage(key: route.key));
     },
     ChangePasswordRoute.name: (entry) {
       var route = entry.routeData.as<ChangePasswordRoute>();
       return _i1.CupertinoPageX(
-          entry: entry, child: _i15.ChangePasswordPage(key: route.key));
+          entry: entry, child: _i16.ChangePasswordPage(key: route.key));
     },
     SupportRoute.name: (entry) {
       var route = entry.routeData.as<SupportRoute>();
       return _i1.CupertinoPageX(
           entry: entry,
-          child: _i16.SupportPage(key: route.key, data: route.data));
-    },
+          child: _i17.SupportPage(key: route.key, data: route.data));
+    }
   };
 
   @override
@@ -111,6 +114,10 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig<BookingsRoute>(BookingsRoute.name,
             path: 'bookings',
             routeBuilder: (match) => BookingsRoute.fromMatch(match),
+            guards: [authGuard]),
+        _i1.RouteConfig<MyRoute>(MyRoute.name,
+            path: 'my',
+            routeBuilder: (match) => MyRoute.fromMatch(match),
             guards: [authGuard]),
         _i1.RouteConfig<BookingDetailRoute>(BookingDetailRoute.name,
             path: 'bookings/:id',
@@ -147,10 +154,7 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig<SupportRoute>(SupportRoute.name,
             path: '/support',
             routeBuilder: (match) => SupportRoute.fromMatch(match),
-            guards: [authGuard]),
-        _i1.RouteConfig<UnderConstructionRoute>(UnderConstructionRoute.name,
-            path: '/UnderConstruction',
-            routeBuilder: (match) => UnderConstructionRoute.fromMatch(match))
+            guards: [authGuard])
       ];
 }
 
@@ -191,6 +195,14 @@ class BookingsRoute extends _i1.PageRouteInfo {
   BookingsRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
   static const String name = 'BookingsRoute';
+}
+
+class MyRoute extends _i1.PageRouteInfo {
+  const MyRoute() : super(name, path: 'my');
+
+  MyRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+
+  static const String name = 'MyRoute';
 }
 
 class BookingDetailRoute extends _i1.PageRouteInfo {
@@ -307,20 +319,4 @@ class SupportRoute extends _i1.PageRouteInfo {
   final _i18.Ticket data;
 
   static const String name = 'SupportRoute';
-}
-
-class UnderConstructionRoute extends _i1.PageRouteInfo {
-  UnderConstructionRoute({this.key, @_i2.required this.title})
-      : super(name, path: '/UnderConstruction');
-
-  UnderConstructionRoute.fromMatch(_i1.RouteMatch match)
-      : key = null,
-        title = null,
-        super.fromMatch(match);
-
-  final _i2.Key key;
-
-  final String title;
-
-  static const String name = 'UnderConstructionRoute';
 }

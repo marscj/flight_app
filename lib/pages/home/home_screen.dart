@@ -75,9 +75,9 @@ class ContentView extends StatelessWidget {
             SizedBox(
               height: radius / 2,
             ),
-            Expanded(flex: 3, child: MenuView()),
-            Expanded(
-              flex: 1,
+            Expanded(child: MenuView()),
+            Container(
+              height: 140,
               child: ClipRRect(
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(12.0),
@@ -109,24 +109,35 @@ class ContentView extends StatelessWidget {
   }
 }
 
-class MenuView extends StatelessWidget {
-  const MenuView({Key key}) : super(key: key);
+class MenuView extends StatefulWidget {
+  MenuView({Key key}) : super(key: key);
+
+  @override
+  _MenuViewState createState() => _MenuViewState();
+}
+
+class _MenuViewState extends State<MenuView> {
+  ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = ScrollController()
+      ..addListener(() {
+        print(_controller.offset);
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final ratio = ((constraints.maxWidth - 2) / 2) /
-            ((constraints.maxHeight - 4) / 2);
-        return GridView.count(
+    return Container(
+        child: GridView.count(
+            controller: _controller,
             primary: false,
-            shrinkWrap: true,
             reverse: true,
             physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 2,
-            mainAxisSpacing: 2,
-            crossAxisSpacing: 2,
-            childAspectRatio: ratio,
             children: [
               {
                 'icon': 'assets/about.png',
@@ -139,7 +150,7 @@ class MenuView extends StatelessWidget {
                 'icon': 'assets/my.png',
                 'text': 'Settings',
                 'ontap': () {
-                  context.router.push(ProfileRoute());
+                  context.router.push(MyRoute());
                 }
               },
               {
@@ -172,9 +183,7 @@ class MenuView extends StatelessWidget {
                       Text(f['text'])
                     ],
                   )));
-            }).toList());
-      },
-    );
+            }).toList()));
   }
 }
 
@@ -243,7 +252,7 @@ class NoticeView extends StatelessWidget {
                       ],
                     ),
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
+                        border: Border.all(color: Colors.grey[300]),
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(8),
                             bottomRight: Radius.circular(8))),

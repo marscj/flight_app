@@ -7,6 +7,7 @@ import 'package:saadiyat/pages/bookings/index.dart';
 import 'package:saadiyat/pages/home/home_screen.dart';
 import 'package:saadiyat/pages/login/login_page.dart';
 import 'package:saadiyat/pages/my/change_password.dart';
+import 'package:saadiyat/pages/my/index.dart';
 import 'package:saadiyat/pages/my/passport.dart';
 import 'package:saadiyat/pages/my/profile.dart';
 import 'package:saadiyat/pages/support/index.dart';
@@ -26,6 +27,11 @@ import 'guard.dart';
     AutoRoute(
       path: BookingsPage.routeName,
       page: BookingsPage,
+      guards: [AuthGuard],
+    ),
+    AutoRoute(
+      path: MyPage.routeName,
+      page: MyPage,
       guards: [AuthGuard],
     ),
     AutoRoute(
