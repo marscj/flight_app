@@ -13,11 +13,11 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      primary: true,
-      appBar: AppBar(
-        elevation: 0,
+      body: Container(
+        padding: const EdgeInsets.only(top: kToolbarHeight),
+        color: Theme.of(context).primaryColor,
+        child: MyScreen(),
       ),
-      body: MyScreen(),
     );
   }
 }

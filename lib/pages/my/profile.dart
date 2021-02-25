@@ -31,156 +31,188 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(15),
-            child: Card(
-                child: Column(
+            child: Column(
               children: [
-                ListTile(
-                  title: Text('Avatar:'),
-                  trailing: state?.user?.avatar != null &&
-                          state?.user?.avatar['thumbnail'] != null
-                      ? CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: state?.user?.avatar['thumbnail'] ?? '',
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Image.asset('assets/user.png'))
-                      : Image.asset('assets/user.png'),
-                  onTap: () {
-                    _scaffoldKey.currentState.showBottomSheet<void>(
-                      (_) {
-                        return Container(
-                          height: 200,
-                          color: Colors.white,
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Column(
-                              children: <Widget>[
-                                FlatButton(
-                                  child: Text('Camera'),
-                                  onPressed: () async {
-                                    await ImagePicker()
-                                        .getImage(source: ImageSource.camera)
-                                        .then((file) {
-                                      if (file != null) {
-                                        return ImageCropper.cropImage(
-                                            sourcePath: file.path,
-                                            maxHeight: 400,
-                                            maxWidth: 400,
-                                            aspectRatio: CropAspectRatio(
-                                                ratioX: 1.0, ratioY: 1.0),
-                                            androidUiSettings:
-                                                AndroidUiSettings(
-                                                    toolbarTitle: 'Cropper',
-                                                    toolbarColor:
-                                                        Colors.deepOrange,
-                                                    toolbarWidgetColor:
-                                                        Colors.white,
-                                                    initAspectRatio:
-                                                        CropAspectRatioPreset
-                                                            .original,
-                                                    lockAspectRatio: false),
-                                            iosUiSettings: IOSUiSettings(
-                                              minimumAspectRatio: 1.0,
-                                            )).then((value) {
-                                          if (value != null) {
-                                            Navigator.pop(context);
-                                            BlocProvider.of<AppBloc>(context)
-                                                .add(AppChangeAvatarEvent(
-                                                    File(file.path)));
-                                          }
-                                        });
-                                      }
-                                      return null;
-                                    });
-                                  },
+                Card(
+                  child: ListBody(
+                    children: [
+                      ListTile(
+                        title: Text('Avatar:'),
+                        trailing: Container(
+                            padding: const EdgeInsets.all(5.0),
+                            width: 48,
+                            height: 48,
+                            child: state?.user?.avatar != null &&
+                                    state?.user?.avatar['thumbnail'] != null
+                                ? CachedNetworkImage(
+                                    fit: BoxFit.cover,
+                                    imageUrl:
+                                        state?.user?.avatar['thumbnail'] ?? '',
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset('assets/user.png'))
+                                : Image.asset('assets/user.png')),
+                        onTap: () {
+                          _scaffoldKey.currentState.showBottomSheet<void>(
+                            (_) {
+                              return Container(
+                                height: 200,
+                                color: Colors.white,
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Column(
+                                    children: <Widget>[
+                                      FlatButton(
+                                        child: Text('Camera'),
+                                        onPressed: () async {
+                                          await ImagePicker()
+                                              .getImage(
+                                                  source: ImageSource.camera)
+                                              .then((file) {
+                                            if (file != null) {
+                                              return ImageCropper.cropImage(
+                                                  sourcePath: file.path,
+                                                  maxHeight: 400,
+                                                  maxWidth: 400,
+                                                  aspectRatio: CropAspectRatio(
+                                                      ratioX: 1.0, ratioY: 1.0),
+                                                  androidUiSettings:
+                                                      AndroidUiSettings(
+                                                          toolbarTitle:
+                                                              'Cropper',
+                                                          toolbarColor:
+                                                              Colors.deepOrange,
+                                                          toolbarWidgetColor:
+                                                              Colors.white,
+                                                          initAspectRatio:
+                                                              CropAspectRatioPreset
+                                                                  .original,
+                                                          lockAspectRatio:
+                                                              false),
+                                                  iosUiSettings: IOSUiSettings(
+                                                    minimumAspectRatio: 1.0,
+                                                  )).then((value) {
+                                                if (value != null) {
+                                                  Navigator.pop(context);
+                                                  BlocProvider.of<AppBloc>(
+                                                          context)
+                                                      .add(AppChangeAvatarEvent(
+                                                          File(file.path)));
+                                                }
+                                              });
+                                            }
+                                            return null;
+                                          });
+                                        },
+                                      ),
+                                      Divider(
+                                        color: Colors.grey,
+                                      ),
+                                      FlatButton(
+                                        child: Text('Gallery'),
+                                        onPressed: () async {
+                                          await ImagePicker()
+                                              .getImage(
+                                                  source: ImageSource.gallery)
+                                              .then((file) {
+                                            if (file != null) {
+                                              return ImageCropper.cropImage(
+                                                  sourcePath: file.path,
+                                                  maxHeight: 400,
+                                                  maxWidth: 400,
+                                                  aspectRatio: CropAspectRatio(
+                                                      ratioX: 1.0, ratioY: 1.0),
+                                                  androidUiSettings:
+                                                      AndroidUiSettings(
+                                                          toolbarTitle:
+                                                              'Cropper',
+                                                          toolbarColor:
+                                                              Colors.deepOrange,
+                                                          toolbarWidgetColor:
+                                                              Colors.white,
+                                                          initAspectRatio:
+                                                              CropAspectRatioPreset
+                                                                  .original,
+                                                          lockAspectRatio:
+                                                              false),
+                                                  iosUiSettings: IOSUiSettings(
+                                                    minimumAspectRatio: 1.0,
+                                                  )).then((value) {
+                                                if (value != null) {
+                                                  Navigator.pop(context);
+                                                  BlocProvider.of<AppBloc>(
+                                                          context)
+                                                      .add(AppChangeAvatarEvent(
+                                                          File(file.path)));
+                                                }
+                                              });
+                                            }
+                                            return null;
+                                          });
+                                        },
+                                      ),
+                                      Divider(
+                                        height: 20,
+                                        thickness: 6,
+                                      ),
+                                      FlatButton(
+                                        child: Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                Divider(
-                                  color: Colors.grey,
-                                ),
-                                FlatButton(
-                                  child: Text('Gallery'),
-                                  onPressed: () async {
-                                    await ImagePicker()
-                                        .getImage(source: ImageSource.gallery)
-                                        .then((file) {
-                                      if (file != null) {
-                                        return ImageCropper.cropImage(
-                                            sourcePath: file.path,
-                                            maxHeight: 400,
-                                            maxWidth: 400,
-                                            aspectRatio: CropAspectRatio(
-                                                ratioX: 1.0, ratioY: 1.0),
-                                            androidUiSettings:
-                                                AndroidUiSettings(
-                                                    toolbarTitle: 'Cropper',
-                                                    toolbarColor:
-                                                        Colors.deepOrange,
-                                                    toolbarWidgetColor:
-                                                        Colors.white,
-                                                    initAspectRatio:
-                                                        CropAspectRatioPreset
-                                                            .original,
-                                                    lockAspectRatio: false),
-                                            iosUiSettings: IOSUiSettings(
-                                              minimumAspectRatio: 1.0,
-                                            )).then((value) {
-                                          if (value != null) {
-                                            Navigator.pop(context);
-                                            BlocProvider.of<AppBloc>(context)
-                                                .add(AppChangeAvatarEvent(
-                                                    File(file.path)));
-                                          }
-                                        });
-                                      }
-                                      return null;
-                                    });
-                                  },
-                                ),
-                                Divider(
-                                  height: 20,
-                                  thickness: 6,
-                                ),
-                                FlatButton(
-                                  child: Text('Cancel'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text('Email:'),
+                        subtitle: Text(state?.user?.email ?? ''),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text('Name:'),
+                        subtitle: Text(state?.user?.name ?? ''),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text('Department:'),
+                        subtitle: Text(state?.user?.department ?? ''),
+                      ),
+                    ],
+                  ),
                 ),
-                Divider(),
-                ListTile(
-                  title: Text('Email:'),
-                  subtitle: Text(state?.user?.email ?? ''),
-                ),
-                Divider(),
-                ListTile(
-                  title: Text('Name:'),
-                  subtitle: Text(state?.user?.name ?? ''),
-                ),
-                Divider(),
-                ListTile(
-                  title: Text('Department:'),
-                  subtitle: Text(state?.user?.department ?? ''),
-                ),
-                Divider(),
                 SizedBox(
-                  height: 20,
+                  height: 80,
                 ),
-                ElevatedButton(
-                    child: Text('Change Password'),
-                    onPressed: () {
-                      context.router.push(ChangePasswordRoute());
-                    }),
+                Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      child: Text('Change Password'),
+                      onPressed: () {
+                        context.router.push(ChangePasswordRoute());
+                      }),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      child: Text('SignOut'),
+                      onPressed: () {
+                        BlocProvider.of<AppBloc>(context)
+                            .add(AppLogoutEvent(context));
+                      }),
+                )
               ],
-            )),
+            ),
           ),
         );
       },
