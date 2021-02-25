@@ -193,24 +193,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 Container(
                   width: double.infinity,
+                  height: 60,
                   child: ElevatedButton(
                       child: Text('Change Password'),
                       onPressed: () {
                         context.router.push(ChangePasswordRoute());
                       }),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      child: Text('SignOut'),
-                      onPressed: () {
-                        BlocProvider.of<AppBloc>(context)
-                            .add(AppLogoutEvent(context));
-                      }),
-                )
               ],
             ),
           ),
