@@ -130,6 +130,22 @@ flutter:
     - assets/logo-title.png
     - assets/1.0x/logo-title.png
     - assets/1.5x/logo-title.png
+
+    - assets/my.png
+    - assets/1.0x/my.png
+    - assets/1.5x/my.png
+
+    - assets/about.png
+    - assets/1.0x/about.png
+    - assets/1.5x/about.png
+
+    - assets/ticket.png
+    - assets/1.0x/ticket.png
+    - assets/1.5x/ticket.png
+
+    - assets/booking.png
+    - assets/1.0x/booking.png
+    - assets/1.5x/booking.png
     
     - assets/bg.png
     - assets/1.0x/bg.png
@@ -146,10 +162,6 @@ flutter:
     - assets/apply.jpg
     - assets/1.0x/apply.jpg
     - assets/1.5x/apply.jpg
-
-    - assets/about.png
-    - assets/1.0x/about.png
-    - assets/1.5x/about.png
 
     - assets/header.png 
     - assets/1.0x/header.png

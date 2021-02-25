@@ -58,50 +58,54 @@ class ContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: double.infinity,
-        height: double.infinity,
         child: ClipPath(
-          clipper: CardClipper(space, radius),
-          child: Card(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(12.0))),
-            child: Stack(
-              children: [
-                Column(
-                  children: [
-                    NoticeView(space),
-                    SizedBox(
-                      height: radius,
-                    ),
-                    Expanded(child: MenuView())
-                  ],
-                ),
-                Positioned(
-                    top: space + radius / 2,
-                    left: 0,
-                    right: 0,
-                    child: DashLine(
-                      color: Colors.grey,
-                    )),
-                Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(12.0),
-                            bottomRight: Radius.circular(12.0)),
-                        child: Transform(
-                            alignment: Alignment.center,
-                            transform: Matrix4.rotationY(math.pi),
-                            child: Image.asset(
-                              'assets/apply.png',
-                              colorBlendMode: BlendMode.colorBurn,
-                            ))))
-              ],
+      clipper: CardClipper(space, radius),
+      child: Card(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12.0))),
+        child: Column(
+          children: [
+            NoticeView(space),
+            SizedBox(
+              height: radius / 2,
             ),
-          ),
-        ));
+            DashLine(
+              color: Colors.grey,
+            ),
+            SizedBox(
+              height: radius / 2,
+            ),
+            Expanded(flex: 3, child: MenuView()),
+            Expanded(
+              flex: 1,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(12.0),
+                      bottomRight: Radius.circular(12.0)),
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Transform(
+                          alignment: Alignment.center,
+                          transform: Matrix4.rotationY(math.pi),
+                          child: Image.asset(
+                            'assets/apply.png',
+                            fit: BoxFit.fill,
+                          )),
+                      Container(
+                        alignment: Alignment.center,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text('sdf'),
+                        ),
+                      )
+                    ],
+                  )),
+            )
+          ],
+        ),
+      ),
+    ));
   }
 }
 
@@ -116,6 +120,8 @@ class MenuView extends StatelessWidget {
             ((constraints.maxHeight - 4) / 2);
         return GridView.count(
             primary: false,
+            shrinkWrap: true,
+            reverse: true,
             physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 2,
             mainAxisSpacing: 2,
@@ -123,21 +129,7 @@ class MenuView extends StatelessWidget {
             childAspectRatio: ratio,
             children: [
               {
-                'icon': 'assets/Booking.png',
-                'text': 'Reservation',
-                'ontap': () {
-                  context.router.push(BookingsRoute());
-                }
-              },
-              {
-                'icon': 'assets/Tickets.png',
-                'text': 'Tickets',
-                'ontap': () {
-                  context.router.push(TicketsRoute());
-                }
-              },
-              {
-                'icon': 'assets/my.png',
+                'icon': 'assets/about.png',
                 'text': 'About Us',
                 'ontap': () {
                   context.router.push(ProfileRoute());
@@ -150,25 +142,36 @@ class MenuView extends StatelessWidget {
                   context.router.push(ProfileRoute());
                 }
               },
+              {
+                'icon': 'assets/booking.png',
+                'text': 'Bookings',
+                'ontap': () {
+                  context.router.push(BookingsRoute());
+                }
+              },
+              {
+                'icon': 'assets/ticket.png',
+                'text': 'Tickets',
+                'ontap': () {
+                  context.router.push(TicketsRoute());
+                }
+              },
             ].map((f) {
               return InkWell(
                   onTap: f['ontap'],
-                  child: Card(
-                      shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(14.0))),
+                  child: Container(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            f['icon'],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(f['text'])
-                        ],
-                      )));
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        f['icon'],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(f['text'])
+                    ],
+                  )));
             }).toList());
       },
     );
