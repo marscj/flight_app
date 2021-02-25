@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bookings_bloc.dart';
 import 'bookings_screen.dart';
 
 class BookingsPage extends StatefulWidget {
@@ -12,6 +14,9 @@ class BookingsPage extends StatefulWidget {
 class _BookingsPageState extends State<BookingsPage> {
   @override
   Widget build(BuildContext context) {
-    return BookingsScreen();
+    return BlocProvider<BookingsBloc>(
+      create: (context) => BookingsBloc(),
+      child: BookingsScreen(),
+    );
   }
 }
