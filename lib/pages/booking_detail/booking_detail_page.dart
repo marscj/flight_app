@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saadiyat/pages/booking_detail/index.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 import 'booking_screen.dart';
 import 'bta_screen.dart';
@@ -53,7 +54,7 @@ class _BookingDetailPageState extends State<BookingDetailPage>
         child: BlocBuilder<BookingDetailBloc, BookingDetailState>(
           builder: (context, state) {
             return Scaffold(
-                appBar: AppBar(
+                appBar: CustomAppBar(
                   title: Text('Booking Detail'),
                   bottom: TabBar(
                     controller: _tabController,

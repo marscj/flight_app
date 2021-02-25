@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 /// The demo page for [SharedAxisPageTransitionsBuilder].
 class SharedAxisTransitionDemo extends StatefulWidget {
@@ -34,7 +35,7 @@ class _SharedAxisTransitionDemoState extends State<SharedAxisTransitionDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: const Text('Shared axis')),
+      appBar: CustomAppBar(title: const Text('Shared axis')),
       body: SafeArea(
         child: Column(
           children: <Widget>[

@@ -8,6 +8,7 @@ import 'package:saadiyat/pages/app/index.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 class ProfilePage extends StatefulWidget {
   static const String routeName = 'profile';
@@ -26,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (_, state) {
         return Scaffold(
           key: _scaffoldKey,
-          appBar: AppBar(
+          appBar: CustomAppBar(
             title: Text('Account'),
           ),
           body: SingleChildScrollView(

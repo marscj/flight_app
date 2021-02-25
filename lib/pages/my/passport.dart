@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 class PassportPage extends StatefulWidget {
   static const String routeName = 'passport';
@@ -18,7 +19,7 @@ class _PassportPageState extends State<PassportPage> {
     return BlocBuilder<AppBloc, AppState>(
       builder: (_, state) {
         return Scaffold(
-          appBar: AppBar(
+          appBar: CustomAppBar(
             title: Text('Passprot'),
           ),
           body: SingleChildScrollView(

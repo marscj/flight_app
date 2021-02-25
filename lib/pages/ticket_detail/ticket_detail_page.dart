@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saadiyat/pages/ticket_detail/ticket_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 import 'bta_screen.dart';
 import 'itinerary_screen.dart';
@@ -56,7 +57,7 @@ class _TicketDetailPageState extends State<TicketDetailPage>
         child: BlocBuilder<TicketDetailBloc, TicketDetailState>(
           builder: (context, state) {
             return Scaffold(
-                appBar: AppBar(
+                appBar: CustomAppBar(
                   title: Text('Ticket Detail'),
                   actions: [
                     IconButton(

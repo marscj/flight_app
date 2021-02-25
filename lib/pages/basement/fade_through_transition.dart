@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 /// The demo page for [FadeThroughTransition].
 class FadeThroughTransitionDemo extends StatefulWidget {
@@ -24,7 +25,7 @@ class _FadeThroughTransitionDemoState extends State<FadeThroughTransitionDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Fade through')),
+      appBar: CustomAppBar(title: const Text('Fade through')),
       body: PageTransitionSwitcher(
         transitionBuilder: (
           Widget child,

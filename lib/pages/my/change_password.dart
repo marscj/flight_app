@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 import 'change_password_form_bloc.dart';
 
@@ -36,7 +37,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             }, child: BlocBuilder<AppBloc, AppState>(
               builder: (_, state) {
                 return Scaffold(
-                  appBar: AppBar(
+                  appBar: CustomAppBar(
                     title: Text('Change Password'),
                   ),
                   body: SingleChildScrollView(

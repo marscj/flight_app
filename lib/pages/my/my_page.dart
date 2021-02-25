@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/app/app_bloc.dart';
 import 'package:saadiyat/pages/app/app_state.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 import 'my_screen.dart';
 
@@ -19,7 +20,7 @@ class _MyPageState extends State<MyPage> {
         builder: (BuildContext context, state) {
       return Scaffold(
         primary: true,
-        appBar: AppBar(
+        appBar: CustomAppBar(
           elevation: 0,
           // title: Text(
           //   state?.user?.name ?? '',

@@ -10,6 +10,7 @@ import 'package:open_file/open_file.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
 import 'package:saadiyat/router/router.gr.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saadiyat/pages/booking_create/index.dart';
@@ -161,12 +162,11 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
               },
               child: Scaffold(
                 resizeToAvoidBottomPadding: false,
-                appBar: AppBar(
+                appBar: CustomAppBar(
                   leading: currentState.step == 0 ? BackButton() : Container(),
                   title: buildTitle[currentState.step],
                   iconTheme: IconThemeData(color: Colors.black),
                   elevation: 0,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 ),
                 floatingActionButton:
                     floatingActionButton(currentState)[currentState.step],

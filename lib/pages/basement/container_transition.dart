@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 const String _loremIpsumParagraph =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod '
@@ -110,7 +111,7 @@ class _OpenContainerTransformDemoState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: CustomAppBar(
         title: const Text('Container transform'),
         actions: <Widget>[
           IconButton(
@@ -480,7 +481,7 @@ class _DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: CustomAppBar(
         title: const Text('Details page'),
         actions: <Widget>[
           if (includeMarkAsDoneButton)

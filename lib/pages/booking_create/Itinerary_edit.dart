@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/app/index.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 import 'Itinerary_form_bloc.dart';
 
@@ -28,7 +29,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(builder: (_, appState) {
       return Scaffold(
-          appBar: AppBar(
+          appBar: CustomAppBar(
             title: Text(
               widget.data == null
                   ? 'Add Itinerary Informations'
@@ -36,8 +37,6 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
               style: TextStyle(color: Colors.black),
             ),
             iconTheme: IconThemeData(color: Colors.black),
-            elevation: 0,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           ),
           body: SafeArea(
               child: BlocProvider<ItineraryFormBloc>(

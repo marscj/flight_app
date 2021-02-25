@@ -5,6 +5,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 import 'package:saadiyat/widgets/listtitle.dart';
 
 import 'bookings_bloc.dart';
@@ -47,16 +48,8 @@ class BookingsScreenState extends State<BookingsScreen> {
       // ignore: close_sinks
       BookingsBloc bookingsBloc = BlocProvider.of<BookingsBloc>(context);
       return Scaffold(
-        appBar: AppBar(
+        appBar: CustomAppBar(
           title: Text('Bookings'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                context.router.push(BookingCreateRoute());
-              },
-            )
-          ],
         ),
         body: EasyRefresh(
             child: SingleChildScrollView(

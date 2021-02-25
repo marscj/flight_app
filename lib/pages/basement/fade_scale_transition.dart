@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 
 /// The demo page for [FadeScaleTransition].
 class FadeScaleTransitionDemo extends StatefulWidget {
@@ -55,7 +56,7 @@ class _FadeScaleTransitionDemoState extends State<FadeScaleTransitionDemo>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Fade')),
+      appBar: CustomAppBar(title: const Text('Fade')),
       floatingActionButton: AnimatedBuilder(
         animation: _controller,
         builder: (BuildContext context, Widget child) {

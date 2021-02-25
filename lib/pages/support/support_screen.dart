@@ -6,6 +6,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/support/index.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/widgets/custom_appbar.dart';
 import 'package:saadiyat/widgets/ifnone_widget.dart';
 
 // ignore_for_file: close_sinks
@@ -29,7 +30,7 @@ class SupportScreenState extends State<SupportScreen> {
         SupportBloc bloc = BlocProvider.of<SupportBloc>(context);
 
         return Scaffold(
-            appBar: AppBar(title: Text('Support Center')),
+            appBar: CustomAppBar(title: Text('Support Center')),
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () {
