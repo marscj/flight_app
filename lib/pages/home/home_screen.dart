@@ -93,11 +93,22 @@ class ContentView extends StatelessWidget {
                             fit: BoxFit.fill,
                           )),
                       Container(
-                        alignment: Alignment.center,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text('sdf'),
-                        ),
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.all(12),
+                        height: 100,
+                        child: FlatButton(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 10),
+                            color: Colors.red,
+                            onPressed: () {},
+                            child: Text(
+                              'Booking Now',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(72)))),
                       )
                     ],
                   )),
