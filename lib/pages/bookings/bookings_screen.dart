@@ -2,11 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
-import 'package:saadiyat/widgets/list_item.dart';
+import 'package:saadiyat/widgets/listtitle.dart';
 
 import 'bookings_bloc.dart';
 import 'bookings_event.dart';
@@ -48,57 +47,28 @@ class BookingsScreenState extends State<BookingsScreen> {
       // ignore: close_sinks
       BookingsBloc bookingsBloc = BlocProvider.of<BookingsBloc>(context);
       return Scaffold(
-        body: EasyRefresh.builder(
-            builder: (context, physics, header, footer) {
-              return CustomScrollView(
-                physics: physics,
-                slivers: <Widget>[
-                  SliverAppBar(
-                    expandedHeight: 100.0,
-                    pinned: true,
-                    elevation: 8,
-                    flexibleSpace: FlexibleSpaceBar(
-                        centerTitle: false,
-                        titlePadding: EdgeInsetsDirectional.only(
-                          start: 36.0,
-                          bottom: 16.0,
-                        ),
-                        background: Image.asset(
-                          'assets/header.png',
-                          fit: BoxFit.cover,
-                        ),
-                        title: Row(
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          children: [
-                            Image.asset('assets/logo-title.png',
-                                height: (100 - kToolbarHeight) / 2),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Expanded(
-                              child: Text(
-                                'Booking',
-                                style: GoogleFonts.lobster(),
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
-                  header,
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: BookingItem(
-                          data: currentState?.list[index],
-                        ),
-                      );
-                    }, childCount: currentState?.list?.length ?? 0),
-                  ),
-                  footer
-                ],
+        appBar: AppBar(
+          title: Text('Bookings'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                context.router.push(BookingCreateRoute());
+              },
+            )
+          ],
+        ),
+        body: EasyRefresh(
+            child: SingleChildScrollView(
+                child: Column(
+                    children: currentState.list.map((f) {
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: BookingItem(
+                  data: f,
+                ),
               );
-            },
+            }).toList())),
             firstRefresh: currentState.list.length == 0,
             controller: _controller,
             enableControlFinishRefresh: true,
@@ -149,44 +119,51 @@ class BookingItem extends StatelessWidget {
           context.router.push(BookingDetailRoute(id: data.id));
         },
         child: Card(
-          elevation: 8.0,
+          elevation: 2.0,
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(14.0))),
+              borderRadius: BorderRadius.all(Radius.circular(0.0))),
           child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(14.0))),
+                  borderRadius: BorderRadius.all(Radius.circular(0.0))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       decoration: BoxDecoration(
-                          color: Colors.orange,
-                          borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(14.0))),
+                          color: data.color,
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(0.0))),
                       padding: EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 15.0),
                       width: double.infinity,
                       child: AutoSizeText(
                         data.date,
                         maxLines: 1,
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       )),
+                  Divider(
+                    color: Colors.grey,
+                  ),
                   Container(
                       width: double.infinity,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
-                      child: Column(children: [
-                        ListItem(
-                          title: 'Title:',
-                          describe: data?.title ?? '',
-                        ),
-                        ListItem(
-                          title: 'Remark:',
-                          describe: data?.remark ?? '',
-                        ),
-                      ]))
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10.0),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AutoSizeText(
+                              data.title ?? '',
+                              maxLines: 3,
+                            ),
+                            SizedBox(height: 8),
+                            AutoSizeText(
+                              data.remark ?? '',
+                              maxLines: 5,
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                          ]))
                 ],
               )),
         ));

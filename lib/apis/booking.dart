@@ -21,6 +21,8 @@ class Booking extends Equatable {
   @override
   List<Object> get props =>
       [id, title, remark, date, author, uploads, itineraries, comments];
+
+  Color get color => Colors.white;
 }
 
 @JsonSerializable()
