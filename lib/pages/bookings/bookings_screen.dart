@@ -133,7 +133,6 @@ class BookingItem extends StatelessWidget {
                       child: AutoSizeText(
                         data.date,
                         maxLines: 1,
-                        style: TextStyle(fontWeight: FontWeight.bold),
                       )),
                   Divider(
                     color: Colors.grey,

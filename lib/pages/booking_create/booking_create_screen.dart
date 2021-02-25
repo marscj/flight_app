@@ -118,9 +118,9 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
   }
 
   List<Widget> buildTitle = [
-    Text('Add Booking Informations', style: TextStyle(color: Colors.black)),
-    Text('Itinerary List', style: TextStyle(color: Colors.black)),
-    Text('BTA List', style: TextStyle(color: Colors.black))
+    Text('Add Booking Informations', style: TextStyle(color: Colors.white)),
+    Text('Itinerary List', style: TextStyle(color: Colors.white)),
+    Text('BTA List', style: TextStyle(color: Colors.white))
   ];
 
   @override
@@ -165,8 +165,8 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                 appBar: CustomAppBar(
                   leading: currentState.step == 0 ? BackButton() : Container(),
                   title: buildTitle[currentState.step],
-                  iconTheme: IconThemeData(color: Colors.black),
-                  elevation: 0,
+                  // iconTheme: IconThemeData(color: Colors.black),
+                  // elevation: 0,
                 ),
                 floatingActionButton:
                     floatingActionButton(currentState)[currentState.step],
