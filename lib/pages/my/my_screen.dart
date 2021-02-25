@@ -50,7 +50,6 @@ class MyScreenState extends State<MyScreen> {
                   ),
                   // 名字
                   Container(
-                    margin: EdgeInsets.only(top: 20.0),
                     child: Center(
                       child: Text(
                         state?.user?.name ?? '',
@@ -59,7 +58,7 @@ class MyScreenState extends State<MyScreen> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 60.0),
+                    margin: EdgeInsets.only(top: 50.0),
                     child: Center(
                       child: Text(
                         state?.user?.department ?? '',

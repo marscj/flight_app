@@ -76,47 +76,55 @@ class ContentView extends StatelessWidget {
               height: radius / 2,
             ),
             Expanded(child: MenuView()),
-            Container(
-              height: 140,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(12.0),
-                      bottomRight: Radius.circular(12.0)),
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Transform(
-                          alignment: Alignment.center,
-                          transform: Matrix4.rotationY(math.pi),
-                          child: Image.asset(
-                            'assets/apply.png',
-                            fit: BoxFit.fill,
-                          )),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: const EdgeInsets.all(12),
-                        height: 100,
-                        child: FlatButton(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 10),
-                            color: Colors.red,
-                            onPressed: () {},
-                            child: Text(
-                              'Booking Now',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(72)))),
-                      )
-                    ],
-                  )),
-            )
+            BookingView()
           ],
         ),
       ),
     ));
+  }
+}
+
+class BookingView extends StatelessWidget {
+  const BookingView({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      child: ClipRRect(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(12.0),
+              bottomRight: Radius.circular(12.0)),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(math.pi),
+                  child: Image.asset(
+                    'assets/apply.png',
+                    fit: BoxFit.fill,
+                  )),
+              Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: 18),
+                child: FlatButton(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 10),
+                    color: Colors.red,
+                    onPressed: () {
+                      context.router.push(BookingCreateRoute());
+                    },
+                    child: Text(
+                      'Booking Now',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(72)))),
+              )
+            ],
+          )),
+    );
   }
 }
 
