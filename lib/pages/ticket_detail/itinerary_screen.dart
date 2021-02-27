@@ -26,16 +26,17 @@ class ItineraryScreen extends StatelessWidget {
       return SafeArea(
         child: EasyRefresh(
             child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: ItineraryItem(
-                    data: currentState.data.itinerary,
-                  ),
-                )
-              ],
-            )),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: ItineraryItem(
+                        data: currentState.data.itinerary,
+                      ),
+                    )
+                  ],
+                )),
             emptyWidget:
                 currentState?.data?.itinerary == null ? NoDataWidget() : null,
             firstRefreshWidget: LinearProgressIndicator(),

@@ -25,10 +25,10 @@ class ItineraryScreen extends StatelessWidget {
           BlocProvider.of<BookingDetailBloc>(context);
       return EasyRefresh(
           child: ListView(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             children: currentState?.data?.itineraries?.map((f) {
                   return Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: ItineraryItem(
                       data: f,
                     ),
@@ -61,7 +61,7 @@ class ItineraryItem extends StatelessWidget {
       child: Container(
           child: Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
+              // padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
               child: Column(
                 children: [
                   CustomListTitle(
