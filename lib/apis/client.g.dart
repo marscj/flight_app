@@ -479,19 +479,6 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'user': instance.user,
     };
 
-MessageList _$MessageListFromJson(Map<String, dynamic> json) {
-  return MessageList()
-    ..data = (json['data'] as List)
-        ?.map((e) =>
-            e == null ? null : Message.fromJson(e as Map<String, dynamic>))
-        ?.toList();
-}
-
-Map<String, dynamic> _$MessageListToJson(MessageList instance) =>
-    <String, dynamic>{
-      'data': instance.data,
-    };
-
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -920,6 +907,27 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = CommentExtra.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<List<Message>> getMessages({query}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(query ?? <String, dynamic>{});
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<List<dynamic>>('/messages/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    var value = _result.data
+        .map((dynamic i) => Message.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 }

@@ -8,7 +8,11 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:saadiyat/pages/app/index.dart';
+import 'package:saadiyat/pages/home/home_state.dart';
 import 'package:saadiyat/router/router.gr.dart';
+
+import 'home_bloc.dart';
+import 'home_event.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -23,29 +27,39 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    super.initState();
+
+    // ignore: close_sinks
+    HomeBloc appBloc = BlocProvider.of<HomeBloc>(context);
+    appBloc.add(LoadMessagesEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return Column(
-        children: [
-          AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            brightness: Brightness.dark,
-            centerTitle: true,
-            title: Image.asset(
-              'assets/logo-title.png',
-              fit: BoxFit.contain,
-              height: kToolbarHeight - 8,
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              brightness: Brightness.dark,
+              centerTitle: true,
+              title: Image.asset(
+                'assets/logo-title.png',
+                fit: BoxFit.contain,
+                height: kToolbarHeight - 8,
+              ),
             ),
-          ),
-          Expanded(
-            child: ContentView(120, 40),
-          ),
-          CopyRightView()
-        ],
-      );
-    });
+            Expanded(
+              child: ContentView(120, 40),
+            ),
+            CopyRightView()
+          ],
+        );
+      },
+    );
   }
 }
 

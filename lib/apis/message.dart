@@ -19,15 +19,3 @@ class Message extends Equatable {
   @override
   List<Object> get props => [id, read, content_type, date, object_id, user];
 }
-
-@JsonSerializable()
-class MessageList extends Equatable {
-  List<Message> data;
-
-  static MessageList fromJson(Map<String, dynamic> json) =>
-      _$MessageListFromJson(json);
-  Map<String, dynamic> toJson() => _$MessageListToJson(this);
-
-  @override
-  List<Object> get props => [data];
-}

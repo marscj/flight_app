@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:meta/meta.dart';
+import 'package:saadiyat/apis/client.dart';
 
 import 'home_bloc.dart';
 import 'home_state.dart';
@@ -12,6 +13,10 @@ abstract class HomeEvent {
 class LoadMessagesEvent extends HomeEvent {
   @override
   Stream<HomeState> applyAsync({HomeState currentState, HomeBloc bloc}) async* {
-    // TODO: implement applyAsync
+    yield await RestClient().getMessages().then((res) {
+      return currentState.copyWith(messages: res);
+    }).catchError((error) {
+      return currentState;
+    });
   }
 }
