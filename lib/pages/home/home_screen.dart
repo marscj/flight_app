@@ -245,9 +245,9 @@ class NoticeView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text.rich(
-                              TextSpan(
-                                  text: 'Hi: ',
-                                  children: [TextSpan(text: state.user.name)]),
+                              TextSpan(text: 'Hi: ', children: [
+                                TextSpan(text: state?.user?.name ?? '')
+                              ]),
                               style: TextStyle(fontSize: 18),
                             ),
                             SizedBox(

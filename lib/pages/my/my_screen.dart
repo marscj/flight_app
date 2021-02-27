@@ -44,7 +44,12 @@ class MyScreenState extends State<MyScreen> {
                       child: Container(
                         width: double.infinity,
                         height: 240.0,
-                        color: Theme.of(context).primaryColor,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(colors: [
+                            Color(0xff000099),
+                            Color(0xff3300ff),
+                          ]),
+                        ),
                       ),
                     ),
                   ),
