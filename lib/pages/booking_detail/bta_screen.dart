@@ -26,7 +26,7 @@ class BtaScreen extends StatelessWidget {
           BlocProvider.of<BookingDetailBloc>(context);
       return EasyRefresh(
           child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            padding: const EdgeInsets.all(10),
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 title: Text(currentState?.data?.uploads[index]?.name ?? ''),

@@ -24,7 +24,7 @@ class BookingScreen extends StatelessWidget {
           BlocProvider.of<BookingDetailBloc>(context);
       return EasyRefresh(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            padding: const EdgeInsets.all(10),
             child: Card(
                 child: Column(
               children: [

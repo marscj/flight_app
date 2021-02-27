@@ -25,7 +25,7 @@ class ItineraryScreen extends StatelessWidget {
           BlocProvider.of<BookingDetailBloc>(context);
       return EasyRefresh(
           child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            padding: const EdgeInsets.all(10),
             children: currentState?.data?.itineraries?.map((f) {
                   return Padding(
                     padding: const EdgeInsets.all(10),
