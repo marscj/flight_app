@@ -11,9 +11,7 @@ class HomeState extends Equatable {
 
   HomeState copyWith(
           {List<Message> messages, int pageNo, int pageSize, int totalCount}) =>
-      HomeState(
-        messages: messages ?? this.messages,
-      );
+      HomeState(messages: messages ?? this.messages);
 
   @override
   // TODO: implement props
