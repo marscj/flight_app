@@ -2,12 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/pages/tickets/tickets_event.dart';
 import 'package:saadiyat/router/router.gr.dart';
-import 'package:saadiyat/widgets/custom_appbar.dart';
-import 'package:saadiyat/widgets/listtitle.dart';
+import 'package:saadiyat/widgets/list_item.dart';
 
 import 'tickets_bloc.dart';
 import 'tickets_state.dart';
@@ -48,20 +48,57 @@ class TicketsScreenState extends State<TicketsScreen> {
       // ignore: close_sinks
       TicketsBloc bookingsBloc = BlocProvider.of<TicketsBloc>(context);
       return Scaffold(
-        appBar: CustomAppBar(
-          title: Text('Tickets'),
-        ),
-        body: EasyRefresh(
-            child: SingleChildScrollView(
-                child: Column(
-                    children: currentState.list.map((f) {
-              return Padding(
-                padding: const EdgeInsets.all(10),
-                child: TicketItem(
-                  data: f.last,
-                ),
+        body: EasyRefresh.builder(
+            builder: (context, physics, header, footer) {
+              return CustomScrollView(
+                physics: physics,
+                slivers: <Widget>[
+                  SliverAppBar(
+                    expandedHeight: 100.0,
+                    pinned: true,
+                    elevation: 8,
+                    flexibleSpace: FlexibleSpaceBar(
+                        centerTitle: false,
+                        titlePadding: EdgeInsetsDirectional.only(
+                          start: 36.0,
+                          bottom: 16.0,
+                        ),
+                        background: Image.asset(
+                          'assets/header.png',
+                          fit: BoxFit.cover,
+                        ),
+                        title: Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          children: [
+                            Image.asset('assets/logo-title.png',
+                                height: (100 - kToolbarHeight) / 2),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Expanded(
+                              child: Text(
+                                'Ticket',
+                                style: GoogleFonts.lobster(),
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
+                  header,
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: TicketItem(
+                          data: currentState?.list[index].last,
+                        ),
+                      );
+                    }, childCount: currentState?.list?.length ?? 0),
+                  ),
+                  footer
+                ],
               );
-            }).toList())),
+            },
             firstRefresh: currentState.list.length == 0,
             controller: _controller,
             enableControlFinishRefresh: true,
@@ -112,21 +149,21 @@ class TicketItem extends StatelessWidget {
           context.router.push(TicketDetailRoute(id: data.id));
         },
         child: Card(
-          elevation: 4.0,
+          elevation: 8.0,
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(0.0))),
+              borderRadius: BorderRadius.all(Radius.circular(14.0))),
           child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(0.0))),
+                  borderRadius: BorderRadius.all(Radius.circular(14.0))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       decoration: BoxDecoration(
                           color: data.color,
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(0.0))),
+                          borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(14.0))),
                       padding: EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 15.0),
                       width: double.infinity,
@@ -152,34 +189,28 @@ class TicketItem extends StatelessWidget {
                   Container(
                       width: double.infinity,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
                       child: Column(children: [
-                        CustomListTitle(
-                            title: 'Information:',
-                            content: data?.air_info ?? ''),
-                        Divider(),
-                        CustomListTitle(
-                            title: 'Air Line:', content: data?.air_line ?? ''),
-                        Divider(),
-                        CustomListTitle(
-                            title: 'Air Class:',
-                            content: data?.air_class ?? ''),
-                        Divider(),
-                        CustomListTitle(
-                            title: 'Total:',
-                            content: data?.total.toString() ?? ''),
-                        Visibility(
-                          visible:
-                              data?.remark != null && data.remark.isNotEmpty,
-                          child: ListBody(
-                            children: [
-                              Divider(),
-                              CustomListTitle(
-                                  title: 'Remark:',
-                                  content: data?.remark ?? ''),
-                            ],
-                          ),
-                        )
+                        ListItem(
+                          title: 'Air Line:',
+                          describe: data?.air_line ?? '',
+                        ),
+                        ListItem(
+                          title: 'Air Class:',
+                          describe: data?.air_class ?? '',
+                        ),
+                        ListItem(
+                          title: 'Total:',
+                          describe: data?.total?.toString() ?? '',
+                        ),
+                        ListItem(
+                          title: 'Information:',
+                          describe: data?.air_info ?? '',
+                        ),
+                        ListItem(
+                          title: 'Remark:',
+                          describe: data?.remark ?? '',
+                        ),
                       ]))
                 ],
               )),

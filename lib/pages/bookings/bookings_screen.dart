@@ -112,7 +112,7 @@ class BookingItem extends StatelessWidget {
           context.router.push(BookingDetailRoute(id: data.id));
         },
         child: Card(
-          elevation: 2.0,
+          elevation: 4.0,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(0.0))),
           child: Container(
