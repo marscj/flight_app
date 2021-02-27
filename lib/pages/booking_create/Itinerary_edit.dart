@@ -30,14 +30,11 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
     return BlocBuilder<AppBloc, AppState>(builder: (_, appState) {
       return Scaffold(
           appBar: CustomAppBar(
-            title: Text(
-              widget.data == null
-                  ? 'Add Itinerary Informations'
-                  : 'Edit Itinerary Informations',
-              style: TextStyle(color: Colors.black),
-            ),
-            iconTheme: IconThemeData(color: Colors.black),
-          ),
+              title: Text(
+            widget.data == null
+                ? 'Add Itinerary Informations'
+                : 'Edit Itinerary Informations',
+          )),
           body: SafeArea(
               child: BlocProvider<ItineraryFormBloc>(
                   create: (context) =>

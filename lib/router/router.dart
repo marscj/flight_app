@@ -58,6 +58,7 @@ import 'guard.dart';
     AutoRoute(
       path: BookingCreatePage.routeName,
       page: BookingCreatePage,
+      fullscreenDialog: true,
       guards: [AuthGuard],
     ),
     AutoRoute(

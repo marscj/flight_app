@@ -68,7 +68,10 @@ class AppRouter extends _i1.RootStackRouter {
           entry: entry, child: _i12.TicketDetailPage(id: route.id));
     },
     BookingCreateRoute.name: (entry) {
-      return _i1.CupertinoPageX(entry: entry, child: _i13.BookingCreatePage());
+      return _i1.CupertinoPageX(
+          entry: entry,
+          child: _i13.BookingCreatePage(),
+          fullscreenDialog: true);
     },
     ItineraryEditRoute.name: (entry) {
       var route = entry.routeData.as<ItineraryEditRoute>();
