@@ -162,7 +162,7 @@ class _MenuViewState extends State<MenuView> {
                 'icon': 'assets/about.png',
                 'text': 'About Us',
                 'ontap': () {
-                  context.router.push(ProfileRoute());
+                  context.router.push(AboutRoute());
                 }
               },
               {
