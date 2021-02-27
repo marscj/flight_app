@@ -6,6 +6,7 @@ import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
+import 'package:saadiyat/widgets/listtitle.dart';
 
 // ignore_for_file: close_sinks
 
@@ -66,64 +67,54 @@ class TicketScreen extends StatelessWidget {
                         ],
                       )
                     : Container(),
-                ListTile(
-                  dense: true,
-                  title: Text('SerialNo.:'),
-                  subtitle: Text(currentState?.data?.serial_no ?? ''),
+                CustomListTitle(
+                  title: 'SerialNo.:',
+                  content: currentState?.data?.serial_no ?? '',
                 ),
                 Divider(),
-                ListTile(
-                  dense: true,
-                  title: Text('Confirm:'),
-                  subtitle: Text(currentState?.data?.status_text ?? ''),
+                CustomListTitle(
+                  title: 'Confirm:',
+                  content: currentState?.data?.status_text ?? '',
                 ),
                 Divider(),
-                ListTile(
-                  dense: true,
-                  title: Text('Air Line:'),
-                  subtitle: Text(currentState?.data?.air_line ?? ''),
+                CustomListTitle(
+                  title: 'Air Line:',
+                  content: currentState?.data?.air_line ?? '',
                 ),
                 Divider(),
-                ListTile(
-                  dense: true,
-                  title: Text('Air Class:'),
-                  subtitle: Text(currentState?.data?.air_class ?? ''),
+                CustomListTitle(
+                  title: 'Air Class:',
+                  content: currentState?.data?.air_class ?? '',
                 ),
                 Divider(),
-                ListTile(
-                  dense: true,
-                  title: Text('Air Information:'),
-                  subtitle: Text(currentState?.data?.air_info ?? ''),
+                CustomListTitle(
+                  title: 'Air Information:',
+                  content: currentState?.data?.air_info ?? '',
                 ),
                 Divider(),
-                ListTile(
-                  dense: true,
-                  title: Text('Fare:'),
-                  subtitle: Text('${currentState?.data?.fare ?? ''}'),
+                CustomListTitle(
+                  title: 'Fare:',
+                  content: '${currentState?.data?.fare ?? ''}',
                 ),
                 Divider(),
-                ListTile(
-                  dense: true,
-                  title: Text('Tax:'),
-                  subtitle: Text('${currentState?.data?.tax ?? ''}'),
+                CustomListTitle(
+                  title: 'Tax:',
+                  content: '${currentState?.data?.tax ?? ''}',
                 ),
                 Divider(),
-                ListTile(
-                  dense: true,
-                  title: Text('Total:'),
-                  subtitle: Text('${currentState?.data?.total ?? ''}'),
+                CustomListTitle(
+                  title: 'Total:',
+                  content: '${currentState?.data?.total ?? ''}',
                 ),
                 Divider(),
-                ListTile(
-                  dense: true,
-                  title: Text('Remark:'),
-                  subtitle: Text(currentState?.data?.remark ?? ''),
+                CustomListTitle(
+                  title: 'Remark:',
+                  content: currentState?.data?.remark ?? '',
                 ),
                 Divider(),
-                ListTile(
-                  dense: true,
-                  title: Text('Create Date:'),
-                  subtitle: Text(currentState?.data?.date ?? ''),
+                CustomListTitle(
+                  title: 'Create Date:',
+                  content: currentState?.data?.date ?? '',
                 ),
                 currentState?.data != null &&
                         currentState?.data?.is_confirm != null &&

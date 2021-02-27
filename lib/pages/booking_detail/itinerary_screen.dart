@@ -1,8 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/widgets/listtitle.dart';
 import 'package:saadiyat/widgets/no_data.dart';
 
 import 'booking_detail_bloc.dart';
@@ -58,99 +58,67 @@ class ItineraryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 8.0,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(14.0))),
       child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(14.0))),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                  width: double.infinity,
-                  color: Colors.orange,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                          child: AutoSizeText(
-                        data.serial_no == 'unknow'
-                            ? 'under reviewing'
-                            : data.serial_no ?? '',
-                        maxLines: 1,
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      )),
-                      Expanded(
-                          child: Container(
-                        alignment: Alignment.centerRight,
-                        child: Text('${data.is_lock ? 'Locked' : ''}',
-                            style: TextStyle(color: Colors.white)),
-                      ))
-                    ],
-                  )),
-              Container(
-                  width: double.infinity,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
-                  child: Column(
-                    children: [
-                      ListTile(
-                          title: Text('Name:'),
-                          subtitle: Text(data?.name ?? '')),
-                      Divider(),
-                      ListTile(
-                        title: Text('Passprot:'),
-                        subtitle: Text(data?.passport_no ?? ''),
-                      ),
-                      Divider(),
-                      ListTile(
-                        title: Text('Email:'),
-                        subtitle: Text(data?.email ?? ''),
-                      ),
-                      Divider(),
-                      ListTile(
-                        title: Text('Exit:'),
-                        subtitle: Text(data?.exit ?? ''),
-                      ),
-                      Divider(),
-                      ListTile(
-                        title: Text('Entry:'),
-                        subtitle: Text(data?.entry ?? ''),
-                      ),
-                      Divider(),
-                      ListTile(
-                        title: Text('Ticket1:'),
-                        subtitle: Text(data?.ticket1 ?? ''),
-                      ),
-                      Divider(),
-                      ListTile(
-                        title: Text('Ticket2:'),
-                        subtitle: Text(data?.ticket2 ?? ''),
-                      ),
-                      Divider(),
-                      ListTile(
-                        title: Text('Hotel:'),
-                        subtitle: Text(data?.hotel ?? ''),
-                      ),
-                      Divider(),
-                      ListTile(
-                        title: Text('Remark:'),
-                        subtitle: Text(data?.remark ?? ''),
-                      ),
-                      Divider(),
-                      ListTile(
-                        title: Text('Create Date:'),
-                        subtitle: Text(data?.date ?? ''),
-                      ),
-                    ],
-                  )),
-            ],
-          )),
+          child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
+              child: Column(
+                children: [
+                  CustomListTitle(
+                      title: 'Serial No.:', content: data?.serial_no ?? ''),
+                  Divider(),
+                  CustomListTitle(
+                      title: 'Status:',
+                      content: '${data.is_lock ? 'Locked' : 'Normal'}'),
+                  Divider(),
+                  CustomListTitle(title: 'Name:', content: data?.name ?? ''),
+                  Divider(),
+                  CustomListTitle(
+                    title: 'Passprot:',
+                    content: data?.passport_no ?? '',
+                  ),
+                  Divider(),
+                  CustomListTitle(
+                    title: 'Email:',
+                    content: data?.email ?? '',
+                  ),
+                  Divider(),
+                  CustomListTitle(
+                    title: 'Exit:',
+                    content: data?.exit ?? '',
+                  ),
+                  Divider(),
+                  CustomListTitle(
+                    title: 'Entry:',
+                    content: data?.entry ?? '',
+                  ),
+                  Divider(),
+                  CustomListTitle(
+                    title: 'Ticket1:',
+                    content: data?.ticket1 ?? '',
+                  ),
+                  Divider(),
+                  CustomListTitle(
+                    title: 'Ticket2:',
+                    content: data?.ticket2 ?? '',
+                  ),
+                  Divider(),
+                  CustomListTitle(
+                    title: 'Hotel:',
+                    content: data?.hotel ?? '',
+                  ),
+                  Divider(),
+                  CustomListTitle(
+                    title: 'Remark:',
+                    content: data?.remark ?? '',
+                  ),
+                  Divider(),
+                  CustomListTitle(
+                    title: 'Create Date:',
+                    content: data?.date ?? '',
+                  ),
+                ],
+              ))),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/widgets/listtitle.dart';
 
 import 'booking_detail_bloc.dart';
 import 'booking_detail_event.dart';
@@ -27,19 +28,19 @@ class BookingScreen extends StatelessWidget {
             child: Card(
                 child: Column(
               children: [
-                ListTile(
-                  title: Text('Create Date:'),
-                  subtitle: Text(currentState?.data?.date ?? ''),
+                CustomListTitle(
+                  title: 'Create Date:',
+                  content: currentState?.data?.date ?? '',
                 ),
                 Divider(),
-                ListTile(
-                  title: Text('Title:'),
-                  subtitle: Text(currentState?.data?.title ?? ''),
+                CustomListTitle(
+                  title: 'Title:',
+                  content: currentState?.data?.title ?? '',
                 ),
                 Divider(),
-                ListTile(
-                  title: Text('Remark:'),
-                  subtitle: Text(currentState?.data?.remark ?? ''),
+                CustomListTitle(
+                  title: 'Remark:',
+                  content: currentState?.data?.remark ?? '',
                 ),
               ],
             )),
