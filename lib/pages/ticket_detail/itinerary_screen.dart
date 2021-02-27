@@ -23,28 +23,30 @@ class ItineraryScreen extends StatelessWidget {
       // ignore: close_sinks
       TicketDetailBloc bookingDetailBloc =
           BlocProvider.of<TicketDetailBloc>(context);
-      return EasyRefresh(
-          child: SingleChildScrollView(
-              child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: ItineraryItem(
-                  data: currentState.data.itinerary,
-                ),
-              )
-            ],
-          )),
-          emptyWidget:
-              currentState?.data?.itinerary == null ? NoDataWidget() : null,
-          firstRefreshWidget: LinearProgressIndicator(),
-          onRefresh: () async {
-            await RestClient().getTicket(id).then((res) {
-              bookingDetailBloc.add(RefreshTicketDetailEvent(res));
-            }).catchError((error) {
-              bookingDetailBloc.add(RefreshTicketDetailEvent(null));
-            });
-          });
+      return SafeArea(
+        child: EasyRefresh(
+            child: SingleChildScrollView(
+                child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: ItineraryItem(
+                    data: currentState.data.itinerary,
+                  ),
+                )
+              ],
+            )),
+            emptyWidget:
+                currentState?.data?.itinerary == null ? NoDataWidget() : null,
+            firstRefreshWidget: LinearProgressIndicator(),
+            onRefresh: () async {
+              await RestClient().getTicket(id).then((res) {
+                bookingDetailBloc.add(RefreshTicketDetailEvent(res));
+              }).catchError((error) {
+                bookingDetailBloc.add(RefreshTicketDetailEvent(null));
+              });
+            }),
+      );
     });
   }
 }

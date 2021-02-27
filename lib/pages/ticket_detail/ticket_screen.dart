@@ -17,7 +17,8 @@ class TicketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TicketDetailBloc, TicketDetailState>(builder: (
+    return SafeArea(
+        child: BlocBuilder<TicketDetailBloc, TicketDetailState>(builder: (
       BuildContext context,
       TicketDetailState currentState,
     ) {
@@ -26,117 +27,153 @@ class TicketScreen extends StatelessWidget {
       final colorScheme = Theme.of(context).colorScheme;
       return EasyRefresh(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            child: Card(
-                child: Column(
-              children: [
-                (currentState?.data != null &&
-                        currentState?.data?.is_confirm == null)
-                    ? MaterialBanner(
-                        backgroundColor: Colors.orange,
-                        content: ListTile(
-                          title: Text(
-                            'Please confirm your ticket information!',
-                            style: TextStyle(color: Colors.white),
-                          ),
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Card(
+                    child: ListBody(
+                      children: [
+                        (currentState?.data != null &&
+                                currentState?.data?.is_confirm == null)
+                            ? MaterialBanner(
+                                backgroundColor: Colors.orange,
+                                content: ListTile(
+                                  title: Text(
+                                    'Please confirm your ticket information!',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                leading: CircleAvatar(
+                                  child: Icon(Icons.notifications_active),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                      'Confirm',
+                                      style:
+                                          TextStyle(color: colorScheme.primary),
+                                    ),
+                                    onPressed: () {
+                                      ticketDetailBloc.add(
+                                          UpdateTicketEvent(currentState.data));
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text(
+                                      'Refuse',
+                                      style:
+                                          TextStyle(color: colorScheme.primary),
+                                    ),
+                                    onPressed: () {
+                                      showConfrimModal(
+                                          context,
+                                          ticketDetailBloc,
+                                          currentState.data,
+                                          true);
+                                    },
+                                  )
+                                ],
+                              )
+                            : Container(),
+                        CustomListTitle(
+                          title: 'SerialNo.:',
+                          content: currentState?.data?.serial_no ?? '',
                         ),
-                        leading: CircleAvatar(
-                          child: Icon(Icons.notifications_active),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Confirm:',
+                          content: currentState?.data?.status_text ?? '',
                         ),
-                        actions: [
-                          TextButton(
-                            child: Text(
-                              'Confirm',
-                              style: TextStyle(color: colorScheme.primary),
-                            ),
-                            onPressed: () {
-                              ticketDetailBloc
-                                  .add(UpdateTicketEvent(currentState.data));
-                            },
-                          ),
-                          TextButton(
-                            child: Text(
-                              'Refuse',
-                              style: TextStyle(color: colorScheme.primary),
-                            ),
-                            onPressed: () {
-                              showConfrimModal(context, ticketDetailBloc,
-                                  currentState.data, true);
-                            },
-                          )
-                        ],
-                      )
-                    : Container(),
-                CustomListTitle(
-                  title: 'SerialNo.:',
-                  content: currentState?.data?.serial_no ?? '',
-                ),
-                Divider(),
-                CustomListTitle(
-                  title: 'Confirm:',
-                  content: currentState?.data?.status_text ?? '',
-                ),
-                Divider(),
-                CustomListTitle(
-                  title: 'Air Line:',
-                  content: currentState?.data?.air_line ?? '',
-                ),
-                Divider(),
-                CustomListTitle(
-                  title: 'Air Class:',
-                  content: currentState?.data?.air_class ?? '',
-                ),
-                Divider(),
-                CustomListTitle(
-                  title: 'Air Information:',
-                  content: currentState?.data?.air_info ?? '',
-                ),
-                Divider(),
-                CustomListTitle(
-                  title: 'Fare:',
-                  content: '${currentState?.data?.fare ?? ''}',
-                ),
-                Divider(),
-                CustomListTitle(
-                  title: 'Tax:',
-                  content: '${currentState?.data?.tax ?? ''}',
-                ),
-                Divider(),
-                CustomListTitle(
-                  title: 'Total:',
-                  content: '${currentState?.data?.total ?? ''}',
-                ),
-                Divider(),
-                CustomListTitle(
-                  title: 'Remark:',
-                  content: currentState?.data?.remark ?? '',
-                ),
-                Divider(),
-                CustomListTitle(
-                  title: 'Create Date:',
-                  content: currentState?.data?.date ?? '',
-                ),
-                currentState?.data != null &&
-                        currentState?.data?.is_confirm != null &&
-                        currentState.data.is_confirm
-                    ? ListBody(
-                        children: [
-                          Divider(),
-                          Container(
-                              padding: const EdgeInsets.all(15),
-                              child: ElevatedButton(
-                                child: Text('Change/Cancel'),
-                                onPressed: () {
-                                  showConfrimModal(context, ticketDetailBloc,
-                                      currentState.data, false);
-                                },
-                              ))
-                        ],
-                      )
-                    : Container()
-              ],
-            )),
-          ),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Air Line:',
+                          content: currentState?.data?.air_line ?? '',
+                        ),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Air Class:',
+                          content: currentState?.data?.air_class ?? '',
+                        ),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Air Information:',
+                          content: currentState?.data?.air_info ?? '',
+                        ),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Fare:',
+                          content: '${currentState?.data?.fare ?? ''}',
+                        ),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Tax:',
+                          content: '${currentState?.data?.tax ?? ''}',
+                        ),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Total:',
+                          content: '${currentState?.data?.total ?? ''}',
+                        ),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Remark:',
+                          content: currentState?.data?.remark ?? '',
+                        ),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Create Date:',
+                          content: currentState?.data?.date ?? '',
+                        ),
+                        // currentState?.data != null &&
+                        //         currentState?.data?.is_confirm != null &&
+                        //         currentState.data.is_confirm
+                        //     ? ListBody(
+                        //         children: [
+                        //           Divider(),
+                        //           Container(
+                        //               padding: const EdgeInsets.all(15),
+                        //               child: ElevatedButton(
+                        //                 child: Text('Change/Cancel'),
+                        //                 onPressed: () {
+                        //                   showConfrimModal(
+                        //                       context,
+                        //                       ticketDetailBloc,
+                        //                       currentState.data,
+                        //                       false);
+                        //                 },
+                        //               ))
+                        //         ],
+                        //       )
+                        //     : Container()
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    child: RaisedButton(
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      child: Text('Cancel Ticket'),
+                      onPressed: () {},
+                    ),
+                    width: double.infinity,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    child: RaisedButton(
+                      color: Colors.orange,
+                      textColor: Colors.white,
+                      child: Text('Change Ticket'),
+                      onPressed: () {},
+                    ),
+                    width: double.infinity,
+                  )
+                ],
+              )),
           firstRefresh: true,
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
@@ -146,7 +183,7 @@ class TicketScreen extends StatelessWidget {
               ticketDetailBloc.add(RefreshTicketDetailEvent(null));
             });
           });
-    });
+    }));
   }
 }
 
