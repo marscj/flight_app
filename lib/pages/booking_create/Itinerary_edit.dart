@@ -69,6 +69,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                           children: [
                             TextFieldBlocBuilder(
                                 readOnly: true,
+                                isEnabled: false,
                                 textFieldBloc: formBloc.emial
                                   ..updateInitialValue(widget?.data?.email ??
                                       appState?.user?.email ??
@@ -83,6 +84,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
                                 readOnly: true,
+                                isEnabled: false,
                                 textFieldBloc: formBloc.name
                                   ..updateInitialValue(widget?.data?.name ??
                                       appState?.user?.name ??
@@ -97,6 +99,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                     border: OutlineInputBorder())),
                             TextFieldBlocBuilder(
                                 readOnly: true,
+                                isEnabled: false,
                                 textFieldBloc: formBloc.passport_no
                                   ..updateInitialValue(
                                       widget?.data?.passport_no ??

@@ -13,7 +13,7 @@ abstract class HomeEvent {
 class LoadMessagesEvent extends HomeEvent {
   @override
   Stream<HomeState> applyAsync({HomeState currentState, HomeBloc bloc}) async* {
-    yield await RestClient().getMessages().then((res) {
+    yield await RestClient().getMessages(query: {'read': false}).then((res) {
       return currentState.copyWith(messages: res);
     }).catchError((error) {
       return currentState;

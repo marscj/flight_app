@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -143,8 +144,6 @@ class BookingView extends StatelessWidget {
 }
 
 class MenuView extends StatefulWidget {
-  MenuView({Key key}) : super(key: key);
-
   @override
   _MenuViewState createState() => _MenuViewState();
 }
@@ -164,59 +163,74 @@ class _MenuViewState extends State<MenuView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: GridView.count(
-            controller: _controller,
-            primary: false,
-            reverse: true,
-            physics: NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            children: [
-              {
-                'icon': 'assets/about.png',
-                'text': 'About Us',
-                'ontap': () {
-                  context.router.push(AboutRoute());
-                }
-              },
-              {
-                'icon': 'assets/my.png',
-                'text': 'Settings',
-                'ontap': () {
-                  context.router.push(MyRoute());
-                }
-              },
-              {
-                'icon': 'assets/booking.png',
-                'text': 'Bookings',
-                'ontap': () {
-                  context.router.push(BookingsRoute());
-                }
-              },
-              {
-                'icon': 'assets/ticket.png',
-                'text': 'Tickets',
-                'ontap': () {
-                  context.router.push(TicketsRoute());
-                }
-              },
-            ].map((f) {
-              return InkWell(
-                  onTap: f['ontap'],
-                  child: Container(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        f['icon'],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(f['text'])
-                    ],
-                  )));
-            }).toList()));
+    return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+      return Container(
+          child: GridView.count(
+              controller: _controller,
+              primary: false,
+              reverse: true,
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              children: [
+                {
+                  'icon': 'assets/about.png',
+                  'text': 'About Us',
+                  'ontap': () {
+                    context.router.push(AboutRoute());
+                  },
+                  'showBadge': false,
+                },
+                {
+                  'icon': 'assets/my.png',
+                  'text': 'Settings',
+                  'ontap': () {
+                    context.router.push(MyRoute());
+                  },
+                  'showBadge': false,
+                },
+                {
+                  'icon': 'assets/booking.png',
+                  'text': 'Bookings',
+                  'ontap': () {
+                    context.router.push(BookingsRoute());
+                  },
+                  'showBadge': false,
+                },
+                {
+                  'icon': 'assets/ticket.png',
+                  'text': 'Tickets',
+                  'ontap': () {
+                    context.router.push(TicketsRoute());
+                  },
+                  'showBadge': state.messages.length > 0,
+                },
+              ].map((f) {
+                return InkWell(
+                    onTap: f['ontap'],
+                    child: Container(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Badge(
+                          showBadge: f['showBadge'],
+                          badgeColor: Colors.red,
+                          position: BadgePosition.topStart(top: -8, start: -8),
+                          badgeContent: Text(
+                            "",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: Image.asset(
+                            f['icon'],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(f['text'])
+                      ],
+                    )));
+              }).toList()));
+    });
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -111,78 +112,87 @@ class TicketItem extends StatelessWidget {
         onTap: () {
           context.router.push(TicketDetailRoute(id: data.id));
         },
-        child: Card(
-          elevation: 4.0,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(0.0))),
-          child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
+        child: Badge(
+            showBadge: data.messages.firstWhere((f) => f.read == false) != null,
+            badgeColor: Colors.red,
+            position: BadgePosition.topStart(top: 0, start: -8),
+            badgeContent: Text(
+              "",
+              style: TextStyle(color: Colors.white),
+            ),
+            child: Card(
+              elevation: 4.0,
+              shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(0.0))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      decoration: BoxDecoration(
-                          color: data.color,
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(0.0))),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 15.0),
-                      width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AutoSizeText(
-                            data?.serial_no ?? '',
-                            maxLines: 1,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          AutoSizeText(
-                            data?.status_text ?? '',
-                            maxLines: 1,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )),
-                  Container(
-                      width: double.infinity,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-                      child: Column(children: [
-                        CustomListTitle(
-                            title: 'Information:',
-                            content: data?.air_info ?? ''),
-                        Divider(),
-                        CustomListTitle(
-                            title: 'Air Line:', content: data?.air_line ?? ''),
-                        Divider(),
-                        CustomListTitle(
-                            title: 'Air Class:',
-                            content: data?.air_class ?? ''),
-                        Divider(),
-                        CustomListTitle(
-                            title: 'Total:',
-                            content: data?.total.toString() ?? ''),
-                        Visibility(
-                          visible:
-                              data?.remark != null && data.remark.isNotEmpty,
-                          child: ListBody(
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(0.0))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          decoration: BoxDecoration(
+                              color: data.color,
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(0.0))),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 15.0),
+                          width: double.infinity,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Divider(),
-                              CustomListTitle(
-                                  title: 'Remark:',
-                                  content: data?.remark ?? ''),
+                              AutoSizeText(
+                                data?.serial_no ?? '',
+                                maxLines: 1,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              AutoSizeText(
+                                data?.status_text ?? '',
+                                maxLines: 1,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ],
-                          ),
-                        )
-                      ]))
-                ],
-              )),
-        ));
+                          )),
+                      Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 0.0, vertical: 0.0),
+                          child: Column(children: [
+                            CustomListTitle(
+                                title: 'Information:',
+                                content: data?.air_info ?? ''),
+                            Divider(),
+                            CustomListTitle(
+                                title: 'Air Line:',
+                                content: data?.air_line ?? ''),
+                            Divider(),
+                            CustomListTitle(
+                                title: 'Air Class:',
+                                content: data?.air_class ?? ''),
+                            Divider(),
+                            CustomListTitle(
+                                title: 'Total:',
+                                content: data?.total?.toString() ?? ''),
+                            Visibility(
+                              visible: data?.remark != null &&
+                                  data.remark.isNotEmpty,
+                              child: ListBody(
+                                children: [
+                                  Divider(),
+                                  CustomListTitle(
+                                      title: 'Remark:',
+                                      content: data?.remark ?? ''),
+                                ],
+                              ),
+                            )
+                          ]))
+                    ],
+                  )),
+            )));
   }
 }
