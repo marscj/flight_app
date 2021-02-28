@@ -21,6 +21,10 @@ class Ticket extends Equatable {
   String date;
   Itinerary itinerary;
   int parent;
+  int normal_status;
+  int change_status;
+  int cancel_status;
+  int type_status;
   List<Ticket> children;
   List<Comment> comments;
   List<Message> messages;

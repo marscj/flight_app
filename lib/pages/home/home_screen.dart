@@ -243,70 +243,80 @@ class NoticeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
       builder: (_, AppState state) {
-        return SizedBox.fromSize(
-          size: Size.fromHeight(height),
-          child: Container(
-              margin: const EdgeInsets.only(
-                  left: 20, top: 20, right: 20, bottom: 10),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Color(0x000099)),
-                        gradient: LinearGradient(colors: [
-                          Color(0xff000099),
-                          Color(0xff3300ff),
-                        ]),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8),
-                            bottomLeft: Radius.circular(8))),
-                    width: 22,
-                  ),
-                  Expanded(
-                      child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text.rich(
-                              TextSpan(text: 'Hi: ', children: [
-                                TextSpan(text: state?.user?.name ?? '')
-                              ]),
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'You have an ticket confirmed',
-                              style: Theme.of(context).textTheme.caption,
-                            )
-                          ],
-                        ),
-                        Positioned(
-                          top: 5,
-                          right: 0,
-                          child: Image.asset(
-                            'assets/message.png',
-                            width: 24,
-                            height: 24,
-                          ),
-                        )
-                      ],
+        return BlocBuilder<HomeBloc, HomeState>(builder: (context, stateHome) {
+          return SizedBox.fromSize(
+            size: Size.fromHeight(height),
+            child: Container(
+                margin: const EdgeInsets.only(
+                    left: 20, top: 20, right: 20, bottom: 10),
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Color(0x000099)),
+                          gradient: LinearGradient(colors: [
+                            Color(0xff000099),
+                            Color(0xff3300ff),
+                          ]),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              bottomLeft: Radius.circular(8))),
+                      width: 22,
                     ),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey[300]),
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            bottomRight: Radius.circular(8))),
-                  ))
-                ],
-              )),
-        );
+                    Expanded(
+                        child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text.rich(
+                                TextSpan(text: 'Hi: ', children: [
+                                  TextSpan(text: state?.user?.name ?? '')
+                                ]),
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              Visibility(
+                                visible: stateHome.messages.length > 0,
+                                child: ListBody(
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'You have a new message',
+                                      style:
+                                          Theme.of(context).textTheme.caption,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Positioned(
+                            top: 5,
+                            right: 0,
+                            child: Image.asset(
+                              'assets/message.png',
+                              width: 24,
+                              height: 24,
+                            ),
+                          )
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey[300]),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(8),
+                              bottomRight: Radius.circular(8))),
+                    ))
+                  ],
+                )),
+          );
+        });
       },
     );
   }

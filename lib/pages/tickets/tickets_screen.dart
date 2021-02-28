@@ -113,7 +113,7 @@ class TicketItem extends StatelessWidget {
           context.router.push(TicketDetailRoute(id: data.id));
         },
         child: Badge(
-            showBadge: data.messages.firstWhere((f) => f.read == false) != null,
+            showBadge: data.messages.where((f) => f.read == false).length > 0,
             badgeColor: Colors.red,
             position: BadgePosition.topStart(top: 0, start: -8),
             badgeContent: Text(
