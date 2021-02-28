@@ -58,25 +58,48 @@ class Ticket extends Equatable {
         parent
       ];
 
-  Color get color => is_confirm == null
-      ? Colors.red
-      : !is_confirm
-          ? Colors.red
-          : is_cancel
-              ? Colors.grey
-              : is_complete
-                  ? Colors.green
-                  : Colors.orange;
+  List<List<Color>> _colors = [
+    [
+      Colors.blue,
+      Colors.white,
+      Colors.orange,
+      Colors.green,
+      Colors.red,
+      Colors.indigo,
+    ],
+    [
+      Colors.blue,
+      Colors.white,
+      Colors.orange,
+      Colors.green,
+      Colors.red,
+      Colors.indigo,
+    ],
+    [
+      Colors.blue,
+      Colors.white,
+      Colors.orange,
+      Colors.green,
+      Colors.red,
+      Colors.indigo,
+    ]
+  ];
 
-  String get status_text => is_confirm == null
-      ? 'Unconfirmed'
-      : !is_confirm
-          ? 'Refusal'
-          : is_cancel
-              ? 'Canceled'
-              : is_complete
-                  ? 'Completed'
-                  : 'Confirmed';
+  List<List<String>> _texts = [
+    ['New', 'Booked', 'Watting Confirm', 'Confirmed', 'Refused', 'Completed'],
+    ['New', 'Changed', 'Watting Confirm', 'Confirmed', 'Refused', 'Completed'],
+    ['New', 'Canceled', 'Watting Confirm', 'Confirmed', 'Refused', 'Completed']
+  ];
+
+  int get status => type_status == 0
+      ? normal_status
+      : type_status == 1
+          ? change_status
+          : cancel_status;
+
+  Color get color => _colors[type_status ?? 0][status ?? 0];
+
+  String get status_text => _texts[type_status ?? 0][status ?? 0];
 }
 
 @JsonSerializable()

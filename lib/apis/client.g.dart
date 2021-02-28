@@ -361,6 +361,10 @@ Ticket _$TicketFromJson(Map<String, dynamic> json) {
         ? null
         : Itinerary.fromJson(json['itinerary'] as Map<String, dynamic>)
     ..parent = json['parent'] as int
+    ..normal_status = json['normal_status'] as int
+    ..change_status = json['change_status'] as int
+    ..cancel_status = json['cancel_status'] as int
+    ..type_status = json['type_status'] as int
     ..children = (json['children'] as List)
         ?.map((e) =>
             e == null ? null : Ticket.fromJson(e as Map<String, dynamic>))
@@ -396,6 +400,10 @@ Map<String, dynamic> _$TicketToJson(Ticket instance) => <String, dynamic>{
       'date': instance.date,
       'itinerary': instance.itinerary,
       'parent': instance.parent,
+      'normal_status': instance.normal_status,
+      'change_status': instance.change_status,
+      'cancel_status': instance.cancel_status,
+      'type_status': instance.type_status,
       'children': instance.children,
       'comments': instance.comments,
       'messages': instance.messages,
