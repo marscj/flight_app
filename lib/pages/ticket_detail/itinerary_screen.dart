@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
+import 'package:saadiyat/pages/home/home_bloc.dart';
+import 'package:saadiyat/pages/home/home_event.dart';
 import 'package:saadiyat/widgets/no_data.dart';
 
 import 'ticket_detail_bloc.dart';
@@ -43,6 +45,9 @@ class ItineraryScreen extends StatelessWidget {
             onRefresh: () async {
               await RestClient().getTicket(id).then((res) {
                 bookingDetailBloc.add(RefreshTicketDetailEvent(res));
+                // ignore: close_sinks
+                HomeBloc appBloc = BlocProvider.of<HomeBloc>(context);
+                appBloc.add(LoadMessagesEvent());
               }).catchError((error) {
                 bookingDetailBloc.add(RefreshTicketDetailEvent(null));
               });
