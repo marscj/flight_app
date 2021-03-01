@@ -94,9 +94,9 @@ class _AppPageState extends State<AppPage> {
           //     ),
           //     brightness: Brightness.light),
           // dividerColor: Colors.grey,
-          textTheme: GoogleFonts.righteousTextTheme(
-            Theme.of(context).textTheme,
-          ),
+          // textTheme: GoogleFonts.righteousTextTheme(
+          //   Theme.of(context).textTheme,
+          // ),
           // highlightColor: Colors.blueAccent,
           // hoverColor: Colors.blueAccent.withOpacity(0.04),
           // splashColor: Colors.blueAccent

@@ -113,7 +113,7 @@ class MyScreenState extends State<MyScreen> {
                       padding: EdgeInsets.all(10.0),
                       child: Card(
                           elevation: 8,
-                          color: Colors.orange,
+                          color: Colors.orange[400],
                           child: Container(
                               padding: EdgeInsets.all(10.0),
                               child: Row(
@@ -140,7 +140,7 @@ class MyScreenState extends State<MyScreen> {
                       padding: EdgeInsets.all(10.0),
                       child: Card(
                           elevation: 8,
-                          color: Colors.red[600],
+                          color: Colors.red[400],
                           child: Container(
                               padding: EdgeInsets.all(10.0),
                               child: Row(

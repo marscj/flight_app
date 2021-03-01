@@ -42,7 +42,7 @@ class AboutScreenState extends State<AboutScreen> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                  "SAADIYAT WAY TRAVEL & TOURISM L.L.C was established in 2013. Dubai Happy Travel International Travel Agency is licensed by the UAE Government, Ministry of Economic Affairs, Tourism Administration, Immigration and other related departments. \nAn international travel agency specializing in travel projects within and outside the UAE, with an online visa system authorized by the Immigration Department. You can apply for various entry visas yourself, and you can sign up quickly."),
+                  "SAADIYAT WAY TRAVEL & TOURISM L.L.C was established in 2013. Dubai Happy Travel International Travel Agency is licensed by the UAE Government, Ministry of Economic Affairs, Tourism Administration, Immigration and other related departments. "),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
