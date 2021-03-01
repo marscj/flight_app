@@ -21,7 +21,7 @@ class RefreshTicketDetailEvent extends TicketDetailEvent {
   @override
   Stream<TicketDetailState> applyAsync(
       {TicketDetailState currentState, TicketDetailBloc bloc}) async* {
-    yield currentState.copyWith(data: result.data);
+    yield currentState.copyWith(data: result?.data);
   }
 }
 

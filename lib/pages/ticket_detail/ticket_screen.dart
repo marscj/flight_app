@@ -36,7 +36,7 @@ class TicketScreen extends StatelessWidget {
                     child: ListBody(
                       children: [
                         (currentState?.data != null &&
-                                currentState?.data?.is_confirm == null)
+                                currentState?.data?.status == 2)
                             ? MaterialBanner(
                                 backgroundColor: Colors.orange,
                                 content: ListTile(
@@ -150,29 +150,37 @@ class TicketScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    child: RaisedButton(
-                      color: Colors.red,
-                      textColor: Colors.white,
-                      child: Text('Cancel Ticket'),
-                      onPressed: () {},
+                  Visibility(
+                    visible: currentState?.data != null &&
+                        currentState?.data?.status == 5,
+                    child: ListBody(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          child: RaisedButton(
+                            color: Colors.red,
+                            textColor: Colors.white,
+                            child: Text('Cancel Ticket'),
+                            onPressed: () {},
+                          ),
+                          width: double.infinity,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          child: RaisedButton(
+                            color: Colors.orange,
+                            textColor: Colors.white,
+                            child: Text('Change Ticket'),
+                            onPressed: () {},
+                          ),
+                          width: double.infinity,
+                        )
+                      ],
                     ),
-                    width: double.infinity,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    child: RaisedButton(
-                      color: Colors.orange,
-                      textColor: Colors.white,
-                      child: Text('Change Ticket'),
-                      onPressed: () {},
-                    ),
-                    width: double.infinity,
                   )
                 ],
               )),
