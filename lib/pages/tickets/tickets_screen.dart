@@ -164,6 +164,10 @@ class TicketItem extends StatelessWidget {
                               horizontal: 0.0, vertical: 0.0),
                           child: Column(children: [
                             CustomListTitle(
+                                title: 'Status:',
+                                content: data?.type_text ?? ''),
+                            Divider(),
+                            CustomListTitle(
                                 title: 'Information:',
                                 content: data?.air_info ?? ''),
                             Divider(),

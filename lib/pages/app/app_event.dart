@@ -187,7 +187,7 @@ class JMessageLoginEvent extends AppEvent {
 
     if (auth != null) {
       try {
-        // await JMessage.login(username: auth[0], password: auth[1]);
+        await JMessage.login(username: auth[0], password: auth[1]);
       } on PlatformException catch (_) {
         print(_.toString());
       }
@@ -199,7 +199,7 @@ class JMessageLogoutEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     try {
-      // await JMessage.logout();
+      await JMessage.logout();
     } on PlatformException catch (_) {
       print(_.toString());
     }

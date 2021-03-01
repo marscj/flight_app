@@ -2,12 +2,13 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:saadiyat/pages/ticket_detail/ticket_screen.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/pages/ticket_detail/voucher_screen.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:saadiyat/widgets/custom_appbar.dart';
 
-import 'bta_screen.dart';
 import 'itinerary_screen.dart';
 import 'ticket_detail_bloc.dart';
 import 'ticket_detail_state.dart';
@@ -113,7 +114,7 @@ class _TicketDetailPageState extends State<TicketDetailPage>
                   children: [
                     TicketScreen(id: widget.id),
                     ItineraryScreen(id: widget.id),
-                    BtaScreen(id: widget.id),
+                    VoucherScreen(id: widget.id),
                   ],
                 ));
           },

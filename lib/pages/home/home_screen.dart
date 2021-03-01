@@ -202,7 +202,7 @@ class _MenuViewState extends State<MenuView> {
                   'ontap': () {
                     context.router.push(TicketsRoute());
                   },
-                  'showBadge': state.messages.length > 0,
+                  'showBadge': false,
                 },
               ].map((f) {
                 return InkWell(

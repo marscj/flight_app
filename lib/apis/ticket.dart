@@ -55,7 +55,11 @@ class Ticket extends Equatable {
         uploads,
         itinerary,
         children,
-        parent
+        parent,
+        normal_status,
+        change_status,
+        cancel_status,
+        type_status
       ];
 
   List<List<Color>> _colors = [
@@ -91,6 +95,8 @@ class Ticket extends Equatable {
     ['New', 'Canceled', 'Watting Confirm', 'Confirmed', 'Refused', 'Completed']
   ];
 
+  List<String> _status = ['Normal', 'Change', 'Cancel'];
+
   int get status => type_status == 0
       ? normal_status
       : type_status == 1
@@ -100,6 +106,8 @@ class Ticket extends Equatable {
   Color get color => _colors[type_status ?? 0][status ?? 0];
 
   String get status_text => _texts[type_status ?? 0][status ?? 0];
+
+  String get type_text => _status[type_status ?? 0];
 }
 
 @JsonSerializable()

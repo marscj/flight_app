@@ -83,7 +83,11 @@ class TicketScreen extends StatelessWidget {
                         ),
                         Divider(),
                         CustomListTitle(
-                          title: 'Confirm:',
+                            title: 'Status:',
+                            content: currentState?.data?.type_text ?? ''),
+                        Divider(),
+                        CustomListTitle(
+                          title: 'Process:',
                           content: currentState?.data?.status_text ?? '',
                         ),
                         Divider(),
@@ -162,23 +166,14 @@ class TicketScreen extends StatelessWidget {
                           child: RaisedButton(
                             color: Colors.red,
                             textColor: Colors.white,
-                            child: Text('Cancel Ticket'),
-                            onPressed: () {},
+                            child: Text('Cancel/Change Ticket'),
+                            onPressed: () {
+                              showConfrimModal(context, ticketDetailBloc,
+                                  currentState.data, false);
+                            },
                           ),
                           width: double.infinity,
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          child: RaisedButton(
-                            color: Colors.orange,
-                            textColor: Colors.white,
-                            child: Text('Change Ticket'),
-                            onPressed: () {},
-                          ),
-                          width: double.infinity,
-                        )
                       ],
                     ),
                   )

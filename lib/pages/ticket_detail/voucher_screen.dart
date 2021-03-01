@@ -12,8 +12,8 @@ import 'ticket_detail_bloc.dart';
 import 'ticket_detail_event.dart';
 import 'ticket_detail_state.dart';
 
-class BtaScreen extends StatelessWidget {
-  const BtaScreen({Key key, this.id}) : super(key: key);
+class VoucherScreen extends StatelessWidget {
+  const VoucherScreen({Key key, this.id}) : super(key: key);
 
   final int id;
 
