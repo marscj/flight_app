@@ -189,8 +189,6 @@ class TicketScreen extends StatelessWidget {
           onRefresh: () async {
             await RestClient().getTicket(id).then((res) {
               ticketDetailBloc.add(RefreshTicketDetailEvent(res));
-              HomeBloc appBloc = BlocProvider.of<HomeBloc>(context);
-              appBloc.add(LoadMessagesEvent());
             }).catchError((error) {
               ticketDetailBloc.add(RefreshTicketDetailEvent(null));
             });

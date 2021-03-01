@@ -69,9 +69,6 @@ class BtaScreen extends StatelessWidget {
             onRefresh: () async {
               await RestClient().getTicket(id).then((res) {
                 bookingDetailBloc.add(RefreshTicketDetailEvent(res));
-                // ignore: close_sinks
-                HomeBloc appBloc = BlocProvider.of<HomeBloc>(context);
-                appBloc.add(LoadMessagesEvent());
               }).catchError((error) {
                 bookingDetailBloc.add(RefreshTicketDetailEvent(null));
               });
