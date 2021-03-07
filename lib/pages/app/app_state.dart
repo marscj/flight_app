@@ -8,8 +8,8 @@ class AppState extends Equatable {
   final String code;
   final User user;
   final AppEvent event;
-  final List<Message> messages;
   final PageRouteInfo route;
+  final List<Message> messages;
 
   AppState(
       {this.version,
@@ -44,5 +44,5 @@ class AppState extends Equatable {
   }
 
   @override
-  List<Object> get props => ([version, code, user, event, route]);
+  List<Object> get props => ([version, code, user, event, route, messages]);
 }

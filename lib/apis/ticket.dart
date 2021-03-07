@@ -140,7 +140,7 @@ class TicketExtra extends Equatable {
 @JsonSerializable()
 class TicketListExtra extends Equatable {
   TicketList data;
-  Map<String, dynamic> extra;
+  List<Message> extra;
 
   static TicketListExtra fromJson(Map<String, dynamic> json) =>
       _$TicketListExtraFromJson(json);

@@ -163,7 +163,10 @@ BookingListExtra _$BookingListExtraFromJson(Map<String, dynamic> json) {
     ..data = json['data'] == null
         ? null
         : BookingList.fromJson(json['data'] as Map<String, dynamic>)
-    ..extra = json['extra'] as Map<String, dynamic>;
+    ..extra = (json['extra'] as List)
+        ?.map((e) =>
+            e == null ? null : Message.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$BookingListExtraToJson(BookingListExtra instance) =>
@@ -446,7 +449,10 @@ TicketListExtra _$TicketListExtraFromJson(Map<String, dynamic> json) {
     ..data = json['data'] == null
         ? null
         : TicketList.fromJson(json['data'] as Map<String, dynamic>)
-    ..extra = json['extra'] as Map<String, dynamic>;
+    ..extra = (json['extra'] as List)
+        ?.map((e) =>
+            e == null ? null : Message.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$TicketListExtraToJson(TicketListExtra instance) =>

@@ -171,7 +171,7 @@ class _ItineraryEditPageState extends State<ItineraryEditPage> {
                                       widget?.data?.remark ?? ''),
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.multiline,
-                                maxLines: 10,
+                                maxLines: 4,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     labelText: 'Remark',

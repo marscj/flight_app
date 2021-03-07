@@ -55,7 +55,7 @@ class BookingExtra extends Equatable {
 @JsonSerializable()
 class BookingListExtra extends Equatable {
   BookingList data;
-  Map<String, dynamic> extra;
+  List<Message> extra;
 
   static BookingListExtra fromJson(Map<String, dynamic> json) =>
       _$BookingListExtraFromJson(json);

@@ -224,11 +224,6 @@ class UpdateMessagesEvent extends AppEvent {
 
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    var _message = currentState.messages.map((f) {
-      if (messages.firstWhere((f1) => f1.id == f.id) == null) {
-        return f;
-      }
-    });
-    yield currentState.copyWith(messages: _message);
+    yield currentState.copyWith(messages: messages);
   }
 }
