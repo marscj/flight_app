@@ -186,7 +186,9 @@ class _MenuViewState extends State<MenuView> {
                   'ontap': () {
                     context.router.push(BookingsRoute());
                   },
-                  'showBadge': false,
+                  'showBadge': state.messages
+                      .map((f) => f.content_type == 'booking' && !f.read)
+                      .isNotEmpty,
                 },
                 {
                   'icon': 'assets/ticket.png',
@@ -194,7 +196,9 @@ class _MenuViewState extends State<MenuView> {
                   'ontap': () {
                     context.router.push(TicketsRoute());
                   },
-                  'showBadge': false,
+                  'showBadge': state.messages
+                      .map((f) => f.content_type == 'ticket' && !f.read)
+                      .isNotEmpty,
                 },
               ].map((f) {
                 return InkWell(

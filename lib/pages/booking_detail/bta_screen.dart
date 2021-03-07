@@ -63,9 +63,9 @@ class BtaScreen extends StatelessWidget {
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
             await RestClient().getBooking(id).then((res) {
-              bookingDetailBloc.add(RefreshBookingDetailEvent(res));
+              bookingDetailBloc.add(RefreshBookingDetailEvent(res, context));
             }).catchError((error) {
-              bookingDetailBloc.add(RefreshBookingDetailEvent(null));
+              bookingDetailBloc.add(RefreshBookingDetailEvent(null, context));
             });
           });
     });

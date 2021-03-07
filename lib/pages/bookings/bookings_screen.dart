@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -111,53 +112,61 @@ class BookingItem extends StatelessWidget {
         onTap: () {
           context.router.push(BookingDetailRoute(id: data.id));
         },
-        child: Card(
-          elevation: 4.0,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(0.0))),
-          child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
+        child: Badge(
+            showBadge: data.messages.where((f) => (!f.read)).length > 0,
+            badgeColor: Colors.red,
+            position: BadgePosition.topStart(top: 0, start: -8),
+            badgeContent: Text(
+              "",
+              style: TextStyle(color: Colors.white),
+            ),
+            child: Card(
+              elevation: 4.0,
+              shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(0.0))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      decoration: BoxDecoration(
-                          color: data.color,
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(0.0))),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 15.0),
-                      width: double.infinity,
-                      child: AutoSizeText(
-                        data.date,
-                        maxLines: 1,
-                      )),
-                  Divider(
-                    color: Colors.grey,
-                  ),
-                  Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10.0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AutoSizeText(
-                              data.title ?? '',
-                              maxLines: 3,
-                            ),
-                            SizedBox(height: 8),
-                            AutoSizeText(
-                              data.remark ?? '',
-                              maxLines: 5,
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ]))
-                ],
-              )),
-        ));
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(0.0))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          decoration: BoxDecoration(
+                              color: data.color,
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(0.0))),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 15.0),
+                          width: double.infinity,
+                          child: AutoSizeText(
+                            data.date,
+                            maxLines: 1,
+                          )),
+                      Divider(
+                        color: Colors.grey,
+                      ),
+                      Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10.0),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AutoSizeText(
+                                  data.title ?? '',
+                                  maxLines: 3,
+                                ),
+                                SizedBox(height: 8),
+                                AutoSizeText(
+                                  data.remark ?? '',
+                                  maxLines: 5,
+                                  style: Theme.of(context).textTheme.caption,
+                                ),
+                              ]))
+                    ],
+                  )),
+            )));
   }
 }
