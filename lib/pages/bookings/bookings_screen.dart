@@ -51,6 +51,12 @@ class BookingsScreenState extends State<BookingsScreen> {
       return Scaffold(
         appBar: CustomAppBar(
           title: Text('Bookings'),
+          actions: [
+            Visibility(
+              visible: true,
+              child: CircularProgressIndicator(),
+            )
+          ],
         ),
         body: EasyRefresh(
             child: SingleChildScrollView(
