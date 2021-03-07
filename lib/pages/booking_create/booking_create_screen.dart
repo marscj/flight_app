@@ -161,7 +161,7 @@ class BookingCreateScreenState extends State<BookingCreateScreen> {
                             ]));
               },
               child: Scaffold(
-                appBar: AppBar(
+                appBar: CustomAppBar(
                   leading: currentState.step == 0 ? BackButton() : Container(),
                   title: buildTitle[currentState.step],
                   // iconTheme: IconThemeData(color: Colors.black),

@@ -51,12 +51,6 @@ class BookingsScreenState extends State<BookingsScreen> {
       return Scaffold(
         appBar: CustomAppBar(
           title: Text('Bookings'),
-          actions: [
-            Visibility(
-              visible: true,
-              child: CircularProgressIndicator(),
-            )
-          ],
         ),
         body: EasyRefresh(
             child: SingleChildScrollView(
@@ -116,7 +110,9 @@ class BookingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          context.router.push(BookingDetailRoute(id: data.id));
+          context.router
+              .push(BookingDetailRoute(id: data.id))
+              .then((value) => {});
         },
         child: Badge(
             showBadge: data.messages.where((f) => (!f.read)).length > 0,
