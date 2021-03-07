@@ -1,19 +1,11 @@
 import 'dart:math' as math;
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:badges/badges.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:saadiyat/pages/app/index.dart';
-import 'package:saadiyat/pages/home/home_state.dart';
-import 'package:saadiyat/router/router.gr.dart';
 
-import 'home_bloc.dart';
-import 'home_event.dart';
+import 'package:saadiyat/router/router.gr.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -32,13 +24,13 @@ class HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     // ignore: close_sinks
-    HomeBloc appBloc = BlocProvider.of<HomeBloc>(context);
+    AppBloc appBloc = BlocProvider.of<AppBloc>(context);
     appBloc.add(LoadMessagesEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
+    return BlocBuilder<AppBloc, AppState>(
       builder: (context, state) {
         return Column(
           children: [
@@ -163,7 +155,7 @@ class _MenuViewState extends State<MenuView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+    return BlocBuilder<AppBloc, AppState>(builder: (context, state) {
       return Container(
           child: GridView.count(
               controller: _controller,
@@ -243,7 +235,7 @@ class NoticeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
       builder: (_, AppState state) {
-        return BlocBuilder<HomeBloc, HomeState>(builder: (context, stateHome) {
+        return BlocBuilder<AppBloc, AppState>(builder: (context, stateHome) {
           return SizedBox.fromSize(
             size: Size.fromHeight(height),
             child: Container(

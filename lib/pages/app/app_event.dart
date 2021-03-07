@@ -205,3 +205,14 @@ class JMessageLogoutEvent extends AppEvent {
     // }
   }
 }
+
+class LoadMessagesEvent extends AppEvent {
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    yield await RestClient().getMessages(query: {'read': false}).then((res) {
+      return currentState.copyWith(messages: res);
+    }).catchError((error) {
+      return currentState;
+    });
+  }
+}

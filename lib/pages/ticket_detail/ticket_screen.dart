@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/pages/home/home_bloc.dart';
-import 'package:saadiyat/pages/home/home_event.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';

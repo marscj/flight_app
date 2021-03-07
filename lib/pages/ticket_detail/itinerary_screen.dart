@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:saadiyat/pages/booking_detail/itinerary_screen.dart';
-import 'package:saadiyat/pages/home/home_bloc.dart';
-import 'package:saadiyat/pages/home/home_event.dart';
 import 'package:saadiyat/widgets/no_data.dart';
 
 import 'ticket_detail_bloc.dart';

@@ -4,8 +4,6 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:open_file/open_file.dart';
 import 'package:saadiyat/apis/client.dart';
-import 'package:saadiyat/pages/home/home_bloc.dart';
-import 'package:saadiyat/pages/home/home_event.dart';
 import 'package:saadiyat/widgets/no_data.dart';
 
 import 'ticket_detail_bloc.dart';
