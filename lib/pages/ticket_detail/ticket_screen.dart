@@ -181,9 +181,9 @@ class TicketScreen extends StatelessWidget {
           firstRefreshWidget: LinearProgressIndicator(),
           onRefresh: () async {
             await RestClient().getTicket(id).then((res) {
-              ticketDetailBloc.add(RefreshTicketDetailEvent(res));
+              ticketDetailBloc.add(RefreshTicketDetailEvent(res, context));
             }).catchError((error) {
-              ticketDetailBloc.add(RefreshTicketDetailEvent(null));
+              ticketDetailBloc.add(RefreshTicketDetailEvent(null, context));
             });
           });
     }));
@@ -206,8 +206,7 @@ class _ConfrimPostPageState extends State<ConfrimPostPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ConfrimFormBloc>(
-        create: (_) =>
-            ConfrimFormBloc(widget.bloc, widget.data, widget.confirm),
+        create: (_) => ConfrimFormBloc(_, widget.data, widget.confirm),
         child: Builder(
           builder: (context) {
             ConfrimFormBloc formBloc =

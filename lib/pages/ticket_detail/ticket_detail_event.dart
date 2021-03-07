@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/pages/app/index.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 import 'package:meta/meta.dart';
 
@@ -15,12 +18,15 @@ abstract class TicketDetailEvent {
 
 class RefreshTicketDetailEvent extends TicketDetailEvent {
   final TicketExtra result;
+  final BuildContext context;
 
-  RefreshTicketDetailEvent(this.result);
+  RefreshTicketDetailEvent(this.result, this.context);
 
   @override
   Stream<TicketDetailState> applyAsync(
       {TicketDetailState currentState, TicketDetailBloc bloc}) async* {
+    AppBloc bloc = BlocProvider.of<AppBloc>(context);
+    bloc.add(UpdateMessagesEvent(result.data.messages));
     yield currentState.copyWith(data: result?.data);
   }
 }

@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:saadiyat/apis/client.dart';
+import 'package:saadiyat/pages/app/index.dart';
 import 'package:saadiyat/pages/ticket_detail/index.dart';
 
 class TicketDetailBloc extends Bloc<TicketDetailEvent, TicketDetailState> {
@@ -34,11 +36,11 @@ class TicketDetailBloc extends Bloc<TicketDetailEvent, TicketDetailState> {
 class ConfrimFormBloc extends FormBloc<String, String> {
   TextFieldBloc reason = TextFieldBloc();
 
-  final TicketDetailBloc bloc;
+  final BuildContext context;
   final Ticket data;
   final bool confirm;
 
-  ConfrimFormBloc(this.bloc, this.data, this.confirm) {
+  ConfrimFormBloc(this.context, this.data, this.confirm) {
     addFieldBlocs(fieldBlocs: [reason]);
     addValidators();
   }
@@ -60,10 +62,13 @@ class ConfrimFormBloc extends FormBloc<String, String> {
   void onSubmitting() {
     EasyLoading.show();
 
+    // ignore: close_sinks
+    TicketDetailBloc bloc = BlocProvider.of<TicketDetailBloc>(context);
+
     if (confirm) {
       RestClient().confirmTicket(
           data.id, {'confirm': false, 'reason': reason.value}).then((res) {
-        bloc.add(RefreshTicketDetailEvent(res));
+        bloc.add(RefreshTicketDetailEvent(res, context));
         emitSuccess(canSubmitAgain: true);
         EasyLoading.showSuccess('Success');
       }).catchError((error) {

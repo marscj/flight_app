@@ -216,3 +216,19 @@ class LoadMessagesEvent extends AppEvent {
     });
   }
 }
+
+class UpdateMessagesEvent extends AppEvent {
+  final List<Message> messages;
+
+  UpdateMessagesEvent(this.messages);
+
+  @override
+  Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
+    var _message = currentState.messages.map((f) {
+      if (messages.firstWhere((f1) => f1.id == f.id) == null) {
+        return f;
+      }
+    });
+    yield currentState.copyWith(messages: _message);
+  }
+}

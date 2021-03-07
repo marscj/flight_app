@@ -42,9 +42,9 @@ class ItineraryScreen extends StatelessWidget {
             firstRefreshWidget: LinearProgressIndicator(),
             onRefresh: () async {
               await RestClient().getTicket(id).then((res) {
-                bookingDetailBloc.add(RefreshTicketDetailEvent(res));
+                bookingDetailBloc.add(RefreshTicketDetailEvent(res, context));
               }).catchError((error) {
-                bookingDetailBloc.add(RefreshTicketDetailEvent(null));
+                bookingDetailBloc.add(RefreshTicketDetailEvent(null, context));
               });
             }),
       );
