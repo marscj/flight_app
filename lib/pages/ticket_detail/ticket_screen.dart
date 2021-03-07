@@ -206,7 +206,8 @@ class _ConfrimPostPageState extends State<ConfrimPostPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ConfrimFormBloc>(
-        create: (_) => ConfrimFormBloc(_, widget.data, widget.confirm),
+        create: (_) =>
+            ConfrimFormBloc(_, widget.bloc, widget.data, widget.confirm),
         child: Builder(
           builder: (context) {
             ConfrimFormBloc formBloc =
