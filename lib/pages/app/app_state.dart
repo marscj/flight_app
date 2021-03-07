@@ -20,19 +20,24 @@ class AppState extends Equatable {
       this.messages});
 
   factory AppState.initial() => AppState(
-      version: '1.0.0', code: '1', user: null, event: null, route: null);
+      version: '1.0.0',
+      code: '1',
+      user: null,
+      event: null,
+      route: null,
+      messages: []);
 
   AppState copyWith(
       {String version,
       String code,
-      user,
+      User user,
       AppEvent event,
       PageRouteInfo route,
       List<Message> messages}) {
     return AppState(
         version: version ?? this.version,
         code: code ?? this.code,
-        user: user,
+        user: user ?? this.user,
         event: event,
         route: route,
         messages: messages ?? this.messages);
