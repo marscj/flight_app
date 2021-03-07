@@ -52,6 +52,7 @@ class Ticket extends Equatable {
         is_complete,
         date,
         comments,
+        messages,
         uploads,
         itinerary,
         children,

@@ -19,8 +19,17 @@ class Booking extends Equatable {
   Map<String, dynamic> toJson() => _$BookingToJson(this);
 
   @override
-  List<Object> get props =>
-      [id, title, remark, date, author, uploads, itineraries, comments];
+  List<Object> get props => [
+        id,
+        title,
+        remark,
+        date,
+        author,
+        uploads,
+        itineraries,
+        comments,
+        messages
+      ];
 
   Color get color => Colors.white;
 }

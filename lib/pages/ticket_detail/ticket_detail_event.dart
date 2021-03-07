@@ -25,8 +25,9 @@ class RefreshTicketDetailEvent extends TicketDetailEvent {
   @override
   Stream<TicketDetailState> applyAsync(
       {TicketDetailState currentState, TicketDetailBloc bloc}) async* {
+    // ignore: close_sinks
     AppBloc bloc = BlocProvider.of<AppBloc>(context);
-    bloc.add(UpdateMessagesEvent(result.data.messages));
+    bloc.add(UpdateMessagesEvent(result.extra ?? []));
     yield currentState.copyWith(data: result?.data);
   }
 }
