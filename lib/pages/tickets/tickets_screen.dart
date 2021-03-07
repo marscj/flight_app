@@ -51,7 +51,7 @@ class TicketsScreenState extends State<TicketsScreen> {
           TicketsState currentState,
         ) {
           // ignore: close_sinks
-          TicketsBloc bookingsBloc = BlocProvider.of<TicketsBloc>(context);
+          TicketsBloc ticketsBloc = BlocProvider.of<TicketsBloc>(context);
           return Scaffold(
             appBar: CustomAppBar(
               title: Text('Tickets'),
@@ -78,9 +78,9 @@ class TicketsScreenState extends State<TicketsScreen> {
                     'pageSize': currentState.pageSize,
                     'sorter': '-id'
                   }).then((res) {
-                    bookingsBloc.add(RefreshTicketsEvent(res));
+                    ticketsBloc.add(RefreshTicketsEvent(res));
                   }).catchError((error) {
-                    bookingsBloc.add(RefreshTicketsEvent(null));
+                    ticketsBloc.add(RefreshTicketsEvent(null));
                   }).whenComplete(() {
                     _controller?.resetLoadState();
                     _controller?.finishRefresh();
@@ -92,9 +92,9 @@ class TicketsScreenState extends State<TicketsScreen> {
                     'pageSize': currentState.pageSize,
                     'sorter': '-id'
                   }).then((res) {
-                    bookingsBloc.add(LoadTicketsEvent(res));
+                    ticketsBloc.add(LoadTicketsEvent(res));
                   }).catchError((error) {
-                    bookingsBloc.add(LoadTicketsEvent(null));
+                    ticketsBloc.add(LoadTicketsEvent(null));
                   }).whenComplete(() {
                     _controller?.finishLoad(
                         noMore: currentState.list.length >=
