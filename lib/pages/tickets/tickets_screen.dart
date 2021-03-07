@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:saadiyat/apis/client.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:saadiyat/pages/app/app_bloc.dart';
+import 'package:saadiyat/pages/app/app_state.dart';
 import 'package:saadiyat/pages/tickets/tickets_event.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:saadiyat/widgets/custom_appbar.dart';
@@ -42,69 +44,76 @@ class TicketsScreenState extends State<TicketsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TicketsBloc, TicketsState>(builder: (
-      BuildContext context,
-      TicketsState currentState,
-    ) {
-      // ignore: close_sinks
-      TicketsBloc bookingsBloc = BlocProvider.of<TicketsBloc>(context);
-      return Scaffold(
-        appBar: CustomAppBar(
-          title: Text('Tickets'),
-        ),
-        body: EasyRefresh(
-            child: SingleChildScrollView(
-                child: Column(
-                    children: currentState.list.map((f) {
-              return Padding(
-                padding: const EdgeInsets.all(10),
-                child: TicketItem(
-                  data: f.last,
-                ),
-              );
-            }).toList())),
-            firstRefresh: currentState.list.length == 0,
-            controller: _controller,
-            enableControlFinishRefresh: true,
-            enableControlFinishLoad: true,
-            onRefresh: () async {
-              return RestClient().getTickets(query: {
-                'pageNo': 1,
-                'pageSize': currentState.pageSize,
-                'sorter': '-id'
-              }).then((res) {
-                bookingsBloc.add(RefreshTicketsEvent(res));
-              }).catchError((error) {
-                bookingsBloc.add(RefreshTicketsEvent(null));
-              }).whenComplete(() {
-                _controller?.resetLoadState();
-                _controller?.finishRefresh();
-              });
-            },
-            onLoad: () async {
-              return RestClient().getTickets(query: {
-                'pageNo': currentState.pageNo,
-                'pageSize': currentState.pageSize,
-                'sorter': '-id'
-              }).then((res) {
-                bookingsBloc.add(LoadTicketsEvent(res));
-              }).catchError((error) {
-                bookingsBloc.add(LoadTicketsEvent(null));
-              }).whenComplete(() {
-                _controller?.finishLoad(
-                    noMore:
-                        currentState.list.length >= currentState.totalCount);
-              });
-            }),
-      );
-    });
+    return BlocBuilder<AppBloc, AppState>(
+      builder: (context, state) {
+        return BlocBuilder<TicketsBloc, TicketsState>(builder: (
+          BuildContext context,
+          TicketsState currentState,
+        ) {
+          // ignore: close_sinks
+          TicketsBloc bookingsBloc = BlocProvider.of<TicketsBloc>(context);
+          return Scaffold(
+            appBar: CustomAppBar(
+              title: Text('Tickets'),
+            ),
+            body: EasyRefresh(
+                child: SingleChildScrollView(
+                    child: Column(
+                        children: currentState.list.map((f) {
+                  return Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TicketItem(
+                      data: f.last,
+                      userId: state.user.id,
+                    ),
+                  );
+                }).toList())),
+                firstRefresh: currentState.list.length == 0,
+                controller: _controller,
+                enableControlFinishRefresh: true,
+                enableControlFinishLoad: true,
+                onRefresh: () async {
+                  return RestClient().getTickets(query: {
+                    'pageNo': 1,
+                    'pageSize': currentState.pageSize,
+                    'sorter': '-id'
+                  }).then((res) {
+                    bookingsBloc.add(RefreshTicketsEvent(res));
+                  }).catchError((error) {
+                    bookingsBloc.add(RefreshTicketsEvent(null));
+                  }).whenComplete(() {
+                    _controller?.resetLoadState();
+                    _controller?.finishRefresh();
+                  });
+                },
+                onLoad: () async {
+                  return RestClient().getTickets(query: {
+                    'pageNo': currentState.pageNo,
+                    'pageSize': currentState.pageSize,
+                    'sorter': '-id'
+                  }).then((res) {
+                    bookingsBloc.add(LoadTicketsEvent(res));
+                  }).catchError((error) {
+                    bookingsBloc.add(LoadTicketsEvent(null));
+                  }).whenComplete(() {
+                    _controller?.finishLoad(
+                        noMore: currentState.list.length >=
+                            currentState.totalCount);
+                  });
+                }),
+          );
+        });
+      },
+    );
   }
 }
 
 class TicketItem extends StatelessWidget {
-  const TicketItem({Key key, @required this.data}) : super(key: key);
+  const TicketItem({Key key, @required this.data, @required this.userId})
+      : super(key: key);
 
   final Ticket data;
+  final int userId;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +122,7 @@ class TicketItem extends StatelessWidget {
           context.router.push(TicketDetailRoute(id: data.id));
         },
         child: Badge(
-            showBadge: data.messages.where((f) => f.read == false).length > 0,
+            showBadge: data.messages.where((f) => (!f.read)).length > 0,
             badgeColor: Colors.red,
             position: BadgePosition.topStart(top: 0, start: -8),
             badgeContent: Text(

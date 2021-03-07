@@ -131,13 +131,21 @@ flutter:
     - assets/1.0x/logo-title.png
     - assets/1.5x/logo-title.png
 
-    - assets/my.png
+    - assets/my.png 
     - assets/1.0x/my.png
-    - assets/1.5x/my.png
+    - assets/1.5x/my.png 
 
     - assets/about.png
     - assets/1.0x/about.png
     - assets/1.5x/about.png
+
+    - assets/iata.png
+    - assets/1.0x/iata.png
+    - assets/1.5x/iata.png
+
+    - assets/abg.jpg
+    - assets/1.0x/abg.jpg
+    - assets/1.5x/abg.jpg
 
     - assets/ticket.png
     - assets/1.0x/ticket.png

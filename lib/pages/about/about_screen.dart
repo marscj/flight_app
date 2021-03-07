@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:ui' as ui show ParagraphBuilder, PlaceholderAlignment;
 
 class AboutScreen extends StatefulWidget {
   @override
@@ -27,72 +28,107 @@ class AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 20, left: 10, right: 10, bottom: 10),
-              child: Text(
-                'SAADIYAT WAY TRAVEL & TOURISM',
-                style: Theme.of(context).textTheme.headline6,
-              ),
+      bottom: false,
+      child: Column(
+        children: [
+          Container(
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+                Color(0xff000099),
+                Color(0xff3300ff),
+              ]),
             ),
-            SpaceView(),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                  "SAADIYAT WAY TRAVEL & TOURISM L.L.C was established in 2013. Dubai Happy Travel International Travel Agency is licensed by the UAE Government, Ministry of Economic Affairs, Tourism Administration, Immigration and other related departments. "),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                'Our Services',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ),
-            SpaceView(),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                  "World famous car rental | desert sand Hummer | Desert Expedition | Night Sea Cruise | Deep sea fishing | Abu Dhabi Tourism | Burj Khalifa pre-book | fly ticket Research project | hot air balloon | Seven Star Sailing | Hotel Luxury | Yacht Cruise | Helicopter Tour | Aerial Skydiving | Appointment Ferrari World | Theme Park | various hotel restaurant reservations"),
-            ),
-            BannerView(),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                'Contact Us',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ),
-            SpaceView(),
-            Padding(
-                padding: const EdgeInsets.all(10),
-                child: NavTitle(
-                  leading: Icon(Icons.phone),
-                  title: AutoSizeText(
-                    '+971 4252 5198',
+            child: Column(
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: 'SAADIYAT WAY TRAVEL & TOURISM',
+                      style: TextStyle(
+                          fontSize: 26,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                      children: [
+                        WidgetSpan(
+                            alignment: ui.PlaceholderAlignment.middle,
+                            child: Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Image.asset(
+                                  'assets/iata.png',
+                                  width: 48,
+                                  height: 48,
+                                )))
+                      ]),
+                ),
+                SizedBox(height: 10),
+                RichText(
+                  text: TextSpan(
+                    text:
+                        'SAADIYAT WAY TRAVEL & TOURISM L.L.C was established in 2013. UAE IATA member experienced with corporation clients, has physical office settled in Dubai.',
+                    style:
+                        TextStyle(color: Colors.white, fontSize: 16, height: 2),
                   ),
-                )),
-            Padding(
-                padding: const EdgeInsets.all(10),
-                child: NavTitle(
-                  leading: Icon(Icons.email),
-                  title: AutoSizeText(
-                    'ticket@saadiyatway.com',
-                  ),
-                )),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: NavTitle(
-                  leading: Icon(Icons.local_activity),
-                  title: AutoSizeText(
-                    'Office 1310  Opal Tower, Business Bay, Dubai U.A.E',
-                    maxLines: 2,
-                  )),
-            )
-          ],
-        ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+              child: Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/abg.jpg'),
+                          fit: BoxFit.fill)),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 220,
+                      ),
+                      Expanded(
+                          child: ListView(
+                        children: [
+                          Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 15),
+                              child: NavTitle(
+                                leading: Icon(Icons.phone),
+                                title: AutoSizeText(
+                                  '00971-4-5762785',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              )),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 15),
+                              child: NavTitle(
+                                leading: Icon(Icons.email),
+                                title: AutoSizeText(
+                                  'ticket@saadiyatway.com',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 15),
+                            child: NavTitle(
+                                leading: Icon(Icons.local_activity),
+                                title: AutoSizeText(
+                                  'Office 1310  Opal Tower, Business Bay, Dubai U.A.E',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                  maxLines: 2,
+                                )),
+                          )
+                        ],
+                      ))
+                    ],
+                  ))),
+        ],
       ),
     );
   }
@@ -149,6 +185,7 @@ class NavTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           leading ??
               Container(

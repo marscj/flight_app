@@ -16,6 +16,7 @@ class _AboutPageState extends State<AboutPage> {
     return Scaffold(
       appBar: CustomAppBar(
         title: Text('About Us'),
+        elevation: 0,
       ),
       body: AboutScreen(),
     );
