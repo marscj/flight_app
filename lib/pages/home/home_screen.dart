@@ -156,6 +156,47 @@ class _MenuViewState extends State<MenuView> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(builder: (context, state) {
+      List<Map<String, dynamic>> _list = [
+        {
+          'icon': 'assets/about.png',
+          'text': 'About Us',
+          'ontap': () {
+            context.router.push(AboutRoute());
+          },
+          'showBadge': false,
+        },
+        {
+          'icon': 'assets/my.png',
+          'text': 'Settings',
+          'ontap': () {
+            context.router.push(MyRoute());
+          },
+          'showBadge': false,
+        },
+        {
+          'icon': 'assets/booking.png',
+          'text': 'Bookings',
+          'ontap': () {
+            context.router.push(BookingsRoute());
+          },
+          'showBadge': state.messages
+                  .where((f) => (f.content_type == 'booking' && !f.read))
+                  .length >
+              0,
+        },
+        {
+          'icon': 'assets/ticket.png',
+          'text': 'Tickets',
+          'ontap': () {
+            context.router.push(TicketsRoute());
+          },
+          'showBadge': state.messages
+                  .where((f) => (f.content_type == 'ticket' && !f.read))
+                  .length >
+              0,
+        },
+      ];
+
       return Container(
           child: GridView.count(
               controller: _controller,
@@ -163,44 +204,8 @@ class _MenuViewState extends State<MenuView> {
               reverse: true,
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
-              children: [
-                {
-                  'icon': 'assets/about.png',
-                  'text': 'About Us',
-                  'ontap': () {
-                    context.router.push(AboutRoute());
-                  },
-                  'showBadge': false,
-                },
-                {
-                  'icon': 'assets/my.png',
-                  'text': 'Settings',
-                  'ontap': () {
-                    context.router.push(MyRoute());
-                  },
-                  'showBadge': false,
-                },
-                {
-                  'icon': 'assets/booking.png',
-                  'text': 'Bookings',
-                  'ontap': () {
-                    context.router.push(BookingsRoute());
-                  },
-                  'showBadge': state.messages
-                      .map((f) => f.content_type == 'booking' && !f.read)
-                      .isNotEmpty,
-                },
-                {
-                  'icon': 'assets/ticket.png',
-                  'text': 'Tickets',
-                  'ontap': () {
-                    context.router.push(TicketsRoute());
-                  },
-                  'showBadge': state.messages
-                      .map((f) => f.content_type == 'ticket' && !f.read)
-                      .isNotEmpty,
-                },
-              ].map((f) {
+              children: _list.map((f) {
+
                 return InkWell(
                     onTap: f['ontap'],
                     child: Container(

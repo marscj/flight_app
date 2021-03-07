@@ -109,9 +109,9 @@ class TicketsScreenState extends State<TicketsScreen> {
                 'pageSize': currentState.pageSize,
                 'sorter': '-id'
               }).then((res) {
-                bookingsBloc.add(RefreshTicketsEvent(res));
+                bookingsBloc.add(RefreshTicketsEvent(res, context));
               }).catchError((error) {
-                bookingsBloc.add(RefreshTicketsEvent(null));
+                bookingsBloc.add(RefreshTicketsEvent(null, context));
               }).whenComplete(() {
                 _controller?.resetLoadState();
                 _controller?.finishRefresh();
