@@ -73,9 +73,9 @@ class BookingsScreenState extends State<BookingsScreen> {
                 'pageSize': currentState.pageSize,
                 'sorter': '-id'
               }).then((res) {
-                bookingsBloc.add(RefreshBookingsEvent(res));
+                bookingsBloc.add(RefreshBookingsEvent(res, context));
               }).catchError((error) {
-                bookingsBloc.add(RefreshBookingsEvent(null));
+                bookingsBloc.add(RefreshBookingsEvent(null, context));
               }).whenComplete(() {
                 _controller?.resetLoadState();
                 _controller?.finishRefresh();
