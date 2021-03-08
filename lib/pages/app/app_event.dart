@@ -39,7 +39,7 @@ class AppInitEvent extends AppEvent {
         version: Constant.APP_VERSION,
         code: Constant.APP_CODE,
         user: null,
-        event: CheckVersionEvent());
+        event: UserInfoEvent());
   }
 }
 
@@ -84,7 +84,7 @@ class UserInfoEvent extends AppEvent {
       });
     } on DioError catch (_, stackTrace) {
       developer.log('$_',
-          name: 'CheckVersionEvent', error: _, stackTrace: stackTrace);
+          name: 'UserInfoEvent', error: _, stackTrace: stackTrace);
 
       if (_?.response?.statusCode == 401) {
         yield currentState.copyWith(event: PushRouteEvent(BasementRoute()));

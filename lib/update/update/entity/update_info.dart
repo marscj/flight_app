@@ -19,9 +19,6 @@ class UpdateInfo {
   ///请求错误信息
   final String msg;
 
-  ///更新的状态
-  final int updateStatus;
-
   ///最新版本号[根据版本号来判别是否需要升级]
   final int versionCode;
 
@@ -46,7 +43,6 @@ class UpdateInfo {
   UpdateInfo(
       {this.code,
       this.msg,
-      this.updateStatus,
       this.versionCode,
       this.versionName,
       this.uploadTime,
@@ -59,7 +55,6 @@ class UpdateInfo {
     return {
       'Code': code,
       'Msg': msg,
-      'UpdateStatus': updateStatus,
       'VersionCode': versionCode,
       'VersionName': versionName,
       'UploadTime': uploadTime,
@@ -74,24 +69,23 @@ class UpdateInfo {
     if (map == null) return null;
 
     return UpdateInfo(
-        code: map['Code']?.toInt(),
-        msg: map['Msg'],
-        updateStatus: map['UpdateStatus']?.toInt(),
-        versionCode: map['VersionCode']?.toInt(),
-        versionName: map['VersionName'],
-        uploadTime: map['UploadTime'],
-        modifyContent: map['ModifyContent'],
-        downloadUrl: map['DownloadUrl'],
-        apkMd5: map['ApkMd5'],
-        apkSize: map['ApkSize']?.toInt());
+        code: map['code']?.toInt(),
+        msg: map['msg'],
+        versionCode: map['versionCode']?.toInt(),
+        versionName: map['versionName'],
+        uploadTime: map['uploadTime'],
+        modifyContent: map['modifyContent'],
+        downloadUrl: map['downloadUrl'],
+        apkMd5: map['apkMd5'],
+        apkSize: map['apkSize']?.toInt());
   }
 
   String toJson() => json.encode(toMap());
 
-  static UpdateInfo fromJson(String source) => fromMap(json.decode(source));
+  static UpdateInfo fromJson(Map<String, dynamic> source) => fromMap(source);
 
   @override
   String toString() {
-    return 'UpdateInfo Code: $code, Msg: $msg, UpdateStatus: $updateStatus, VersionCode: $versionCode, VersionName: $versionName, UploadTime: $uploadTime, ModifyContent: $modifyContent, DownloadUrl: $downloadUrl, ApkMd5: $apkMd5, ApkSize: $apkSize';
+    return 'UpdateInfo Code: $code, Msg: $msg, VersionCode: $versionCode, VersionName: $versionName, UploadTime: $uploadTime, ModifyContent: $modifyContent, DownloadUrl: $downloadUrl, ApkMd5: $apkMd5, ApkSize: $apkSize';
   }
 }

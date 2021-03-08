@@ -9,13 +9,13 @@ class UpdateEntity {
   //===========是否可以升级=============//
 
   ///是否有新版本
-  final bool hasUpdate;
+  // final bool hasUpdate;
 
   ///是否强制安装：不安装无法使用app
   final bool isForce;
 
   ///是否可忽略该版本
-  final bool isIgnorable;
+  // final bool isIgnorable;
 
   //===========升级的信息=============//
 
@@ -38,9 +38,9 @@ class UpdateEntity {
   final String apkMd5;
 
   UpdateEntity({
-    @required this.hasUpdate,
+    // @required this.hasUpdate,
     this.isForce = false,
-    this.isIgnorable = false,
+    // this.isIgnorable = false,
     @required this.versionCode,
     @required this.versionName,
     @required this.updateContent,
@@ -51,9 +51,9 @@ class UpdateEntity {
 
   Map<String, dynamic> toMap() {
     return {
-      'hasUpdate': hasUpdate,
+      // 'hasUpdate': hasUpdate,
       'isForce': isForce,
-      'isIgnorable': isIgnorable,
+      // 'isIgnorable': isIgnorable,
       'versionCode': versionCode,
       'versionName': versionName,
       'updateContent': updateContent,
@@ -67,9 +67,9 @@ class UpdateEntity {
     if (map == null) return null;
 
     return UpdateEntity(
-      hasUpdate: map['hasUpdate'],
+      // hasUpdate: map['hasUpdate'],
       isForce: map['isForce'],
-      isIgnorable: map['isIgnorable'],
+      // isIgnorable: map['isIgnorable'],
       versionCode: map['versionCode']?.toInt(),
       versionName: map['versionName'],
       updateContent: map['updateContent'],
@@ -85,6 +85,6 @@ class UpdateEntity {
 
   @override
   String toString() {
-    return 'UpdateEntity hasUpdate: $hasUpdate, isForce: $isForce, isIgnorable: $isIgnorable, versionCode: $versionCode, versionName: $versionName, updateContent: $updateContent, downloadUrl: $downloadUrl, apkSize: $apkSize, apkMd5: $apkMd5';
+    return 'UpdateEntity, isForce: $isForce, versionCode: $versionCode, versionName: $versionName, updateContent: $updateContent, downloadUrl: $downloadUrl, apkSize: $apkSize, apkMd5: $apkMd5';
   }
 }

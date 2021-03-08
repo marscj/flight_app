@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:saadiyat/update/update/update_parser.dart';
 import 'package:saadiyat/update/update/update_prompter.dart';
@@ -15,16 +17,20 @@ class UpdateManager {
   }
 
   static void checkUpdate(BuildContext context, String url) {
-    HttpUtils.get(url).then((response) {
-      UpdateParser.parseJson(response.toString()).then((value) => {
-            UpdatePrompter(
-                updateEntity: value,
-                onInstall: (String filePath) {
-                  CommonUtils.installAPP(filePath);
-                }).show(context)
+    HttpUtils.postJson(url, {'type': Platform.isAndroid ? 'Android' : 'Ios'})
+        .then((response) {
+      UpdateParser.parseJson(response['result']).then((value) => {
+            if (value != null && value.isForce)
+              {
+                UpdatePrompter(
+                    updateEntity: value,
+                    onInstall: (String filePath) {
+                      CommonUtils.installAPP(filePath);
+                    }).show(context)
+              }
           });
     }).catchError((onError) {
-      ToastUtils.error(onError);
+      // ToastUtils.error(onError.toString());
     });
   }
 }

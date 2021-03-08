@@ -8,6 +8,7 @@ import 'package:saadiyat/router/guard.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:platform/platform.dart';
 import 'package:saadiyat/constants.dart';
+import 'package:saadiyat/update/update/update.dart';
 import 'package:saadiyat/update/utils/toast.dart';
 
 import 'app_bloc.dart';
@@ -42,6 +43,8 @@ class _AppPageState extends State<AppPage> {
     // ignore: close_sinks
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
     appBloc.add(AppInitEvent());
+
+    UpdateManager.init();
   }
 
   @override

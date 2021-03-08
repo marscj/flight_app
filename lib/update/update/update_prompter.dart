@@ -38,7 +38,7 @@ class UpdatePrompter {
         updateContent: updateContent,
         updateButtonText: 'Install',
         extraHeight: 10,
-        enableIgnore: updateEntity.isIgnorable,
+        enableIgnore: false,
         isForce: updateEntity.isForce,
         onUpdate: doInstall,
       );
@@ -48,7 +48,7 @@ class UpdatePrompter {
         title: title,
         updateContent: updateContent,
         extraHeight: 10,
-        enableIgnore: updateEntity.isIgnorable,
+        enableIgnore: false,
         isForce: updateEntity.isForce,
         onUpdate: onUpdate,
       );

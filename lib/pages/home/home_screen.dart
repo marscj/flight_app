@@ -6,6 +6,9 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:saadiyat/pages/app/index.dart';
 
 import 'package:saadiyat/router/router.gr.dart';
+import 'package:saadiyat/update/update/update.dart';
+
+import '../../constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -26,6 +29,8 @@ class HomeScreenState extends State<HomeScreen> {
     // ignore: close_sinks
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
     appBloc.add(LoadMessagesEvent());
+
+    UpdateManager.checkUpdate(context, Constant.Host + 'app/version/');
   }
 
   @override
