@@ -8,6 +8,7 @@ import 'package:saadiyat/router/guard.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:platform/platform.dart';
 import 'package:saadiyat/constants.dart';
+import 'package:saadiyat/update/utils/toast.dart';
 
 import 'app_bloc.dart';
 import 'app_event.dart';
@@ -54,7 +55,7 @@ class _AppPageState extends State<AppPage> {
     // ]);
 
     return BlocBuilder<AppBloc, AppState>(builder: (context, state) {
-      return MaterialApp.router(
+      return ToastUtils.init(MaterialApp.router(
         title: 'Saadiyat',
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),
@@ -102,7 +103,7 @@ class _AppPageState extends State<AppPage> {
           // hoverColor: Colors.blueAccent.withOpacity(0.04),
           // splashColor: Colors.blueAccent
         ),
-      );
+      ));
     });
   }
 
