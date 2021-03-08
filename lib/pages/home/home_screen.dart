@@ -205,7 +205,6 @@ class _MenuViewState extends State<MenuView> {
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               children: _list.map((f) {
-
                 return InkWell(
                     onTap: f['ontap'],
                     child: Container(
@@ -245,78 +244,95 @@ class NoticeView extends StatelessWidget {
     return BlocBuilder<AppBloc, AppState>(
       builder: (_, AppState state) {
         return BlocBuilder<AppBloc, AppState>(builder: (context, stateHome) {
-          return SizedBox.fromSize(
-            size: Size.fromHeight(height),
-            child: Container(
-                margin: const EdgeInsets.only(
-                    left: 20, top: 20, right: 20, bottom: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Color(0x000099)),
-                          gradient: LinearGradient(colors: [
-                            Color(0xff000099),
-                            Color(0xff3300ff),
-                          ]),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              bottomLeft: Radius.circular(8))),
-                      width: 22,
-                    ),
-                    Expanded(
-                        child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+          return InkWell(
+              onTap: () {
+                if (stateHome.messages.last != null &&
+                    stateHome.messages.last.content_type == 'booking') {
+                  context.router.push(BookingDetailRoute(
+                      id: stateHome.messages.last.object_id));
+                }
+
+                if (stateHome.messages.last != null &&
+                    stateHome.messages.last.content_type == 'ticket') {
+                  context.router.push(
+                      TicketDetailRoute(id: stateHome.messages.last.object_id));
+                }
+              },
+              child: SizedBox.fromSize(
+                size: Size.fromHeight(height),
+                child: Container(
+                    margin: const EdgeInsets.only(
+                        left: 20, top: 20, right: 20, bottom: 10),
+                    child: Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Color(0x000099)),
+                              gradient: LinearGradient(colors: [
+                                Color(0xff000099),
+                                Color(0xff3300ff),
+                              ]),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8))),
+                          width: 22,
+                        ),
+                        Expanded(
+                            child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Stack(
+                            fit: StackFit.expand,
                             children: [
-                              Text.rich(
-                                TextSpan(text: 'Hi: ', children: [
-                                  TextSpan(text: state?.user?.name ?? '')
-                                ]),
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              Visibility(
-                                visible: stateHome.messages.length > 0,
-                                child: ListBody(
-                                  children: [
-                                    SizedBox(
-                                      height: 10,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text.rich(
+                                    TextSpan(text: 'Hi: ', children: [
+                                      TextSpan(text: state?.user?.name ?? '')
+                                    ]),
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  Visibility(
+                                    visible: stateHome.messages.length > 0,
+                                    child: ListBody(
+                                      children: [
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          'You have a new message',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .caption,
+                                        )
+                                      ],
                                     ),
-                                    Text(
-                                      'You have a new message',
-                                      style:
-                                          Theme.of(context).textTheme.caption,
-                                    )
-                                  ],
-                                ),
+                                  )
+                                ],
+                              ),
+                              Positioned(
+                                top: 5,
+                                right: 0,
+                                child: stateHome.messages.length > 0
+                                    ? Image.asset(
+                                        'assets/message.png',
+                                        width: 24,
+                                        height: 24,
+                                      )
+                                    : Container(),
                               )
                             ],
                           ),
-                          Positioned(
-                            top: 5,
-                            right: 0,
-                            child: Image.asset(
-                              'assets/message.png',
-                              width: 24,
-                              height: 24,
-                            ),
-                          )
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey[300]),
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(8),
-                              bottomRight: Radius.circular(8))),
-                    ))
-                  ],
-                )),
-          );
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey[300]),
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(8),
+                                  bottomRight: Radius.circular(8))),
+                        ))
+                      ],
+                    )),
+              ));
         });
       },
     );
