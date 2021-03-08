@@ -30,7 +30,7 @@ class HomeScreenState extends State<HomeScreen> {
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);
     appBloc.add(LoadMessagesEvent());
 
-    UpdateManager.checkUpdate(context, Constant.Host + 'app/version/');
+    UpdateManager.checkUpdate(context, Constant.Host + 'apps/check_version/');
   }
 
   @override

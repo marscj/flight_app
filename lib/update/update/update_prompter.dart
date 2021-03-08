@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_update_dialog/flutter_update_dialog.dart';
 import 'package:saadiyat/update/update/update.dart';
 import 'package:saadiyat/update/utils/common.dart';
-import 'package:flutter_update_dialog/flutter_update_dialog.dart';
 import 'package:saadiyat/update/utils/http.dart';
 import 'package:saadiyat/update/utils/toast.dart';
 import 'dart:io';
@@ -26,7 +26,7 @@ class UpdatePrompter {
     if (_dialog != null && _dialog.isShowing()) {
       return;
     }
-    String title = "Upgrade to the latest version？";
+    String title = "Upgrade to last version？";
     String updateContent = getUpdateContent();
     if (Platform.isAndroid) {
       _apkFile = await CommonUtils.getApkFileByUpdateEntity(updateEntity);
@@ -36,9 +36,9 @@ class UpdatePrompter {
         context,
         title: title,
         updateContent: updateContent,
-        updateButtonText: 'Install',
+        updateButtonText: "Install",
         extraHeight: 10,
-        enableIgnore: false,
+        enableIgnore: updateEntity.isIgnorable,
         isForce: updateEntity.isForce,
         onUpdate: doInstall,
       );
@@ -48,7 +48,7 @@ class UpdatePrompter {
         title: title,
         updateContent: updateContent,
         extraHeight: 10,
-        enableIgnore: false,
+        enableIgnore: updateEntity.isIgnorable,
         isForce: updateEntity.isForce,
         onUpdate: onUpdate,
       );
@@ -60,7 +60,7 @@ class UpdatePrompter {
         CommonUtils.getTargetSize(updateEntity.apkSize.toDouble());
     String updateContent = "";
     if (targetSize.isNotEmpty) {
-      updateContent += "target size $targetSize\n";
+      updateContent += "target size：$targetSize\n";
     }
     updateContent += updateEntity.updateContent;
     return updateContent;
@@ -81,7 +81,7 @@ class UpdatePrompter {
     }).then((value) {
       doInstall();
     }).catchError((value) {
-      ToastUtils.success("download failed！");
+      ToastUtils.success("down faile！");
       _dialog.dismiss();
     });
   }

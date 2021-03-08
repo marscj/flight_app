@@ -35,29 +35,29 @@ class HttpUtils {
   static void handleError(DioError e) {
     switch (e.type) {
       case DioErrorType.CONNECT_TIMEOUT:
-        showError("Connection timed out");
+        showError("download faile");
         break;
       case DioErrorType.SEND_TIMEOUT:
-        showError("Request timed out");
+        showError("download faile");
         break;
       case DioErrorType.RECEIVE_TIMEOUT:
-        showError("Response time out");
+        showError("download faile");
         break;
       case DioErrorType.RESPONSE:
-        showError("Error");
+        showError("download faile");
         break;
       case DioErrorType.CANCEL:
-        showError("Request cancel");
+        showError("download faile");
         break;
       default:
-        showError("Unknown error");
+        showError("download faile");
         break;
     }
   }
 
   static void showError(String error) {
     print(error);
-    ToastUtils.error(error);
+    // ToastUtils.error(error);
   }
 
   ///get请求
