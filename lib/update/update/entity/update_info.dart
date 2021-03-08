@@ -13,9 +13,6 @@ const int HAVE_NEW_VERSION_FORCED_UPLOAD = 2;
 /// 默认网络请求返回的结果格式
 ///
 class UpdateInfo {
-  ///请求返回码
-  final int code;
-
   ///请求错误信息
   final String msg;
 
@@ -44,8 +41,7 @@ class UpdateInfo {
   final int apkSize;
 
   UpdateInfo(
-      {this.code,
-      this.msg,
+      {this.msg,
       this.updateStatus,
       this.versionCode,
       this.versionName,
@@ -59,14 +55,13 @@ class UpdateInfo {
     if (map == null) return null;
 
     return UpdateInfo(
-        code: map['code']?.toInt(),
         msg: '',
-        updateStatus: 0,
-        versionCode: map['code']?.toInt(),
+        updateStatus: 2,
+        versionCode: int.parse(map['code'] ?? '0'),
         versionName: map['version'],
         // uploadTime: map['UploadTime'],
         modifyContent: '',
-        downloadUrl: map['file'],
+        downloadUrl: map['file'] ?? map['redirect'],
         apkMd5: '',
         apkSize: 40960);
   }
@@ -75,6 +70,6 @@ class UpdateInfo {
 
   @override
   String toString() {
-    return 'UpdateInfo Code: $code, Msg: $msg, UpdateStatus: $updateStatus, VersionCode: $versionCode, VersionName: $versionName, UploadTime: $uploadTime, ModifyContent: $modifyContent, DownloadUrl: $downloadUrl, ApkMd5: $apkMd5, ApkSize: $apkSize';
+    return 'UpdateInfo Msg: $msg, UpdateStatus: $updateStatus, VersionCode: $versionCode, VersionName: $versionName, UploadTime: $uploadTime, ModifyContent: $modifyContent, DownloadUrl: $downloadUrl, ApkMd5: $apkMd5, ApkSize: $apkSize';
   }
 }

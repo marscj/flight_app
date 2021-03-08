@@ -8,7 +8,7 @@ class UpdateParser {
   /// 解析器
   static Future<UpdateEntity> parseJson(Map<String, dynamic> json) async {
     UpdateInfo updateInfo = UpdateInfo.fromJson(json);
-    if (updateInfo == null || updateInfo.code != 0) {
+    if (updateInfo == null) {
       return null;
     }
 
