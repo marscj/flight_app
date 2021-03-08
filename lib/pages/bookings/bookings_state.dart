@@ -10,8 +10,8 @@ class BookingsState extends Equatable {
 
   BookingsState({this.pageNo, this.pageSize, this.totalCount, this.list});
 
-  factory BookingsState.initial() => BookingsState(
-      list: List<Booking>(), pageNo: 1, pageSize: 10, totalCount: 0);
+  factory BookingsState.initial() =>
+      BookingsState(list: [], pageNo: 1, pageSize: 10, totalCount: 0);
 
   BookingsState copyWith(
           {List<Booking> list, int pageNo, int pageSize, int totalCount}) =>

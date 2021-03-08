@@ -53,7 +53,7 @@ class _OpenContainerTransformDemoState
 
   void _showMarkedAsDoneSnackbar(bool isMarkedAsDone) {
     if (isMarkedAsDone ?? false)
-      Scaffold.of(context).showSnackBar(const SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Marked as done!'),
       ));
   }

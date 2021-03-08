@@ -10,8 +10,8 @@ class TicketsState extends Equatable {
 
   TicketsState({this.pageNo, this.pageSize, this.totalCount, this.list});
 
-  factory TicketsState.initial() => TicketsState(
-      list: List<Ticket>(), pageNo: 1, pageSize: 10, totalCount: 0);
+  factory TicketsState.initial() =>
+      TicketsState(list: [], pageNo: 1, pageSize: 10, totalCount: 0);
 
   TicketsState copyWith(
           {List<Ticket> list, int pageNo, int pageSize, int totalCount}) =>

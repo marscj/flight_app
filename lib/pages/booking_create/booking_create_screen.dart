@@ -335,20 +335,20 @@ class AddBtaPage extends StatelessWidget {
         // ignore: close_sinks
         BookingCreateBloc bloc = BlocProvider.of<BookingCreateBloc>(context);
         if (state.action == 'upload_start') {
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('uploading file...'),
           ));
           bloc.add(RefreshBtaEvent(state.booking));
         }
 
         if (state.action == 'upload_finish') {
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('upload complete'),
           ));
         }
 
         if (state.action == 'upload_failed') {
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('upload failed'),
           ));
         }
@@ -367,7 +367,7 @@ class AddBtaPage extends StatelessWidget {
               title: Text(state?.uploads[index]?.name ?? ''),
               subtitle: Text(state?.uploads[index]?.date ?? ''),
               onTap: () {
-                Scaffold.of(context).showSnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('loading file...'),
                   ),
@@ -379,7 +379,7 @@ class AddBtaPage extends StatelessWidget {
                     OpenFile.open(file.path);
                   }
                 }).catchError((error) {
-                  Scaffold.of(context).showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('download failed!'),
                     ),

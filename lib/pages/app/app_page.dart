@@ -36,6 +36,7 @@ class _AppPageState extends State<AppPage> {
     // JMessage.applyPushAuthority(
     //     new JMNotificationSettingsIOS(sound: true, alert: true, badge: true));
     // addListener();
+    // JMessage.setBadge(badge: 0);
 
     // ignore: close_sinks
     AppBloc appBloc = BlocProvider.of<AppBloc>(context);

@@ -2,8 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:ui' as ui show ParagraphBuilder, PlaceholderAlignment;
+import 'dart:ui' as ui show PlaceholderAlignment;
 
 class AboutScreen extends StatefulWidget {
   @override

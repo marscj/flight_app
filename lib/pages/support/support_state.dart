@@ -15,6 +15,5 @@ class SupportState extends Equatable {
       SupportState(version: this.version + 1, list: list ?? this.list);
 
   @override
-  // TODO: implement props
   List<Object> get props => [version, list];
 }

@@ -7,7 +7,6 @@ import 'package:saadiyat/apis/client.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:saadiyat/router/router.gr.dart';
 import 'package:saadiyat/widgets/custom_appbar.dart';
-import 'package:saadiyat/widgets/listtitle.dart';
 
 import 'bookings_bloc.dart';
 import 'bookings_event.dart';

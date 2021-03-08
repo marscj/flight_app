@@ -26,7 +26,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     return BlocListener<AppBloc, AppState>(
       listener: (_, state) {
         if (state.event is ErrorEvent) {
-          Scaffold.of(_)
+          ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.event.errorMessage)));
         } else if (state.event is PushRouteEvent) {
           _.router.removeUntilRoot();

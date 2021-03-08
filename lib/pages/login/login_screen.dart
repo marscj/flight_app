@@ -113,7 +113,7 @@ class LoginScreenState extends State<LoginScreen> {
       return BlocListener<AppBloc, AppState>(
           listener: (_, state) {
             if (state.event is ErrorEvent) {
-              Scaffold.of(_).showSnackBar(
+              ScaffoldMessenger.of(_).showSnackBar(
                   SnackBar(content: Text(state.event.errorMessage)));
             } else if (state.event is PushRouteEvent) {
               _.router.removeUntilRoot();

@@ -34,7 +34,7 @@ class VoucherScreen extends StatelessWidget {
                   subtitle:
                       Text(currentState?.data?.uploads[index]?.date ?? ''),
                   onTap: () {
-                    Scaffold.of(context).showSnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('loading file...'),
                       ),
@@ -46,7 +46,7 @@ class VoucherScreen extends StatelessWidget {
                         OpenFile.open(file.path);
                       }
                     }).catchError((error) {
-                      Scaffold.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('download failed!'),
                         ),
