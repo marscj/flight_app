@@ -25,6 +25,7 @@ class UpdateParser {
     return UpdateEntity(
         hasUpdate: hasUpdate,
         isForce: updateInfo.updateStatus == HAVE_NEW_VERSION_FORCED_UPLOAD,
+        isIgnorable: false,
         versionCode: updateInfo.versionCode,
         versionName: updateInfo.versionName,
         updateContent: updateInfo.modifyContent,

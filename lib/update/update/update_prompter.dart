@@ -47,6 +47,7 @@ class UpdatePrompter {
         context,
         title: title,
         updateContent: updateContent,
+        updateButtonText: "Upgrade",
         extraHeight: 10,
         enableIgnore: updateEntity.isIgnorable,
         isForce: updateEntity.isForce,
