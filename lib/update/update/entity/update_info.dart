@@ -57,7 +57,7 @@ class UpdateInfo {
     return UpdateInfo(
         msg: '',
         updateStatus: 2,
-        versionCode: int.parse(map['code'] ?? '0'),
+        versionCode: map['code'] != null ? int.parse(map['code']) : 0,
         versionName: map['version'],
         // uploadTime: map['UploadTime'],
         modifyContent: '',
