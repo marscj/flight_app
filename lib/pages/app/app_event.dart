@@ -133,7 +133,6 @@ class AppLogoutEvent extends AppEvent {
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
     await Store.instance.clearToken();
     await Store.instance.clearAuth();
-    // context.router.popAndPush(LoginRoute());
 
     context.router.removeUntilRoot();
     context.router.replace(LoginRoute());
@@ -186,11 +185,11 @@ class JMessageLoginEvent extends AppEvent {
     var auth = await Store.instance.getAuth();
 
     if (auth != null) {
-      // try {
-      //   await JMessage.login(username: auth[0], password: auth[1]);
-      // } on PlatformException catch (_) {
-      //   print(_.toString());
-      // }
+      try {
+        await JMessage.login(username: auth[0], password: auth[1]);
+      } on PlatformException catch (_) {
+        print(_.toString());
+      }
     }
   }
 }
@@ -198,11 +197,11 @@ class JMessageLoginEvent extends AppEvent {
 class JMessageLogoutEvent extends AppEvent {
   @override
   Stream<AppState> applyAsync({AppState currentState, AppBloc bloc}) async* {
-    // try {
-    //   await JMessage.logout();
-    // } on PlatformException catch (_) {
-    //   print(_.toString());
-    // }
+    try {
+      await JMessage.logout();
+    } on PlatformException catch (_) {
+      print(_.toString());
+    }
   }
 }
 

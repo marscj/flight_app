@@ -35,6 +35,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       },
       child: SafeArea(
         top: true,
+        bottom: false,
         child: SizedBox.expand(
           child: Stack(
             children: [

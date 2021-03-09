@@ -506,7 +506,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://127.0.0.1:8000/api/';
+    baseUrl ??= 'http://thesaadiyat.com/api/';
   }
 
   final Dio _dio;
