@@ -203,14 +203,41 @@ class _MenuViewState extends State<MenuView> {
       ];
 
       return Container(
-          child: GridView.count(
-              controller: _controller,
-              primary: false,
-              reverse: true,
-              physics: NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              children: _list.map((f) {
-                return InkWell(
+          child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              {
+                'icon': 'assets/booking.png',
+                'text': 'Bookings',
+                'ontap': () {
+                  context.router.push(BookingsRoute());
+                },
+                'showBadge': state.messages
+                        .where((f) => (f.content_type == 'booking' && !f.read))
+                        .length >
+                    0,
+              },
+              {
+                'icon': 'assets/ticket.png',
+                'text': 'Tickets',
+                'ontap': () {
+                  context.router.push(TicketsRoute());
+                },
+                'showBadge': state.messages
+                        .where((f) => (f.content_type == 'ticket' && !f.read))
+                        .length >
+                    0,
+              }
+            ].map((f) {
+              return Expanded(
+                child: InkWell(
                     onTap: f['ontap'],
                     child: Container(
                         child: Column(
@@ -233,8 +260,96 @@ class _MenuViewState extends State<MenuView> {
                         ),
                         Text(f['text'])
                       ],
-                    )));
-              }).toList()));
+                    ))),
+              );
+            }).toList(),
+          )),
+          Expanded(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              {
+                'icon': 'assets/about.png',
+                'text': 'About Us',
+                'ontap': () {
+                  context.router.push(AboutRoute());
+                },
+                'showBadge': false,
+              },
+              {
+                'icon': 'assets/my.png',
+                'text': 'Settings',
+                'ontap': () {
+                  context.router.push(MyRoute());
+                },
+                'showBadge': false,
+              }
+            ].map((f) {
+              return Expanded(
+                  child: InkWell(
+                      onTap: f['ontap'],
+                      child: Container(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Badge(
+                            showBadge: f['showBadge'],
+                            badgeColor: Colors.red,
+                            position:
+                                BadgePosition.topStart(top: -8, start: -8),
+                            badgeContent: Text(
+                              "",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            child: Image.asset(
+                              f['icon'],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(f['text'])
+                        ],
+                      ))));
+            }).toList(),
+          ))
+        ],
+      ));
+
+      // return Container(
+      //     child: GridView.count(
+      //         controller: _controller,
+      //         primary: false,
+      //         reverse: true,
+      //         physics: NeverScrollableScrollPhysics(),
+      //         crossAxisCount: 2,
+      //         children: _list.map((f) {
+      //           return InkWell(
+      //               onTap: f['ontap'],
+      //               child: Container(
+      //                   child: Column(
+      //                 mainAxisAlignment: MainAxisAlignment.center,
+      //                 children: [
+      //                   Badge(
+      //                     showBadge: f['showBadge'],
+      //                     badgeColor: Colors.red,
+      //                     position: BadgePosition.topStart(top: -8, start: -8),
+      //                     badgeContent: Text(
+      //                       "",
+      //                       style: TextStyle(color: Colors.white),
+      //                     ),
+      //                     child: Image.asset(
+      //                       f['icon'],
+      //                     ),
+      //                   ),
+      //                   SizedBox(
+      //                     height: 10,
+      //                   ),
+      //                   Text(f['text'])
+      //                 ],
+      //               )));
+      //         }).toList()));
     });
   }
 }
