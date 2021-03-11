@@ -36,11 +36,11 @@
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Used to get music from saadiyat</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Used to get pictures from saadiyat</string>
+	<string>Post a picture to use as your avatar?</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Used to get audio from saadiyat</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to get pictures from saadiyat</string>
+	<string>Post a picture to use as your avatar?</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
