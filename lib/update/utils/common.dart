@@ -4,6 +4,7 @@ import 'package:install_plugin/install_plugin.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:saadiyat/update/update/entity/update_entity.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CommonUtils {
   CommonUtils._internal();
@@ -74,7 +75,12 @@ class CommonUtils {
   static void installAPP(String uri) async {
     if (Platform.isAndroid) {
       String packageName = await CommonUtils.getPackageName();
-      InstallPlugin.installApk(uri, packageName);
+      Map<PermissionGroup, PermissionStatus> permissions =
+          await PermissionHandler()
+              .requestPermissions([PermissionGroup.storage]);
+      if (permissions[PermissionGroup.storage] == PermissionStatus.granted) {
+        InstallPlugin.installApk(uri, packageName);
+      }
     } else {
       InstallPlugin.gotoAppStore(uri);
     }

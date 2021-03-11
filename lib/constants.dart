@@ -5,11 +5,5 @@ class Constant {
 
   static const String Host = ServerHost;
 
-  static const String JPUSHKEY = '001486b3ce6d38e6c013530f';
-
-  static const String APP_VERSION = '1.0.1';
-
-  static const String APP_NAME = 'saadiyat';
-
-  static const String APP_CODE = '3';
+  static const String JPUSHKEY = 'ServerHost';
 }

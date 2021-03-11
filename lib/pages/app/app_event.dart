@@ -36,10 +36,7 @@ class AppInitEvent extends AppEvent {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     yield currentState.copyWith(
-        version: Constant.APP_VERSION,
-        code: Constant.APP_CODE,
-        user: null,
-        event: UserInfoEvent());
+        version: '1.0.2', code: '5', user: null, event: UserInfoEvent());
   }
 }
 
