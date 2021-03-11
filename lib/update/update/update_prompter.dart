@@ -82,7 +82,7 @@ class UpdatePrompter {
     }).then((value) {
       doInstall();
     }).catchError((value) {
-      ToastUtils.success("down faile！");
+      ToastUtils.success("download faile！");
       _dialog.dismiss();
     });
   }

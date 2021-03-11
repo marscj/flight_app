@@ -88,7 +88,7 @@ class HttpUtils {
       {ProgressCallback onReceiveProgress}) async {
     Response response = await sDio.download(urlPath, savePath,
         onReceiveProgress: onReceiveProgress,
-        options: Options(sendTimeout: 25000, receiveTimeout: 25000));
+        options: Options(sendTimeout: 25000, receiveTimeout: 0));
     return response;
   }
 }
